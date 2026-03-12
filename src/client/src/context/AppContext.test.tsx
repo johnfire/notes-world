@@ -1,6 +1,7 @@
 import { render, screen, act, waitFor } from '@testing-library/react';
-import { vi } from 'vitest';
+import { vi, type Mock } from 'vitest';
 import { AppProvider, useApp } from './AppContext';
+import { ItemType, ItemStatus, type Item } from '../types';
 import * as api from '../api';
 
 vi.mock('../api', () => ({
@@ -9,10 +10,10 @@ vi.mock('../api', () => ({
   tags:      { getUsageCounts: vi.fn() },
 }));
 
-const mockApi = api as {
-  dashboard: { get: ReturnType<typeof vi.fn> };
-  items:     { recent: ReturnType<typeof vi.fn>; search: ReturnType<typeof vi.fn>; capture: ReturnType<typeof vi.fn> };
-  tags:      { getUsageCounts: ReturnType<typeof vi.fn> };
+const mockApi = api as unknown as {
+  dashboard: { get: Mock };
+  items:     { recent: Mock; search: Mock; capture: Mock };
+  tags:      { getUsageCounts: Mock };
 };
 
 function StateInspector() {
@@ -28,8 +29,8 @@ function StateInspector() {
   );
 }
 
-function makeItem(title = 'item', id = 'id-1') {
-  return { id, user_id: 'u1', title, item_type: 'Untyped', status: 'Active', created_at: '', updated_at: '' } as Parameters<typeof useApp>[0] extends never ? never : import('../types').Item;
+function makeItem(title = 'item', id = 'id-1'): Item {
+  return { id, user_id: 'u1', title, item_type: ItemType.Untyped, status: ItemStatus.Active, created_at: '', updated_at: '' };
 }
 
 beforeEach(() => {
