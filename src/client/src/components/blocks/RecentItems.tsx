@@ -15,6 +15,7 @@ function typeClass(type: ItemType): string {
 }
 
 function ItemRow({ item }: { item: Item }) {
+  const { openItem } = useApp();
   const ago = (() => {
     const diff = Date.now() - new Date(item.updated_at).getTime();
     const mins = Math.floor(diff / 60_000);
@@ -26,7 +27,7 @@ function ItemRow({ item }: { item: Item }) {
   })();
 
   return (
-    <div className="flex items-start gap-3 py-2 border-b border-surface-500 last:border-0 group cursor-pointer hover:bg-surface-600 -mx-4 px-4 transition-colors">
+    <button onClick={() => openItem(item.id)} className="w-full text-left flex items-start gap-3 py-2 border-b border-surface-500 last:border-0 group cursor-pointer hover:bg-surface-600 -mx-4 px-4 transition-colors">
       <div className="flex-1 min-w-0">
         <p className="text-sm text-gray-200 truncate group-hover:text-white">{item.title}</p>
         {item.body && <p className="text-xs text-gray-500 truncate mt-0.5">{item.body}</p>}
@@ -35,7 +36,7 @@ function ItemRow({ item }: { item: Item }) {
         <span className={typeClass(item.item_type)}>{item.item_type}</span>
         <span className="text-xs text-gray-600">{ago}</span>
       </div>
-    </div>
+    </button>
   );
 }
 

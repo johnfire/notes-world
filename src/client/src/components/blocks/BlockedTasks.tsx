@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Block, Item, ItemType, TaskStatus } from '../../types';
 import * as api from '../../api';
+import { useApp } from '../../context/AppContext';
 
 interface Props { block: Block }
 
 export function BlockedTasks({ block }: Props) {
+  const { openItem } = useApp();
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -39,12 +41,12 @@ export function BlockedTasks({ block }: Props) {
           <p className="text-sm text-gray-600 py-4 text-center">No blocked tasks</p>
         ) : (
           items.map((item) => (
-            <div key={item.id} className="flex items-start gap-2 py-2 border-b border-surface-500 last:border-0">
+            <button key={item.id} onClick={() => openItem(item.id)} className="w-full text-left flex items-start gap-2 py-2 border-b border-surface-500 last:border-0">
               <svg className="w-3.5 h-3.5 mt-0.5 text-danger shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <p className="text-sm text-gray-300 truncate">{item.title}</p>
-            </div>
+            </button>
           ))
         )}
       </div>

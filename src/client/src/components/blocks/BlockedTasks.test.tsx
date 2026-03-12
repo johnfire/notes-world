@@ -9,6 +9,10 @@ vi.mock('../../api', () => ({
   items: { byType: (...args: unknown[]) => mockByType(...args) },
 }));
 
+vi.mock('../../context/AppContext', () => ({
+  useApp: () => ({ openItem: vi.fn() }),
+}));
+
 const block = {
   id: 'b1', dashboard_id: 'd1', user_id: 'u1',
   view_type: ViewType.BlockedTasks, title: 'Blocked',

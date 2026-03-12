@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Block, Item } from '../../types';
 import * as api from '../../api';
+import { useApp } from '../../context/AppContext';
 
 interface Props { block: Block }
 
 export function ItemsByTag({ block }: Props) {
+  const { openItem } = useApp();
   const tagId = block.config?.tag_id;
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
@@ -37,9 +39,9 @@ export function ItemsByTag({ block }: Props) {
           <p className="text-sm text-gray-600 py-4 text-center">No items with this tag</p>
         ) : (
           items.map((item) => (
-            <div key={item.id} className="py-2 border-b border-surface-500 last:border-0">
+            <button key={item.id} onClick={() => openItem(item.id)} className="w-full text-left py-2 border-b border-surface-500 last:border-0">
               <p className="text-sm text-gray-200 truncate">{item.title}</p>
-            </div>
+            </button>
           ))
         )}
       </div>

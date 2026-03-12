@@ -3,6 +3,7 @@ import { AppProvider, useApp } from './context/AppContext';
 import { ActionBar } from './components/layout/ActionBar';
 import { Sidebar } from './components/layout/Sidebar';
 import { DashboardGrid } from './components/layout/DashboardGrid';
+import { ItemDrawer } from './components/ItemDrawer';
 import { Tag } from './types';
 
 function DashboardView() {
@@ -13,7 +14,6 @@ function DashboardView() {
     Promise.all([loadDashboard(), loadTags()]);
   }, [loadDashboard, loadTags]);
 
-  // Filter blocks if a tag is selected — show ItemsByTag block for that tag
   const blocks = selectedTag
     ? state.blocks.filter((b) => b.view_type === 'ItemsByTag' || b.view_type === 'QuickCapture')
     : state.blocks;
@@ -38,12 +38,13 @@ function DashboardView() {
           )}
         </main>
       </div>
+      <ItemDrawer />
     </div>
   );
 }
 
 function SearchResults() {
-  const { state, clearSearch } = useApp();
+  const { state, clearSearch, openItem } = useApp();
   const results = state.searchResults ?? [];
 
   return (
@@ -57,9 +58,13 @@ function SearchResults() {
       {results.length === 0 ? (
         <p className="text-gray-600 text-sm py-8 text-center">No items matched your search</p>
       ) : (
-        <div className="space-y-2">
+        <div className="space-y-1">
           {results.map((item) => (
-            <div key={item.id} className="card">
+            <button
+              key={item.id}
+              onClick={() => openItem(item.id)}
+              className="w-full text-left card hover:border-surface-400 hover:bg-surface-600 transition-colors"
+            >
               <p className="text-sm text-gray-200">{item.title}</p>
               {item.body && <p className="text-xs text-gray-500 mt-1 line-clamp-2">{item.body}</p>}
               <div className="flex items-center gap-2 mt-2">
@@ -67,7 +72,7 @@ function SearchResults() {
                 <span className="text-xs text-gray-700">·</span>
                 <span className="text-xs text-gray-600">{new Date(item.updated_at).toLocaleDateString()}</span>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       )}

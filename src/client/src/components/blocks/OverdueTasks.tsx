@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Block, Item, ItemType, TaskStatus } from '../../types';
 import * as api from '../../api';
+import { useApp } from '../../context/AppContext';
 
 interface Props { block: Block }
 
 export function OverdueTasks({ block }: Props) {
+  const { openItem } = useApp();
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -51,7 +53,7 @@ export function OverdueTasks({ block }: Props) {
           items.map((item) => {
             const td = item.type_data as { due_date?: string } | null;
             return (
-              <div key={item.id} className="flex items-start gap-2 py-2 border-b border-surface-500 last:border-0">
+              <button key={item.id} onClick={() => openItem(item.id)} className="w-full text-left flex items-start gap-2 py-2 border-b border-surface-500 last:border-0">
                 <svg className="w-3.5 h-3.5 mt-0.5 text-warning shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -61,7 +63,7 @@ export function OverdueTasks({ block }: Props) {
                     <p className="text-xs text-warning">{formatDue(td.due_date)}</p>
                   )}
                 </div>
-              </div>
+              </button>
             );
           })
         )}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Block, Item, ItemType, TaskStatus, Priority } from '../../types';
 import * as api from '../../api';
+import { useApp } from '../../context/AppContext';
 
 interface Props { block: Block }
 
@@ -14,6 +15,7 @@ function priorityColor(priority: string): string {
 }
 
 export function ActionableTasks({ block }: Props) {
+  const { openItem } = useApp();
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -48,7 +50,7 @@ export function ActionableTasks({ block }: Props) {
           items.map((item) => {
             const td = item.type_data as { task_status?: string; priority?: string } | null;
             return (
-              <div key={item.id} className="flex items-start gap-2 py-2 border-b border-surface-500 last:border-0">
+              <button key={item.id} onClick={() => openItem(item.id)} className="w-full text-left flex items-start gap-2 py-2 border-b border-surface-500 last:border-0">
                 <div className={`mt-0.5 shrink-0 ${priorityColor(td?.priority ?? 'Normal')}`}>
                   <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="4" />
@@ -60,7 +62,7 @@ export function ActionableTasks({ block }: Props) {
                     <span className="text-xs text-accent">In Progress</span>
                   )}
                 </div>
-              </div>
+              </button>
             );
           })
         )}

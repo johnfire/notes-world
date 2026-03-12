@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Block, Item, ItemType } from '../../types';
 import * as api from '../../api';
+import { useApp } from '../../context/AppContext';
 
 interface Props { block: Block }
 
 export function Notes({ block }: Props) {
+  const { openItem } = useApp();
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -29,10 +31,10 @@ export function Notes({ block }: Props) {
           <p className="text-sm text-gray-600 py-4 text-center">No notes yet</p>
         ) : (
           items.map((item) => (
-            <div key={item.id} className="py-2 border-b border-surface-500 last:border-0">
+            <button key={item.id} onClick={() => openItem(item.id)} className="w-full text-left py-2 border-b border-surface-500 last:border-0">
               <p className="text-sm text-gray-200">{item.title}</p>
               {item.body && <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{item.body}</p>}
-            </div>
+            </button>
           ))
         )}
       </div>
