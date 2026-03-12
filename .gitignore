@@ -26,6 +26,12 @@ Thumbs.db
 .vscode/settings.json
 .idea/
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
 # Test coverage
 coverage/
 .nyc_output/
