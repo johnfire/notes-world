@@ -1,28 +1,24 @@
 import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
+import { Pool } from 'pg';
 import { getPool, closePool } from './client';
 
 const MIGRATIONS_DIR = path.join(__dirname, 'migrations');
 
-async function migrate() {
-  const pool = getPool();
-
-  // Create migrations tracking table if it doesn't exist
+export async function runMigrations(pool: Pool): Promise<void> {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS schema_migrations (
-      version  VARCHAR(255) PRIMARY KEY,
+      version    VARCHAR(255) PRIMARY KEY,
       applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
 
-  // Get already-applied migrations
   const { rows: applied } = await pool.query<{ version: string }>(
     'SELECT version FROM schema_migrations ORDER BY version'
   );
   const appliedSet = new Set(applied.map((r) => r.version));
 
-  // Read migration files sorted by name
   const files = fs
     .readdirSync(MIGRATIONS_DIR)
     .filter((f) => f.endsWith('.sql'))
@@ -55,19 +51,22 @@ async function migrate() {
     }
   }
 
-  if (ran === 0) {
-    // eslint-disable-next-line no-console
-    console.log('No new migrations to apply.');
-  } else {
-    // eslint-disable-next-line no-console
-    console.log(`Applied ${ran} migration(s).`);
-  }
-
-  await closePool();
+  // eslint-disable-next-line no-console
+  console.log(ran === 0 ? 'No new migrations.' : `Applied ${ran} migration(s).`);
 }
 
-migrate().catch((err) => {
-  // eslint-disable-next-line no-console
-  console.error('Migration failed:', err);
-  process.exit(1);
-});
+// CLI entrypoint: ts-node src/db/migrate.ts
+if (require.main === module) {
+  (async () => {
+    const pool = getPool();
+    try {
+      await runMigrations(pool);
+    } finally {
+      await closePool();
+    }
+  })().catch((err) => {
+    // eslint-disable-next-line no-console
+    console.error('Migration failed:', err);
+    process.exit(1);
+  });
+}

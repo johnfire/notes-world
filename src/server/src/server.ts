@@ -1,13 +1,16 @@
 import 'dotenv/config';
 import { createApp } from './app';
 import { getPool } from './db/client';
+import { runMigrations } from './db/migrate';
 
 const PORT = parseInt(process.env.PORT ?? '3001', 10);
 
 async function start() {
-  // Verify DB connection before accepting traffic
+  const pool = getPool();
+
+  // Verify DB connection
   try {
-    await getPool().query('SELECT 1');
+    await pool.query('SELECT 1');
     // eslint-disable-next-line no-console
     console.log('Database connection established');
   } catch (err) {
@@ -15,6 +18,9 @@ async function start() {
     console.error('Failed to connect to database:', err);
     process.exit(1);
   }
+
+  // Run migrations on every startup — idempotent, safe
+  await runMigrations(pool);
 
   const app = createApp();
 

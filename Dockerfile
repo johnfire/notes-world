@@ -24,8 +24,8 @@ WORKDIR /app
 COPY --from=server-builder /app/src/server/dist ./dist
 COPY --from=server-builder /app/src/server/package.json ./
 COPY --from=client-builder /app/src/client/dist ./public
-# Copy SQL migrations into the image
-COPY src/server/src/db/migrations ./dist/migrations
+# Copy SQL migrations into the image (must match __dirname/migrations in dist/db/)
+COPY src/server/src/db/migrations ./dist/db/migrations
 
 RUN npm install --omit=dev
 
