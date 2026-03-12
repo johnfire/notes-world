@@ -103,3 +103,13 @@ export async function getItemsByType(req: Request, res: Response, next: NextFunc
     res.json(items);
   } catch (err) { next(err); }
 }
+
+export async function getByEntryType(req: Request, res: Response, next: NextFunction) {
+  try {
+    const entryType = req.params.entryType;
+    const limit     = Number(req.query.limit  ?? 50);
+    const offset    = Number(req.query.offset ?? 0);
+    const items     = await service.getItemsByEntryType(PHASE1_USER_ID, entryType, limit, offset);
+    res.json(items);
+  } catch (err) { next(err); }
+}

@@ -7,6 +7,7 @@ export const itemsRouter = Router();
 itemsRouter.get('/search',           ctrl.searchItems);
 itemsRouter.get('/recent',           ctrl.getRecentItems);
 itemsRouter.get('/type/:type',       ctrl.getItemsByType);
+itemsRouter.get('/entry/:entryType', ctrl.getByEntryType);
 itemsRouter.get('/:id',              ctrl.getItemById);
 
 // Commands

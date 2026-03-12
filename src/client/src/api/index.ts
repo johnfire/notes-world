@@ -47,6 +47,9 @@ export const items = {
   byType: (type: ItemType, limit = 50, offset = 0) =>
     request<Item[]>(`/items/type/${type}?limit=${limit}&offset=${offset}`),
 
+  byEntryType: (entryType: string, limit = 50, offset = 0) =>
+    request<Item[]>(`/items/entry/${encodeURIComponent(entryType)}?limit=${limit}&offset=${offset}`),
+
   complete: (id: string) =>
     request<Item>(`/items/${id}/complete`, { method: 'POST' }),
 

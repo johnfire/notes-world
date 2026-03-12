@@ -33,8 +33,8 @@ export enum Priority {
 export enum IdeaMaturity {
   Seed       = 'Seed',
   Developing = 'Developing',
+  Mature     = 'Mature',
   Ready      = 'Ready',
-  Parked     = 'Parked',
 }
 
 export interface TaskTypeData {
@@ -66,6 +66,7 @@ export interface Tag {
   id:         TagId;
   user_id:    string;
   name:       string;
+  tag_source: 'folder' | 'file' | 'semantic' | 'manual';
   count?:     number;
   created_at: string;
   updated_at: string;

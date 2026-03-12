@@ -51,7 +51,7 @@ export async function findTagUsageCounts(userId: UserId): Promise<TagWithCount[]
      LEFT JOIN item_tags it ON it.tag_id = t.id
      WHERE t.user_id = $1
      GROUP BY t.id
-     ORDER BY count DESC, t.name ASC`,
+     ORDER BY t.name ASC`,
     [userId]
   );
 }

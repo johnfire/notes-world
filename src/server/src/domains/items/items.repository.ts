@@ -112,9 +112,24 @@ export async function findByTag(
      WHERE it.tag_id = $1
        AND i.user_id = $2
        AND i.status = $3
-     ORDER BY i.created_at DESC
+     ORDER BY LOWER(i.title) ASC
      LIMIT $4 OFFSET $5`,
     [tagId, userId, ItemStatus.Active, limit, offset]
+  );
+}
+
+export async function findByEntryType(
+  userId: UserId,
+  entryType: string,
+  limit = 50,
+  offset = 0
+): Promise<Item[]> {
+  return query<Item>(
+    `SELECT * FROM items
+     WHERE user_id = $1 AND entry_type = $2 AND status = $3
+     ORDER BY LOWER(title) ASC
+     LIMIT $4 OFFSET $5`,
+    [userId, entryType, ItemStatus.Active, limit, offset]
   );
 }
 

@@ -104,6 +104,7 @@ export interface Tag {
   id: TagId;
   user_id: UserId;
   name: string;
+  tag_source: 'folder' | 'file' | 'semantic' | 'manual';
   created_at: string;
   updated_at: string;
 }

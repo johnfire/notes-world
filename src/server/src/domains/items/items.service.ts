@@ -128,6 +128,10 @@ export async function getItemsByTag(userId: UserId, tagId: string, limit = 50, o
   return repo.findByTag(userId, tagId, limit, offset);
 }
 
+export async function getItemsByEntryType(userId: UserId, entryType: string, limit = 50, offset = 0): Promise<Item[]> {
+  return repo.findByEntryType(userId, entryType, limit, offset);
+}
+
 export async function completeTask(userId: UserId, itemId: ItemId): Promise<Item> {
   const item = await repo.findById(itemId, userId);
   if (!item) throw new NotFoundError('Item', itemId);
