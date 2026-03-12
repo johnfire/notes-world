@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
+import { ImportModal } from '../ImportModal';
 
 export function ActionBar() {
   const { state, search, clearSearch } = useApp();
   const [searchInput, setSearchInput] = useState('');
+  const [importOpen, setImportOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Keyboard shortcut: / to focus search
@@ -81,6 +83,16 @@ export function ActionBar() {
           {state.error}
         </div>
       )}
+
+      {/* Import button */}
+      <button
+        onClick={() => setImportOpen(true)}
+        className="btn-ghost text-xs shrink-0"
+      >
+        Import
+      </button>
+
+      {importOpen && <ImportModal onClose={() => setImportOpen(false)} />}
     </header>
   );
 }

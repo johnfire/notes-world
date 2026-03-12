@@ -124,3 +124,62 @@ export interface ApiError {
   message: string;
   context?: Record<string, unknown>;
 }
+
+export enum DependencyStatus {
+  Active   = 'Active',
+  Resolved = 'Resolved',
+  Removed  = 'Removed',
+}
+
+export interface Dependency {
+  id:            string;
+  dependent_id:  string;
+  dependency_id: string;
+  user_id:       string;
+  status:        DependencyStatus;
+  created_at:    string;
+  resolved_at:   string | null;
+  removed_at:    string | null;
+}
+
+export enum ImportJobStatus {
+  Pending    = 'Pending',
+  InProgress = 'InProgress',
+  Completed  = 'Completed',
+  Failed     = 'Failed',
+}
+
+export enum ImportRecordStatus {
+  Success = 'Success',
+  Skipped = 'Skipped',
+  Failed  = 'Failed',
+}
+
+export interface ImportJob {
+  id:              string;
+  user_id:         string;
+  source_filename: string;
+  source_size:     number;
+  status:          ImportJobStatus;
+  items_found:     number;
+  items_imported:  number;
+  items_skipped:   number;
+  items_failed:    number;
+  auto_tag:        string | null;
+  started_at:      string | null;
+  completed_at:    string | null;
+  error_message:   string | null;
+  created_at:      string;
+}
+
+export interface ImportRecord {
+  id:              string;
+  import_job_id:   string;
+  sequence:        number;
+  raw_title:       string | null;
+  raw_body:        string | null;
+  status:          ImportRecordStatus;
+  created_item_id: string | null;
+  error_message:   string | null;
+  created_at:      string;
+}

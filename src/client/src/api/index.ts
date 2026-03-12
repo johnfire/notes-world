@@ -1,4 +1,4 @@
-import { Item, Tag, DashboardResponse, Block, ViewType, BlockConfig, TypeData, ItemType } from '../types';
+import { Item, Tag, DashboardResponse, Block, ViewType, BlockConfig, TypeData, ItemType, Dependency, ImportJob, ImportRecord } from '../types';
 
 const BASE = '/api';
 
@@ -46,6 +46,34 @@ export const items = {
 
   byType: (type: ItemType, limit = 50, offset = 0) =>
     request<Item[]>(`/items/type/${type}?limit=${limit}&offset=${offset}`),
+
+  complete: (id: string) =>
+    request<Item>(`/items/${id}/complete`, { method: 'POST' }),
+
+  start: (id: string) =>
+    request<Item>(`/items/${id}/start`, { method: 'POST' }),
+
+  block: (id: string) =>
+    request<Item>(`/items/${id}/block`, { method: 'POST' }),
+};
+
+// ── Dependencies ─────────────────────────────────────────────────────────────
+
+export const dependencies = {
+  forItem: (itemId: string) =>
+    request<Dependency[]>(`/items/${itemId}/dependencies`),
+
+  dependents: (itemId: string) =>
+    request<Dependency[]>(`/items/${itemId}/dependents`),
+
+  add: (dependentId: string, dependencyId: string) =>
+    request<Dependency>(`/items/${dependentId}/dependencies`, {
+      method: 'POST',
+      body: JSON.stringify({ dependency_id: dependencyId }),
+    }),
+
+  remove: (depId: string) =>
+    request<void>(`/dependencies/${depId}`, { method: 'DELETE' }),
 };
 
 // ── Tags ─────────────────────────────────────────────────────────────────────
@@ -96,4 +124,26 @@ export const dashboard = {
 
   reorderBlocks: (positions: Array<{ block_id: string; row: number; column: number }>) =>
     request<void>('/dashboard/blocks/reorder', { method: 'PUT', body: JSON.stringify({ positions }) }),
+};
+
+// ── Import ────────────────────────────────────────────────────────────────────
+
+export const importApi = {
+  create: (source_filename: string, source_size: number, auto_tag?: string) =>
+    request<ImportJob>('/import', {
+      method: 'POST',
+      body: JSON.stringify({ source_filename, source_size, auto_tag }),
+    }),
+
+  execute: (id: string, content: string) =>
+    request<ImportJob>(`/import/${id}/execute`, {
+      method: 'POST',
+      body: JSON.stringify({ content }),
+    }),
+
+  list: () =>
+    request<ImportJob[]>('/import'),
+
+  get: (id: string) =>
+    request<{ job: ImportJob; records: ImportRecord[] }>(`/import/${id}`),
 };
