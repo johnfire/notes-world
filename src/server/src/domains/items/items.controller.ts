@@ -55,6 +55,27 @@ export async function restoreItem(req: Request, res: Response, next: NextFunctio
   } catch (err) { next(err); }
 }
 
+export async function completeTask(req: Request, res: Response, next: NextFunction) {
+  try {
+    const item = await service.completeTask(PHASE1_USER_ID, req.params.id);
+    res.json(item);
+  } catch (err) { next(err); }
+}
+
+export async function startTask(req: Request, res: Response, next: NextFunction) {
+  try {
+    const item = await service.startTask(PHASE1_USER_ID, req.params.id);
+    res.json(item);
+  } catch (err) { next(err); }
+}
+
+export async function blockTask(req: Request, res: Response, next: NextFunction) {
+  try {
+    const item = await service.blockTask(PHASE1_USER_ID, req.params.id);
+    res.json(item);
+  } catch (err) { next(err); }
+}
+
 export async function getRecentItems(req: Request, res: Response, next: NextFunction) {
   try {
     const limit = Math.min(Number(req.query.limit ?? 20), PAGINATION.MAX_PAGE_SIZE);

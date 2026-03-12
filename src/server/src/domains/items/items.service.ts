@@ -1,6 +1,6 @@
 // Items domain service — business logic
 // Full implementation in Phase 1.2
-import { Item, ItemType, UserId, ItemId } from '../../types';
+import { Item, ItemType, ItemStatus, TaskStatus, UserId, ItemId } from '../../types';
 import { eventBus } from '../../events/eventBus';
 import { LIMITS } from '../../constants';
 import {
@@ -126,6 +126,82 @@ export async function getItemsByType(userId: UserId, itemType: ItemType, limit =
 
 export async function getItemsByTag(userId: UserId, tagId: string, limit = 50, offset = 0): Promise<Item[]> {
   return repo.findByTag(userId, tagId, limit, offset);
+}
+
+export async function completeTask(userId: UserId, itemId: ItemId): Promise<Item> {
+  const item = await repo.findById(itemId, userId);
+  if (!item) throw new NotFoundError('Item', itemId);
+  if (item.user_id !== userId) throw new AuthorizationError('Not owner');
+  if (item.item_type !== ItemType.Task) throw new ValidationError('Item is not a Task');
+  if (item.status !== ItemStatus.Active) throw new StateError('Cannot complete an archived item');
+
+  const td = item.type_data as { task_status?: string } | null;
+  if (td?.task_status === TaskStatus.Blocked) {
+    throw new StateError('Cannot complete a blocked task — resolve dependencies first');
+  }
+  if (td?.task_status === TaskStatus.Done) {
+    throw new ConflictError('Task is already Done');
+  }
+
+  const now = new Date().toISOString();
+  const updated = await repo.update(itemId, userId, {
+    type_data: { ...td, task_status: TaskStatus.Done, completed_at: now },
+  });
+  if (!updated) throw new NotFoundError('Item', itemId);
+
+  eventBus.emit('TaskCompleted', { item: updated, completed_at: now });
+  return updated;
+}
+
+export async function startTask(userId: UserId, itemId: ItemId): Promise<Item> {
+  const item = await repo.findById(itemId, userId);
+  if (!item) throw new NotFoundError('Item', itemId);
+  if (item.user_id !== userId) throw new AuthorizationError('Not owner');
+  if (item.item_type !== ItemType.Task) throw new ValidationError('Item is not a Task');
+  if (item.status !== ItemStatus.Active) throw new StateError('Cannot start an archived item');
+
+  const td = item.type_data as { task_status?: string } | null;
+  if (td?.task_status === TaskStatus.Blocked) {
+    throw new StateError('Cannot start a blocked task — resolve dependencies first');
+  }
+  if (td?.task_status === TaskStatus.Done) {
+    throw new StateError('Task is already Done');
+  }
+  if (td?.task_status === TaskStatus.InProgress) {
+    throw new ConflictError('Task is already InProgress');
+  }
+
+  const updated = await repo.update(itemId, userId, {
+    type_data: { ...td, task_status: TaskStatus.InProgress },
+  });
+  if (!updated) throw new NotFoundError('Item', itemId);
+
+  eventBus.emit('TaskStarted', { item: updated, started_at: updated.updated_at });
+  return updated;
+}
+
+export async function blockTask(userId: UserId, itemId: ItemId): Promise<Item> {
+  const item = await repo.findById(itemId, userId);
+  if (!item) throw new NotFoundError('Item', itemId);
+  if (item.user_id !== userId) throw new AuthorizationError('Not owner');
+  if (item.item_type !== ItemType.Task) throw new ValidationError('Item is not a Task');
+  if (item.status !== ItemStatus.Active) throw new StateError('Cannot block an archived item');
+
+  const td = item.type_data as { task_status?: string } | null;
+  if (td?.task_status === TaskStatus.Done) {
+    throw new StateError('Cannot block a completed task');
+  }
+  if (td?.task_status === TaskStatus.Blocked) {
+    throw new ConflictError('Task is already Blocked');
+  }
+
+  const updated = await repo.update(itemId, userId, {
+    type_data: { ...td, task_status: TaskStatus.Blocked },
+  });
+  if (!updated) throw new NotFoundError('Item', itemId);
+
+  eventBus.emit('TaskBlocked', { item: updated, blocked_at: updated.updated_at });
+  return updated;
 }
 
 function getTypeDefaults(type: ItemType): Record<string, unknown> {

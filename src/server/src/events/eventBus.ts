@@ -32,6 +32,7 @@ export type EventMap = {
   DependencyAdded:    DependencyAddedEvent;
   DependencyRemoved:  DependencyRemovedEvent;
   DependencyResolved: DependencyResolvedEvent;
+  ImportCompleted: { import_job_id: string; items_imported: number; items_failed: number; completed_at: string };
 };
 
 class TypedEventBus extends EventEmitter {

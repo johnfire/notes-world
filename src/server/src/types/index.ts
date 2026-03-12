@@ -5,6 +5,32 @@ export type DashboardId = string;
 export type BlockId = string;
 export type DependencyId = string;
 export type CrossRefId = string;
+export type CrossReferenceId = string;
+
+export enum DependencyStatus {
+  Active   = 'Active',
+  Resolved = 'Resolved',
+  Removed  = 'Removed',
+}
+
+export interface Dependency {
+  id:            DependencyId;
+  dependent_id:  ItemId;
+  dependency_id: ItemId;
+  user_id:       UserId;
+  status:        DependencyStatus;
+  created_at:    string;
+  resolved_at:   string | null;
+  removed_at:    string | null;
+}
+
+export interface CrossReference {
+  id:         CrossReferenceId;
+  item_a_id:  ItemId;
+  item_b_id:  ItemId;
+  user_id:    UserId;
+  created_at: string;
+}
 
 export enum ItemType {
   Untyped = 'Untyped',
@@ -135,4 +161,49 @@ export interface PaginatedResult<T> {
   total: number;
   page: number;
   page_size: number;
+}
+
+export type ImportJobId    = string;
+export type ImportRecordId = string;
+
+export enum ImportJobStatus {
+  Pending    = 'Pending',
+  InProgress = 'InProgress',
+  Completed  = 'Completed',
+  Failed     = 'Failed',
+}
+
+export enum ImportRecordStatus {
+  Success = 'Success',
+  Skipped = 'Skipped',
+  Failed  = 'Failed',
+}
+
+export interface ImportJob {
+  id:              ImportJobId;
+  user_id:         string;
+  source_filename: string;
+  source_size:     number;
+  status:          ImportJobStatus;
+  items_found:     number;
+  items_imported:  number;
+  items_skipped:   number;
+  items_failed:    number;
+  auto_tag:        string | null;
+  started_at:      string | null;
+  completed_at:    string | null;
+  error_message:   string | null;
+  created_at:      string;
+}
+
+export interface ImportRecord {
+  id:              ImportRecordId;
+  import_job_id:   ImportJobId;
+  sequence:        number;
+  raw_title:       string | null;
+  raw_body:        string | null;
+  status:          ImportRecordStatus;
+  created_item_id: string | null;
+  error_message:   string | null;
+  created_at:      string;
 }

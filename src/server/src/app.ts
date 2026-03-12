@@ -5,7 +5,9 @@ import morgan from 'morgan';
 import path from 'path';
 import { itemsRouter } from './domains/items/items.routes';
 import { relationshipsRouter } from './domains/relationships/relationships.routes';
+import { dependenciesRouter } from './domains/relationships/dependencies.routes';
 import { viewsRouter } from './domains/views/views.routes';
+import { importRouter } from './domains/import/import.routes';
 import { errorHandler } from './middleware/errorHandler';
 
 export function createApp() {
@@ -27,7 +29,9 @@ export function createApp() {
   // API routes
   app.use('/api/items',     itemsRouter);
   app.use('/api/tags',      relationshipsRouter);
+  app.use('/api',           dependenciesRouter);
   app.use('/api/dashboard', viewsRouter);
+  app.use('/api/import',    importRouter);
 
   // Serve React build in production
   if (process.env.NODE_ENV === 'production') {

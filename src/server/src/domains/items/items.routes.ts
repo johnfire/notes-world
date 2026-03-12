@@ -15,3 +15,6 @@ itemsRouter.patch('/:id',            ctrl.updateItem);
 itemsRouter.post('/:id/promote',     ctrl.promoteItem);
 itemsRouter.post('/:id/archive',     ctrl.archiveItem);
 itemsRouter.post('/:id/restore',     ctrl.restoreItem);
+itemsRouter.post('/:id/complete',    ctrl.completeTask);
+itemsRouter.post('/:id/start',       ctrl.startTask);
+itemsRouter.post('/:id/block',       ctrl.blockTask);
