@@ -6,7 +6,7 @@ import { useApp } from '../../context/AppContext';
 interface Props { block: Block }
 
 export function OverdueTasks({ block }: Props) {
-  const { openItem } = useApp();
+  const { openItem, state: { refreshKey } } = useApp();
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +24,7 @@ export function OverdueTasks({ block }: Props) {
         )
       )
       .finally(() => setLoading(false));
-  }, []);
+  }, [refreshKey]);
 
   function formatDue(dueDate: string): string {
     const d = new Date(dueDate);

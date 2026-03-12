@@ -3,7 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { ImportModal } from '../ImportModal';
 
 export function ActionBar() {
-  const { state, search, clearSearch } = useApp();
+  const { state, search, clearSearch, refresh } = useApp();
   const [searchInput, setSearchInput] = useState('');
   const [importOpen, setImportOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -92,7 +92,7 @@ export function ActionBar() {
         Import
       </button>
 
-      {importOpen && <ImportModal onClose={() => setImportOpen(false)} />}
+      {importOpen && <ImportModal onClose={() => setImportOpen(false)} onImported={() => void refresh()} />}
     </header>
   );
 }

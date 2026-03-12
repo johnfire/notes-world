@@ -10,7 +10,7 @@ vi.mock('../../api', () => ({
 }));
 
 vi.mock('../../context/AppContext', () => ({
-  useApp: () => ({ openItem: vi.fn() }),
+  useApp: () => ({ openItem: vi.fn(), state: { refreshKey: 0 } }),
 }));
 
 const block = {

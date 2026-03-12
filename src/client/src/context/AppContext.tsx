@@ -12,6 +12,7 @@ interface AppState {
   searchResults:  Item[] | null;
   searchQuery:    string;
   selectedItemId: string | null;
+  refreshKey:     number;
 }
 
 type Action =
@@ -25,7 +26,8 @@ type Action =
   | { type: 'SET_LOADING'; payload: boolean }
   | { type: 'SET_ERROR'; payload: string | null }
   | { type: 'OPEN_ITEM'; id: string }
-  | { type: 'CLOSE_ITEM' };
+  | { type: 'CLOSE_ITEM' }
+  | { type: 'REFRESH' };
 
 function updateItemInList(list: Item[], item: Item): Item[] {
   if (item.status === ItemStatus.Archived) {
@@ -62,6 +64,8 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, selectedItemId: action.id };
     case 'CLOSE_ITEM':
       return { ...state, selectedItemId: null };
+    case 'REFRESH':
+      return { ...state, refreshKey: state.refreshKey + 1 };
     default:
       return state;
   }
@@ -77,6 +81,7 @@ const initialState: AppState = {
   searchResults:  null,
   searchQuery:    '',
   selectedItemId: null,
+  refreshKey:     0,
 };
 
 interface AppContextValue {
@@ -90,6 +95,7 @@ interface AppContextValue {
   openItem: (id: string) => void;
   closeItem: () => void;
   updateItemInContext: (item: Item) => void;
+  refresh: () => Promise<void>;
 }
 
 const AppContext = createContext<AppContextValue | null>(null);
@@ -143,12 +149,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const openItem     = useCallback((id: string) => dispatch({ type: 'OPEN_ITEM', id }), []);
   const closeItem    = useCallback(() => dispatch({ type: 'CLOSE_ITEM' }), []);
   const updateItemInContext = useCallback((item: Item) => dispatch({ type: 'UPDATE_ITEM', payload: item }), []);
+  const refresh      = useCallback(async () => {
+    dispatch({ type: 'REFRESH' });
+    await Promise.all([loadRecentItems(), loadTags()]);
+  }, [loadRecentItems, loadTags]);
 
   return (
     <AppContext.Provider value={{
       state, loadDashboard, loadRecentItems, loadTags,
       captureItem, search, clearSearch,
-      openItem, closeItem, updateItemInContext,
+      openItem, closeItem, updateItemInContext, refresh,
     }}>
       {children}
     </AppContext.Provider>

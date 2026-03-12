@@ -3,7 +3,8 @@ import * as api from '../api';
 import { ImportJob } from '../types';
 
 interface Props {
-  onClose: () => void;
+  onClose:      () => void;
+  onImported?:  () => void;
 }
 
 interface FileEntry {
@@ -20,7 +21,7 @@ function readFileAsText(file: File): Promise<string> {
   });
 }
 
-export function ImportModal({ onClose }: Props) {
+export function ImportModal({ onClose, onImported }: Props) {
   const [status, setStatus]     = useState<'idle' | 'reading' | 'preview' | 'running' | 'done' | 'error'>('idle');
   const [files, setFiles]       = useState<FileEntry[]>([]);
   const [result, setResult]     = useState<ImportJob | null>(null);
@@ -50,6 +51,7 @@ export function ImportModal({ onClose }: Props) {
       const job = await api.importApi.folder(files);
       setResult(job);
       setStatus('done');
+      onImported?.();
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : 'Import failed');
       setStatus('error');

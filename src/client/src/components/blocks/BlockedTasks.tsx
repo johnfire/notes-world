@@ -6,7 +6,7 @@ import { useApp } from '../../context/AppContext';
 interface Props { block: Block }
 
 export function BlockedTasks({ block }: Props) {
-  const { openItem } = useApp();
+  const { openItem, state: { refreshKey } } = useApp();
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -22,7 +22,7 @@ export function BlockedTasks({ block }: Props) {
         )
       )
       .finally(() => setLoading(false));
-  }, []);
+  }, [refreshKey]);
 
   return (
     <div className="card h-full overflow-hidden flex flex-col">

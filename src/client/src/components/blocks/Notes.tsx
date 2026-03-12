@@ -6,7 +6,7 @@ import { useApp } from '../../context/AppContext';
 interface Props { block: Block }
 
 export function Notes({ block }: Props) {
-  const { openItem } = useApp();
+  const { openItem, state: { refreshKey } } = useApp();
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -17,7 +17,7 @@ export function Notes({ block }: Props) {
       ? api.tags.getItemsForTag(filterTagId)
       : api.items.byType(ItemType.Note);
     fetch.then(setItems).finally(() => setLoading(false));
-  }, [block.config?.filter_tag_id]);
+  }, [block.config?.filter_tag_id, refreshKey]);
 
   return (
     <div className="card h-full overflow-hidden flex flex-col">

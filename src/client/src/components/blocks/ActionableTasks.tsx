@@ -15,7 +15,7 @@ function priorityColor(priority: string): string {
 }
 
 export function ActionableTasks({ block }: Props) {
-  const { openItem } = useApp();
+  const { openItem, state: { refreshKey } } = useApp();
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +31,7 @@ export function ActionableTasks({ block }: Props) {
         )
       )
       .finally(() => setLoading(false));
-  }, []);
+  }, [refreshKey]);
 
   return (
     <div className="card h-full overflow-hidden flex flex-col">

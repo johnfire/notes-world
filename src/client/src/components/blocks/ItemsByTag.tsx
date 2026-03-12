@@ -6,7 +6,7 @@ import { useApp } from '../../context/AppContext';
 interface Props { block: Block }
 
 export function ItemsByTag({ block }: Props) {
-  const { openItem } = useApp();
+  const { openItem, state: { refreshKey } } = useApp();
   const tagId = block.config?.tag_id;
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
@@ -17,7 +17,7 @@ export function ItemsByTag({ block }: Props) {
     api.tags.getItemsForTag(tagId)
       .then(setItems)
       .finally(() => setLoading(false));
-  }, [tagId]);
+  }, [tagId, refreshKey]);
 
   if (!tagId) {
     return (
