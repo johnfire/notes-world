@@ -40,7 +40,7 @@ docker compose up --build
 - All tables have `user_id` column from day 1 (ADR-005)
 
 ## Do Not Touch
-- `*.ispec`, `*.intent`, `*.policy`, `*.md` spec files in project root — source of truth
+- `docs/*.ispec`, `docs/*.intent`, `docs/*.policy`, `docs/*.md` — spec files, source of truth
 - `src/server/src/db/migrations/` — only add new files, never edit existing ones
 
 ## Sub-phases
