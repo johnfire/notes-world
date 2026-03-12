@@ -1,0 +1,626 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FILE: items.ispec
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[human]
+
+  Domain: Items
+
+  This domain manages the core content of the system — the notes,
+  ideas, tasks, reminders, and undifferentiated items that a user
+  captures, organizes, and acts upon.
+
+  The central design principle is: capture first, structure later.
+  Everything enters the system as a simple Item with text. The user
+  promotes items into typed variants when ready. Promotion is always
+  additive — no information is lost.
+
+
+  --- Entities ---
+
+  An Item is the fundamental unit of content. It has a title, an
+  optional body (longer text), a type, a status, and timestamps.
+  Every item belongs to a user (single constant value in Phase 1).
+
+  Items start as type Untyped — no structure beyond title and body.
+  A user can promote an item to one of four types:
+    Task     — something to be done (adds priority, due date, completion status)
+    Idea     — something to be developed (adds maturity stage)
+    Note     — reference information (adds category)
+    Reminder — time-sensitive notification (adds remind date)
+
+  Promotion changes the type and adds type-specific fields.
+  It never removes or overwrites the original title and body.
+
+  Items are never deleted. They are archived when no longer active.
+  All changes to items are permanently preserved.
+
+  An Item can be:
+    Active    — currently relevant and visible on dashboard
+    Archived  — no longer active, preserved and searchable
+
+  A Task Status can be:
+    Open        — not started
+    InProgress  — being worked on
+    Done        — completed
+    Blocked     — waiting on a dependency
+
+  A Task Priority can be:
+    Low
+    Normal
+    High
+    Critical
+
+  An Idea Maturity can be:
+    Seed        — just captured, undeveloped
+    Developing  — being researched or fleshed out
+    Ready       — developed enough to act on
+    Parked      — intentionally set aside for later
+
+
+  --- Operations ---
+
+  Capture Item:
+    Creates a new item with minimal information — just a title
+    and optionally a body. The item starts as Untyped and Active.
+    This is the fast-capture path. No classification required.
+
+  Update Item:
+    Modifies the title, body, or type-specific fields of an item.
+    The item must be Active.
+
+  Promote Item:
+    Changes an item's type from Untyped (or any type) to a specified
+    type. Adds the type-specific fields with default values. Does
+    not remove existing data. An item can be re-promoted to a
+    different type — the previous type-specific data is preserved
+    in history.
+
+  Archive Item:
+    Marks an item as Archived. The item remains in the system,
+    searchable, and retains all relationships. It is excluded
+    from default dashboard views.
+
+  Restore Item:
+    Returns an archived item to Active status.
+
+  Complete Task:
+    Marks a Task-typed item as Done. The item must be a Task,
+    must be Active, and must not be Blocked (no unresolved
+    dependencies).
+
+  Start Task:
+    Marks a Task-typed item as InProgress. The item must be a
+    Task, must be Active, and its status must be Open or Blocked
+    only if all dependencies are resolved.
+
+  Block Task:
+    Marks a Task-typed item as Blocked. Used when a dependency
+    becomes unresolved or the user manually blocks the task.
+
+
+  --- Queries ---
+
+  Get Item By Id:
+    Returns a single item by its unique identifier.
+
+  Search Items:
+    Full-text search across title and body of all Active items.
+    Returns matching items ordered by relevance.
+
+  Get Items By Type:
+    Returns all Active items of a specified type, ordered by
+    creation date descending.
+
+  Get Items By Tag:
+    Returns all Active items that have a specified tag, ordered
+    by creation date descending.
+
+  Get Actionable Tasks:
+    Returns all Active Tasks that are Open or InProgress and
+    not Blocked, ordered by priority (highest first) then
+    due date (earliest first, nulls last).
+
+  Get Blocked Tasks:
+    Returns all Active Tasks with status Blocked, ordered by
+    creation date.
+
+  Get Overdue Tasks:
+    Returns all Active Tasks where the due date has passed and
+    the task is not Done, ordered by due date ascending.
+
+  Get Recently Modified:
+    Returns the most recently updated Active items, ordered
+    by updated_at descending. Used for the dashboard
+    "recent activity" view.
+
+[/human]
+
+
+[policy]
+
+  ItemPolicy:
+    maximum title length: 300 characters
+    maximum body length: 50000 characters
+
+  TaskPolicy:
+    completing a task requires all dependencies resolved
+    starting a task requires all dependencies resolved
+    blocking a task does not affect its dependencies
+
+  PromotionPolicy:
+    promotion is non-destructive
+    previous type-specific data preserved in history
+    an item can be promoted from any type to any type
+
+[/policy]
+
+
+[spec]
+
+  domain Items
+
+
+  --- types ---
+
+  type ItemTitle is Text [required, max: 300]
+  type ItemBody  is Text [optional, max: 50000]
+
+
+  --- enums ---
+
+  enum ItemType
+    Untyped
+    Task
+    Idea
+    Note
+    Reminder
+
+  enum ItemStatus
+    Active
+    Archived
+
+  enum TaskStatus
+    Open
+    InProgress
+    Done
+    Blocked
+
+  enum Priority
+    Low
+    Normal
+    High
+    Critical
+
+  enum IdeaMaturity
+    Seed
+    Developing
+    Ready
+    Parked
+
+
+  --- entities ---
+
+  entity Item
+    id:             ItemId      [unique, generated, immutable]
+    user_id:        UserId      [required, immutable]
+    title:          ItemTitle   [required]
+    body:           ItemBody    [optional]
+    item_type:      ItemType    [default: Untyped]
+    status:         ItemStatus  [default: Active]
+    type_data:      TypeData    [optional]
+    created_at:     Timestamp   [generated, immutable]
+    updated_at:     Timestamp   [generated]
+
+  Note: TypeData is a JSONB structure containing type-specific fields.
+  Its shape depends on item_type:
+
+    When item_type == Task:
+      task_status:   TaskStatus  [default: Open]
+      priority:      Priority    [default: Normal]
+      due_date:      Timestamp   [optional]
+      completed_at:  Timestamp   [optional]
+
+    When item_type == Idea:
+      maturity:      IdeaMaturity [default: Seed]
+
+    When item_type == Note:
+      category:      Text        [optional, max: 100]
+
+    When item_type == Reminder:
+      remind_at:     Timestamp   [required]
+      is_dismissed:  Boolean     [default: false]
+
+
+  --- operations ---
+
+  operation CaptureItem
+    inputs:
+      title:    ItemTitle
+      body:     ItemBody     [optional]
+      user_id:  UserId
+
+    requires:
+      title is not empty
+
+    ensures:
+      Item created with:
+        title     == title
+        body      == body
+        user_id   == user_id
+        item_type == Untyped
+        status    == Active
+
+    side_effects:
+      emit ItemCaptured with:
+        item       == created Item
+        created_at == now
+
+    returns:
+      Item
+
+    failures:
+      TitleEmpty: ValidationError
+        condition: title is empty
+
+      TitleTooLong: ValidationError
+        condition: title length > ItemPolicy.maximum_title_length
+        context:
+          length:  Count
+          maximum: Count
+
+
+  operation UpdateItem
+    inputs:
+      item:     Item
+      title:    ItemTitle    [optional]
+      body:     ItemBody     [optional]
+      type_data: TypeData    [optional]
+      user_id:  UserId
+
+    requires:
+      item.status == Active
+      item.user_id == user_id
+
+    ensures:
+      item.title      == title if provided, else was(item.title)
+      item.body       == body if provided, else was(item.body)
+      item.type_data  == type_data if provided, else was(item.type_data)
+      item.updated_at == now
+
+    side_effects:
+      emit ItemUpdated with:
+        item       == item
+        updated_at == now
+
+    failures:
+      ItemArchived: StateError
+        condition: item.status != Active
+
+      NotOwner: AuthorizationError
+        condition: item.user_id != user_id
+
+      TitleEmpty: ValidationError
+        condition: title is provided and title is empty
+
+      TitleTooLong: ValidationError
+        condition: title is provided and title length > ItemPolicy.maximum_title_length
+
+
+  operation PromoteItem
+    inputs:
+      item:       Item
+      new_type:   ItemType
+      type_data:  TypeData   [optional]
+      user_id:    UserId
+
+    requires:
+      item.status == Active
+      item.user_id == user_id
+      new_type != Untyped
+
+    ensures:
+      item.item_type  == new_type
+      item.type_data  == type_data with defaults applied
+      item.updated_at == now
+
+    side_effects:
+      emit ItemPromoted with:
+        item          == item
+        previous_type == was(item.item_type)
+        new_type      == new_type
+        promoted_at   == now
+
+    returns:
+      Item
+
+    failures:
+      ItemArchived: StateError
+        condition: item.status != Active
+
+      NotOwner: AuthorizationError
+        condition: item.user_id != user_id
+
+      CannotPromoteToUntyped: ValidationError
+        condition: new_type == Untyped
+
+
+  operation ArchiveItem
+    inputs:
+      item:     Item
+      user_id:  UserId
+
+    requires:
+      item.status == Active
+      item.user_id == user_id
+
+    ensures:
+      item.status     == Archived
+      item.updated_at == now
+
+    side_effects:
+      emit ItemArchived with:
+        item        == item
+        archived_at == now
+
+    failures:
+      AlreadyArchived: ConflictError
+        condition: item.status == Archived
+
+      NotOwner: AuthorizationError
+        condition: item.user_id != user_id
+
+
+  operation RestoreItem
+    inputs:
+      item:     Item
+      user_id:  UserId
+
+    requires:
+      item.status == Archived
+      item.user_id == user_id
+
+    ensures:
+      item.status     == Active
+      item.updated_at == now
+
+    side_effects:
+      emit ItemRestored with:
+        item        == item
+        restored_at == now
+
+    failures:
+      NotArchived: ConflictError
+        condition: item.status != Archived
+
+      NotOwner: AuthorizationError
+        condition: item.user_id != user_id
+
+
+  operation CompleteTask
+    inputs:
+      item:     Item
+      user_id:  UserId
+
+    requires:
+      item.status == Active
+      item.user_id == user_id
+      item.item_type == Task
+      item.type_data.task_status != Done
+      all dependencies on item are resolved
+
+    ensures:
+      item.type_data.task_status  == Done
+      item.type_data.completed_at == now
+      item.updated_at             == now
+
+    side_effects:
+      emit TaskCompleted with:
+        item         == item
+        completed_at == now
+
+    failures:
+      NotATask: StateError
+        condition: item.item_type != Task
+
+      NotOwner: AuthorizationError
+        condition: item.user_id != user_id
+
+      ItemArchived: StateError
+        condition: item.status != Active
+
+      AlreadyDone: ConflictError
+        condition: item.type_data.task_status == Done
+
+      HasUnresolvedDependencies: BusinessError
+        condition: not all dependencies resolved
+        context:
+          blocking_items: list of ItemId
+
+
+  operation StartTask
+    inputs:
+      item:     Item
+      user_id:  UserId
+
+    requires:
+      item.status == Active
+      item.user_id == user_id
+      item.item_type == Task
+      item.type_data.task_status == Open
+        or (item.type_data.task_status == Blocked
+            and all dependencies on item are resolved)
+
+    ensures:
+      item.type_data.task_status == InProgress
+      item.updated_at            == now
+
+    side_effects:
+      emit TaskStarted with:
+        item       == item
+        started_at == now
+
+    failures:
+      NotATask: StateError
+        condition: item.item_type != Task
+
+      NotOwner: AuthorizationError
+        condition: item.user_id != user_id
+
+      InvalidTransition: StateError
+        condition: item.type_data.task_status not in [Open, Blocked]
+
+      HasUnresolvedDependencies: BusinessError
+        condition: item.type_data.task_status == Blocked
+                   and not all dependencies resolved
+
+
+  operation BlockTask
+    inputs:
+      item:     Item
+      user_id:  UserId
+      reason:   Text     [optional]
+
+    requires:
+      item.status == Active
+      item.user_id == user_id
+      item.item_type == Task
+      item.type_data.task_status != Done
+
+    ensures:
+      item.type_data.task_status == Blocked
+      item.updated_at            == now
+
+    side_effects:
+      emit TaskBlocked with:
+        item       == item
+        reason     == reason
+        blocked_at == now
+
+    failures:
+      NotATask: StateError
+        condition: item.item_type != Task
+
+      NotOwner: AuthorizationError
+        condition: item.user_id != user_id
+
+      AlreadyDone: ConflictError
+        condition: item.type_data.task_status == Done
+
+
+  --- queries ---
+
+  @query GetItemById
+    find:    Item
+    where:   Item.id == id
+    and:     Item.user_id == user_id
+    returns: one
+
+  @query SearchItems
+    find:    Item
+    where:   Item.status == Active
+    and:     Item.user_id == user_id
+    and:     Item.title contains search_text
+             or Item.body contains search_text
+    order:   relevance descending
+
+  @query GetItemsByType
+    find:    Item
+    where:   Item.item_type == item_type
+    and:     Item.status == Active
+    and:     Item.user_id == user_id
+    order:   Item.created_at descending
+
+  @query GetItemsByTag
+    find:    Item
+    through: ItemTag
+    where:   ItemTag.tag_id == tag_id
+    and:     Item.status == Active
+    and:     Item.user_id == user_id
+    order:   Item.created_at descending
+
+  @query GetActionableTasks
+    find:    Item
+    where:   Item.item_type == Task
+    and:     Item.status == Active
+    and:     Item.user_id == user_id
+    and:     Item.type_data.task_status == Open
+             or Item.type_data.task_status == InProgress
+    order:   Item.type_data.priority descending,
+             Item.type_data.due_date ascending nulls last
+
+  @query GetBlockedTasks
+    find:    Item
+    where:   Item.item_type == Task
+    and:     Item.status == Active
+    and:     Item.user_id == user_id
+    and:     Item.type_data.task_status == Blocked
+    order:   Item.created_at descending
+
+  @query GetOverdueTasks
+    find:    Item
+    where:   Item.item_type == Task
+    and:     Item.status == Active
+    and:     Item.user_id == user_id
+    and:     Item.type_data.due_date < now
+    and:     Item.type_data.task_status != Done
+    order:   Item.type_data.due_date ascending
+
+  @query GetRecentlyModified
+    find:    Item
+    where:   Item.status == Active
+    and:     Item.user_id == user_id
+    order:   Item.updated_at descending
+    limit:   20
+
+
+  --- events ---
+
+  event ItemCaptured
+    item:       → Item     [required]
+    created_at: Timestamp  [required]
+
+  event ItemUpdated
+    item:       → Item     [required]
+    updated_at: Timestamp  [required]
+
+  event ItemPromoted
+    item:          → Item     [required]
+    previous_type: ItemType   [required]
+    new_type:      ItemType   [required]
+    promoted_at:   Timestamp  [required]
+
+  event ItemArchived
+    item:        → Item     [required]
+    archived_at: Timestamp  [required]
+
+  event ItemRestored
+    item:        → Item     [required]
+    restored_at: Timestamp  [required]
+
+  event TaskCompleted
+    item:         → Item     [required]
+    completed_at: Timestamp  [required]
+
+  event TaskStarted
+    item:       → Item     [required]
+    started_at: Timestamp  [required]
+
+  event TaskBlocked
+    item:       → Item     [required]
+    reason:     Text       [optional]
+    blocked_at: Timestamp  [required]
+
+
+  --- extensions ---
+
+  @extend index
+    query: Item by user_id                          [frequent]
+    query: Item by user_id, status                  [frequent]
+    query: Item by user_id, item_type               [frequent]
+    query: Item by user_id, item_type, status       [frequent]
+    query: Item by updated_at                       [range]
+    query: Item by title                            [fulltext]
+    query: Item by body                             [fulltext]
+
+[/spec]

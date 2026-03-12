@@ -1,0 +1,39 @@
+# Environment
+.env
+
+# Logs
+logs/
+*.log
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+src/client/dist/
+src/server/dist/
+
+# Temp
+tmp/
+.tmp/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+.idea/
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Docker volumes
+backups/*.sql
+
+# Spec files are source of truth - committed
+# *.ispec ← keep
+# *.intent ← keep
+# *.policy ← keep

@@ -1,0 +1,372 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FILE: views.ispec
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[human]
+
+  Domain: Views
+
+  This domain manages the dashboard layout and block configuration.
+  It defines how items, tags, and relationships are displayed to
+  the user. It does not own any content — it reads from Items and
+  Relationships to compose what the user sees.
+
+  The dashboard is the primary interface. It consists of a top
+  action bar, a collapsible sidebar, and a main area with
+  configurable blocks. Each block displays a specific view of
+  the user's data — actionable tasks, recent items, tag cloud,
+  dependency graph, or any other supported view type.
+
+
+  --- Entities ---
+
+  A Dashboard is the user's top-level layout configuration.
+  Each user has exactly one dashboard. It stores the number
+  of columns and general layout preferences.
+
+  A Block is a configurable section within the dashboard.
+  Each block has a position (row and column), a view type
+  that determines what it displays, and configuration options
+  specific to that view type.
+
+  A Block can display one of these view types:
+    ActionableTasks   — tasks that are Open or InProgress and unblocked
+    RecentItems       — most recently modified items
+    TagCloud          — all tags with usage counts
+    ItemsByTag        — items filtered by a specific tag
+    BlockedTasks      — tasks waiting on dependencies
+    OverdueTasks      — tasks past their due date
+    DependencyGraph   — visual graph of dependencies for selected items
+    QuickCapture      — input field for fast item creation
+    Notes             — items of type Note, optionally filtered by tag
+    Ideas             — items of type Idea, grouped by maturity
+
+  Blocks can be added, removed, repositioned, and reconfigured
+  by the user. The layout is saved and restored on each visit.
+
+
+  --- Operations ---
+
+  Initialize Dashboard:
+    Creates the default dashboard for a new user. Includes
+    a sensible starting layout with QuickCapture, ActionableTasks,
+    RecentItems, and TagCloud blocks.
+
+  Add Block:
+    Adds a new block to the dashboard at a specified position.
+
+  Remove Block:
+    Removes a block from the dashboard. The block is deleted
+    (blocks are layout metadata, not user content).
+
+  Update Block:
+    Changes a block's view type, position, or configuration.
+
+  Reorder Blocks:
+    Changes the positions of multiple blocks at once.
+    Used for drag-and-drop rearrangement.
+
+
+  --- Queries ---
+
+  Get Dashboard:
+    Returns the user's dashboard with all blocks, ordered
+    by position (row then column).
+
+  Get Block Data:
+    Returns the actual data for a specific block based on
+    its view type and configuration. This delegates to the
+    appropriate query in Items or Relationships domain.
+
+[/human]
+
+
+[policy]
+
+  DashboardPolicy:
+    maximum blocks per dashboard: 12
+    minimum blocks per dashboard: 1
+    default columns: 3
+
+  BlockPolicy:
+    supported view types:
+      ActionableTasks
+      RecentItems
+      TagCloud
+      ItemsByTag
+      BlockedTasks
+      OverdueTasks
+      DependencyGraph
+      QuickCapture
+      Notes
+      Ideas
+
+[/policy]
+
+
+[spec]
+
+  domain Views
+
+  use Item from items
+  use Tag from relationships
+
+
+  --- enums ---
+
+  enum ViewType
+    ActionableTasks
+    RecentItems
+    TagCloud
+    ItemsByTag
+    BlockedTasks
+    OverdueTasks
+    DependencyGraph
+    QuickCapture
+    Notes
+    Ideas
+
+
+  --- entities ---
+
+  entity Dashboard
+    id:         DashboardId  [unique, generated, immutable]
+    user_id:    UserId       [required, immutable]
+    columns:    Count        [default: 3, min: 1, max: 4]
+    created_at: Timestamp    [generated, immutable]
+    updated_at: Timestamp    [generated]
+    history: transient
+
+    unique: [user_id]
+
+  entity Block
+    id:            BlockId     [unique, generated, immutable]
+    dashboard:     → Dashboard [required, immutable]
+    user_id:       UserId      [required, immutable]
+    view_type:     ViewType    [required]
+    title:         Text        [optional, max: 100]
+    row:           Count       [required, min: 0]
+    column:        Count       [required, min: 0]
+    config:        BlockConfig [optional]
+    created_at:    Timestamp   [generated, immutable]
+    updated_at:    Timestamp   [generated]
+    history: transient
+
+  Note: BlockConfig is a JSONB structure. Its shape depends on view_type:
+
+    When view_type == ItemsByTag:
+      tag_id: TagId [required]
+
+    When view_type == Notes:
+      filter_tag_id: TagId [optional]
+
+    When view_type == Ideas:
+      group_by_maturity: Boolean [default: true]
+
+    When view_type == RecentItems:
+      limit: Count [default: 20, max: 50]
+
+    When view_type == DependencyGraph:
+      root_item_id: ItemId [optional]
+      depth:        Count  [default: 3, max: 10]
+
+
+  --- operations ---
+
+  operation InitializeDashboard
+    inputs:
+      user_id: UserId
+
+    requires:
+      not exists(Dashboard
+                 where Dashboard.user_id == user_id)
+
+    ensures:
+      Dashboard created with:
+        user_id == user_id
+        columns == 3
+
+      Block created with:
+        dashboard == created Dashboard
+        view_type == QuickCapture
+        title     == "Quick Capture"
+        row       == 0
+        column    == 0
+
+      Block created with:
+        dashboard == created Dashboard
+        view_type == ActionableTasks
+        title     == "Actionable Tasks"
+        row       == 1
+        column    == 0
+
+      Block created with:
+        dashboard == created Dashboard
+        view_type == RecentItems
+        title     == "Recent Items"
+        row       == 1
+        column    == 1
+
+      Block created with:
+        dashboard == created Dashboard
+        view_type == TagCloud
+        title     == "Tags"
+        row       == 1
+        column    == 2
+
+      Block created with:
+        dashboard == created Dashboard
+        view_type == OverdueTasks
+        title     == "Overdue"
+        row       == 2
+        column    == 0
+
+      Block created with:
+        dashboard == created Dashboard
+        view_type == BlockedTasks
+        title     == "Blocked"
+        row       == 2
+        column    == 1
+
+    returns:
+      Dashboard
+
+    failures:
+      DashboardExists: ConflictError
+        condition: user already has a dashboard
+
+
+  operation AddBlock
+    inputs:
+      dashboard: Dashboard
+      view_type: ViewType
+      title:     Text      [optional]
+      row:       Count
+      column:    Count
+      config:    BlockConfig [optional]
+      user_id:   UserId
+
+    requires:
+      dashboard.user_id == user_id
+      count(Block
+            where Block.dashboard == dashboard)
+        < DashboardPolicy.maximum_blocks_per_dashboard
+
+    ensures:
+      Block created with:
+        dashboard == dashboard
+        view_type == view_type
+        title     == title
+        row       == row
+        column    == column
+        config    == config
+        user_id   == user_id
+
+    returns:
+      Block
+
+    failures:
+      NotOwner: AuthorizationError
+        condition: dashboard.user_id != user_id
+
+      TooManyBlocks: LimitExceeded
+        condition: dashboard has maximum blocks
+        context:
+          current_count: Count
+          maximum:       Count
+
+
+  operation RemoveBlock
+    inputs:
+      block:    Block
+      user_id:  UserId
+
+    requires:
+      block.user_id == user_id
+      count(Block
+            where Block.dashboard == block.dashboard)
+        > DashboardPolicy.minimum_blocks_per_dashboard
+
+    ensures:
+      block is deleted
+
+    failures:
+      NotOwner: AuthorizationError
+        condition: block.user_id != user_id
+
+      MinimumBlocks: PolicyViolation
+        condition: dashboard would have fewer than minimum blocks
+
+
+  operation UpdateBlock
+    inputs:
+      block:     Block
+      view_type: ViewType    [optional]
+      title:     Text        [optional]
+      row:       Count       [optional]
+      column:    Count       [optional]
+      config:    BlockConfig  [optional]
+      user_id:   UserId
+
+    requires:
+      block.user_id == user_id
+
+    ensures:
+      block.view_type  == view_type if provided, else was(block.view_type)
+      block.title      == title if provided, else was(block.title)
+      block.row        == row if provided, else was(block.row)
+      block.column     == column if provided, else was(block.column)
+      block.config     == config if provided, else was(block.config)
+      block.updated_at == now
+
+    failures:
+      NotOwner: AuthorizationError
+        condition: block.user_id != user_id
+
+
+  operation ReorderBlocks
+    inputs:
+      block_positions: list of (BlockId, row, column)
+      user_id:         UserId
+
+    requires:
+      all blocks in block_positions belong to user_id
+      all blocks in block_positions belong to same dashboard
+
+    ensures:
+      for each (block_id, row, column) in block_positions:
+        block.row       == row
+        block.column    == column
+        block.updated_at == now
+      atomic: all position updates
+
+    failures:
+      NotOwner: AuthorizationError
+        condition: any block does not belong to user_id
+
+      MixedDashboards: ValidationError
+        condition: blocks belong to different dashboards
+
+
+  --- queries ---
+
+  @query GetDashboard
+    find:    Dashboard
+    where:   Dashboard.user_id == user_id
+    returns: one
+
+  @query GetBlocksForDashboard
+    find:    Block
+    where:   Block.dashboard == dashboard
+    and:     Block.user_id == user_id
+    order:   Block.row ascending, Block.column ascending
+
+
+  --- extensions ---
+
+  @extend index
+    query: Dashboard by user_id          [unique]
+    query: Block by dashboard            [frequent]
+    query: Block by user_id              [frequent]
+
+[/spec]

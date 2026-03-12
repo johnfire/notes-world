@@ -1,0 +1,19 @@
+{
+  "name": "notes-world",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "src/server",
+    "src/client"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev --workspace=src/server\" \"npm run dev --workspace=src/client\"",
+    "build": "npm run build --workspace=src/client && npm run build --workspace=src/server",
+    "test": "npm run test --workspace=src/server && npm run test --workspace=src/client",
+    "lint": "npm run lint --workspace=src/server && npm run lint --workspace=src/client",
+    "migrate": "npm run migrate --workspace=src/server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

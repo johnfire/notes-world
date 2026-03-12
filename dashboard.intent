@@ -1,0 +1,65 @@
+purpose:
+  This system exists to make a person's ideas, tasks, notes, and reminders
+  visible, connected, and actionable from a single view.
+
+  It solves the problem of fragmented information — items scattered across
+  files with no structure, no relationships, no priority, and no way to
+  see the big picture.
+
+  Success means: the user opens the dashboard and knows within seconds
+  what matters most, what depends on what, and where to start.
+
+serves:
+  1. the individual user — the person capturing and organizing their work
+  2. the work itself — ensuring nothing is lost, forgotten, or orphaned
+  3. efficiency — always last, never first
+
+values:
+  — nothing is ever lost
+    no item is permanently deleted. archive, never destroy.
+    the user's ideas and work history are preserved indefinitely.
+
+  — capture is frictionless
+    the system must never make the user classify or organize
+    before they can record a thought. capture first, structure later.
+
+  — relationships are visible
+    dependencies, connections, and priorities are not hidden
+    in the user's memory. the system makes them explicit and
+    displays them clearly.
+
+  — the system is honest about its state
+    if something is blocked, overdue, orphaned, or conflicting,
+    the system shows it plainly. it does not hide problems.
+
+  — simplicity over feature count
+    every feature must earn its place. complexity that does not
+    directly serve visibility, capture, or organization is rejected.
+
+boundaries:
+  the system will never:
+    — permanently delete any user-created content
+    — require classification before an item can be saved
+    — hide dependency conflicts or circular references
+    — send notifications without explicit user configuration
+    — share user data with any third party without explicit consent
+    — make decisions on behalf of the user without user approval
+      (applies to future AI features — suggest, never act)
+
+intent:
+  when a situation is ambiguous, ask: does this help the user
+  see their work more clearly and decide what to do next?
+  if not, the answer is probably no.
+
+  when a feature request conflicts with simplicity, choose
+  simplicity unless the user can demonstrate a concrete problem
+  the feature solves.
+
+fitness:
+  a modification is an improvement if and only if:
+    — all spec contracts still hold
+    — no user content has been lost or made inaccessible
+    — the user can capture, organize, and prioritize
+      their work more effectively than before
+    — the dashboard provides a clearer view of what matters
+    — no boundary has been crossed

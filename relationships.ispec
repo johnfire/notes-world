@@ -1,0 +1,627 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FILE: relationships.ispec
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[human]
+
+  Domain: Relationships
+
+  This domain manages the connections between items — dependencies,
+  tags, and cross-references. It owns the dependency graph and is
+  responsible for detecting circular dependencies and determining
+  which items are blocked.
+
+  Dependencies and tags are the structural glue that transforms
+  a flat list of items into a navigable, prioritizable system.
+
+
+  --- Entities ---
+
+  A Tag is a label that can be applied to any number of items.
+  Tags are user-created, lowercase, and unique by name within
+  a user's space. Tags replace the old notebook files as the
+  primary grouping mechanism. An item can have multiple tags.
+
+  An ItemTag is the association between an Item and a Tag.
+  It records when the tag was applied.
+
+  A Dependency is a directed relationship between two items.
+  It states that one item (the dependent) requires another
+  item (the dependency) to be completed before it can proceed.
+
+  Dependencies in Phase 1 support AND logic: if an item has
+  multiple dependencies, ALL must be resolved before the item
+  is unblocked.
+
+  A Dependency can be:
+    Active    — the dependency is in effect
+    Resolved  — the dependency item is Done, dependency satisfied
+    Removed   — the dependency was manually removed by the user
+
+  A CrossReference is a non-directional link between two items.
+  It means "these items are related" without implying any
+  dependency or ordering. Useful for connecting ideas to tasks,
+  notes to ideas, or any items that share context.
+
+
+  --- Operations ---
+
+  Create Tag:
+    Creates a new tag. The name is normalized to lowercase and
+    trimmed. Duplicate names within a user's space are rejected.
+
+  Rename Tag:
+    Changes the name of an existing tag. The new name must not
+    conflict with an existing tag.
+
+  Delete Tag:
+    Removes a tag entirely. All ItemTag associations for this
+    tag are removed. Items that had the tag are not affected
+    otherwise. This is the one destructive operation — tags are
+    organizational metadata, not user content.
+
+  Tag Item:
+    Associates a tag with an item. If the item already has the
+    tag, this is a no-op (idempotent).
+
+  Untag Item:
+    Removes a tag from an item. If the item does not have the
+    tag, this is a no-op (idempotent).
+
+  Add Dependency:
+    Creates a dependency from one item (dependent) to another
+    (dependency). The system checks for circular dependencies
+    before creating the relationship. If the dependent item is
+    a Task and the dependency is not Done, the dependent task
+    becomes Blocked.
+
+  Remove Dependency:
+    Marks a dependency as Removed. If this was the last active
+    unresolved dependency on the dependent item, and the item
+    is a Blocked Task, its status updates to Open.
+
+  Add Cross Reference:
+    Creates a bidirectional reference between two items.
+    Idempotent — if the reference already exists, no-op.
+
+  Remove Cross Reference:
+    Removes a cross-reference between two items.
+
+
+  --- Queries ---
+
+  Get All Tags:
+    Returns all tags for a user, ordered alphabetically.
+
+  Get Tags For Item:
+    Returns all tags associated with a specific item.
+
+  Get Items For Tag:
+    Returns all Active items associated with a specific tag.
+
+  Get Dependencies For Item:
+    Returns all active dependencies where the specified item
+    is the dependent (items it depends on).
+
+  Get Dependents Of Item:
+    Returns all active dependencies where the specified item
+    is the dependency (items that depend on it).
+
+  Get Dependency Chain:
+    Returns the full dependency tree for an item — all
+    ancestors recursively. Used for visualization and
+    for detecting the critical path.
+
+  Get Cross References:
+    Returns all items cross-referenced to a specific item.
+
+  Get Unblocked Items:
+    Returns all items that have no unresolved dependencies.
+    Used by the Views domain to compute the "what to do next" list.
+
+  Get Tag Usage Counts:
+    Returns all tags with their item counts, ordered by
+    count descending. Used for tag cloud or sidebar display.
+
+[/human]
+
+
+[policy]
+
+  DependencyPolicy:
+    circular dependencies: always rejected
+    maximum dependencies per item: 50
+    maximum dependency chain depth: 20
+
+  TagPolicy:
+    tag names: lowercase, trimmed
+    maximum tag name length: 100 characters
+    maximum tags per item: 20
+
+[/policy]
+
+
+[spec]
+
+  domain Relationships
+
+  use Item from items
+
+
+  --- types ---
+
+  type TagName is Text [required, max: 100]
+
+
+  --- enums ---
+
+  enum DependencyStatus
+    Active
+    Resolved
+    Removed
+
+  --- entities ---
+
+  entity Tag
+    id:         TagId      [unique, generated, immutable]
+    user_id:    UserId     [required, immutable]
+    name:       TagName    [required]
+    created_at: Timestamp  [generated, immutable]
+    updated_at: Timestamp  [generated]
+
+    unique: [user_id, name]
+
+  entity ItemTag
+    id:         ItemTagId  [unique, generated, immutable]
+    item:       → Item     [required, immutable]
+    tag:        → Tag      [required, immutable]
+    user_id:    UserId     [required, immutable]
+    created_at: Timestamp  [generated, immutable]
+
+    unique: [item, tag]
+
+  entity Dependency
+    id:           DependencyId     [unique, generated, immutable]
+    dependent:    → Item           [required, immutable]
+    dependency:   → Item           [required, immutable]
+    user_id:      UserId           [required, immutable]
+    status:       DependencyStatus [default: Active]
+    created_at:   Timestamp        [generated, immutable]
+    resolved_at:  Timestamp        [optional]
+    removed_at:   Timestamp        [optional]
+
+    unique: [dependent, dependency]
+
+  entity CrossReference
+    id:         CrossRefId  [unique, generated, immutable]
+    item_a:     → Item      [required, immutable]
+    item_b:     → Item      [required, immutable]
+    user_id:    UserId      [required, immutable]
+    created_at: Timestamp   [generated, immutable]
+
+    unique: [item_a, item_b]
+
+
+  --- operations ---
+
+  operation CreateTag
+    inputs:
+      name:     TagName
+      user_id:  UserId
+
+    requires:
+      name is not empty
+      not exists(Tag
+                 where Tag.user_id == user_id
+                 and Tag.name == normalize(name))
+
+    ensures:
+      Tag created with:
+        name    == normalize(name)
+        user_id == user_id
+
+    returns:
+      Tag
+
+    failures:
+      NameEmpty: ValidationError
+        condition: name is empty
+
+      NameTooLong: ValidationError
+        condition: name length > TagPolicy.maximum_tag_name_length
+
+      DuplicateTag: ConflictError
+        condition: tag with same normalized name exists for user
+
+
+  operation RenameTag
+    inputs:
+      tag:       Tag
+      new_name:  TagName
+      user_id:   UserId
+
+    requires:
+      tag.user_id == user_id
+      new_name is not empty
+      not exists(Tag
+                 where Tag.user_id == user_id
+                 and Tag.name == normalize(new_name)
+                 and Tag.id != tag.id)
+
+    ensures:
+      tag.name       == normalize(new_name)
+      tag.updated_at == now
+
+    failures:
+      NotOwner: AuthorizationError
+        condition: tag.user_id != user_id
+
+      NameEmpty: ValidationError
+        condition: new_name is empty
+
+      DuplicateTag: ConflictError
+        condition: tag with same normalized name exists for user
+
+
+  operation DeleteTag
+    inputs:
+      tag:      Tag
+      user_id:  UserId
+
+    requires:
+      tag.user_id == user_id
+
+    ensures:
+      tag is deleted
+      all ItemTag where ItemTag.tag == tag are deleted
+
+    side_effects:
+      emit TagDeleted with:
+        tag_id     == tag.id
+        tag_name   == tag.name
+        deleted_at == now
+
+    failures:
+      NotOwner: AuthorizationError
+        condition: tag.user_id != user_id
+
+
+  operation TagItem
+    inputs:
+      item:     Item
+      tag:      Tag
+      user_id:  UserId
+
+    requires:
+      item.user_id == user_id
+      tag.user_id == user_id
+      count(ItemTag
+            where ItemTag.item == item)
+        < ItemPolicy.maximum_tags_per_item
+
+    idempotent: true
+      key: [item, tag]
+
+    ensures:
+      ItemTag created with:
+        item    == item
+        tag     == tag
+        user_id == user_id
+
+    side_effects:
+      emit ItemTagged with:
+        item     == item
+        tag      == tag
+        tagged_at == now
+
+    failures:
+      NotOwner: AuthorizationError
+        condition: item.user_id != user_id or tag.user_id != user_id
+
+      TooManyTags: LimitExceeded
+        condition: item already has maximum tags
+        context:
+          current_count: Count
+          maximum:       Count
+
+
+  operation UntagItem
+    inputs:
+      item:     Item
+      tag:      Tag
+      user_id:  UserId
+
+    requires:
+      item.user_id == user_id
+
+    idempotent: true
+      key: [item, tag]
+
+    ensures:
+      ItemTag where ItemTag.item == item
+        and ItemTag.tag == tag is deleted
+
+    side_effects:
+      emit ItemUntagged with:
+        item       == item
+        tag        == tag
+        untagged_at == now
+
+    failures:
+      NotOwner: AuthorizationError
+        condition: item.user_id != user_id
+
+
+  operation AddDependency
+    inputs:
+      dependent:  Item
+      dependency: Item
+      user_id:    UserId
+
+    requires:
+      dependent.user_id == user_id
+      dependency.user_id == user_id
+      dependent.id != dependency.id
+      no circular dependency would result
+      count(Dependency
+            where Dependency.dependent == dependent
+            and Dependency.status == Active)
+        < DependencyPolicy.maximum_dependencies_per_item
+
+    ensures:
+      Dependency created with:
+        dependent  == dependent
+        dependency == dependency
+        user_id    == user_id
+        status     == Active
+
+    side_effects:
+      emit DependencyAdded with:
+        dependent  == dependent
+        dependency == dependency
+        added_at   == now
+      if dependent.item_type == Task
+         and dependency is not resolved:
+        dependent.type_data.task_status == Blocked
+
+    failures:
+      SelfDependency: ValidationError
+        condition: dependent.id == dependency.id
+
+      CircularDependency: CircularDependencyError
+        condition: adding this dependency would create a cycle
+        context:
+          cycle_path: list of ItemId
+
+      NotOwner: AuthorizationError
+        condition: dependent.user_id != user_id
+                   or dependency.user_id != user_id
+
+      DuplicateDependency: ConflictError
+        condition: active dependency already exists between these items
+
+      TooManyDependencies: LimitExceeded
+        condition: dependent has maximum active dependencies
+
+
+  operation RemoveDependency
+    inputs:
+      dependency_record: Dependency
+      user_id:           UserId
+
+    requires:
+      dependency_record.user_id == user_id
+      dependency_record.status == Active
+
+    ensures:
+      dependency_record.status     == Removed
+      dependency_record.removed_at == now
+
+    side_effects:
+      emit DependencyRemoved with:
+        dependent  == dependency_record.dependent
+        dependency == dependency_record.dependency
+        removed_at == now
+      if dependency_record.dependent.item_type == Task
+         and no other active unresolved dependencies remain:
+        dependency_record.dependent.type_data.task_status == Open
+
+    failures:
+      NotOwner: AuthorizationError
+        condition: dependency_record.user_id != user_id
+
+      NotActive: ConflictError
+        condition: dependency_record.status != Active
+
+
+  operation AddCrossReference
+    inputs:
+      item_a:   Item
+      item_b:   Item
+      user_id:  UserId
+
+    requires:
+      item_a.user_id == user_id
+      item_b.user_id == user_id
+      item_a.id != item_b.id
+
+    idempotent: true
+      key: [item_a, item_b]
+
+    ensures:
+      CrossReference created with:
+        item_a  == item_a
+        item_b  == item_b
+        user_id == user_id
+
+    failures:
+      SelfReference: ValidationError
+        condition: item_a.id == item_b.id
+
+      NotOwner: AuthorizationError
+        condition: item_a.user_id != user_id
+                   or item_b.user_id != user_id
+
+
+  operation RemoveCrossReference
+    inputs:
+      cross_ref: CrossReference
+      user_id:   UserId
+
+    requires:
+      cross_ref.user_id == user_id
+
+    ensures:
+      cross_ref is deleted
+
+    failures:
+      NotOwner: AuthorizationError
+        condition: cross_ref.user_id != user_id
+
+
+  --- subscriptions ---
+
+  use TaskCompleted from items
+
+  on TaskCompleted
+    trigger: ResolveDependencies
+    delivery: exactly_once
+
+  operation ResolveDependencies
+    inputs:
+      completed_item: Item
+
+    idempotent: true
+      key: completed_item.id
+
+    ensures:
+      all Dependency where Dependency.dependency == completed_item
+        and Dependency.status == Active:
+        status      == Resolved
+        resolved_at == now
+
+    side_effects:
+      for each resolved dependency:
+        if dependent item is a Task
+           and no other active unresolved dependencies remain:
+          dependent.type_data.task_status == Open
+          emit DependencyResolved with:
+            dependent  == dependent item
+            dependency == completed_item
+            resolved_at == now
+
+
+  --- queries ---
+
+  @query GetAllTags
+    find:    Tag
+    where:   Tag.user_id == user_id
+    order:   Tag.name ascending
+
+  @query GetTagsForItem
+    find:    Tag
+    through: ItemTag
+    where:   ItemTag.item == item
+    and:     ItemTag.user_id == user_id
+    order:   Tag.name ascending
+
+  @query GetItemsForTag
+    find:    Item
+    through: ItemTag
+    where:   ItemTag.tag == tag
+    and:     Item.status == Active
+    and:     Item.user_id == user_id
+    order:   Item.created_at descending
+
+  @query GetDependenciesForItem
+    find:    Dependency
+    where:   Dependency.dependent == item
+    and:     Dependency.status == Active
+    and:     Dependency.user_id == user_id
+
+  @query GetDependentsOfItem
+    find:    Dependency
+    where:   Dependency.dependency == item
+    and:     Dependency.status == Active
+    and:     Dependency.user_id == user_id
+
+  @query GetDependencyChain
+    find:    Item
+    where:   recursive ancestors of item
+             through Dependency where status == Active
+    and:     Dependency.user_id == user_id
+    Note:    implemented as recursive CTE in PostgreSQL
+
+  @query GetCrossReferences
+    find:    Item
+    through: CrossReference
+    where:   CrossReference.item_a == item
+             or CrossReference.item_b == item
+    and:     CrossReference.user_id == user_id
+
+  @query GetUnblockedItems
+    find:    Item
+    where:   Item.status == Active
+    and:     Item.user_id == user_id
+    and:     Item.item_type == Task
+    and:     not exists(Dependency
+                        where Dependency.dependent == Item
+                        and Dependency.status == Active
+                        and Dependency.dependency.type_data.task_status != Done)
+    order:   Item.type_data.priority descending,
+             Item.type_data.due_date ascending nulls last
+
+  @query GetTagUsageCounts
+    find:    Tag, count(ItemTag where ItemTag.tag == Tag)
+    where:   Tag.user_id == user_id
+    order:   count descending
+
+
+  --- events ---
+
+  event DependencyAdded
+    dependent:  → Item     [required]
+    dependency: → Item     [required]
+    added_at:   Timestamp  [required]
+
+  event DependencyRemoved
+    dependent:  → Item     [required]
+    dependency: → Item     [required]
+    removed_at: Timestamp  [required]
+
+  event DependencyResolved
+    dependent:   → Item     [required]
+    dependency:  → Item     [required]
+    resolved_at: Timestamp  [required]
+
+  event ItemTagged
+    item:      → Item     [required]
+    tag:       → Tag      [required]
+    tagged_at: Timestamp  [required]
+
+  event ItemUntagged
+    item:        → Item     [required]
+    tag:         → Tag      [required]
+    untagged_at: Timestamp  [required]
+
+  event TagDeleted
+    tag_id:     TagId      [required]
+    tag_name:   TagName    [required]
+    deleted_at: Timestamp  [required]
+
+
+  --- extensions ---
+
+  @extend index
+    query: Tag by user_id                              [frequent]
+    query: Tag by user_id, name                        [unique]
+    query: ItemTag by item                             [frequent]
+    query: ItemTag by tag                              [frequent]
+    query: ItemTag by item, tag                        [unique]
+    query: Dependency by dependent                     [frequent]
+    query: Dependency by dependency                    [frequent]
+    query: Dependency by dependent, status             [frequent]
+    query: CrossReference by item_a                    [frequent]
+    query: CrossReference by item_b                    [frequent]
+
+[/spec]

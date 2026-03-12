@@ -1,0 +1,58 @@
+[global.policy]
+
+  --- error hierarchy ---
+
+  errors:
+    SystemError
+      DatabaseError       transient, retriable
+      NetworkError        transient, retriable
+      TimeoutError        transient, retriable
+      ServiceUnavailable  transient, retriable
+
+    ClientError
+      ValidationError
+      AuthorizationError
+      NotFoundError
+      ConflictError
+
+    BusinessError
+      PolicyViolation
+      LimitExceeded
+      StateError
+      CircularDependencyError
+
+  --- policies ---
+
+  RetryPolicy:
+    maximum attempts: 3
+    backoff: exponential
+    initial delay: 1 second
+
+  PaginationPolicy:
+    default page size: 50
+    maximum page size: 200
+
+  ItemPolicy:
+    maximum title length: 300 characters
+    maximum body length: 50000 characters
+    maximum tags per item: 20
+
+  TagPolicy:
+    maximum tag name length: 100 characters
+    tag names: lowercase, trimmed, no leading/trailing whitespace
+
+  DependencyPolicy:
+    maximum dependencies per item: 50
+    circular dependencies: always rejected
+    dependency graph maximum depth: 20 levels
+
+  ImportPolicy:
+    maximum file size: 10 MB
+    supported formats: markdown (.md)
+    maximum items per import batch: 500
+
+  ArchivePolicy:
+    archived items are never deleted
+    archived items are excluded from default views
+    archived items remain searchable
+    archived items retain all relationships

@@ -1,0 +1,274 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FILE: import.ispec
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[human]
+
+  Domain: Import
+
+  This domain handles importing content from external markdown files
+  into the Items system. It parses markdown files, identifies discrete
+  items within them, creates Item records, and optionally applies tags
+  based on the source file.
+
+  Import is a batch operation with different error handling
+  characteristics than interactive use. A single failing item
+  in a batch must not prevent the rest from being imported.
+  Every import produces a report showing what was imported,
+  what was skipped, and what failed.
+
+
+  --- Entities ---
+
+  An ImportJob represents a single import operation. It tracks
+  the source file, the number of items found, successfully
+  imported, skipped, and failed, and the completion status.
+
+  An ImportJob can be:
+    Pending     — created but not yet started
+    InProgress  — currently processing
+    Completed   — finished, all items processed
+    Failed      — aborted due to system error
+
+  An ImportRecord tracks each individual item found during
+  parsing. It records the raw text, the created Item (if
+  successful), and any error that occurred.
+
+
+  --- Operations ---
+
+  Create Import Job:
+    Initiates an import from a markdown file. The file is
+    validated (size, format) but not yet parsed.
+
+  Execute Import:
+    Parses the markdown file, identifies individual items,
+    and creates Item records for each. Items are separated
+    by headings (## or ###), horizontal rules (---), or
+    double blank lines. The source filename (without extension)
+    is applied as a tag to all imported items.
+
+    Each item is processed independently. If one fails, the
+    rest continue. The job tracks success and failure counts.
+
+  Get Import Report:
+    Returns the full details of an import job — every item
+    found, whether it was imported or failed, and why.
+
+
+  --- Queries ---
+
+  Get Import Jobs:
+    Returns all import jobs for a user, ordered by creation
+    date descending.
+
+  Get Import Job By Id:
+    Returns a single import job with its records.
+
+[/human]
+
+
+[policy]
+
+  ImportPolicy:
+    maximum file size: 10 MB
+    supported formats: .md
+    maximum items per batch: 500
+    item separator patterns:
+      - heading level 2 or 3 (## or ###)
+      - horizontal rule (--- or ***)
+      - double blank line
+
+[/policy]
+
+
+[spec]
+
+  domain Import
+
+  use Item from items
+  use Tag from relationships
+
+
+  --- enums ---
+
+  enum ImportJobStatus
+    Pending
+    InProgress
+    Completed
+    Failed
+
+  enum ImportRecordStatus
+    Success
+    Skipped
+    Failed
+
+
+  --- entities ---
+
+  entity ImportJob
+    id:              ImportJobId      [unique, generated, immutable]
+    user_id:         UserId           [required, immutable]
+    source_filename: Text             [required, max: 255]
+    source_size:     Count            [required]
+    status:          ImportJobStatus  [default: Pending]
+    items_found:     Count            [default: 0]
+    items_imported:  Count            [default: 0]
+    items_skipped:   Count            [default: 0]
+    items_failed:    Count            [default: 0]
+    auto_tag:        Text             [optional]
+    started_at:      Timestamp        [optional]
+    completed_at:    Timestamp        [optional]
+    error_message:   Text             [optional]
+    created_at:      Timestamp        [generated, immutable]
+    history: transient
+
+  entity ImportRecord
+    id:            ImportRecordId    [unique, generated, immutable]
+    import_job:    → ImportJob       [required, immutable]
+    sequence:      Count             [required]
+    raw_title:     Text              [optional, max: 300]
+    raw_body:      Text              [optional, max: 50000]
+    status:        ImportRecordStatus [required]
+    created_item:  → Item            [optional]
+    error_message: Text              [optional]
+    created_at:    Timestamp         [generated, immutable]
+    history: transient
+
+
+  --- operations ---
+
+  operation CreateImportJob
+    inputs:
+      source_filename: Text
+      source_size:     Count
+      auto_tag:        Text     [optional]
+      user_id:         UserId
+
+    requires:
+      source_size <= ImportPolicy.maximum_file_size
+      source_filename ends with ".md"
+
+    ensures:
+      ImportJob created with:
+        source_filename == source_filename
+        source_size     == source_size
+        auto_tag        == auto_tag or filename_without_extension(source_filename)
+        status          == Pending
+        user_id         == user_id
+
+    returns:
+      ImportJob
+
+    failures:
+      FileTooLarge: LimitExceeded
+        condition: source_size > ImportPolicy.maximum_file_size
+        context:
+          size:    Count
+          maximum: Count
+
+      UnsupportedFormat: ValidationError
+        condition: filename does not end with .md
+
+
+  operation ExecuteImport
+    inputs:
+      import_job:   ImportJob
+      file_content: Text
+      user_id:      UserId
+
+    requires:
+      import_job.status == Pending
+      import_job.user_id == user_id
+
+    ensures:
+      import_job.status     == Completed
+      import_job.started_at == start time
+      import_job.completed_at == now
+      import_job.items_found == count of items parsed
+
+      for each parsed item:
+        ImportRecord created with:
+          import_job == import_job
+          sequence   == position in file
+          raw_title  == extracted title
+          raw_body   == extracted body
+
+        if item creation succeeds:
+          ImportRecord.status       == Success
+          ImportRecord.created_item == created Item
+          import_job.items_imported incremented
+
+        if item is empty or whitespace-only:
+          ImportRecord.status == Skipped
+          import_job.items_skipped incremented
+
+        if item creation fails:
+          ImportRecord.status        == Failed
+          ImportRecord.error_message == error description
+          import_job.items_failed    incremented
+
+      tag created or retrieved for auto_tag name
+      all successfully imported items tagged with auto_tag
+
+    side_effects:
+      emit ImportCompleted with:
+        import_job    == import_job
+        items_imported == import_job.items_imported
+        items_failed   == import_job.items_failed
+        completed_at   == now
+
+    failures:
+      JobNotPending: StateError
+        condition: import_job.status != Pending
+
+      NotOwner: AuthorizationError
+        condition: import_job.user_id != user_id
+
+      TooManyItems: LimitExceeded
+        condition: parsed items > ImportPolicy.maximum_items_per_batch
+        context:
+          found:   Count
+          maximum: Count
+
+    Note: Individual item failures within the batch do NOT
+    cause the operation to fail. They are recorded as Failed
+    ImportRecords. The operation only fails for the conditions
+    listed above.
+
+
+  --- queries ---
+
+  @query GetImportJobs
+    find:    ImportJob
+    where:   ImportJob.user_id == user_id
+    order:   ImportJob.created_at descending
+
+  @query GetImportJobById
+    find:    ImportJob
+    where:   ImportJob.id == id
+    and:     ImportJob.user_id == user_id
+    returns: one
+
+  @query GetImportRecords
+    find:    ImportRecord
+    where:   ImportRecord.import_job == import_job
+    order:   ImportRecord.sequence ascending
+
+
+  --- events ---
+
+  event ImportCompleted
+    import_job:     → ImportJob [required]
+    items_imported: Count       [required]
+    items_failed:   Count       [required]
+    completed_at:   Timestamp   [required]
+
+
+  --- extensions ---
+
+  @extend index
+    query: ImportJob by user_id             [frequent]
+    query: ImportRecord by import_job       [frequent]
+
+[/spec]
