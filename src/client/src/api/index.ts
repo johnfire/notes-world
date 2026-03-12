@@ -141,6 +141,12 @@ export const importApi = {
       body: JSON.stringify({ content }),
     }),
 
+  folder: (files: Array<{ path: string; content: string }>) =>
+    request<ImportJob>('/import/folder', {
+      method: 'POST',
+      body: JSON.stringify({ files }),
+    }),
+
   list: () =>
     request<ImportJob[]>('/import'),
 

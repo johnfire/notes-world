@@ -23,6 +23,13 @@ importRouter.post('/:id/execute', async (req: Request, res: Response, next: Next
   } catch (err) { next(err); }
 });
 
+importRouter.post('/folder', async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const job = await service.importFolder(PHASE1_USER_ID, req.body.files ?? []);
+    res.status(201).json(job);
+  } catch (err) { next(err); }
+});
+
 importRouter.get('/', async (req: Request, res: Response, next: NextFunction) => {
   try {
     const jobs = await service.getImportJobs(PHASE1_USER_ID);

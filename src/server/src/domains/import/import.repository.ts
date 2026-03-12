@@ -5,7 +5,7 @@ export async function insertImportJob(
   userId: UserId,
   sourceFilename: string,
   sourceSize: number,
-  autoTag: string
+  autoTag: string | null
 ): Promise<ImportJob> {
   const { rows } = await getPool().query<ImportJob>(
     `INSERT INTO import_jobs (user_id, source_filename, source_size, status, auto_tag)
