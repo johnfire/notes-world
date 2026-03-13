@@ -26,7 +26,7 @@ export function TagView({ tag }: Props) {
   }
 
   return (
-    <div className="p-4 max-w-2xl">
+    <div className="p-4 max-w-2xl h-full overflow-y-auto">
       <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">
         {tag.name}
         {!loading && <span className="ml-2 text-gray-600 normal-case font-normal">{items.length} items</span>}

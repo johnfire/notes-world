@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { Item, ItemType, IdeaMaturity } from '../types';
 import * as api from '../api';
 import { useApp } from '../context/AppContext';
+import { relativeAge, stalenessColor } from '../utils/time';
 
 type Maturity = IdeaMaturity;
 
@@ -112,6 +113,9 @@ export function IdeasView() {
                     {item.body && (
                       <p className="text-xs text-gray-500 mt-1 line-clamp-2">{item.body}</p>
                     )}
+                    <p className={`text-xs mt-1 ${stalenessColor(item.updated_at)}`}>
+                      {relativeAge(item.updated_at)}
+                    </p>
                   </button>
                   {/* Arrow controls */}
                   <div className="flex gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">

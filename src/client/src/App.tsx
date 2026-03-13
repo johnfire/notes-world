@@ -8,6 +8,7 @@ import { ItemDrawer } from './components/ItemDrawer';
 import { TagView } from './components/TagView';
 import { IdeasView } from './components/IdeasView';
 import { TasksView } from './components/TasksView';
+import { CaptureBar } from './components/CaptureBar';
 import { Tag } from './types';
 
 function DashboardView() {
@@ -42,8 +43,14 @@ function DashboardView() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
-      <ActionBar />
-      <ViewBar currentView={currentView} onViewChange={handleViewChange} />
+      <div className="shrink-0">
+        <ActionBar />
+        <ViewBar currentView={currentView} onViewChange={handleViewChange} />
+        <CaptureBar
+          autoTagId={selectedTag?.id}
+          autoTagName={selectedTag?.name}
+        />
+      </div>
       <div className="flex flex-1 overflow-hidden">
         <Sidebar onTagSelect={setSelectedTag} selectedTagId={selectedTag?.id ?? null} />
         <main className="flex-1 overflow-hidden">

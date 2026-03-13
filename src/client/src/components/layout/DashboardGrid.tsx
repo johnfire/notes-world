@@ -15,7 +15,7 @@ interface DashboardGridProps {
 
 function BlockWrapper({ block }: { block: Block }) {
   switch (block.view_type) {
-    case ViewType.QuickCapture:    return <QuickCapture block={block} />;
+    case ViewType.QuickCapture:    return null;
     case ViewType.RecentItems:     return <RecentItems  block={block} />;
     case ViewType.TagCloud:        return <TagCloud     block={block} />;
     case ViewType.ItemsByTag:      return <ItemsByTag   block={block} />;

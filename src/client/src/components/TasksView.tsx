@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { Item, ItemType, TaskStatus } from '../types';
 import * as api from '../api';
 import { useApp } from '../context/AppContext';
+import { relativeAge, stalenessColor } from '../utils/time';
 
 type TStatus = 'Open' | 'InProgress' | 'Blocked' | 'Done';
 
@@ -124,9 +125,14 @@ export function TasksView() {
                     {item.body && (
                       <p className="text-xs text-gray-500 mt-1 line-clamp-2">{item.body}</p>
                     )}
-                    {td?.priority && td.priority !== 'Normal' && (
-                      <span className="inline-block mt-1 text-xs text-amber-400">{td.priority}</span>
-                    )}
+                    <div className="flex items-center gap-2 mt-1">
+                      {td?.priority && td.priority !== 'Normal' && (
+                        <span className="text-xs text-amber-400">{td.priority}</span>
+                      )}
+                      <span className={`text-xs ${stalenessColor(item.updated_at)}`}>
+                        {relativeAge(item.updated_at)}
+                      </span>
+                    </div>
                   </button>
                   {/* Arrow controls */}
                   <div className="flex gap-1 mt-2 opacity-0 group-hover:opacity-100 transition-opacity">
