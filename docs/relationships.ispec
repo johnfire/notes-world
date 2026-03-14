@@ -22,6 +22,12 @@ FILE: relationships.ispec
   a user's space. Tags replace the old notebook files as the
   primary grouping mechanism. An item can have multiple tags.
 
+  Each tag records how it was created via tag_source:
+    folder    — created from a subfolder name during folder import
+    file      — created from a filename during single-file import
+    semantic  — reserved for future auto-classification
+    manual    — created directly by the user
+
   An ItemTag is the association between an Item and a Tag.
   It records when the tag was applied.
 
@@ -162,10 +168,17 @@ FILE: relationships.ispec
 
   --- entities ---
 
+  enum TagSource
+    folder
+    file
+    semantic
+    manual
+
   entity Tag
     id:         TagId      [unique, generated, immutable]
     user_id:    UserId     [required, immutable]
     name:       TagName    [required]
+    tag_source: TagSource  [required, default: manual]
     created_at: Timestamp  [generated, immutable]
     updated_at: Timestamp  [generated]
 
@@ -206,8 +219,9 @@ FILE: relationships.ispec
 
   operation CreateTag
     inputs:
-      name:     TagName
-      user_id:  UserId
+      name:       TagName
+      user_id:    UserId
+      tag_source: TagSource [default: manual]
 
     requires:
       name is not empty
@@ -217,8 +231,9 @@ FILE: relationships.ispec
 
     ensures:
       Tag created with:
-        name    == normalize(name)
-        user_id == user_id
+        name       == normalize(name)
+        user_id    == user_id
+        tag_source == tag_source
 
     returns:
       Tag
@@ -524,6 +539,16 @@ FILE: relationships.ispec
     where:   ItemTag.item == item
     and:     ItemTag.user_id == user_id
     order:   Tag.name ascending
+
+  @query GetTagsForItems
+    find:    Tag
+    through: ItemTag
+    where:   ItemTag.item in item_ids
+    and:     Tag.user_id == user_id
+    order:   Tag.name ascending
+    returns: map of ItemId → Tag[]
+    note:    batch variant of GetTagsForItem to avoid N+1 queries
+             when rendering item lists in dashboard blocks
 
   @query GetItemsForTag
     find:    Item

@@ -33,8 +33,8 @@ export enum Priority {
 export enum IdeaMaturity {
   Seed       = 'Seed',
   Developing = 'Developing',
-  Mature     = 'Mature',
   Ready      = 'Ready',
+  Parked     = 'Parked',
 }
 
 export interface TaskTypeData {

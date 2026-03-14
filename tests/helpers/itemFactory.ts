@@ -25,6 +25,7 @@ export function makeTag(overrides: Partial<Tag> = {}): Tag {
     id:         id(),
     user_id:    TEST_USER_ID,
     name:       'test-tag',
+    tag_source: 'manual',
     created_at: now(),
     updated_at: now(),
     ...overrides,

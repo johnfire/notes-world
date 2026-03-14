@@ -9,8 +9,8 @@ type Maturity = IdeaMaturity;
 const COLUMNS: { id: Maturity; label: string }[] = [
   { id: IdeaMaturity.Seed,       label: 'Seed'       },
   { id: IdeaMaturity.Developing, label: 'Developing' },
-  { id: IdeaMaturity.Mature,     label: 'Mature'     },
   { id: IdeaMaturity.Ready,      label: 'Ready'      },
+  { id: IdeaMaturity.Parked,     label: 'Parked'     },
 ];
 
 function getMaturity(item: Item): Maturity {
@@ -67,7 +67,7 @@ export function IdeasView() {
   }
 
   const grouped: Record<Maturity, Item[]> = {
-    [IdeaMaturity.Seed]: [], [IdeaMaturity.Developing]: [], [IdeaMaturity.Mature]: [], [IdeaMaturity.Ready]: [],
+    [IdeaMaturity.Seed]: [], [IdeaMaturity.Developing]: [], [IdeaMaturity.Ready]: [], [IdeaMaturity.Parked]: [],
   } as Record<Maturity, Item[]>;
   for (const item of items) grouped[getMaturity(item)].push(item);
 

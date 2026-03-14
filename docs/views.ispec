@@ -12,10 +12,13 @@ FILE: views.ispec
   Relationships to compose what the user sees.
 
   The dashboard is the primary interface. It consists of a top
-  action bar, a collapsible sidebar, and a main area with
-  configurable blocks. Each block displays a specific view of
-  the user's data — actionable tasks, recent items, tag cloud,
-  dependency graph, or any other supported view type.
+  action bar with a persistent CaptureBar, a collapsible sidebar,
+  and a main area with configurable blocks. Each block displays a
+  specific view of the user's data — actionable tasks, recent items,
+  tag cloud, dependency graph, or any other supported view type.
+
+  The CaptureBar is a permanent header element — it is not a
+  dashboard block and does not appear in the block grid.
 
 
   --- Entities ---
@@ -37,9 +40,32 @@ FILE: views.ispec
     BlockedTasks      — tasks waiting on dependencies
     OverdueTasks      — tasks past their due date
     DependencyGraph   — visual graph of dependencies for selected items
-    QuickCapture      — input field for fast item creation
     Notes             — items of type Note, optionally filtered by tag
     Ideas             — items of type Idea, grouped by maturity
+
+  Note: QuickCapture was removed from the block grid. It is now a
+  persistent CaptureBar rendered in the application header. The
+  ViewType.QuickCapture enum value is retained for database
+  backward-compatibility but blocks of this type are filtered
+  out and not rendered.
+
+  The dashboard grid skips empty rows when rendering. If a row
+  contains only filtered-out blocks (e.g. all QuickCapture), that
+  row is omitted entirely so no blank space appears above the
+  visible blocks.
+
+  Blocks fill the full height of the main content area. When there
+  is one row, it fills 100% of the height. Multiple rows share the
+  height equally. Each block scrolls its content internally — the
+  outer page does not scroll on the dashboard view.
+
+  Blocks can be repositioned by drag-and-drop. Dragging one block
+  onto another swaps their positions atomically via ReorderBlocks.
+  The positions are persisted immediately on drop.
+
+  The RecentItems block displays tags alongside each item. Tags are
+  fetched in a single batch call (GET /tags/items/batch?ids=...)
+  after items load, to avoid N+1 queries.
 
   Blocks can be added, removed, repositioned, and reconfigured
   by the user. The layout is saved and restored on each visit.
@@ -97,9 +123,10 @@ FILE: views.ispec
       BlockedTasks
       OverdueTasks
       DependencyGraph
-      QuickCapture
       Notes
       Ideas
+    Note: QuickCapture is retained as a ViewType enum value for
+    backward-compatibility but is not a valid block type for new blocks.
 
 [/policy]
 
@@ -188,44 +215,37 @@ FILE: views.ispec
 
       Block created with:
         dashboard == created Dashboard
-        view_type == QuickCapture
-        title     == "Quick Capture"
-        row       == 0
-        column    == 0
-
-      Block created with:
-        dashboard == created Dashboard
         view_type == ActionableTasks
         title     == "Actionable Tasks"
-        row       == 1
+        row       == 0
         column    == 0
 
       Block created with:
         dashboard == created Dashboard
         view_type == RecentItems
         title     == "Recent Items"
-        row       == 1
+        row       == 0
         column    == 1
 
       Block created with:
         dashboard == created Dashboard
         view_type == TagCloud
         title     == "Tags"
-        row       == 1
+        row       == 0
         column    == 2
 
       Block created with:
         dashboard == created Dashboard
         view_type == OverdueTasks
         title     == "Overdue"
-        row       == 2
+        row       == 1
         column    == 0
 
       Block created with:
         dashboard == created Dashboard
         view_type == BlockedTasks
         title     == "Blocked"
-        row       == 2
+        row       == 1
         column    == 1
 
     returns:

@@ -82,3 +82,22 @@ export async function insertItemTag(itemId: ItemId, tagId: TagId, userId: UserId
 export async function deleteItemTag(itemId: ItemId, tagId: TagId): Promise<void> {
   await query('DELETE FROM item_tags WHERE item_id = $1 AND tag_id = $2', [itemId, tagId]);
 }
+
+export async function findTagsForItems(itemIds: ItemId[], userId: UserId): Promise<Record<string, Tag[]>> {
+  if (itemIds.length === 0) return {};
+  const placeholders = itemIds.map((_, i) => `$${i + 2}`).join(', ');
+  const rows = await query<Tag & { item_id: string }>(
+    `SELECT t.*, it.item_id FROM tags t
+     JOIN item_tags it ON it.tag_id = t.id
+     WHERE it.item_id IN (${placeholders}) AND t.user_id = $1
+     ORDER BY t.name ASC`,
+    [userId, ...itemIds]
+  );
+  const result: Record<string, Tag[]> = {};
+  for (const row of rows) {
+    const { item_id, ...tag } = row;
+    if (!result[item_id]) result[item_id] = [];
+    result[item_id].push(tag as Tag);
+  }
+  return result;
+}

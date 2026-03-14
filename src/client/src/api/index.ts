@@ -103,6 +103,9 @@ export const tags = {
   getTagsForItem: (itemId: string) =>
     request<Tag[]>(`/tags/item/${itemId}`),
 
+  getTagsForItems: (itemIds: string[]) =>
+    request<Record<string, Tag[]>>(`/tags/items/batch?ids=${itemIds.join(',')}`),
+
   tagItem: (itemId: string, tagId: string) =>
     request<void>(`/tags/item/${itemId}/${tagId}`, { method: 'POST' }),
 

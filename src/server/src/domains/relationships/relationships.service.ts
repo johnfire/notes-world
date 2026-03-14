@@ -96,6 +96,10 @@ export async function untagItem(userId: UserId, itemId: ItemId, tagId: TagId): P
   }
 }
 
+export async function getTagsForItems(userId: UserId, itemIds: ItemId[]): Promise<Record<string, Tag[]>> {
+  return repo.findTagsForItems(itemIds, userId);
+}
+
 export async function getItemsForTag(userId: UserId, tagId: TagId, limit = 50, offset = 0) {
   return itemRepo.findByTag(userId, tagId, limit, offset);
 }

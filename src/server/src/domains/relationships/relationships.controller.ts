@@ -53,6 +53,14 @@ export async function getItemsForTag(req: Request, res: Response, next: NextFunc
   } catch (err) { next(err); }
 }
 
+export async function getTagsForItems(req: Request, res: Response, next: NextFunction) {
+  try {
+    const ids = String(req.query.ids ?? '').split(',').map(s => s.trim()).filter(Boolean);
+    const result = await service.getTagsForItems(PHASE1_USER_ID, ids);
+    res.json(result);
+  } catch (err) { next(err); }
+}
+
 export async function tagItem(req: Request, res: Response, next: NextFunction) {
   try {
     await service.tagItem(PHASE1_USER_ID, req.params.itemId, req.params.tagId);

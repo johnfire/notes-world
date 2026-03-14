@@ -51,6 +51,23 @@ FILE: import.ispec
     Each item is processed independently. If one fails, the
     rest continue. The job tracks success and failure counts.
 
+  Import Folder:
+    Imports a collection of markdown files supplied as a flat
+    list of (path, content) pairs. Each file becomes one item.
+    The item title is extracted from the first `# heading` in
+    the file; if none exists, the filename (without extension)
+    is used as the title.
+
+    Tags are derived from the path structure: subfolder names
+    between the root folder and the filename become tags
+    (tag_source = folder). The root folder name and filename
+    are excluded. Tags are created if they do not exist.
+
+    A single ImportJob is created for the entire folder operation
+    with source_filename = "folder-import" and auto_tag = null.
+    Each file maps to one ImportRecord. File-level failures do not
+    abort the job.
+
   Get Import Report:
     Returns the full details of an import job — every item
     found, whether it was imported or failed, and why.
@@ -74,10 +91,14 @@ FILE: import.ispec
     maximum file size: 10 MB
     supported formats: .md
     maximum items per batch: 500
-    item separator patterns:
+    item separator patterns (single-file import):
       - heading level 2 or 3 (## or ###)
       - horizontal rule (--- or ***)
       - double blank line
+    folder import: one item per file
+      title: first "# heading" or filename without extension
+      tags:  subfolder names in path (excluding root and filename)
+             tag_source = folder
 
 [/policy]
 
@@ -235,6 +256,65 @@ FILE: import.ispec
     cause the operation to fail. They are recorded as Failed
     ImportRecords. The operation only fails for the conditions
     listed above.
+
+
+  operation ImportFolder
+    inputs:
+      files:    list of (path: Text, content: Text)
+      user_id:  UserId
+
+    requires:
+      files is not empty
+      at least one file ends with ".md"
+      count(files where file ends with ".md")
+        <= ImportPolicy.maximum_items_per_batch
+
+    ensures:
+      ImportJob created with:
+        source_filename == "folder-import"
+        source_size     == sum of content lengths
+        auto_tag        == null
+        status          == Completed
+        user_id         == user_id
+
+      for each .md file in files:
+        title extracted from first "# heading" if present,
+          else from filename_without_extension(file.path)
+        body is remaining content after the heading
+
+        tags extracted from path subfolder segments:
+          path.split('/')[1..-2]  (exclude root and filename)
+          each segment normalized and created as Tag if needed
+            with tag_source == folder
+
+        if title is empty:
+          ImportRecord.status == Skipped
+        else if item creation succeeds:
+          Item created with title and body
+          all extracted tags applied to item
+          ImportRecord.status == Success
+        else:
+          ImportRecord.status == Failed
+
+    side_effects:
+      emit ImportCompleted with:
+        import_job     == created ImportJob
+        items_imported == count of Success records
+        items_failed   == count of Failed records
+        completed_at   == now
+
+    failures:
+      NoFiles: ValidationError
+        condition: no files provided
+
+      NoMarkdownFiles: ValidationError
+        condition: no .md files in selection
+
+      TooManyFiles: LimitExceeded
+        condition: .md file count > ImportPolicy.maximum_items_per_batch
+        context:
+          found:   Count
+          maximum: Count
 
 
   --- queries ---
