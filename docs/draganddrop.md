@@ -1,5 +1,7 @@
 # Drag and Drop — Implementation Reference
 
+Updated: 2026-03-15
+
 ## Overview
 
 Drag-and-drop reordering is implemented via `useSortableList` (hook) and `SortableList` (component wrapper). Items are persisted to `sort_orders` in the database via the `/api/sort-orders` endpoint.
@@ -12,7 +14,7 @@ Drag-and-drop reordering is implemented via `useSortableList` (hook) and `Sortab
 |---|---|
 | `src/client/src/hooks/useSortableList.ts` | Core drag-drop logic, sort order fetch/save |
 | `src/client/src/components/SortableList.tsx` | Generic wrapper that renders a list with grip handles |
-| `src/client/src/components/TagView.tsx` | Consumer — 3-col grid with items + dividers |
+| `src/client/src/components/TagView.tsx` | Consumer — single-column layout with items + dividers |
 | `src/client/src/api/index.ts` | `api.sortOrders.get(contextKey)` and `api.sortOrders.save(contextKey, ids)` |
 
 ---
@@ -27,52 +29,40 @@ Stores **only ordered IDs** (not full objects). Item data is always looked up fr
 - `orderedIds: string[]` — the authoritative render order
 - `dragId` — ID of item currently being dragged
 - `dragOverId` — ID of item being hovered over as drop target
+- `loaded` — flag to prevent items-sync effect from running before initial fetch
 
 **Refs (not state — don't trigger re-renders):**
-- `dragIdRef` — same as dragId but readable inside event handlers
-- `isDragging` — true from dragstart to dragend; blocks the sort effect from overwriting orderedIds
-- `dropFiredRef` — reset on dragstart, set true on first drop; guards against duplicate drop events
-- `lastDropTime` — timestamp of most recent drop; used to reject stale server fetches
+- `dragIdRef` — same as dragId but readable inside event handlers without stale closures
 - `instanceKey` — unique ID per hook instance (e.g. `sortable-1`); written to `dataTransfer` to reject cross-list drops
+
+### Design: single fetch, local authority
+
+The hook fetches saved sort order **once per contextKey** on mount. After that, the local `orderedIds` state is the single source of truth. There is no sort effect that re-fetches — this eliminates the race conditions that plagued earlier versions.
+
+When the `items` prop changes (item added, deleted, refreshed), a sync effect patches `orderedIds`:
+- Removes IDs no longer in items
+- Appends new IDs at the end
+- No server round trip needed
 
 ### Instance Key (cross-list drop rejection)
 
-Multiple `SortableList` instances exist on the page simultaneously (TagView + sidebar). Each instance writes its own `instanceKey` to `dataTransfer` under the key `application/x-sortable-source`. On drop, if the source instance key doesn't match, the drop is silently ignored.
-
-This prevents a drop in TagView from also firing on the sidebar list.
-
-### Sort Effect
-
-Runs when `itemsKey` (sorted IDs) or `contextKey` changes. Fetches saved sort order from server and re-orders `orderedIds` accordingly.
-
-Guards:
-1. `isDragging.current` — skip if mid-drag
-2. `cancelled` (closure) — skip if component unmounted or deps changed before fetch resolved
-3. `lastDropTime.current > effectStartTime` — skip if a drop happened after this fetch started
+Multiple `SortableList` instances exist on the page simultaneously (TagView + 3 sidebar sections). Each instance writes its own `instanceKey` to `dataTransfer` under the key `application/x-sortable-source`. On drop, if the source instance key doesn't match, the drop is silently ignored.
 
 ### Drop Logic
 
-`handleDrop` reads `fromId` from `dataTransfer` (falls back to `dragIdRef`). It uses `setOrderedIds(prev => ...)` functional update so it always operates on the latest state. After reordering, calls `saveOrder` (debounced 100ms).
+`handleDrop` reads `fromId` from `dataTransfer` (falls back to `dragIdRef`). It uses `setOrderedIds(prev => ...)` functional update so it always operates on the latest state. After reordering, fires a **synchronous, non-debounced save** — fire-and-forget PUT to the server.
 
-The `dragend` event fires on the source element **before** `drop` fires on the target — this is normal browser behavior. `isDragging` is cleared in `dragend`, which means the sort effect's stale-check guard relies on `lastDropTime` rather than `isDragging`.
+### Save: immediate, no debounce
+
+Earlier versions used a 100ms debounce which created race windows. Now saves are immediate fire-and-forget. A single PUT per drop is cheap and eliminates timing issues.
 
 ---
 
-## Known Bugs / Remaining Issues
+## Layout
 
-### Phantom coupling between items (partial — ~65% fixed as of 2026-03-15)
+TagView currently uses **single-column layout** (`flex flex-col gap-2`). Earlier versions used a 3-column CSS grid, but grid reflow when items shift position causes visual confusion — items appear to "jump" between columns even though the logical order is correct. Single-column eliminates this.
 
-**Symptom:** Dragging one item sometimes causes a second item to also move.
-
-**Root cause (identified):** The sort effect fires after `dragend` clears `isDragging`, and if the debounced `saveOrder` hasn't completed yet, the server fetch returns old data and overwrites `orderedIds`. The `lastDropTime` guard mitigates this but has a race: if the save debounce (100ms) + network round trip completes and a new `itemsKey` change triggers the effect within that window, the guard won't fire.
-
-**Secondary cause (fixed):** Two `useSortableList` instances (TagView + sidebar) both had `onDrop` handlers receiving the same `dragend`/`drop` events. Fixed by instance key check.
-
-**What still happens:** Occasionally, especially with rapid successive drags, the sort effect fires between two drag gestures and resets `orderedIds` to a server state that doesn't reflect the first drop yet (if the debounced save is still pending).
-
-### Potential fix direction
-
-Replace the debounce-then-fetch loop with a server-first approach: save immediately on drop (no debounce), then in the sort effect, check a version counter rather than a timestamp. Or: suppress the sort effect entirely while there's a pending save inflight.
+If 3-column is desired in the future, animated transitions (e.g. framer-motion layout animations) would make the reflow intuitive.
 
 ---
 
@@ -89,9 +79,9 @@ Replace the debounce-then-fetch loop with a server-first approach: save immediat
 
 ## Sort Order Persistence
 
-Context key format: `tag:<uuid>` (one per tag view).
+Context key format: `tag:<uuid>` (one per tag view), `tags:folder`, `tags:file`, `tags:other` (sidebar sections).
 
-Sort orders are saved as integer positions (0-indexed) per item ID. On load, items not in the sort order are appended at the end sorted by title. Dividers (item_type = 'Divider') are stored as items with the same sort order mechanism — no special handling needed.
+Sort orders are saved as integer positions (0-indexed) per item ID. On load, items not in the sort order are appended at the end. Dividers (item_type = 'Divider') are stored as items with the same sort order mechanism — no special handling needed.
 
 The `item_sort_orders.item_id` column is `TEXT` (not UUID) so it can store arbitrary string IDs if needed in future.
 
@@ -99,6 +89,21 @@ The `item_sort_orders.item_id` column is `TEXT` (not UUID) so it can store arbit
 
 ## Dividers
 
-Dividers are items with `item_type = 'Divider'`. Their `title` is the label (empty string = no label). They appear inline in the TagView grid (same cell size as regular items) and can be dragged to any position.
+Dividers are items with `item_type = 'Divider'`. Their `title` is the label (empty string = no label). They appear inline in the TagView list (same width as regular items) and can be dragged to any position.
 
 `DividerRow` is an isolated component with its own edit state so label edits don't cause the parent list to re-render and interfere with drag state.
+
+---
+
+## Debugging
+
+Console logs are currently present in `useSortableList.ts` for `[drop]` and `[sync effect]` events. These were left intentionally for ongoing debugging. Remove when drag-and-drop is stable.
+
+---
+
+## History of bugs and fixes
+
+1. **Cross-list event leakage** — drops in TagView also fired on sidebar lists. Fixed by instance key in `dataTransfer`.
+2. **Sort effect overwriting drop results** — the sort effect re-fetched from server after every `itemsKey` change, racing with the debounced save. Fixed by eliminating the re-fetch pattern entirely — load once, then local state is authoritative.
+3. **`dragend` firing before `drop`** — browser fires `dragend` on the source element before `drop` fires on the target. Earlier code cleared `isDragging` in `dragend`, unblocking the sort effect prematurely. No longer relevant since the sort effect was removed.
+4. **3-column grid reflow confusion** — moving an item in a 3-col grid shifts all items between old and new positions by one cell, causing column jumps. Fixed by switching to single-column layout.
