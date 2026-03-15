@@ -28,7 +28,7 @@ export async function insert(
 export async function update(
   id: ItemId,
   userId: UserId,
-  fields: { title?: string; body?: string; type_data?: unknown; item_type?: string; status?: string }
+  fields: { title?: string; body?: string; type_data?: unknown; item_type?: string; status?: string; archived_at?: string | null }
 ): Promise<Item | null> {
   const sets: string[] = ['updated_at = NOW()'];
   const params: unknown[] = [];
@@ -38,7 +38,8 @@ export async function update(
   if (fields.body      !== undefined) { sets.push(`body = $${i++}`);      params.push(fields.body); }
   if (fields.type_data !== undefined) { sets.push(`type_data = $${i++}`); params.push(JSON.stringify(fields.type_data)); }
   if (fields.item_type !== undefined) { sets.push(`item_type = $${i++}`); params.push(fields.item_type); }
-  if (fields.status    !== undefined) { sets.push(`status = $${i++}`);    params.push(fields.status); }
+  if (fields.status      !== undefined) { sets.push(`status = $${i++}`);      params.push(fields.status); }
+  if (fields.archived_at !== undefined) { sets.push(`archived_at = $${i++}`); params.push(fields.archived_at); }
 
   params.push(id, userId);
 
@@ -137,6 +138,41 @@ export async function findByEntryType(
      LIMIT $4 OFFSET $5`,
     [userId, entryType, ItemStatus.Active, limit, offset]
   );
+}
+
+export async function findArchived(
+  userId: UserId,
+  limit = 50,
+  offset = 0
+): Promise<Item[]> {
+  return query<Item>(
+    `SELECT * FROM items
+     WHERE user_id = $1 AND status = 'Archived' AND item_type != $2
+     ORDER BY archived_at DESC NULLS LAST
+     LIMIT $3 OFFSET $4`,
+    [userId, ItemType.Divider, limit, offset]
+  );
+}
+
+export async function purgeExpired(userId: UserId, days = 30): Promise<number> {
+  const rows = await query<{ id: string }>(
+    `DELETE FROM items
+     WHERE user_id = $1
+       AND status = 'Archived'
+       AND archived_at IS NOT NULL
+       AND archived_at < NOW() - INTERVAL '1 day' * $2
+     RETURNING id`,
+    [userId, days]
+  );
+  return rows.length;
+}
+
+export async function hardDelete(id: ItemId, userId: UserId): Promise<boolean> {
+  const rows = await query<{ id: string }>(
+    `DELETE FROM items WHERE id = $1 AND user_id = $2 AND status = 'Archived' RETURNING id`,
+    [id, userId]
+  );
+  return rows.length > 0;
 }
 
 export { withTransaction };

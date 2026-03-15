@@ -93,9 +93,10 @@ export async function archiveItem(userId: UserId, id: ItemId): Promise<Item> {
   if (item.user_id !== userId) throw new AuthorizationError('Not owner');
   if (item.status === 'Archived') throw new ConflictError('Item is already archived');
 
-  const updated = await repo.update(id, userId, { status: 'Archived' });
+  const now = new Date().toISOString();
+  const updated = await repo.update(id, userId, { status: 'Archived', archived_at: now });
   if (!updated) throw new NotFoundError('Item', id);
-  eventBus.emit('ItemArchived', { item: updated, archived_at: updated.updated_at });
+  eventBus.emit('ItemArchived', { item: updated, archived_at: now });
   return updated;
 }
 
@@ -105,7 +106,7 @@ export async function restoreItem(userId: UserId, id: ItemId): Promise<Item> {
   if (item.user_id !== userId) throw new AuthorizationError('Not owner');
   if (item.status !== 'Archived') throw new ConflictError('Item is not archived');
 
-  const updated = await repo.update(id, userId, { status: 'Active' });
+  const updated = await repo.update(id, userId, { status: 'Active', archived_at: null });
   if (!updated) throw new NotFoundError('Item', id);
   eventBus.emit('ItemRestored', { item: updated, restored_at: updated.updated_at });
   return updated;
@@ -206,6 +207,23 @@ export async function blockTask(userId: UserId, itemId: ItemId): Promise<Item> {
 
   eventBus.emit('TaskBlocked', { item: updated, blocked_at: updated.updated_at });
   return updated;
+}
+
+export async function getTrash(userId: UserId, limit = 50, offset = 0): Promise<Item[]> {
+  return repo.findArchived(userId, limit, offset);
+}
+
+export async function purgeItem(userId: UserId, id: ItemId): Promise<void> {
+  const item = await repo.findById(id, userId);
+  if (!item) throw new NotFoundError('Item', id);
+  if (item.user_id !== userId) throw new AuthorizationError('Not owner');
+  if (item.status !== 'Archived') throw new StateError('Can only purge archived items');
+  const deleted = await repo.hardDelete(id, userId);
+  if (!deleted) throw new NotFoundError('Item', id);
+}
+
+export async function purgeExpired(userId: UserId, days = 30): Promise<number> {
+  return repo.purgeExpired(userId, days);
 }
 
 export async function createDivider(userId: UserId): Promise<Item> {

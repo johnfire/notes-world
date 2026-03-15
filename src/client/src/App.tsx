@@ -9,12 +9,14 @@ import { TagView } from './components/TagView';
 import { IdeasView } from './components/IdeasView';
 import { TasksView } from './components/TasksView';
 import { CaptureBar } from './components/CaptureBar';
+import { TrashView } from './components/TrashView';
 import { Tag } from './types';
 
 function DashboardView() {
   const { state, loadDashboard, loadTags } = useApp();
   const [selectedTag, setSelectedTag]   = useState<Tag | null>(null);
   const [currentView, setCurrentView]   = useState<AppView>('dashboard');
+  const [showTrash,   setShowTrash]     = useState(false);
 
   useEffect(() => {
     Promise.all([loadDashboard(), loadTags()]);
@@ -22,13 +24,25 @@ function DashboardView() {
 
   function handleViewChange(view: AppView) {
     setCurrentView(view);
+    setShowTrash(false);
     if (view !== 'dashboard') setSelectedTag(null);
+  }
+
+  function handleTagSelect(tag: Tag | null) {
+    setSelectedTag(tag);
+    setShowTrash(false);
+  }
+
+  function handleTrashSelect() {
+    setShowTrash(true);
+    setSelectedTag(null);
   }
 
   function renderMain() {
     if (currentView === 'ideas') return <IdeasView />;
     if (currentView === 'tasks') return <TasksView />;
     if (state.searchResults !== null) return <SearchResults />;
+    if (showTrash) return <TrashView />;
     if (selectedTag) return <TagView tag={selectedTag} />;
     if (state.dashboard) return <DashboardGrid blocks={state.blocks} columns={state.dashboard.columns} />;
     return (
@@ -52,7 +66,7 @@ function DashboardView() {
         />
       </div>
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar onTagSelect={setSelectedTag} selectedTagId={selectedTag?.id ?? null} />
+        <Sidebar onTagSelect={handleTagSelect} selectedTagId={selectedTag?.id ?? null} onTrashSelect={handleTrashSelect} showTrash={showTrash} />
         <main className="flex-1 overflow-hidden">
           {renderMain()}
         </main>

@@ -24,8 +24,6 @@ interface UseSortableListResult<T extends HasId> {
   dragId:     string | null;
 }
 
-// Each list instance gets a unique drag-source key so drops from one list
-// are not mistakenly handled by another list on the same page.
 let instanceCounter = 0;
 
 export function useSortableList<T extends HasId>(
@@ -33,86 +31,87 @@ export function useSortableList<T extends HasId>(
   contextKey: string | null,
   extraDragData?: (item: T) => ExtraDragData[]
 ): UseSortableListResult<T> {
-  // Store only the ordered IDs — item data is always looked up fresh from items prop.
-  // This means data changes (label edits) never interfere with drag order.
-  const [orderedIds, setOrderedIds] = useState<string[]>(items.map(i => i.id));
+  const [orderedIds, setOrderedIds] = useState<string[]>([]);
   const [dragId,     setDragId]     = useState<string | null>(null);
   const [dragOverId, setDragOverId] = useState<string | null>(null);
+  const [loaded,     setLoaded]     = useState(false);
 
-  const dragIdRef      = useRef<string | null>(null);
-  const saveTimer      = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isDragging     = useRef(false);
-  const dropFiredRef   = useRef(false);
-  const lastDropTime   = useRef<number>(0);
-  // Unique key for this list instance — written to dataTransfer so we can
-  // reject drops that originated from a different list.
-  const instanceKey    = useRef(`sortable-${++instanceCounter}`);
-  const dragTypeKey    = `application/x-sortable-source`;
+  const dragIdRef   = useRef<string | null>(null);
+  const instanceKey = useRef(`sortable-${++instanceCounter}`);
+  const dragTypeKey = 'application/x-sortable-source';
 
-  // Stable key: sorted IDs — only changes when items are added/removed
-  const itemsKey = items.map(i => i.id).slice().sort().join(',');
-
+  // ── Load sort order once per contextKey ──────────────────────────────────
   useEffect(() => {
-    console.log('[sort effect] fired, isDragging=', isDragging.current, 'itemsKey=', itemsKey);
-    if (isDragging.current) return;
-
+    setLoaded(false);
     if (!contextKey || items.length === 0) {
       setOrderedIds(items.map(i => i.id));
+      setLoaded(true);
       return;
     }
 
     let cancelled = false;
-    const effectStartTime = Date.now();
     api.sortOrders.get(contextKey).then(rows => {
-      // Skip if cancelled, currently dragging, or a drop happened after this
-      // effect started (meaning the server data we fetched is already stale).
-      if (cancelled || isDragging.current || lastDropTime.current > effectStartTime) {
-        console.log('[sort effect] skipping setOrderedIds — cancelled/dragging/stale');
-        return;
-      }
+      if (cancelled) return;
       const allIds = items.map(i => i.id);
-      console.log('[sort effect] got rows', rows.length, 'allIds', allIds);
       if (rows.length === 0) {
         setOrderedIds(allIds);
-        return;
+      } else {
+        const orderMap = new Map(rows.map(r => [r.item_id, r.sort_order]));
+        const sorted = [...allIds].sort((a, b) => {
+          const oa = orderMap.has(a) ? orderMap.get(a)! : Infinity;
+          const ob = orderMap.has(b) ? orderMap.get(b)! : Infinity;
+          return oa - ob;
+        });
+        setOrderedIds(sorted);
       }
-      const orderMap = new Map(rows.map(r => [r.item_id, r.sort_order]));
-      const sorted = [...allIds].sort((a, b) => {
-        const oa = orderMap.has(a) ? orderMap.get(a)! : Infinity;
-        const ob = orderMap.has(b) ? orderMap.get(b)! : Infinity;
-        return oa - ob;
-      });
-      console.log('[sort effect] sorted result', sorted);
-      setOrderedIds(sorted);
+      setLoaded(true);
     }).catch(() => {
-      if (!cancelled && !isDragging.current) setOrderedIds(items.map(i => i.id));
+      if (!cancelled) {
+        setOrderedIds(items.map(i => i.id));
+        setLoaded(true);
+      }
     });
 
     return () => { cancelled = true; };
+  // Only re-fetch when the context itself changes, not when items change.
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemsKey, contextKey]);
-
-  // Derive ordered items by looking up each ID in the current items prop.
-  // Any IDs not found (stale) are dropped; any new IDs not yet in orderedIds
-  // are appended at the end.
-  const itemMap = new Map(items.map(i => [i.id, i]));
-  const knownIds = new Set(orderedIds);
-  const newIds = items.map(i => i.id).filter(id => !knownIds.has(id));
-  const allOrderedIds = newIds.length > 0 ? [...orderedIds, ...newIds] : orderedIds;
-  const orderedItems = allOrderedIds.map(id => itemMap.get(id)).filter((i): i is T => i !== undefined);
-
-  const saveOrder = useCallback((newIds: string[]) => {
-    if (!contextKey) return;
-    if (saveTimer.current) clearTimeout(saveTimer.current);
-    saveTimer.current = setTimeout(() => {
-      api.sortOrders.save(contextKey, newIds).catch(console.error);
-    }, 100);
   }, [contextKey]);
 
+  // ── Sync orderedIds when items are added or removed ──────────────────────
+  // No server fetch — just patch the local list.
+  useEffect(() => {
+    if (!loaded) return;
+    setOrderedIds(prev => {
+      const currentSet = new Set(items.map(i => i.id));
+      const prevSet    = new Set(prev);
+
+      // Remove IDs no longer in items
+      const kept = prev.filter(id => currentSet.has(id));
+      // Append new IDs at the end
+      const added = items.map(i => i.id).filter(id => !prevSet.has(id));
+
+      if (added.length === 0 && kept.length === prev.length) return prev;
+      const result = [...kept, ...added];
+      console.log('[sync effect] items changed — removed', prev.length - kept.length, 'added', added.length, 'result', result);
+      return result;
+    });
+  }, [items, loaded]);
+
+  // ── Derive ordered items from orderedIds + items ─────────────────────────
+  const itemMap = new Map(items.map(i => [i.id, i]));
+  const orderedItems = orderedIds
+    .map(id => itemMap.get(id))
+    .filter((i): i is T => i !== undefined);
+
+  // ── Save: fire-and-forget, no debounce ───────────────────────────────────
+  const saveOrder = useCallback((ids: string[]) => {
+    if (!contextKey) return;
+    api.sortOrders.save(contextKey, ids).catch(console.error);
+  }, [contextKey]);
+
+  // ── Drag handlers ────────────────────────────────────────────────────────
   function handleDragStart(e: React.DragEvent, item: T) {
     e.stopPropagation();
-    isDragging.current = true;
-    dropFiredRef.current = false;
     dragIdRef.current = item.id;
     setDragId(item.id);
     e.dataTransfer.effectAllowed = 'move';
@@ -126,8 +125,6 @@ export function useSortableList<T extends HasId>(
   }
 
   function handleDragEnd(_e: React.DragEvent) {
-    console.log('[dragend] fired');
-    isDragging.current = false;
     dragIdRef.current = null;
     setDragId(null);
     setDragOverId(null);
@@ -154,27 +151,23 @@ export function useSortableList<T extends HasId>(
     e.preventDefault();
     e.stopPropagation();
     setDragOverId(null);
-    // Reject drops that originated from a different list instance
+
+    // Reject drops from a different list instance
     const sourceInstance = e.dataTransfer.getData(dragTypeKey);
     if (sourceInstance && sourceInstance !== instanceKey.current) {
-      console.log('[drop] IGNORED — from different list instance', sourceInstance);
+      console.log('[drop] REJECTED cross-list', sourceInstance, '!==', instanceKey.current);
       return;
     }
-    if (dropFiredRef.current) {
-      console.log('[drop] IGNORED duplicate drop on', targetId);
-      return;
-    }
-    dropFiredRef.current = true;
+
     const fromId = e.dataTransfer.getData('text/plain') || dragIdRef.current;
-    console.log('[drop] from', fromId, '-> onto', targetId);
+    console.log('[drop] from', fromId, '-> onto', targetId, 'instance', instanceKey.current);
     if (!fromId || fromId === targetId) return;
 
-    lastDropTime.current = Date.now();
     setOrderedIds(prev => {
       const next = [...prev];
       const fromIdx = next.indexOf(fromId);
       const toIdx   = next.indexOf(targetId);
-      console.log('[drop] reorder: fromIdx', fromIdx, 'toIdx', toIdx, 'ids', next);
+      console.log('[drop] reorder fromIdx', fromIdx, 'toIdx', toIdx);
       if (fromIdx === -1 || toIdx === -1) return prev;
       next.splice(fromIdx, 1);
       next.splice(toIdx, 0, fromId);

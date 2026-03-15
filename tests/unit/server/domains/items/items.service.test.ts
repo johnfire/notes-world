@@ -258,7 +258,7 @@ describe('archiveItem', () => {
 
     await service.archiveItem(TEST_USER_ID, item.id);
 
-    expect(mockRepo.update).toHaveBeenCalledWith(item.id, TEST_USER_ID, { status: 'Archived' });
+    expect(mockRepo.update).toHaveBeenCalledWith(item.id, TEST_USER_ID, { status: 'Archived', archived_at: expect.any(String) });
     expect(mockBus).toHaveBeenCalledWith('ItemArchived', expect.objectContaining({ item: updated }));
   });
 
@@ -295,7 +295,7 @@ describe('restoreItem', () => {
 
     await service.restoreItem(TEST_USER_ID, item.id);
 
-    expect(mockRepo.update).toHaveBeenCalledWith(item.id, TEST_USER_ID, { status: 'Active' });
+    expect(mockRepo.update).toHaveBeenCalledWith(item.id, TEST_USER_ID, { status: 'Active', archived_at: null });
     expect(mockBus).toHaveBeenCalledWith('ItemRestored', expect.objectContaining({ item: updated }));
   });
 

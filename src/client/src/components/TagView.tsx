@@ -122,6 +122,11 @@ export function TagView({ tag }: Props) {
     setItems(prev => prev.filter(i => i.id !== id));
   }
 
+  async function handleArchiveItem(id: string) {
+    await api.items.archive(id);
+    setItems(prev => prev.filter(i => i.id !== id));
+  }
+
   const itemCount = items.filter(i => i.item_type !== ItemType.Divider).length;
 
   return (
@@ -151,7 +156,7 @@ export function TagView({ tag }: Props) {
             { type: 'application/x-item-id',    value: item.id },
             { type: 'application/x-from-tag-id', value: tag.id },
           ] : []}
-          className="grid grid-cols-3 gap-2"
+          className="flex flex-col gap-2"
           renderItem={(item, dragHandle) => {
             if (item.item_type === ItemType.Divider) {
               return (
@@ -164,7 +169,7 @@ export function TagView({ tag }: Props) {
               );
             }
             return (
-              <div className="card hover:border-surface-400 hover:bg-surface-600 transition-colors py-2 px-3 flex items-center gap-2">
+              <div className="card hover:border-surface-400 hover:bg-surface-600 transition-colors py-2 px-3 flex items-center gap-2 group">
                 {dragHandle}
                 <button
                   onClick={() => openItem(item.id)}
@@ -174,6 +179,13 @@ export function TagView({ tag }: Props) {
                   {item.body && (
                     <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{item.body}</p>
                   )}
+                </button>
+                <button
+                  onClick={() => handleArchiveItem(item.id)}
+                  className="text-gray-700 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 shrink-0 text-xs"
+                  title="Move to trash"
+                >
+                  ✕
                 </button>
               </div>
             );

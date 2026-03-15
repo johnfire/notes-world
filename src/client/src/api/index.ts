@@ -61,6 +61,15 @@ export const items = {
 
   createDivider: () =>
     request<Item>('/items/divider', { method: 'POST' }),
+
+  trash: (limit = 50, offset = 0) =>
+    request<Item[]>(`/items/trash?limit=${limit}&offset=${offset}`),
+
+  purge: (id: string) =>
+    request<void>(`/items/${id}/purge`, { method: 'POST' }),
+
+  purgeExpired: () =>
+    request<{ purged: number }>('/items/purge-expired', { method: 'POST' }),
 };
 
 // ── Dependencies ─────────────────────────────────────────────────────────────

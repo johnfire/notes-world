@@ -114,6 +114,29 @@ export async function getByEntryType(req: Request, res: Response, next: NextFunc
   } catch (err) { next(err); }
 }
 
+export async function getTrash(req: Request, res: Response, next: NextFunction) {
+  try {
+    const limit  = Number(req.query.limit  ?? 50);
+    const offset = Number(req.query.offset ?? 0);
+    const items  = await service.getTrash(PHASE1_USER_ID, limit, offset);
+    res.json(items);
+  } catch (err) { next(err); }
+}
+
+export async function purgeItem(req: Request, res: Response, next: NextFunction) {
+  try {
+    await service.purgeItem(PHASE1_USER_ID, req.params.id);
+    res.status(204).send();
+  } catch (err) { next(err); }
+}
+
+export async function purgeExpired(_req: Request, res: Response, next: NextFunction) {
+  try {
+    const count = await service.purgeExpired(PHASE1_USER_ID);
+    res.json({ purged: count });
+  } catch (err) { next(err); }
+}
+
 export async function createDivider(req: Request, res: Response, next: NextFunction) {
   try {
     const item = await service.createDivider(PHASE1_USER_ID);
