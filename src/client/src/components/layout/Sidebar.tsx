@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useRef, useMemo } from 'react'; // useRef used in SortableTagRow
 import { useApp } from '../../context/AppContext';
 import { Tag } from '../../types';
 import * as api from '../../api';
+import { useSortableList } from '../../hooks/useSortableList';
 
 interface SidebarProps {
   onTagSelect: (tag: Tag | null) => void;
@@ -13,7 +14,15 @@ export function Sidebar({ onTagSelect, selectedTagId }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [dropTargetId, setDropTargetId] = useState<string | null>(null);
 
-  async function handleDrop(e: React.DragEvent, toTag: Tag) {
+  const folderTags = useMemo(() => state.tags.filter(t => t.tag_source === 'folder'), [state.tags]);
+  const fileTags   = useMemo(() => state.tags.filter(t => t.tag_source === 'file'),   [state.tags]);
+  const otherTags  = useMemo(() => state.tags.filter(t => t.tag_source !== 'folder' && t.tag_source !== 'file'), [state.tags]);
+
+  const folderSort = useSortableList(folderTags, 'tags:folder');
+  const fileSort   = useSortableList(fileTags,   'tags:file');
+  const otherSort  = useSortableList(otherTags,  'tags:other');
+
+  async function handleItemDrop(e: React.DragEvent, toTag: Tag) {
     e.preventDefault();
     setDropTargetId(null);
 
@@ -44,10 +53,6 @@ export function Sidebar({ onTagSelect, selectedTagId }: SidebarProps) {
     }
   }
 
-  const folderTags   = state.tags.filter(t => t.tag_source === 'folder');
-  const fileTags     = state.tags.filter(t => t.tag_source === 'file');
-  const otherTags    = state.tags.filter(t => t.tag_source !== 'folder' && t.tag_source !== 'file');
-
   if (collapsed) {
     return (
       <aside className="w-10 bg-surface-900 border-r border-surface-500 flex flex-col items-center py-3 shrink-0">
@@ -64,8 +69,29 @@ export function Sidebar({ onTagSelect, selectedTagId }: SidebarProps) {
     );
   }
 
+  function renderTagSection(
+    sortable: ReturnType<typeof useSortableList<Tag>>,
+    opts?: { className?: string; selectedClassName?: string }
+  ) {
+    return sortable.orderedItems.map(tag => (
+      <SortableTagRow
+        key={tag.id}
+        tag={tag}
+        sortable={sortable}
+        selected={selectedTagId === tag.id}
+        isDropTarget={dropTargetId === tag.id}
+        onTagSelect={onTagSelect}
+        onItemDrop={handleItemDrop}
+        onItemDragOver={handleDragOver}
+        onItemDragLeave={handleDragLeave}
+        className={opts?.className}
+        selectedClassName={opts?.selectedClassName}
+      />
+    ));
+  }
+
   return (
-    <aside className="w-56 bg-surface-900 border-r border-surface-500 flex flex-col shrink-0 overflow-hidden">
+    <aside className="w-1/4 bg-surface-900 border-r border-surface-500 flex flex-col shrink-0 overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-surface-500">
         <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Tags</span>
@@ -96,99 +122,126 @@ export function Sidebar({ onTagSelect, selectedTagId }: SidebarProps) {
         {/* ── Folder tags ─────────────────────────────────────────── */}
         {folderTags.length > 0 && (
           <div className="border-b border-surface-600 pb-1 mb-1">
-            {folderTags.map(tag => (
-              <TagButton
-                key={tag.id}
-                tag={tag}
-                selected={selectedTagId === tag.id}
-                isDropTarget={dropTargetId === tag.id}
-                onClick={() => onTagSelect(tag)}
-                onDragOver={(e) => handleDragOver(e, tag.id)}
-                onDragLeave={handleDragLeave}
-                onDrop={(e) => void handleDrop(e, tag)}
-                className="font-medium text-surface-900 bg-white hover:bg-gray-100"
-                selectedClassName="font-medium text-surface-900 bg-white ring-1 ring-inset ring-accent"
-              />
-            ))}
+            {renderTagSection(folderSort, {
+              className: 'font-medium text-surface-900 bg-white hover:bg-gray-100',
+              selectedClassName: 'font-medium text-surface-900 bg-white ring-1 ring-inset ring-accent',
+            })}
           </div>
         )}
 
         {/* ── File tags ────────────────────────────────────────────── */}
         {fileTags.length > 0 && (
           <div className="border-b border-surface-600 pb-1 mb-1">
-            {fileTags.map(tag => (
-              <TagButton
-                key={tag.id}
-                tag={tag}
-                selected={selectedTagId === tag.id}
-                isDropTarget={dropTargetId === tag.id}
-                onClick={() => onTagSelect(tag)}
-                onDragOver={(e) => handleDragOver(e, tag.id)}
-                onDragLeave={handleDragLeave}
-                onDrop={(e) => void handleDrop(e, tag)}
-              />
-            ))}
+            {renderTagSection(fileSort)}
           </div>
         )}
 
         {/* ── Other tags ───────────────────────────────────────────── */}
-        {otherTags.map(tag => (
-          <TagButton
-            key={tag.id}
-            tag={tag}
-            selected={selectedTagId === tag.id}
-            isDropTarget={dropTargetId === tag.id}
-            onClick={() => onTagSelect(tag)}
-            onDragOver={(e) => handleDragOver(e, tag.id)}
-            onDragLeave={handleDragLeave}
-            onDrop={(e) => void handleDrop(e, tag)}
-          />
-        ))}
+        {renderTagSection(otherSort)}
 
       </div>
     </aside>
   );
 }
 
-interface TagButtonProps {
+// ── SortableTagRow ────────────────────────────────────────────────────────────
+// Puts draggable on the row itself, gated by a mousedown on the grip handle.
+// This ensures drag events and drop zones are on the same element, avoiding
+// the nested-draggable / premature-dragleave issues.
+
+interface SortableTagRowProps {
   tag: Tag;
+  sortable: ReturnType<typeof useSortableList<Tag>>;
   selected: boolean;
   isDropTarget: boolean;
-  onClick: () => void;
-  onDragOver: (e: React.DragEvent) => void;
-  onDragLeave: (e: React.DragEvent) => void;
-  onDrop: (e: React.DragEvent) => void;
+  onTagSelect: (tag: Tag) => void;
+  onItemDrop: (e: React.DragEvent, tag: Tag) => Promise<void>;
+  onItemDragOver: (e: React.DragEvent, tagId: string) => void;
+  onItemDragLeave: (e: React.DragEvent) => void;
   className?: string;
   selectedClassName?: string;
 }
 
-function TagButton({
-  tag, selected, isDropTarget,
-  onClick, onDragOver, onDragLeave, onDrop,
+function SortableTagRow({
+  tag, sortable, selected, isDropTarget,
+  onTagSelect, onItemDrop, onItemDragOver, onItemDragLeave,
   className = 'text-gray-400 hover:text-white hover:bg-surface-700',
   selectedClassName = 'text-accent bg-surface-600',
-}: TagButtonProps) {
+}: SortableTagRowProps) {
+  const dragAllowed = useRef(false);
+
   const base = isDropTarget
     ? 'text-white bg-accent/20 ring-1 ring-inset ring-accent'
     : selected
     ? selectedClassName
     : className;
 
+  const { dragHandleProps, dropZoneProps } = sortable;
+  const { onDragStart, onDragEnd } = dragHandleProps(tag.id);
+  const { onDragOver: sortableDragOver, onDragLeave: sortableDragLeave, onDrop: sortableDrop } = dropZoneProps(tag.id);
+
   return (
-    <button
-      onClick={onClick}
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
-      className={`w-full flex items-center justify-between px-4 py-1.5 text-sm transition-colors ${base}`}
+    <div
+      draggable
+      onDragStart={(e) => {
+        if (!dragAllowed.current) { e.preventDefault(); return; }
+        onDragStart(e);
+      }}
+      onDragEnd={(e) => { dragAllowed.current = false; onDragEnd(e); }}
+      onDragOver={(e) => {
+        if (e.dataTransfer.types.includes('application/x-item-id')) {
+          onItemDragOver(e, tag.id);
+        } else {
+          sortableDragOver(e);
+        }
+      }}
+      onDragLeave={(e) => {
+        onItemDragLeave(e);
+        sortableDragLeave(e);
+      }}
+      onDrop={(e) => {
+        if (e.dataTransfer.types.includes('application/x-item-id')) {
+          void onItemDrop(e, tag);
+        } else {
+          sortableDrop(e);
+        }
+      }}
+      className={[
+        'w-full flex items-center text-sm transition-colors',
+        base,
+        sortable.dragId === tag.id ? 'opacity-40 scale-[0.98]' : '',
+        sortable.dragOverId === tag.id ? 'border-t-2 border-accent' : '',
+      ].filter(Boolean).join(' ')}
     >
-      <span className="flex items-center gap-2 truncate">
-        <span className="w-1.5 h-1.5 rounded-full bg-accent-dim shrink-0" />
-        {tag.name}
-      </span>
-      {tag.count !== undefined && (
-        <span className="text-xs opacity-50 ml-2">{tag.count}</span>
-      )}
-    </button>
+      {/* Grip handle — mousedown enables drag for this row */}
+      <div
+        onMouseDown={() => { dragAllowed.current = true; }}
+        onMouseUp={() => { dragAllowed.current = false; }}
+        onClick={e => e.stopPropagation()}
+        className="cursor-grab active:cursor-grabbing px-1.5 py-1.5 text-gray-600 hover:text-gray-400 shrink-0"
+        title="Drag to reorder"
+      >
+        <svg className="w-2.5 h-2.5" viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="9"  cy="5"  r="1.5" />
+          <circle cx="15" cy="5"  r="1.5" />
+          <circle cx="9"  cy="12" r="1.5" />
+          <circle cx="15" cy="12" r="1.5" />
+          <circle cx="9"  cy="19" r="1.5" />
+          <circle cx="15" cy="19" r="1.5" />
+        </svg>
+      </div>
+      <button
+        onClick={() => onTagSelect(tag)}
+        className="flex-1 flex items-center justify-between pr-3 py-1.5 min-w-0"
+      >
+        <span className="flex items-center gap-2 truncate">
+          <span className="w-1.5 h-1.5 rounded-full bg-accent-dim shrink-0" />
+          {tag.name}
+        </span>
+        {tag.count !== undefined && (
+          <span className="text-xs opacity-50 ml-2">{tag.count}</span>
+        )}
+      </button>
+    </div>
   );
 }

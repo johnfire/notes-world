@@ -8,20 +8,26 @@ typed, tagged, and viewed in configurable blocks.
 **Includes:**
 - Items domain: CaptureItem, UpdateItem, PromoteItem, ArchiveItem,
   RestoreItem, all queries
-- Relationships domain: CreateTag, TagItem, UntagItem, GetAllTags,
-  GetTagsForItem, GetItemsForTag, GetTagUsageCounts
+- Relationships domain: CreateTag, RenameTag, DeleteTag, TagItem,
+  UntagItem, GetAllTags, GetTagsForItem, GetTagsForItems (batch),
+  GetItemsForTag, GetTagUsageCounts
 - Views domain: InitializeDashboard, AddBlock, RemoveBlock,
   UpdateBlock, ReorderBlocks, GetDashboard
-- Basic responsive UI: dashboard grid, sidebar with tags, action bar
-- Block types: QuickCapture, RecentItems, TagCloud, ItemsByTag, Notes
+- Sort Orders domain: GetSortOrders, SaveSortOrders (per-context
+  drag-and-drop ordering for tag and maturity views)
+- Import domain: CreateImportJob, ExecuteImport, all queries
+  (markdown parsing, batch item creation, duplicate detection,
+  tag_source tracking for folder/file imports)
+- Basic responsive UI: dashboard grid, persistent CaptureBar header,
+  sidebar with tags, Ideas view, Tag view
+- Block types: ActionableTasks, RecentItems, TagCloud, ItemsByTag,
+  Notes, Ideas, BlockedTasks, OverdueTasks
 - Docker Compose deployment (app + PostgreSQL)
 
 **Excludes:**
 - Dependencies (all of them — Phase 2)
-- Import domain (Phase 2)
 - Task status operations (CompleteTask, StartTask, BlockTask)
-- Block types: ActionableTasks, BlockedTasks, OverdueTasks, DependencyGraph
-- Ideas block with maturity grouping
+- Block types: DependencyGraph
 
 **Test gate:**
 - All contract tests pass for Items, Tags, and Views operations

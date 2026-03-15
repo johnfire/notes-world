@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Tag, Item } from '../types';
 import * as api from '../api';
 import { useApp } from '../context/AppContext';
+import { SortableList } from './SortableList';
 
 interface Props {
   tag: Tag;
@@ -19,12 +20,6 @@ export function TagView({ tag }: Props) {
       .finally(() => setLoading(false));
   }, [tag.id, refreshKey]);
 
-  function handleDragStart(e: React.DragEvent, itemId: string) {
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('application/x-item-id', itemId);
-    e.dataTransfer.setData('application/x-from-tag-id', tag.id);
-  }
-
   return (
     <div className="p-4 max-w-2xl h-full overflow-y-auto">
       <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">
@@ -37,17 +32,20 @@ export function TagView({ tag }: Props) {
       ) : items.length === 0 ? (
         <p className="text-sm text-gray-600 py-8 text-center">No items with this tag</p>
       ) : (
-        <div className="space-y-1">
-          {items.map((item) => (
-            <div
-              key={item.id}
-              draggable
-              onDragStart={(e) => handleDragStart(e, item.id)}
-              className="cursor-grab active:cursor-grabbing"
-            >
+        <SortableList
+          items={items}
+          contextKey={`tag:${tag.id}`}
+          extraDragData={(item) => [
+            { type: 'application/x-item-id',    value: item.id },
+            { type: 'application/x-from-tag-id', value: tag.id },
+          ]}
+          itemClassName="mb-1"
+          renderItem={(item, dragHandle) => (
+            <div className="card hover:border-surface-400 hover:bg-surface-600 transition-colors py-2 px-3 flex items-center gap-2">
+              {dragHandle}
               <button
                 onClick={() => openItem(item.id)}
-                className="w-full text-left card hover:border-surface-400 hover:bg-surface-600 transition-colors py-2 px-3"
+                className="flex-1 text-left min-w-0"
               >
                 <p className="text-sm text-gray-200">{item.title}</p>
                 {item.body && (
@@ -55,8 +53,8 @@ export function TagView({ tag }: Props) {
                 )}
               </button>
             </div>
-          ))}
-        </div>
+          )}
+        />
       )}
     </div>
   );

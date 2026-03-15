@@ -1,0 +1,140 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FILE: sort-orders.ispec
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[human]
+
+  Domain: Sort Orders
+
+  This domain persists per-context drag-and-drop ordering for item
+  lists in the UI. It stores the user's custom sequence for items
+  within a named context — for example, items under a specific tag
+  or items in a specific maturity stage.
+
+  Sort orders are supplemental metadata. They do not affect item
+  content, status, or relationships. They exist solely to preserve
+  the user's preferred visual order across sessions.
+
+  A context is identified by a string key that encodes the view
+  and its discriminator. Conventions:
+    "tag:<tag_id>"         — items displayed in a tag view
+    "maturity:<stage>"     — ideas grouped by maturity stage
+    "tags:folder"          — sidebar tag list, folder-source tags
+    "tags:file"            — sidebar tag list, file-source tags
+    "tags:other"           — sidebar tag list, manual/semantic tags
+
+  When a context has no stored sort order, the caller falls back
+  to the default ordering defined by the relevant Items query
+  (typically created_at descending). The sort order domain does
+  not enforce or validate that item_ids correspond to real items —
+  that responsibility belongs to the caller.
+
+
+  --- Entities ---
+
+  A SortOrder is a record of one item's position within a context.
+  Each (user_id, context_key, item_id) triple is unique. Positions
+  are zero-based integers. Gaps in position values are acceptable —
+  only the relative order matters.
+
+
+  --- Operations ---
+
+  Get Sort Orders:
+    Returns all sort order records for a given context, ordered by
+    position ascending. If no records exist for the context, returns
+    an empty list.
+
+  Save Sort Orders:
+    Replaces the sort order for a context entirely. The caller
+    provides an ordered list of item IDs; the domain assigns
+    positions 0, 1, 2, ... and atomically replaces any prior
+    ordering for that context.
+
+    This is a full replace, not a patch — any item IDs present in
+    the old ordering but absent from the new list are dropped.
+
+
+[/human]
+
+
+[policy]
+
+  SortOrderPolicy:
+    context_key maximum length: 200 characters
+    maximum items per context: 500
+
+[/policy]
+
+
+[spec]
+
+  domain SortOrders
+
+  use Item from items
+
+
+  --- types ---
+
+  type ContextKey is Text [required, max: 200]
+
+
+  --- entities ---
+
+  entity SortOrder
+    id:          SortOrderId  [unique, generated, immutable]
+    user_id:     UserId       [required, immutable]
+    context_key: ContextKey   [required, immutable]
+    item:        → Item       [required, immutable]
+    sort_order:  Count        [required, min: 0]
+    created_at:  Timestamp    [generated, immutable]
+    updated_at:  Timestamp    [generated]
+
+    unique: [user_id, context_key, item]
+
+
+  --- operations ---
+
+  operation SaveSortOrders
+    inputs:
+      user_id:         UserId
+      context_key:     ContextKey
+      ordered_item_ids: list of ItemId
+
+    requires:
+      context_key is not empty
+      ordered_item_ids is a list (may be empty — clears the context)
+
+    ensures:
+      all prior SortOrder records where user_id == user_id
+        and context_key == context_key are deleted
+      for each item_id at index i in ordered_item_ids:
+        SortOrder created with:
+          user_id      == user_id
+          context_key  == context_key
+          item_id      == item_id
+          sort_order   == i
+      atomic: delete and insert occur in a single transaction
+
+    failures:
+      ContextKeyEmpty: ValidationError
+        condition: context_key is empty
+
+
+  --- queries ---
+
+  @query GetSortOrders
+    find:    SortOrder
+    where:   SortOrder.user_id == user_id
+    and:     SortOrder.context_key == context_key
+    order:   SortOrder.sort_order ascending
+    returns: list of { item_id, sort_order }
+
+
+  --- extensions ---
+
+  @extend index
+    query: SortOrder by user_id, context_key, sort_order  [frequent]
+    query: SortOrder by user_id, context_key, item_id     [unique]
+
+[/spec]

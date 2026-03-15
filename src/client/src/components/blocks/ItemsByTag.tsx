@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Block, Item } from '../../types';
 import * as api from '../../api';
 import { useApp } from '../../context/AppContext';
+import { SortableList } from '../SortableList';
 
 interface Props { block: Block }
 
@@ -38,11 +39,22 @@ export function ItemsByTag({ block }: Props) {
         ) : items.length === 0 ? (
           <p className="text-sm text-gray-600 py-4 text-center">No items with this tag</p>
         ) : (
-          items.map((item) => (
-            <button key={item.id} onClick={() => openItem(item.id)} className="w-full text-left py-2 border-b border-surface-500 last:border-0">
-              <p className="text-sm text-gray-200 truncate">{item.title}</p>
-            </button>
-          ))
+          <SortableList
+            items={items}
+            contextKey={`tag:${tagId}`}
+            extraDragData={(item) => [
+              { type: 'application/x-item-id',    value: item.id },
+              { type: 'application/x-from-tag-id', value: tagId },
+            ]}
+            renderItem={(item, dragHandle) => (
+              <div className="flex items-center gap-1 py-2 border-b border-surface-500 last:border-0">
+                {dragHandle}
+                <button onClick={() => openItem(item.id)} className="flex-1 text-left min-w-0">
+                  <p className="text-sm text-gray-200 truncate">{item.title}</p>
+                </button>
+              </div>
+            )}
+          />
         )}
       </div>
     </div>

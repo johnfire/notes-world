@@ -109,12 +109,16 @@ export async function findByTag(
   return query<Item>(
     `SELECT i.* FROM items i
      JOIN item_tags it ON it.item_id = i.id
+     LEFT JOIN item_sort_orders iso
+       ON iso.item_id = i.id
+       AND iso.user_id = $2
+       AND iso.context_key = $5
      WHERE it.tag_id = $1
        AND i.user_id = $2
        AND i.status = $3
-     ORDER BY LOWER(i.title) ASC
-     LIMIT $4 OFFSET $5`,
-    [tagId, userId, ItemStatus.Active, limit, offset]
+     ORDER BY iso.sort_order ASC NULLS LAST, LOWER(i.title) ASC
+     LIMIT $4 OFFSET $6`,
+    [tagId, userId, ItemStatus.Active, limit, `tag:${tagId}`, offset]
   );
 }
 

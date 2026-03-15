@@ -8,6 +8,7 @@ import { relationshipsRouter } from './domains/relationships/relationships.route
 import { dependenciesRouter } from './domains/relationships/dependencies.routes';
 import { viewsRouter } from './domains/views/views.routes';
 import { importRouter } from './domains/import/import.routes';
+import { sortOrdersRouter } from './domains/sort-orders/sort-orders.routes';
 import { errorHandler } from './middleware/errorHandler';
 
 export function createApp() {
@@ -31,7 +32,8 @@ export function createApp() {
   app.use('/api/tags',      relationshipsRouter);
   app.use('/api',           dependenciesRouter);
   app.use('/api/dashboard', viewsRouter);
-  app.use('/api/import',    importRouter);
+  app.use('/api/import',      importRouter);
+  app.use('/api/sort-orders', sortOrdersRouter);
 
   // Serve React build in production
   if (process.env.NODE_ENV === 'production') {

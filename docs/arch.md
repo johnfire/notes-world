@@ -155,23 +155,26 @@ and a JSONB column for type-specific data. Queries must handle
 both untyped and typed items. UI must make promotion easy and
 non-destructive.
 
-### ADR-008: Four-Domain Architecture
+### ADR-008: Five-Domain Architecture
 
-**Date:** 2026-03-12
+**Date:** 2026-03-12 (updated 2026-03-15)
 **Status:** Accepted
 **Context:** System needs clear separation of concerns for
 maintainability and anti-fragility.
-**Decision:** Four domains — Items, Relationships, Views, Import.
+**Decision:** Five domains — Items, Relationships, Views, Import, SortOrders.
 **Reason:**
 - Items: core entity management — CRUD, type promotion, search
 - Relationships: dependency graph, tag management, cross-references
 - Views: dashboard configuration, block layout, priority computation
 - Import: markdown parsing, batch item creation, duplicate detection
+- SortOrders: user-defined drag-and-drop ordering for any list view
 **Consequences:** Domains communicate through events. Items domain
 emitting ItemCreated, ItemPromoted, ItemArchived. Relationships
 domain listening for those to update the dependency graph. Views
 domain consuming both for dashboard state. Import domain creating
-items through the Items domain API, not directly.
+items through the Items domain API, not directly. SortOrders domain
+is stateless with respect to events — it is read and written directly
+by the UI on drag completion.
 
 ### ADR-009: REST API Over GraphQL
 
@@ -188,6 +191,37 @@ scale), WebSockets (not needed for Phase 1 — no real-time collaboration).
 **Consequences:** May need to add WebSocket support for real-time
 updates in multi-user phases. Acceptable — the API contract defined
 by .ispec supports either transport.
+
+### ADR-010: Drag-and-Drop Ordering via HTML5 Drag API
+
+**Date:** 2026-03-15
+**Status:** Accepted
+**Context:** Several list views (items by tag, ideas by maturity, sidebar
+tag list) need user-controllable ordering that persists across sessions.
+**Decision:** HTML5 native drag-and-drop API with per-context sort order
+persistence via the SortOrders domain. A shared `useSortableList` React
+hook encapsulates the drag state, drop handling, and server sync.
+**Reason:** No additional library dependencies. The native API is
+sufficient for the single-list reorder use case. A shared hook ensures
+consistent behavior across all sortable lists.
+**Key implementation constraints:**
+- The hook effect that loads saved order must key on a stable identifier
+  (sorted item IDs joined as a string) rather than the array reference,
+  to prevent re-renders from resetting local drag state.
+- A `isDragging` ref guards the effect from firing while a drag is
+  in progress, preventing the drop result from being overwritten by
+  a concurrent server fetch.
+- The drag source must be the same DOM element as the drop zone to
+  avoid events landing on elements with no handlers. A `mousedown`
+  flag on the grip handle gates whether `dragstart` is allowed on
+  the row element, preserving handle-only drag initiation.
+**Rejected:** `@dnd-kit`, `react-beautiful-dnd` (unnecessary dependency
+for this use case). Block-swap reorder for dashboard blocks uses
+`ReorderBlocks` operation instead (different interaction model).
+**Consequences:** Two drag systems coexist on the sidebar — item-to-tag
+drops and tag reorder drags. These are disambiguated by MIME type:
+item drags set `application/x-item-id`; tag reorder drags use only
+`text/plain`. Event handlers check `dataTransfer.types` to route correctly.
 
 ## Non-Functional Requirements
 

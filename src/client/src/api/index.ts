@@ -113,6 +113,19 @@ export const tags = {
     request<void>(`/tags/item/${itemId}/${tagId}`, { method: 'DELETE' }),
 };
 
+// ── Sort Orders ───────────────────────────────────────────────────────────────
+
+export const sortOrders = {
+  get: (contextKey: string) =>
+    request<Array<{ item_id: string; sort_order: number }>>(`/sort-orders?context=${encodeURIComponent(contextKey)}`),
+
+  save: (contextKey: string, itemIds: string[]) =>
+    request<void>('/sort-orders', {
+      method: 'PUT',
+      body: JSON.stringify({ context_key: contextKey, item_ids: itemIds }),
+    }),
+};
+
 // ── Dashboard ─────────────────────────────────────────────────────────────────
 
 export const dashboard = {
