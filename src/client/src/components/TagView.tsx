@@ -1,20 +1,16 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Tag, Item, Divider } from '../types';
 import * as api from '../api';
 import { useApp } from '../context/AppContext';
 import { SortableList } from './SortableList';
 
-interface Props {
-  tag: Tag;
-}
+// Dividers travel through sort orders with a prefixed ID so they don't
+// collide with item UUIDs.
+function dividerSortId(dividerId: string) { return `divider:${dividerId}`; }
 
 type ItemEntry    = { kind: 'item';    id: string } & Item;
 type DividerEntry = { kind: 'divider'; id: string } & Omit<Divider, 'id'> & { dividerId: string };
 type ListEntry    = ItemEntry | DividerEntry;
-
-// Dividers travel through sort orders with a prefixed ID so they don't
-// collide with item UUIDs. The prefix is stripped before API calls.
-function dividerSortId(dividerId: string) { return `divider:${dividerId}`; }
 
 function buildEntries(items: Item[], dividers: Divider[]): ListEntry[] {
   const itemEntries: ItemEntry[]    = items.map(i => ({ kind: 'item',    ...i }));
@@ -30,16 +26,104 @@ function buildEntries(items: Item[], dividers: Divider[]): ListEntry[] {
   return [...itemEntries, ...divEntries];
 }
 
+// ── DividerRow ────────────────────────────────────────────────────────────────
+// Isolated component so its edit state doesn't cause the parent list to re-render.
+
+interface DividerRowProps {
+  entry:    DividerEntry;
+  dragHandle: React.ReactNode;
+  onSave:   (dividerId: string, label: string | null) => Promise<void>;
+  onDelete: (dividerId: string) => void;
+}
+
+function DividerRow({ entry, dragHandle, onSave, onDelete }: DividerRowProps) {
+  const [editing, setEditing] = useState(false);
+  const [label,   setLabel]   = useState(entry.label ?? '');
+  const inputRef      = useRef<HTMLInputElement>(null);
+  const committingRef = useRef(false);
+
+  // Sync label if the parent updates the divider (e.g. after save round-trip)
+  useEffect(() => { setLabel(entry.label ?? ''); }, [entry.label]);
+
+  useEffect(() => { if (editing) inputRef.current?.focus(); }, [editing]);
+
+  function startEdit() {
+    committingRef.current = false;
+    setEditing(true);
+  }
+
+  async function commit() {
+    if (committingRef.current) return;
+    committingRef.current = true;
+    setEditing(false);
+    const trimmed = label.trim();
+    await onSave(entry.dividerId, trimmed === '' ? null : trimmed);
+    committingRef.current = false;
+  }
+
+  return (
+    <div className="flex items-center gap-2 py-1 group">
+      {dragHandle}
+      <div className="flex-1 flex items-center gap-2 min-w-0">
+        {editing ? (
+          <input
+            ref={inputRef}
+            value={label}
+            onChange={e => setLabel(e.target.value)}
+            onBlur={commit}
+            onKeyDown={e => {
+              if (e.key === 'Enter')  commit();
+              if (e.key === 'Escape') { setEditing(false); setLabel(entry.label ?? ''); }
+            }}
+            className="bg-transparent border-b border-gray-500 text-xs text-gray-300 outline-none w-40"
+            placeholder="Label (optional)"
+          />
+        ) : (
+          <>
+            <div className="flex-1 flex items-center gap-2">
+              {entry.label && (
+                <span
+                  onClick={startEdit}
+                  className="text-xs text-gray-500 cursor-pointer hover:text-gray-300 shrink-0"
+                >
+                  {entry.label}
+                </span>
+              )}
+              <div className="flex-1 h-px bg-surface-500" />
+              {!entry.label && (
+                <span
+                  onClick={startEdit}
+                  className="text-xs text-gray-700 cursor-pointer hover:text-gray-500 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                >
+                  add label
+                </span>
+              )}
+            </div>
+            <button
+              onClick={() => onDelete(entry.dividerId)}
+              className="text-gray-700 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 shrink-0 text-xs"
+              title="Remove divider"
+            >
+              ✕
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── TagView ───────────────────────────────────────────────────────────────────
+
+interface Props {
+  tag: Tag;
+}
+
 export function TagView({ tag }: Props) {
   const { openItem, state: { refreshKey } } = useApp();
   const [items,    setItems]    = useState<Item[]>([]);
   const [dividers, setDividers] = useState<Divider[]>([]);
   const [loading,  setLoading]  = useState(false);
-
-  // inline edit state
-  const [editingId,    setEditingId]    = useState<string | null>(null);
-  const [editingLabel, setEditingLabel] = useState('');
-  const editRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -52,26 +136,14 @@ export function TagView({ tag }: Props) {
     }).finally(() => setLoading(false));
   }, [tag.id, refreshKey]);
 
-  useEffect(() => {
-    if (editingId) editRef.current?.focus();
-  }, [editingId]);
-
   async function handleAddDivider() {
     const divider = await api.dividers.create();
     setDividers(prev => [...prev, divider]);
   }
 
-  function startEdit(dividerId: string, currentLabel: string | null) {
-    setEditingId(dividerId);
-    setEditingLabel(currentLabel ?? '');
-  }
-
-  async function commitEdit(dividerId: string) {
-    const trimmed = editingLabel.trim();
-    const label   = trimmed === '' ? null : trimmed;
+  async function handleSaveDivider(dividerId: string, label: string | null) {
     const updated = await api.dividers.update(dividerId, label);
     setDividers(prev => prev.map(d => d.id === dividerId ? updated : d));
-    setEditingId(null);
   }
 
   async function handleDeleteDivider(dividerId: string) {
@@ -79,7 +151,7 @@ export function TagView({ tag }: Props) {
     setDividers(prev => prev.filter(d => d.id !== dividerId));
   }
 
-  const entries = buildEntries(items, dividers);
+  const entries   = buildEntries(items, dividers);
   const itemCount = items.length;
 
   return (
@@ -110,61 +182,17 @@ export function TagView({ tag }: Props) {
             { type: 'application/x-from-tag-id', value: tag.id },
           ] : []}
           className="grid grid-cols-3 gap-2"
-          itemClassName={(entry) => entry.kind === 'divider' ? 'col-span-3' : ''}
           renderItem={(entry, dragHandle) => {
             if (entry.kind === 'divider') {
               return (
-                <div className="flex items-center gap-2 py-1 group">
-                  {dragHandle}
-                  <div className="flex-1 flex items-center gap-2 min-w-0">
-                    {editingId === entry.dividerId ? (
-                      <input
-                        ref={editRef}
-                        value={editingLabel}
-                        onChange={e => setEditingLabel(e.target.value)}
-                        onBlur={() => commitEdit(entry.dividerId)}
-                        onKeyDown={e => {
-                          if (e.key === 'Enter') commitEdit(entry.dividerId);
-                          if (e.key === 'Escape') setEditingId(null);
-                        }}
-                        className="bg-transparent border-b border-gray-500 text-xs text-gray-300 outline-none w-40"
-                        placeholder="Label (optional)"
-                      />
-                    ) : (
-                      <>
-                        <div className="flex-1 flex items-center gap-2">
-                          {entry.label && (
-                            <span
-                              onClick={() => startEdit(entry.dividerId, entry.label)}
-                              className="text-xs text-gray-500 cursor-pointer hover:text-gray-300 shrink-0"
-                            >
-                              {entry.label}
-                            </span>
-                          )}
-                          <div className="flex-1 h-px bg-surface-500" />
-                          {!entry.label && (
-                            <span
-                              onClick={() => startEdit(entry.dividerId, entry.label)}
-                              className="text-xs text-gray-700 cursor-pointer hover:text-gray-500 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                            >
-                              add label
-                            </span>
-                          )}
-                        </div>
-                        <button
-                          onClick={() => handleDeleteDivider(entry.dividerId)}
-                          className="text-gray-700 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 shrink-0 text-xs"
-                          title="Remove divider"
-                        >
-                          ✕
-                        </button>
-                      </>
-                    )}
-                  </div>
-                </div>
+                <DividerRow
+                  entry={entry}
+                  dragHandle={dragHandle}
+                  onSave={handleSaveDivider}
+                  onDelete={handleDeleteDivider}
+                />
               );
             }
-
             return (
               <div className="card hover:border-surface-400 hover:bg-surface-600 transition-colors py-2 px-3 flex items-center gap-2">
                 {dragHandle}
