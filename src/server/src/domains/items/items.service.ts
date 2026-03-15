@@ -46,7 +46,7 @@ export async function updateItem(
 
   if (input.title !== undefined) {
     const title = input.title.trim();
-    if (!title) throw new ValidationError('Title cannot be empty');
+    if (!title && item.item_type !== ItemType.Divider) throw new ValidationError('Title cannot be empty');
     if (title.length > LIMITS.ITEM_TITLE_MAX) {
       throw new ValidationError('Title too long', { length: title.length, maximum: LIMITS.ITEM_TITLE_MAX });
     }
@@ -206,6 +206,11 @@ export async function blockTask(userId: UserId, itemId: ItemId): Promise<Item> {
 
   eventBus.emit('TaskBlocked', { item: updated, blocked_at: updated.updated_at });
   return updated;
+}
+
+export async function createDivider(userId: UserId): Promise<Item> {
+  const item = await repo.insert(userId, '', undefined, ItemType.Divider);
+  return item;
 }
 
 function getTypeDefaults(type: ItemType): Record<string, unknown> {

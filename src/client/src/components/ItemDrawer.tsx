@@ -531,6 +531,7 @@ function TypeBadge({ type }: { type: ItemType }) {
     [ItemType.Note]:     'badge-note',
     [ItemType.Reminder]: 'badge-reminder',
     [ItemType.Untyped]:  'badge-untyped',
+    [ItemType.Divider]:  'badge-untyped',
   };
   return <span className={cls[type]}>{type}</span>;
 }

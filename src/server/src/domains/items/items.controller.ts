@@ -113,3 +113,10 @@ export async function getByEntryType(req: Request, res: Response, next: NextFunc
     res.json(items);
   } catch (err) { next(err); }
 }
+
+export async function createDivider(req: Request, res: Response, next: NextFunction) {
+  try {
+    const item = await service.createDivider(PHASE1_USER_ID);
+    res.status(201).json(item);
+  } catch (err) { next(err); }
+}

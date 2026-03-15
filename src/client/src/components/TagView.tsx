@@ -1,50 +1,26 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Tag, Item, Divider } from '../types';
+import { Tag, Item, ItemType } from '../types';
 import * as api from '../api';
 import { useApp } from '../context/AppContext';
 import { SortableList } from './SortableList';
-
-// Dividers travel through sort orders with a prefixed ID so they don't
-// collide with item UUIDs.
-function dividerSortId(dividerId: string) { return `divider:${dividerId}`; }
-
-type ItemEntry    = { kind: 'item';    id: string } & Item;
-type DividerEntry = { kind: 'divider'; id: string } & Omit<Divider, 'id'> & { dividerId: string };
-type ListEntry    = ItemEntry | DividerEntry;
-
-function buildEntries(items: Item[], dividers: Divider[]): ListEntry[] {
-  const itemEntries: ItemEntry[]    = items.map(i => ({ kind: 'item',    ...i }));
-  const divEntries:  DividerEntry[] = dividers.map(d => ({
-    kind: 'divider',
-    id: dividerSortId(d.id),
-    dividerId: d.id,
-    user_id:    d.user_id,
-    label:      d.label,
-    created_at: d.created_at,
-    updated_at: d.updated_at,
-  }));
-  return [...itemEntries, ...divEntries];
-}
 
 // ── DividerRow ────────────────────────────────────────────────────────────────
 // Isolated component so its edit state doesn't cause the parent list to re-render.
 
 interface DividerRowProps {
-  entry:    DividerEntry;
+  item:       Item;
   dragHandle: React.ReactNode;
-  onSave:   (dividerId: string, label: string | null) => Promise<void>;
-  onDelete: (dividerId: string) => void;
+  onSave:     (id: string, title: string) => Promise<void>;
+  onDelete:   (id: string) => Promise<void>;
 }
 
-function DividerRow({ entry, dragHandle, onSave, onDelete }: DividerRowProps) {
+function DividerRow({ item, dragHandle, onSave, onDelete }: DividerRowProps) {
   const [editing, setEditing] = useState(false);
-  const [label,   setLabel]   = useState(entry.label ?? '');
+  const [label,   setLabel]   = useState(item.title);
   const inputRef      = useRef<HTMLInputElement>(null);
   const committingRef = useRef(false);
 
-  // Sync label if the parent updates the divider (e.g. after save round-trip)
-  useEffect(() => { setLabel(entry.label ?? ''); }, [entry.label]);
-
+  useEffect(() => { setLabel(item.title); }, [item.title]);
   useEffect(() => { if (editing) inputRef.current?.focus(); }, [editing]);
 
   function startEdit() {
@@ -56,15 +32,14 @@ function DividerRow({ entry, dragHandle, onSave, onDelete }: DividerRowProps) {
     if (committingRef.current) return;
     committingRef.current = true;
     setEditing(false);
-    const trimmed = label.trim();
-    await onSave(entry.dividerId, trimmed === '' ? null : trimmed);
+    await onSave(item.id, label.trim());
     committingRef.current = false;
   }
 
   return (
-    <div className="flex items-center gap-2 py-1 group">
+    <div className="card py-2 px-3 flex items-center gap-2 group">
       {dragHandle}
-      <div className="flex-1 flex items-center gap-2 min-w-0">
+      <div className="flex-1 flex items-center gap-1 min-w-0">
         {editing ? (
           <input
             ref={inputRef}
@@ -73,34 +48,34 @@ function DividerRow({ entry, dragHandle, onSave, onDelete }: DividerRowProps) {
             onBlur={commit}
             onKeyDown={e => {
               if (e.key === 'Enter')  commit();
-              if (e.key === 'Escape') { setEditing(false); setLabel(entry.label ?? ''); }
+              if (e.key === 'Escape') { setEditing(false); setLabel(item.title); }
             }}
-            className="bg-transparent border-b border-gray-500 text-xs text-gray-300 outline-none w-40"
+            className="bg-transparent border-b border-gray-500 text-xs text-gray-300 outline-none w-full"
             placeholder="Label (optional)"
           />
         ) : (
           <>
-            <div className="flex-1 flex items-center gap-2">
-              {entry.label && (
+            <div className="flex-1 flex items-center gap-1 min-w-0">
+              <div className="flex-1 h-px bg-surface-500" />
+              {item.title ? (
                 <span
                   onClick={startEdit}
-                  className="text-xs text-gray-500 cursor-pointer hover:text-gray-300 shrink-0"
+                  className="text-xs text-gray-500 cursor-pointer hover:text-gray-300 shrink-0 truncate max-w-[60%]"
                 >
-                  {entry.label}
+                  {item.title}
                 </span>
-              )}
-              <div className="flex-1 h-px bg-surface-500" />
-              {!entry.label && (
+              ) : (
                 <span
                   onClick={startEdit}
                   className="text-xs text-gray-700 cursor-pointer hover:text-gray-500 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
                 >
-                  add label
+                  label
                 </span>
               )}
+              <div className="flex-1 h-px bg-surface-500" />
             </div>
             <button
-              onClick={() => onDelete(entry.dividerId)}
+              onClick={() => onDelete(item.id)}
               className="text-gray-700 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 shrink-0 text-xs"
               title="Remove divider"
             >
@@ -121,38 +96,33 @@ interface Props {
 
 export function TagView({ tag }: Props) {
   const { openItem, state: { refreshKey } } = useApp();
-  const [items,    setItems]    = useState<Item[]>([]);
-  const [dividers, setDividers] = useState<Divider[]>([]);
-  const [loading,  setLoading]  = useState(false);
+  const [items,   setItems]   = useState<Item[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([
-      api.tags.getItemsForTag(tag.id),
-      api.dividers.list(),
-    ]).then(([fetchedItems, fetchedDividers]) => {
-      setItems(fetchedItems);
-      setDividers(fetchedDividers);
-    }).finally(() => setLoading(false));
+    api.tags.getItemsForTag(tag.id)
+      .then(setItems)
+      .finally(() => setLoading(false));
   }, [tag.id, refreshKey]);
 
   async function handleAddDivider() {
-    const divider = await api.dividers.create();
-    setDividers(prev => [...prev, divider]);
+    const divider = await api.items.createDivider();
+    await api.tags.tagItem(divider.id, tag.id);
+    setItems(prev => [...prev, divider]);
   }
 
-  async function handleSaveDivider(dividerId: string, label: string | null) {
-    const updated = await api.dividers.update(dividerId, label);
-    setDividers(prev => prev.map(d => d.id === dividerId ? updated : d));
+  async function handleSaveDivider(id: string, title: string) {
+    const updated = await api.items.update(id, { title });
+    setItems(prev => prev.map(i => i.id === id ? updated : i));
   }
 
-  async function handleDeleteDivider(dividerId: string) {
-    await api.dividers.delete(dividerId);
-    setDividers(prev => prev.filter(d => d.id !== dividerId));
+  async function handleDeleteDivider(id: string) {
+    await api.items.archive(id);
+    setItems(prev => prev.filter(i => i.id !== id));
   }
 
-  const entries   = buildEntries(items, dividers);
-  const itemCount = items.length;
+  const itemCount = items.filter(i => i.item_type !== ItemType.Divider).length;
 
   return (
     <div className="p-4 h-full overflow-y-auto">
@@ -171,22 +141,22 @@ export function TagView({ tag }: Props) {
 
       {loading ? (
         <p className="text-sm text-gray-600 py-8 text-center">Loading…</p>
-      ) : entries.length === 0 ? (
+      ) : items.length === 0 ? (
         <p className="text-sm text-gray-600 py-8 text-center">No items with this tag</p>
       ) : (
         <SortableList
-          items={entries}
+          items={items}
           contextKey={`tag:${tag.id}`}
-          extraDragData={(entry) => entry.kind === 'item' ? [
-            { type: 'application/x-item-id',    value: entry.id },
+          extraDragData={(item) => item.item_type !== ItemType.Divider ? [
+            { type: 'application/x-item-id',    value: item.id },
             { type: 'application/x-from-tag-id', value: tag.id },
           ] : []}
           className="grid grid-cols-3 gap-2"
-          renderItem={(entry, dragHandle) => {
-            if (entry.kind === 'divider') {
+          renderItem={(item, dragHandle) => {
+            if (item.item_type === ItemType.Divider) {
               return (
                 <DividerRow
-                  entry={entry}
+                  item={item}
                   dragHandle={dragHandle}
                   onSave={handleSaveDivider}
                   onDelete={handleDeleteDivider}
@@ -197,12 +167,12 @@ export function TagView({ tag }: Props) {
               <div className="card hover:border-surface-400 hover:bg-surface-600 transition-colors py-2 px-3 flex items-center gap-2">
                 {dragHandle}
                 <button
-                  onClick={() => openItem(entry.id)}
+                  onClick={() => openItem(item.id)}
                   className="flex-1 text-left min-w-0"
                 >
-                  <p className="text-sm text-gray-200">{entry.title}</p>
-                  {entry.body && (
-                    <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{entry.body}</p>
+                  <p className="text-sm text-gray-200">{item.title}</p>
+                  {item.body && (
+                    <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{item.body}</p>
                   )}
                 </button>
               </div>

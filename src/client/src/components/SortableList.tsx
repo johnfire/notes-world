@@ -16,11 +16,11 @@ function GripHandle({ dragProps }: { dragProps: object }) {
   return (
     <div
       {...dragProps}
-      className="cursor-grab active:cursor-grabbing p-1 text-gray-600 hover:text-gray-400 shrink-0"
+      className="cursor-grab active:cursor-grabbing p-1.5 text-gray-600 hover:text-gray-400 shrink-0"
       onClick={e => e.stopPropagation()}
       title="Drag to reorder"
     >
-      <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
+      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
         <circle cx="9"  cy="5"  r="1.5" />
         <circle cx="15" cy="5"  r="1.5" />
         <circle cx="9"  cy="12" r="1.5" />

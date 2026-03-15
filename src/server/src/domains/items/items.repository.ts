@@ -13,13 +13,14 @@ export async function findById(id: ItemId, userId: UserId): Promise<Item | null>
 export async function insert(
   userId: UserId,
   title: string,
-  body?: string
+  body?: string,
+  itemType?: ItemType
 ): Promise<Item> {
   const rows = await query<Item>(
-    `INSERT INTO items (user_id, title, body)
-     VALUES ($1, $2, $3)
+    `INSERT INTO items (user_id, title, body, item_type)
+     VALUES ($1, $2, $3, $4)
      RETURNING *`,
-    [userId, title, body ?? null]
+    [userId, title, body ?? null, itemType ?? ItemType.Untyped]
   );
   return rows[0];
 }
@@ -53,10 +54,10 @@ export async function findActive(
 ): Promise<Item[]> {
   return query<Item>(
     `SELECT * FROM items
-     WHERE user_id = $1 AND status = $2
+     WHERE user_id = $1 AND status = $2 AND item_type != $3
      ORDER BY updated_at DESC
-     LIMIT $3`,
-    [userId, ItemStatus.Active, limit]
+     LIMIT $4`,
+    [userId, ItemStatus.Active, ItemType.Divider, limit]
   );
 }
 
@@ -89,6 +90,7 @@ export async function search(
      FROM items
      WHERE user_id = $1
        AND status = $3
+       AND item_type != 'Divider'
        AND (
          to_tsvector('english', title || ' ' || COALESCE(body, ''))
            @@ plainto_tsquery('english', $2)
@@ -110,7 +112,7 @@ export async function findByTag(
     `SELECT i.* FROM items i
      JOIN item_tags it ON it.item_id = i.id
      LEFT JOIN item_sort_orders iso
-       ON iso.item_id = i.id
+       ON iso.item_id = i.id::text
        AND iso.user_id = $2
        AND iso.context_key = $5
      WHERE it.tag_id = $1

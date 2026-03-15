@@ -11,6 +11,7 @@ itemsRouter.get('/entry/:entryType', ctrl.getByEntryType);
 itemsRouter.get('/:id',              ctrl.getItemById);
 
 // Commands
+itemsRouter.post('/divider',         ctrl.createDivider);
 itemsRouter.post('/',                ctrl.captureItem);
 itemsRouter.patch('/:id',            ctrl.updateItem);
 itemsRouter.post('/:id/promote',     ctrl.promoteItem);

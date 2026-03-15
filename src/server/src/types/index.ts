@@ -33,11 +33,12 @@ export interface CrossReference {
 }
 
 export enum ItemType {
-  Untyped = 'Untyped',
-  Task = 'Task',
-  Idea = 'Idea',
-  Note = 'Note',
+  Untyped  = 'Untyped',
+  Task     = 'Task',
+  Idea     = 'Idea',
+  Note     = 'Note',
   Reminder = 'Reminder',
+  Divider  = 'Divider',
 }
 
 export enum ItemStatus {
