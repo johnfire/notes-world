@@ -1,4 +1,4 @@
-import { Item, Tag, DashboardResponse, Block, ViewType, BlockConfig, TypeData, ItemType, Dependency, ImportJob, ImportRecord } from '../types';
+import { Item, Tag, Divider, DashboardResponse, Block, ViewType, BlockConfig, TypeData, ItemType, Dependency, ImportJob, ImportRecord } from '../types';
 
 const BASE = '/api';
 
@@ -124,6 +124,22 @@ export const sortOrders = {
       method: 'PUT',
       body: JSON.stringify({ context_key: contextKey, item_ids: itemIds }),
     }),
+};
+
+// ── Dividers ──────────────────────────────────────────────────────────────────
+
+export const dividers = {
+  list: () =>
+    request<Divider[]>('/dividers'),
+
+  create: (label?: string | null) =>
+    request<Divider>('/dividers', { method: 'POST', body: JSON.stringify({ label }) }),
+
+  update: (id: string, label: string | null) =>
+    request<Divider>(`/dividers/${id}`, { method: 'PATCH', body: JSON.stringify({ label }) }),
+
+  delete: (id: string) =>
+    request<void>(`/dividers/${id}`, { method: 'DELETE' }),
 };
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────

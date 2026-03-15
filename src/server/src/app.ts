@@ -9,6 +9,7 @@ import { dependenciesRouter } from './domains/relationships/dependencies.routes'
 import { viewsRouter } from './domains/views/views.routes';
 import { importRouter } from './domains/import/import.routes';
 import { sortOrdersRouter } from './domains/sort-orders/sort-orders.routes';
+import { dividersRouter } from './domains/dividers/dividers.routes';
 import { errorHandler } from './middleware/errorHandler';
 
 export function createApp() {
@@ -34,6 +35,7 @@ export function createApp() {
   app.use('/api/dashboard', viewsRouter);
   app.use('/api/import',      importRouter);
   app.use('/api/sort-orders', sortOrdersRouter);
+  app.use('/api/dividers',   dividersRouter);
 
   // Serve React build in production
   if (process.env.NODE_ENV === 'production') {

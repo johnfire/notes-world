@@ -1,7 +1,16 @@
 export type ItemId = string;
 export type TagId = string;
+export type DividerId = string;
 export type DashboardId = string;
 export type BlockId = string;
+
+export interface Divider {
+  id:         DividerId;
+  user_id:    string;
+  label:      string | null;
+  created_at: string;
+  updated_at: string;
+}
 
 export enum ItemType {
   Untyped  = 'Untyped',

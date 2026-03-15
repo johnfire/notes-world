@@ -9,7 +9,7 @@ interface Props<T extends HasId> {
   renderItem: (item: T, dragHandle: React.ReactNode) => React.ReactNode;
   extraDragData?: (item: T) => ExtraDragData[];
   className?: string;
-  itemClassName?: string;
+  itemClassName?: string | ((item: T) => string);
 }
 
 function GripHandle({ dragProps }: { dragProps: object }) {
@@ -53,7 +53,7 @@ export function SortableList<T extends HasId>({
             'transition-all duration-150',
             dragId === item.id ? 'opacity-40 scale-[0.98]' : '',
             dragOverId === item.id ? 'border-t-2 border-accent pt-0.5' : '',
-            itemClassName ?? '',
+            typeof itemClassName === 'function' ? itemClassName(item) : (itemClassName ?? ''),
           ].filter(Boolean).join(' ')}
         >
           {renderItem(item, (
