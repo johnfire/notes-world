@@ -1,0 +1,173 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FILE: dividers.ispec
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[human]
+
+  Domain: Dividers
+
+  This domain manages visual dividers that can be inserted into
+  ordered lists in the UI — specifically the sidebar tag list and
+  tag item lists. A divider is a named separator that occupies a
+  position in the sort order of a context, just like an item, but
+  renders as a horizontal rule with an optional text label rather
+  than as a content row.
+
+  Dividers allow users to group and label sections within a list
+  without changing the underlying items or tags. Examples:
+    "--- Work ---"  between work-related tags and personal tags
+    "Reading"       above a cluster of reading-list items
+
+  Dividers participate fully in drag-and-drop reordering. They
+  are saved alongside items in sort order contexts using the
+  existing sort-orders domain, with their own ID namespace.
+
+
+  --- Entities ---
+
+  A Divider has a user, an optional label, and timestamps.
+  A divider with no label renders as a plain horizontal line.
+  A divider with a label renders the label centred on or above
+  the line.
+
+  Dividers are reusable across contexts — the same divider can
+  appear in the tag sidebar and in a tag item list. Its position
+  in each context is tracked independently via sort orders.
+
+
+  --- Placement ---
+
+  Dividers are stored in sort order contexts by their divider ID,
+  using the prefix convention "divider:<divider_id>" to distinguish
+  them from item IDs when the sort-orders domain reconstructs the
+  ordered list. The caller is responsible for resolving which IDs
+  are items and which are dividers.
+
+  Context key conventions (same as sort-orders):
+    "tags:folder"          — sidebar tag list, folder-source tags
+    "tags:file"            — sidebar tag list, file-source tags
+    "tags:other"           — sidebar tag list, manual/semantic tags
+    "tag:<tag_id>"         — item list for a specific tag
+
+
+  --- Operations ---
+
+  Create Divider:
+    Creates a new divider with an optional label. Returns the
+    created divider.
+
+  Update Divider:
+    Updates the label of an existing divider. A label may be
+    cleared (set to null) to convert a labelled divider to a
+    plain line.
+
+  Delete Divider:
+    Permanently deletes the divider. Any sort order entries
+    referencing this divider ID are also deleted (cascade).
+
+  List Dividers:
+    Returns all dividers belonging to the user.
+
+
+[/human]
+
+
+[policy]
+
+  DividerPolicy:
+    label maximum length: 100 characters
+    label may be null (renders as plain line)
+
+[/policy]
+
+
+[spec]
+
+  domain Dividers
+
+
+  --- types ---
+
+  type DividerLabel is Text [optional, max: 100]
+
+
+  --- entities ---
+
+  entity Divider
+    id:         DividerId    [unique, generated, immutable]
+    user_id:    UserId       [required, immutable]
+    label:      DividerLabel [optional]
+    created_at: Timestamp    [generated, immutable]
+    updated_at: Timestamp    [generated]
+
+
+  --- operations ---
+
+  operation CreateDivider
+    inputs:
+      user_id: UserId
+      label:   DividerLabel  [optional]
+
+    ensures:
+      Divider created with:
+        user_id == user_id
+        label   == label (null if omitted)
+
+    returns: Divider
+
+
+  operation UpdateDivider
+    inputs:
+      user_id:    UserId
+      divider_id: DividerId
+      label:      DividerLabel  [optional, nullable]
+
+    requires:
+      Divider exists with id == divider_id and user_id == user_id
+
+    ensures:
+      Divider.label == label
+
+    failures:
+      DividerNotFound: NotFoundError
+        condition: no Divider with id == divider_id for user_id
+
+
+  operation DeleteDivider
+    inputs:
+      user_id:    UserId
+      divider_id: DividerId
+
+    requires:
+      Divider exists with id == divider_id and user_id == user_id
+
+    ensures:
+      Divider deleted
+      all SortOrder records referencing divider_id removed (cascade)
+
+    failures:
+      DividerNotFound: NotFoundError
+        condition: no Divider with id == divider_id for user_id
+
+
+  --- queries ---
+
+  @query ListDividers
+    find:    Divider
+    where:   Divider.user_id == user_id
+    order:   Divider.created_at ascending
+    returns: list of Divider
+
+
+  --- extensions ---
+
+  @extend sort-orders
+    Sort order contexts that contain dividers store IDs using the
+    prefix "divider:<divider_id>" alongside plain item IDs. The
+    client resolves each ID against the appropriate entity list
+    when rendering.
+
+  @extend index
+    query: Divider by user_id  [frequent]
+
+[/spec]

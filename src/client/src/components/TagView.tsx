@@ -21,7 +21,7 @@ export function TagView({ tag }: Props) {
   }, [tag.id, refreshKey]);
 
   return (
-    <div className="p-4 max-w-2xl h-full overflow-y-auto">
+    <div className="p-4 h-full overflow-y-auto">
       <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">
         {tag.name}
         {!loading && <span className="ml-2 text-gray-600 normal-case font-normal">{items.length} items</span>}
@@ -39,7 +39,8 @@ export function TagView({ tag }: Props) {
             { type: 'application/x-item-id',    value: item.id },
             { type: 'application/x-from-tag-id', value: tag.id },
           ]}
-          itemClassName="mb-1"
+          className="grid grid-cols-3 gap-2"
+          itemClassName=""
           renderItem={(item, dragHandle) => (
             <div className="card hover:border-surface-400 hover:bg-surface-600 transition-colors py-2 px-3 flex items-center gap-2">
               {dragHandle}

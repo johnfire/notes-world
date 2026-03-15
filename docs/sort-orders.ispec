@@ -29,6 +29,12 @@ FILE: sort-orders.ispec
   not enforce or validate that item_ids correspond to real items —
   that responsibility belongs to the caller.
 
+  Sort order contexts may also contain divider IDs alongside item
+  IDs. Divider IDs use the prefix "divider:<divider_id>" to
+  distinguish them from item UUIDs. The sort order domain treats
+  all IDs uniformly — resolution is the caller's responsibility.
+  See dividers.ispec for the Divider entity and operations.
+
 
   --- Entities ---
 
