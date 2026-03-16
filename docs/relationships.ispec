@@ -156,7 +156,8 @@ FILE: relationships.ispec
 
   --- types ---
 
-  type TagName is Text [required, max: 100]
+  type TagName  is Text [required, max: 100]
+  type ColorHex is Text [optional, max: 20]
 
 
   --- enums ---
@@ -179,6 +180,7 @@ FILE: relationships.ispec
     user_id:    UserId     [required, immutable]
     name:       TagName    [required]
     tag_source: TagSource  [required, default: manual]
+    color:      ColorHex   [optional, max: 20]
     created_at: Timestamp  [generated, immutable]
     updated_at: Timestamp  [generated]
 
@@ -276,6 +278,24 @@ FILE: relationships.ispec
 
       DuplicateTag: ConflictError
         condition: tag with same normalized name exists for user
+
+
+  operation SetTagColor
+    inputs:
+      tag:      Tag
+      color:    ColorHex   [nullable]
+      user_id:  UserId
+
+    requires:
+      tag.user_id == user_id
+
+    ensures:
+      tag.color      == color
+      tag.updated_at == now
+
+    failures:
+      NotOwner: AuthorizationError
+        condition: tag.user_id != user_id
 
 
   operation DeleteTag

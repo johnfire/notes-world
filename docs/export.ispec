@@ -1,0 +1,153 @@
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+FILE: export.ispec
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+[human]
+
+  Domain: Export
+
+  This domain handles exporting items and tags as downloadable
+  markdown documents. The export format is designed to be compatible
+  with the import pipeline — exported markdown can be re-imported
+  to recreate items and tag associations.
+
+  There are three export modes:
+
+  1. Export by tag: exports all items under a single tag as one
+     markdown file. Dividers render as ## headings (labelled) or
+     --- (unlabelled). Item and divider colors are preserved as
+     HTML comment metadata.
+
+  2. Export untagged: exports all items that have no tags, using
+     the same format as tag export.
+
+  3. Export all: exports the entire database as a zip archive.
+     Each tag produces one .md file named after the tag. Untagged
+     items produce an untagged.md file. The zip filename includes
+     the current date.
+
+
+  --- Export Format ---
+
+  Each markdown file follows this structure:
+
+    # Tag Name
+
+    - Item title (type metadata)
+      Body text indented two spaces
+
+    ## Divider Label <!-- color: #hex -->
+
+    - Another item <!-- color: #hex -->
+      Body text
+
+    ---
+
+    - Item under unlabelled divider
+
+  Type-specific metadata in parentheses:
+    Task:     [x] or [ ] checkbox, status, priority, due date
+    Idea:     maturity stage
+    Reminder: remind date
+    Default:  title only
+
+  Colors are appended as HTML comments when set:
+    <!-- color: #ef4444 -->
+
+  This format ensures:
+    - Human-readable markdown
+    - Re-importable via the import pipeline (## headings become items)
+    - Color metadata preserved without affecting rendering
+
+
+  --- API Endpoints ---
+
+  GET /api/export/tag/:tagId
+    Returns: text/markdown file download
+    Filename: tag-name.md (sanitized)
+
+  GET /api/export/untagged
+    Returns: text/markdown file download
+    Filename: untagged.md
+
+  GET /api/export/all
+    Returns: application/zip file download
+    Filename: notes-world-export-YYYY-MM-DD.zip
+    Contents: one .md per tag + untagged.md
+
+
+[/human]
+
+
+[policy]
+
+  ExportPolicy:
+    maximum items per export: 10000
+    empty tags (no items) are excluded from bulk export
+    dividers are included in export as section headings
+    item colors preserved as HTML comment metadata
+
+[/policy]
+
+
+[spec]
+
+  domain Export
+
+  use Item from items
+  use Tag from relationships
+
+
+  --- operations ---
+
+  operation ExportTag
+    inputs:
+      user_id: UserId
+      tag_id:  TagId
+
+    requires:
+      Tag exists with id == tag_id and user_id == user_id
+
+    ensures:
+      returns markdown document containing:
+        heading: tag name
+        body: all items for tag, formatted by type
+        dividers: rendered as ## headings or ---
+        colors: preserved as HTML comments
+
+    returns:
+      { filename: string, markdown: string }
+
+    failures:
+      TagNotFound: NotFoundError
+        condition: no Tag with id == tag_id for user_id
+
+
+  operation ExportUntagged
+    inputs:
+      user_id: UserId
+
+    ensures:
+      returns markdown document containing:
+        heading: "Untagged Items"
+        body: all items with no tags, formatted by type
+
+    returns:
+      { filename: "untagged.md", markdown: string }
+
+
+  operation ExportAll
+    inputs:
+      user_id: UserId
+
+    ensures:
+      returns zip archive containing:
+        one .md file per tag (using ExportTag format)
+        untagged.md if untagged items exist
+        empty tags excluded
+
+    returns:
+      readable stream (zip archive)
+
+
+[/spec]

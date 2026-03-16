@@ -165,6 +165,7 @@ FILE: items.ispec
 
   type ItemTitle is Text [required, max: 300]
   type ItemBody  is Text [optional, max: 50000]
+  type ColorHex  is Text [optional, max: 20]
 
 
   --- enums ---
@@ -209,6 +210,7 @@ FILE: items.ispec
     item_type:      ItemType    [default: Untyped]
     status:         ItemStatus  [default: Active]
     type_data:      TypeData    [optional]
+    color:          ColorHex    [optional, max: 20]
     created_at:     Timestamp   [generated, immutable]
     updated_at:     Timestamp   [generated]
 
@@ -276,6 +278,7 @@ FILE: items.ispec
       title:    ItemTitle    [optional]
       body:     ItemBody     [optional]
       type_data: TypeData    [optional]
+      color:    ColorHex     [optional, nullable]
       user_id:  UserId
 
     requires:
@@ -286,6 +289,7 @@ FILE: items.ispec
       item.title      == title if provided, else was(item.title)
       item.body       == body if provided, else was(item.body)
       item.type_data  == type_data if provided, else was(item.type_data)
+      item.color      == color if provided, else was(item.color)
       item.updated_at == now
 
     side_effects:

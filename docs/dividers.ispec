@@ -22,6 +22,18 @@ FILE: dividers.ispec
   are saved alongside items in sort order contexts using the
   existing sort-orders domain, with their own ID namespace.
 
+  Dividers function as collapsible section headers. Clicking a
+  divider's chevron toggles visibility of items below it, up to
+  the next divider or end of list. Items above the first divider
+  in a list are always visible. Collapsed state persists across
+  page refreshes via the sort-orders table using context key
+  "tag:<tag_id>:collapsed" containing the IDs of collapsed dividers.
+
+  Dividers support per-item colors (same 16-color palette as tags).
+  The color applies to the divider label text. Colors are set via
+  the standard item update endpoint (PATCH /items/:id with color
+  field).
+
 
   --- Entities ---
 
