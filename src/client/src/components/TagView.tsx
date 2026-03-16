@@ -4,6 +4,7 @@ import * as api from '../api';
 import { useApp } from '../context/AppContext';
 import { SortableList } from './SortableList';
 import { PALETTE } from '../utils/colors';
+import { linkify } from '../utils/linkify';
 
 // ── ColorDot ──────────────────────────────────────────────────────────────────
 
@@ -321,7 +322,7 @@ export function TagView({ tag }: Props) {
                 >
                   <p className="text-sm" style={item.color ? { color: item.color } : undefined}>{item.title}</p>
                   {item.body && (
-                    <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{item.body}</p>
+                    <p className="text-xs text-gray-500 mt-0.5 line-clamp-1">{linkify(item.body)}</p>
                   )}
                 </button>
                 <button

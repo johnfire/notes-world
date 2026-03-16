@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Item, Tag, ItemType, ItemStatus, TaskStatus, Dependency } from '../types';
 import { useApp } from '../context/AppContext';
 import * as api from '../api';
+import { linkify } from '../utils/linkify';
 
 export function ItemDrawer() {
   const { state, closeItem, openItem, updateItemInContext, loadTags } = useApp();
@@ -279,6 +280,9 @@ export function ItemDrawer() {
                 placeholder="Add notes…"
                 disabled={isArchived || saving}
               />
+              {body && (
+                <p className="text-sm text-gray-400 mt-1.5 whitespace-pre-wrap break-all">{linkify(body)}</p>
+              )}
             </div>
 
             {/* Type data */}

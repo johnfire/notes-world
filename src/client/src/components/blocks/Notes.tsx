@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Block, Item, ItemType } from '../../types';
 import * as api from '../../api';
 import { useApp } from '../../context/AppContext';
+import { linkify } from '../../utils/linkify';
 
 interface Props { block: Block }
 
@@ -33,7 +34,7 @@ export function Notes({ block }: Props) {
           items.map((item) => (
             <button key={item.id} onClick={() => openItem(item.id)} className="w-full text-left py-2 border-b border-surface-500 last:border-0">
               <p className="text-sm text-gray-200">{item.title}</p>
-              {item.body && <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{item.body}</p>}
+              {item.body && <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{linkify(item.body)}</p>}
             </button>
           ))
         )}
