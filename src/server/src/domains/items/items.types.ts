@@ -9,6 +9,7 @@ export interface UpdateItemInput {
   title?: string;
   body?: string;
   type_data?: TypeData;
+  color?: string | null;
 }
 
 export interface PromoteItemInput {

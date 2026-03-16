@@ -84,7 +84,13 @@ export function ActionBar() {
         </div>
       )}
 
-      {/* Import button */}
+      {/* Export / Import buttons */}
+      <button
+        onClick={() => window.location.href = '/api/export/all'}
+        className="btn-ghost text-xs shrink-0"
+      >
+        Export
+      </button>
       <button
         onClick={() => setImportOpen(true)}
         className="btn-ghost text-xs shrink-0"

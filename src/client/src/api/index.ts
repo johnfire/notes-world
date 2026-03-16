@@ -26,7 +26,7 @@ export const items = {
   getById: (id: string) =>
     request<Item>(`/items/${id}`),
 
-  update: (id: string, data: { title?: string; body?: string; type_data?: TypeData }) =>
+  update: (id: string, data: { title?: string; body?: string; type_data?: TypeData; color?: string | null }) =>
     request<Item>(`/items/${id}`, { method: 'PATCH', body: JSON.stringify(data) }),
 
   promote: (id: string, new_type: ItemType, type_data?: TypeData) =>
@@ -139,6 +139,16 @@ export const sortOrders = {
       method: 'PUT',
       body: JSON.stringify({ context_key: contextKey, item_ids: itemIds }),
     }),
+};
+
+// ── Collapsed Dividers ────────────────────────────────────────────────────
+
+export const collapsedDividers = {
+  get: (tagId: string) =>
+    sortOrders.get(`tag:${tagId}:collapsed`).then(rows => rows.map(r => r.item_id)),
+
+  save: (tagId: string, dividerIds: string[]) =>
+    sortOrders.save(`tag:${tagId}:collapsed`, dividerIds),
 };
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────

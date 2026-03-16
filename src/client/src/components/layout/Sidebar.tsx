@@ -3,25 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { Tag } from '../../types';
 import * as api from '../../api';
 import { useSortableList } from '../../hooks/useSortableList';
-
-const TAG_COLORS: { name: string; value: string }[] = [
-  { name: 'White',      value: '#ffffff' },
-  { name: 'Red',        value: '#ef4444' },
-  { name: 'Orange',     value: '#f97316' },
-  { name: 'Amber',      value: '#f59e0b' },
-  { name: 'Yellow',     value: '#eab308' },
-  { name: 'Lime',       value: '#84cc16' },
-  { name: 'Green',      value: '#22c55e' },
-  { name: 'Emerald',    value: '#10b981' },
-  { name: 'Teal',       value: '#14b8a6' },
-  { name: 'Cyan',       value: '#06b6d4' },
-  { name: 'Sky',        value: '#0ea5e9' },
-  { name: 'Blue',       value: '#3b82f6' },
-  { name: 'Indigo',     value: '#6366f1' },
-  { name: 'Violet',     value: '#8b5cf6' },
-  { name: 'Pink',       value: '#ec4899' },
-  { name: 'Rose',       value: '#f43f5e' },
-];
+import { PALETTE } from '../../utils/colors';
 
 interface SidebarProps {
   onTagSelect: (tag: Tag | null) => void;
@@ -352,7 +334,7 @@ function SortableTagRow({
         />
         {showColorPicker && (
           <div className="absolute left-0 top-full mt-1 z-50 bg-surface-800 border border-surface-500 rounded-lg p-2 shadow-xl grid grid-cols-4 gap-1.5 w-[120px]">
-            {TAG_COLORS.map(c => (
+            {PALETTE.map(c => (
               <button
                 key={c.value}
                 onClick={(e) => {

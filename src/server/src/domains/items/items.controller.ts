@@ -26,6 +26,7 @@ export async function updateItem(req: Request, res: Response, next: NextFunction
       title:     req.body.title,
       body:      req.body.body,
       type_data: req.body.type_data,
+      color:     req.body.color,
     });
     res.json(item);
   } catch (err) { next(err); }

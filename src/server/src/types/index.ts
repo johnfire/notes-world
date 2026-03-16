@@ -97,6 +97,7 @@ export interface Item {
   item_type: ItemType;
   status: ItemStatus;
   type_data?: TypeData;
+  color?: string | null;
   archived_at?: string | null;
   created_at: string;
   updated_at: string;

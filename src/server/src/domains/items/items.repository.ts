@@ -28,7 +28,7 @@ export async function insert(
 export async function update(
   id: ItemId,
   userId: UserId,
-  fields: { title?: string; body?: string; type_data?: unknown; item_type?: string; status?: string; archived_at?: string | null }
+  fields: { title?: string; body?: string; type_data?: unknown; item_type?: string; status?: string; archived_at?: string | null; color?: string | null }
 ): Promise<Item | null> {
   const sets: string[] = ['updated_at = NOW()'];
   const params: unknown[] = [];
@@ -40,6 +40,7 @@ export async function update(
   if (fields.item_type !== undefined) { sets.push(`item_type = $${i++}`); params.push(fields.item_type); }
   if (fields.status      !== undefined) { sets.push(`status = $${i++}`);      params.push(fields.status); }
   if (fields.archived_at !== undefined) { sets.push(`archived_at = $${i++}`); params.push(fields.archived_at); }
+  if (fields.color       !== undefined) { sets.push(`color = $${i++}`);       params.push(fields.color); }
 
   params.push(id, userId);
 
