@@ -1,8 +1,27 @@
-import { useState, useRef, useMemo } from 'react'; // useRef used in SortableTagRow
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useApp } from '../../context/AppContext';
 import { Tag } from '../../types';
 import * as api from '../../api';
 import { useSortableList } from '../../hooks/useSortableList';
+
+const TAG_COLORS: { name: string; value: string }[] = [
+  { name: 'White',      value: '#ffffff' },
+  { name: 'Red',        value: '#ef4444' },
+  { name: 'Orange',     value: '#f97316' },
+  { name: 'Amber',      value: '#f59e0b' },
+  { name: 'Yellow',     value: '#eab308' },
+  { name: 'Lime',       value: '#84cc16' },
+  { name: 'Green',      value: '#22c55e' },
+  { name: 'Emerald',    value: '#10b981' },
+  { name: 'Teal',       value: '#14b8a6' },
+  { name: 'Cyan',       value: '#06b6d4' },
+  { name: 'Sky',        value: '#0ea5e9' },
+  { name: 'Blue',       value: '#3b82f6' },
+  { name: 'Indigo',     value: '#6366f1' },
+  { name: 'Violet',     value: '#8b5cf6' },
+  { name: 'Pink',       value: '#ec4899' },
+  { name: 'Rose',       value: '#f43f5e' },
+];
 
 interface SidebarProps {
   onTagSelect: (tag: Tag | null) => void;
@@ -12,17 +31,45 @@ interface SidebarProps {
 }
 
 export function Sidebar({ onTagSelect, selectedTagId, onTrashSelect, showTrash }: SidebarProps) {
-  const { state, refresh } = useApp();
+  const { state, refresh, loadTags } = useApp();
   const [collapsed, setCollapsed] = useState(false);
   const [dropTargetId, setDropTargetId] = useState<string | null>(null);
+  const [adding, setAdding] = useState(false);
+  const [newName, setNewName] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [createError, setCreateError] = useState<string | null>(null);
+  const createInputRef = useRef<HTMLInputElement>(null);
 
-  const folderTags = useMemo(() => state.tags.filter(t => t.tag_source === 'folder'), [state.tags]);
-  const fileTags   = useMemo(() => state.tags.filter(t => t.tag_source === 'file'),   [state.tags]);
-  const otherTags  = useMemo(() => state.tags.filter(t => t.tag_source !== 'folder' && t.tag_source !== 'file'), [state.tags]);
+  useEffect(() => { if (adding) createInputRef.current?.focus(); }, [adding]);
 
-  const folderSort = useSortableList(folderTags, 'tags:folder');
-  const fileSort   = useSortableList(fileTags,   'tags:file');
-  const otherSort  = useSortableList(otherTags,  'tags:other');
+  function cancelAdding() {
+    setAdding(false);
+    setNewName('');
+    setCreateError(null);
+  }
+
+  async function handleCreateTag(e: React.FormEvent) {
+    e.preventDefault();
+    const trimmed = newName.trim();
+    if (!trimmed) return;
+    if (trimmed.length > 100) {
+      setCreateError('Tag name must be 100 characters or less');
+      return;
+    }
+    setSaving(true);
+    setCreateError(null);
+    try {
+      await api.tags.create(trimmed);
+      await loadTags();
+      cancelAdding();
+    } catch (err) {
+      setCreateError((err as Error).message);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  const allSort = useSortableList(state.tags, 'tags:all');
 
   async function handleItemDrop(e: React.DragEvent, toTag: Tag) {
     e.preventDefault();
@@ -55,6 +102,13 @@ export function Sidebar({ onTagSelect, selectedTagId, onTrashSelect, showTrash }
     }
   }
 
+  const handleColorChange = useCallback(async (tagId: string, color: string | null) => {
+    try {
+      await api.tags.setColor(tagId, color);
+      await loadTags();
+    } catch { /* ignore */ }
+  }, [loadTags]);
+
   if (collapsed) {
     return (
       <aside className="w-10 bg-surface-900 border-r border-surface-500 flex flex-col items-center py-3 shrink-0">
@@ -71,23 +125,19 @@ export function Sidebar({ onTagSelect, selectedTagId, onTrashSelect, showTrash }
     );
   }
 
-  function renderTagSection(
-    sortable: ReturnType<typeof useSortableList<Tag>>,
-    opts?: { className?: string; selectedClassName?: string }
-  ) {
-    return sortable.orderedItems.map(tag => (
+  function renderTagList() {
+    return allSort.orderedItems.map(tag => (
       <SortableTagRow
         key={tag.id}
         tag={tag}
-        sortable={sortable}
+        sortable={allSort}
         selected={selectedTagId === tag.id}
         isDropTarget={dropTargetId === tag.id}
         onTagSelect={onTagSelect}
         onItemDrop={handleItemDrop}
         onItemDragOver={handleDragOver}
         onItemDragLeave={handleDragLeave}
-        className={opts?.className}
-        selectedClassName={opts?.selectedClassName}
+        onColorChange={handleColorChange}
       />
     ));
   }
@@ -96,13 +146,51 @@ export function Sidebar({ onTagSelect, selectedTagId, onTrashSelect, showTrash }
     <aside className="w-1/4 bg-surface-900 border-r border-surface-500 flex flex-col shrink-0 overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-surface-500">
-        <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Tags</span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Tags</span>
+          {!adding && (
+            <button
+              onClick={() => setAdding(true)}
+              className="text-gray-500 hover:text-accent transition-colors text-sm leading-none"
+              title="Create tag"
+            >
+              +
+            </button>
+          )}
+        </div>
         <button onClick={() => setCollapsed(true)} className="text-gray-500 hover:text-white" title="Collapse sidebar">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
       </div>
+
+      {/* Inline tag creation */}
+      {adding && (
+        <div className="px-3 py-2 border-b border-surface-500">
+          <form onSubmit={handleCreateTag} className="flex items-center gap-1.5">
+            <input
+              ref={createInputRef}
+              type="text"
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Escape') cancelAdding(); }}
+              placeholder="Tag name…"
+              maxLength={100}
+              className="input text-sm flex-1 min-w-0 px-2 py-1"
+              autoComplete="off"
+              disabled={saving}
+            />
+            <button type="submit" disabled={!newName.trim() || saving} className="btn-primary text-xs px-2 py-1">
+              {saving ? '…' : 'Add'}
+            </button>
+            <button type="button" onClick={cancelAdding} className="btn-ghost text-xs px-1 py-1">
+              ✕
+            </button>
+          </form>
+          {createError && <p className="text-xs text-red-400 mt-1">{createError}</p>}
+        </div>
+      )}
 
       {/* All items */}
       <button
@@ -120,27 +208,7 @@ export function Sidebar({ onTagSelect, selectedTagId, onTrashSelect, showTrash }
       </button>
 
       <div className="flex-1 overflow-y-auto">
-
-        {/* ── Folder tags ─────────────────────────────────────────── */}
-        {folderTags.length > 0 && (
-          <div className="border-b border-surface-600 pb-1 mb-1">
-            {renderTagSection(folderSort, {
-              className: 'font-medium text-surface-900 bg-white hover:bg-gray-100',
-              selectedClassName: 'font-medium text-surface-900 bg-white ring-1 ring-inset ring-accent',
-            })}
-          </div>
-        )}
-
-        {/* ── File tags ────────────────────────────────────────────── */}
-        {fileTags.length > 0 && (
-          <div className="border-b border-surface-600 pb-1 mb-1">
-            {renderTagSection(fileSort)}
-          </div>
-        )}
-
-        {/* ── Other tags ───────────────────────────────────────────── */}
-        {renderTagSection(otherSort)}
-
+        {renderTagList()}
       </div>
 
       {/* ── Trash ─────────────────────────────────────────────────── */}
@@ -175,23 +243,37 @@ interface SortableTagRowProps {
   onItemDrop: (e: React.DragEvent, tag: Tag) => Promise<void>;
   onItemDragOver: (e: React.DragEvent, tagId: string) => void;
   onItemDragLeave: (e: React.DragEvent) => void;
-  className?: string;
-  selectedClassName?: string;
+  onColorChange: (tagId: string, color: string | null) => void;
 }
 
 function SortableTagRow({
   tag, sortable, selected, isDropTarget,
   onTagSelect, onItemDrop, onItemDragOver, onItemDragLeave,
-  className = 'text-gray-400 hover:text-white hover:bg-surface-700',
-  selectedClassName = 'text-accent bg-surface-600',
+  onColorChange,
 }: SortableTagRowProps) {
   const dragAllowed = useRef(false);
+  const [showColorPicker, setShowColorPicker] = useState(false);
+  const pickerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!showColorPicker) return;
+    function handleClick(e: MouseEvent) {
+      if (pickerRef.current && !pickerRef.current.contains(e.target as Node)) {
+        setShowColorPicker(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [showColorPicker]);
+
+  const tagColor = tag.color;
+  const hasColor = !!tagColor;
 
   const base = isDropTarget
     ? 'text-white bg-accent/20 ring-1 ring-inset ring-accent'
     : selected
-    ? selectedClassName
-    : className;
+    ? (hasColor ? 'bg-surface-600' : 'text-accent bg-surface-600')
+    : (hasColor ? 'hover:bg-surface-700' : 'text-gray-400 hover:text-white hover:bg-surface-700');
 
   const { dragHandleProps, dropZoneProps } = sortable;
   const { onDragStart, onDragEnd } = dragHandleProps(tag.id);
@@ -224,13 +306,14 @@ function SortableTagRow({
         }
       }}
       className={[
-        'w-full flex items-center text-sm transition-colors',
+        'w-full flex items-center text-sm transition-colors relative',
         base,
         sortable.dragId === tag.id ? 'opacity-40 scale-[0.98]' : '',
         sortable.dragOverId === tag.id ? 'border-t-2 border-accent' : '',
       ].filter(Boolean).join(' ')}
+      style={hasColor ? { color: tagColor } : undefined}
     >
-      {/* Grip handle — mousedown enables drag for this row */}
+      {/* Grip handle */}
       <div
         onMouseDown={() => { dragAllowed.current = true; }}
         onMouseUp={() => { dragAllowed.current = false; }}
@@ -247,14 +330,53 @@ function SortableTagRow({
           <circle cx="15" cy="19" r="1.5" />
         </svg>
       </div>
+
+      {/* Color dot — click to open picker */}
+      <div className="relative shrink-0" ref={pickerRef}>
+        <button
+          onClick={(e) => { e.stopPropagation(); setShowColorPicker(!showColorPicker); }}
+          className="w-3 h-3 rounded-full border border-gray-600 hover:border-gray-400 transition-colors"
+          style={{ backgroundColor: tagColor ?? 'var(--color-accent-dim, #4b5563)' }}
+          title="Set color"
+        />
+        {showColorPicker && (
+          <div className="absolute left-0 top-full mt-1 z-50 bg-surface-800 border border-surface-500 rounded-lg p-2 shadow-xl grid grid-cols-4 gap-1.5 w-[120px]">
+            {TAG_COLORS.map(c => (
+              <button
+                key={c.value}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onColorChange(tag.id, c.value);
+                  setShowColorPicker(false);
+                }}
+                className={`w-5 h-5 rounded-full border-2 transition-transform hover:scale-125 ${
+                  tagColor === c.value ? 'border-white scale-110' : 'border-transparent'
+                }`}
+                style={{ backgroundColor: c.value }}
+                title={c.name}
+              />
+            ))}
+            {tagColor && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onColorChange(tag.id, null);
+                  setShowColorPicker(false);
+                }}
+                className="col-span-4 text-xs text-gray-400 hover:text-white mt-1 transition-colors"
+              >
+                Remove color
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+
       <button
         onClick={() => onTagSelect(tag)}
-        className="flex-1 flex items-center justify-between pr-3 py-1.5 min-w-0"
+        className="flex-1 flex items-center justify-between pr-3 py-1.5 pl-2 min-w-0"
       >
-        <span className="flex items-center gap-2 truncate">
-          <span className="w-1.5 h-1.5 rounded-full bg-accent-dim shrink-0" />
-          {tag.name}
-        </span>
+        <span className="truncate">{tag.name}</span>
         {tag.count !== undefined && (
           <span className="text-xs opacity-50 ml-2">{tag.count}</span>
         )}

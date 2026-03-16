@@ -11,6 +11,7 @@ export interface TagWithCount {
   user_id: string;
   name: string;
   tag_source: 'folder' | 'file' | 'semantic' | 'manual';
+  color: string | null;
   count: number;
   created_at: string;
   updated_at: string;

@@ -9,6 +9,7 @@ relationshipsRouter.get('/usage',         ctrl.getTagUsageCounts);
 relationshipsRouter.get('/items/batch',   ctrl.getTagsForItems);
 relationshipsRouter.post('/',             ctrl.createTag);
 relationshipsRouter.patch('/:id',         ctrl.renameTag);
+relationshipsRouter.patch('/:id/color',   ctrl.updateTagColor);
 relationshipsRouter.delete('/:id',        ctrl.deleteTag);
 relationshipsRouter.get('/:id/items',     ctrl.getItemsForTag);
 

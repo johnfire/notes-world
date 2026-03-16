@@ -26,6 +26,13 @@ export async function updateTagName(id: TagId, userId: UserId, name: string): Pr
   );
 }
 
+export async function updateTagColor(id: TagId, userId: UserId, color: string | null): Promise<Tag | null> {
+  return queryOne<Tag>(
+    'UPDATE tags SET color = $1, updated_at = NOW() WHERE id = $2 AND user_id = $3 RETURNING *',
+    [color, id, userId]
+  );
+}
+
 export async function deleteTag(id: TagId, userId: UserId): Promise<void> {
   await getPool().query('DELETE FROM tags WHERE id = $1 AND user_id = $2', [id, userId]);
 }

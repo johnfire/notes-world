@@ -16,6 +16,13 @@ export async function renameTag(req: Request, res: Response, next: NextFunction)
   } catch (err) { next(err); }
 }
 
+export async function updateTagColor(req: Request, res: Response, next: NextFunction) {
+  try {
+    const tag = await service.updateTagColor(PHASE1_USER_ID, req.params.id, req.body.color ?? null);
+    res.json(tag);
+  } catch (err) { next(err); }
+}
+
 export async function deleteTag(req: Request, res: Response, next: NextFunction) {
   try {
     await service.deleteTag(PHASE1_USER_ID, req.params.id);

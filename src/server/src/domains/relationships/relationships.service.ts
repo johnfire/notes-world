@@ -45,6 +45,16 @@ export async function renameTag(userId: UserId, tagId: TagId, newName: string): 
   return updated;
 }
 
+export async function updateTagColor(userId: UserId, tagId: TagId, color: string | null): Promise<Tag> {
+  const tag = await repo.findTagById(tagId, userId);
+  if (!tag) throw new NotFoundError('Tag', tagId);
+  if (tag.user_id !== userId) throw new AuthorizationError('Not owner');
+
+  const updated = await repo.updateTagColor(tagId, userId, color);
+  if (!updated) throw new NotFoundError('Tag', tagId);
+  return updated;
+}
+
 export async function deleteTag(userId: UserId, tagId: TagId): Promise<void> {
   const tag = await repo.findTagById(tagId, userId);
   if (!tag) throw new NotFoundError('Tag', tagId);

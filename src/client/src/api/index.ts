@@ -106,6 +106,9 @@ export const tags = {
   rename: (id: string, new_name: string) =>
     request<Tag>(`/tags/${id}`, { method: 'PATCH', body: JSON.stringify({ new_name }) }),
 
+  setColor: (id: string, color: string | null) =>
+    request<Tag>(`/tags/${id}/color`, { method: 'PATCH', body: JSON.stringify({ color }) }),
+
   delete: (id: string) =>
     request<void>(`/tags/${id}`, { method: 'DELETE' }),
 
