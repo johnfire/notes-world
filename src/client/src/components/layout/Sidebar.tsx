@@ -193,19 +193,30 @@ export function Sidebar({ onTagSelect, selectedTagId, onTrashSelect, showTrash }
       )}
 
       {/* All items */}
-      <button
-        onClick={() => onTagSelect(null)}
-        className={`flex items-center gap-2 px-4 py-2 text-sm transition-colors ${
-          selectedTagId === null
-            ? 'text-white bg-surface-600'
-            : 'text-gray-400 hover:text-white hover:bg-surface-700'
-        }`}
-      >
-        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-        All Items
-      </button>
+      <div className="flex items-center">
+        <button
+          onClick={() => onTagSelect(null)}
+          className={`flex-1 flex items-center gap-2 px-4 py-2 text-sm transition-colors ${
+            selectedTagId === null
+              ? 'text-white bg-surface-600'
+              : 'text-gray-400 hover:text-white hover:bg-surface-700'
+          }`}
+        >
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          All Items
+        </button>
+        <button
+          onClick={() => window.location.href = '/api/export/untagged'}
+          className="text-gray-600 hover:text-gray-300 transition-colors px-2 py-2 text-xs shrink-0"
+          title="Export untagged items as markdown"
+        >
+          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+        </button>
+      </div>
 
       <div className="flex-1 overflow-y-auto">
         {renderTagList()}

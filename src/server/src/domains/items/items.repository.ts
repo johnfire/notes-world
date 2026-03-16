@@ -125,6 +125,24 @@ export async function findByTag(
   );
 }
 
+export async function findUntagged(
+  userId: UserId,
+  limit = 1000,
+  offset = 0
+): Promise<Item[]> {
+  return query<Item>(
+    `SELECT i.* FROM items i
+     LEFT JOIN item_tags it ON it.item_id = i.id
+     WHERE i.user_id = $1
+       AND i.status = $2
+       AND i.item_type != $3
+       AND it.id IS NULL
+     ORDER BY LOWER(i.title) ASC
+     LIMIT $4 OFFSET $5`,
+    [userId, ItemStatus.Active, ItemType.Divider, limit, offset]
+  );
+}
+
 export async function findByEntryType(
   userId: UserId,
   entryType: string,

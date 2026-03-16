@@ -136,12 +136,21 @@ export function TagView({ tag }: Props) {
           {tag.name}
           {!loading && <span className="ml-2 text-gray-600 normal-case font-normal">{itemCount} items</span>}
         </h2>
-        <button
-          onClick={handleAddDivider}
-          className="text-xs text-gray-500 hover:text-gray-300 transition-colors px-2 py-1 rounded hover:bg-surface-600"
-        >
-          + Divider
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={() => window.location.href = `/api/export/tag/${tag.id}`}
+            className="text-xs text-gray-500 hover:text-gray-300 transition-colors px-2 py-1 rounded hover:bg-surface-600"
+            title="Export as markdown"
+          >
+            Export
+          </button>
+          <button
+            onClick={handleAddDivider}
+            className="text-xs text-gray-500 hover:text-gray-300 transition-colors px-2 py-1 rounded hover:bg-surface-600"
+          >
+            + Divider
+          </button>
+        </div>
       </div>
 
       {loading ? (
