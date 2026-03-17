@@ -1,9 +1,11 @@
 import 'dotenv/config';
-import { createApp } from './app';
+import { validateEnv } from './config/env';
+import { createApp, setStartedAt } from './app';
 import { getPool } from './db/client';
 import { runMigrations } from './db/migrate';
 
-const PORT = parseInt(process.env.PORT ?? '3001', 10);
+// Validate environment before anything else
+const env = validateEnv();
 
 async function start() {
   const pool = getPool();
@@ -23,10 +25,11 @@ async function start() {
   await runMigrations(pool);
 
   const app = createApp();
+  setStartedAt(new Date());
 
-  app.listen(PORT, () => {
+  app.listen(env.PORT, () => {
     // eslint-disable-next-line no-console
-    console.log(`Server running on port ${PORT} (${process.env.NODE_ENV ?? 'development'})`);
+    console.log(`Server running on port ${env.PORT} (${env.NODE_ENV})`);
   });
 }
 

@@ -5,6 +5,7 @@ WORKDIR /app
 COPY package.json ./
 COPY src/server/package.json ./src/server/
 COPY src/client/package.json ./src/client/
+COPY src/mcp/package.json ./src/mcp/
 RUN npm install
 
 # Build client
@@ -19,6 +20,7 @@ RUN npm run build --workspace=src/server
 
 # Production image
 FROM node:20-alpine AS production
+RUN apk add --no-cache curl
 WORKDIR /app
 
 COPY --from=server-builder /app/src/server/dist ./dist

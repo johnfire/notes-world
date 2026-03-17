@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import rateLimit from 'express-rate-limit';
 import path from 'path';
 import { itemsRouter } from './domains/items/items.routes';
 import { relationshipsRouter } from './domains/relationships/relationships.routes';
@@ -12,6 +13,12 @@ import { sortOrdersRouter } from './domains/sort-orders/sort-orders.routes';
 import { exportRouter } from './domains/export/export.routes';
 import { errorHandler } from './middleware/errorHandler';
 
+// Tracked separately so tests (which don't go through server.ts) still work
+let startedAt = new Date();
+export function setStartedAt(date: Date) { startedAt = date; }
+
+const VERSION = process.env.npm_package_version ?? '0.1.0';
+
 export function createApp() {
   const app = express();
 
@@ -19,13 +26,21 @@ export function createApp() {
   app.use(cors());
   app.use(express.json({ limit: '10mb' }));
 
+  // Rate limit API routes — 200 requests per minute per IP
   if (process.env.NODE_ENV !== 'test') {
     app.use(morgan('dev'));
+    app.use('/api', rateLimit({
+      windowMs: 60_000,
+      limit: 200,
+      standardHeaders: 'draft-7',
+      legacyHeaders: false,
+    }));
   }
 
-  // Health check
+  // Health check — not rate-limited
   app.get('/health', (_req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() });
+    const uptime = Math.floor((Date.now() - startedAt.getTime()) / 1000);
+    res.json({ status: 'ok', version: VERSION, uptime, timestamp: new Date().toISOString() });
   });
 
   // Disable ETag caching for API routes — stale 304s break refresh after mutations

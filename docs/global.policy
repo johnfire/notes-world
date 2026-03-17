@@ -56,3 +56,33 @@
     archived items are excluded from default views
     archived items remain searchable
     archived items retain all relationships
+
+  RateLimitPolicy:
+    scope: /api routes only
+    limit: 200 requests per minute per IP
+    headers: RateLimit-* (draft-7 standard)
+    exempt: /health endpoint
+    disabled in: test environment
+
+  BackupPolicy:
+    method: pg_dump via prodrigestivill/postgres-backup-local
+    schedule: daily
+    retention: 7 daily, 4 weekly, 3 monthly
+    format: compressed .sql.gz
+    storage: ./backups/ on host
+    restore: manual gunzip + psql
+
+  EnvironmentPolicy:
+    required variables: POSTGRES_PASSWORD
+    optional with defaults: PORT (3001), POSTGRES_HOST (localhost),
+      POSTGRES_PORT (5432), POSTGRES_DB (notes_world),
+      POSTGRES_USER (notes_world), PHASE1_USER_ID, TZ (UTC)
+    validation: performed at startup before any connections
+    behavior on failure: immediate exit with clear error message
+
+  HealthCheckPolicy:
+    endpoint: GET /health
+    response: { status, version, uptime, timestamp }
+    docker healthcheck: curl -f http://localhost:3001/health
+    interval: 15 seconds
+    start period: 30 seconds

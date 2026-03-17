@@ -18,11 +18,15 @@ typed, tagged, and viewed in configurable blocks.
 - Import domain: CreateImportJob, ExecuteImport, all queries
   (markdown parsing, batch item creation, duplicate detection,
   tag_source tracking for folder/file imports)
+- Export domain: ExportTag, ExportUntagged, ExportAll (markdown)
+- MCP server: stdio-based AI agent access to all operations
 - Basic responsive UI: dashboard grid, persistent CaptureBar header,
   sidebar with tags, Ideas view, Tag view
 - Block types: ActionableTasks, RecentItems, TagCloud, ItemsByTag,
   Notes, Ideas, BlockedTasks, OverdueTasks
-- Docker Compose deployment (app + PostgreSQL)
+- Docker Compose deployment (app + PostgreSQL + daily backup)
+- Operational: environment validation, rate limiting (200 req/min),
+  health endpoint with version/uptime, Docker healthchecks
 
 **Excludes:**
 - Dependencies (all of them — Phase 2)

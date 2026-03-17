@@ -27,7 +27,16 @@ dependencies, priorities, and tags.
 │  ┌────┴────────────┴────────────────┴──────────┐ │
 │  │            PostgreSQL (single instance)      │ │
 │  └─────────────────────────────────────────────┘ │
-└──────────────────────────────────────────────────┘
+└───────────────────────┬─────────────────────────┘
+                        │
+        ┌───────────────┼───────────────┐
+        │               │               │
+  ┌─────┴─────┐  ┌──────┴──────┐  ┌────┴────┐
+  │ MCP Server│  │  pg_dump    │  │  Health  │
+  │ (stdio)   │  │  (daily)    │  │ /health  │
+  │ AI agents │  │  7d/4w/3m   │  │ version  │
+  └───────────┘  └─────────────┘  │ uptime   │
+                                  └──────────┘
 ```
 
 ## Architecture Decisions
@@ -125,8 +134,8 @@ Trivial cost for significant future flexibility.
 **Status:** Accepted
 **Context:** Phase 1 is single-user on a home network with a desktop
 (pierre, Linux Mint) and laptop (crehm-asus, Ubuntu).
-**Decision:** Docker Compose with app container + PostgreSQL container,
-deployed on the home network.
+**Decision:** Docker Compose with app container + PostgreSQL container +
+daily backup container, deployed on the home network.
 **Reason:** Docker provides consistent environment across both machines.
 Docker Compose manages the app + database as a unit. Accessible from
 all devices on the home network via IP:port.
@@ -155,19 +164,20 @@ and a JSONB column for type-specific data. Queries must handle
 both untyped and typed items. UI must make promotion easy and
 non-destructive.
 
-### ADR-008: Five-Domain Architecture
+### ADR-008: Six-Domain Architecture
 
-**Date:** 2026-03-12 (updated 2026-03-15)
+**Date:** 2026-03-12 (updated 2026-03-17)
 **Status:** Accepted
 **Context:** System needs clear separation of concerns for
 maintainability and anti-fragility.
-**Decision:** Five domains — Items, Relationships, Views, Import, SortOrders.
+**Decision:** Six domains — Items, Relationships, Views, Import, SortOrders, Export.
 **Reason:**
 - Items: core entity management — CRUD, type promotion, search
 - Relationships: dependency graph, tag management, cross-references
 - Views: dashboard configuration, block layout, priority computation
 - Import: markdown parsing, batch item creation, duplicate detection
 - SortOrders: user-defined drag-and-drop ordering for any list view
+- Export: markdown export by tag, untagged, or all items
 **Consequences:** Domains communicate through events. Items domain
 emitting ItemCreated, ItemPromoted, ItemArchived. Relationships
 domain listening for those to update the dependency graph. Views
@@ -223,6 +233,74 @@ drops and tag reorder drags. These are disambiguated by MIME type:
 item drags set `application/x-item-id`; tag reorder drags use only
 `text/plain`. Event handlers check `dataTransfer.types` to route correctly.
 
+### ADR-011: MCP Server for AI Agent Access
+
+**Date:** 2026-03-17
+**Status:** Accepted
+**Context:** AI agents (Claude Code, Claude Desktop, Cursor) need
+structured access to notes-world data without scraping the UI or
+crafting raw HTTP requests.
+**Decision:** A separate MCP (Model Context Protocol) server in
+`src/mcp/` that exposes tools over stdio transport. The MCP server
+calls the REST API over HTTP — it does not import the service layer
+directly.
+**Reason:** MCP is the standard protocol for AI tool integration.
+Using HTTP as the bridge keeps the MCP server decoupled from the
+backend internals — it works whether the app runs via `npm run dev`
+or Docker. Stdio transport is the simplest for local use.
+**Consequences:** The REST API must be running for the MCP server to
+function. The MCP server is not included in the Docker image — it
+runs as a local process configured in the AI client.
+
+### ADR-012: Automated Database Backups
+
+**Date:** 2026-03-17
+**Status:** Accepted
+**Context:** Single-user system with no redundancy. Data loss from
+disk failure, accidental deletion, or bad migration is unrecoverable
+without backups.
+**Decision:** Docker Compose `db-backup` service using
+`prodrigestivill/postgres-backup-local`. Daily compressed pg_dump
+with 7 daily, 4 weekly, 3 monthly retention.
+**Reason:** Runs inside the existing Docker stack with zero external
+dependencies. Handles compression, rotation, and scheduling. Simpler
+and more reliable than a host-level cron job.
+**Consequences:** Backups stored in `./backups/` on the host.
+Restore requires manual `gunzip` + `psql` (documented in README).
+
+### ADR-013: Environment Validation and Startup Guards
+
+**Date:** 2026-03-17
+**Status:** Accepted
+**Context:** Missing or invalid environment variables (especially
+`POSTGRES_PASSWORD`) cause cryptic runtime errors deep in the
+connection stack.
+**Decision:** Validate all environment variables at process start,
+before any connections are attempted. Required variables cause
+immediate exit with a clear error message. Port values are range-checked.
+**Reason:** Fail-fast with actionable messages. A missing password
+should say "Missing required environment variable: POSTGRES_PASSWORD",
+not "FATAL: password authentication failed" from pg.
+**Consequences:** `POSTGRES_PASSWORD` is now required — the previous
+default of `changeme` is removed. Development setups must have a `.env`
+file or exported variable.
+
+### ADR-014: API Rate Limiting
+
+**Date:** 2026-03-17
+**Status:** Accepted
+**Context:** Even a single-user app exposed on a network is vulnerable
+to accidental or malicious request floods (e.g. a runaway script,
+a misconfigured MCP client).
+**Decision:** `express-rate-limit` on `/api` routes. 200 requests per
+minute per IP. Health endpoint is exempt. Disabled in test mode.
+**Reason:** Minimal configuration, no external dependencies (in-memory
+store is fine for single-instance). 200/min is generous for normal use
+but prevents floods.
+**Consequences:** MCP clients or scripts making bulk operations may
+need to throttle. Rate limit headers are included in responses
+(`RateLimit-*` draft-7 standard).
+
 ## Non-Functional Requirements
 
 ### Performance
@@ -233,7 +311,13 @@ item drags set `application/x-item-id`; tag reorder drags use only
 
 ### Reliability
 - Database: PostgreSQL WAL for crash recovery
-- Backups: automated daily pg_dump to a designated backup location
+- Backups: automated daily pg_dump via Docker backup container
+  (7 daily, 4 weekly, 3 monthly retention, compressed .sql.gz)
+- Health checks: Docker healthcheck on app container (curl /health),
+  pg_isready on db container
+- Environment validation: startup fails fast with clear messages
+  if required variables are missing
+- Rate limiting: 200 req/min per IP on API routes
 - No data loss under any failure scenario — if the process crashes
   mid-operation, the database must be consistent on restart
 
@@ -244,12 +328,15 @@ item drags set `application/x-item-id`; tag reorder drags use only
 
 ## Technology Versions (Phase 1)
 
-| Component     | Version       | Rationale                        |
-|---------------|---------------|----------------------------------|
-| Node.js       | 20 LTS        | Long-term support, stable        |
-| Express       | 4.x           | Mature, well-documented          |
-| React         | 18.x          | Current stable, hooks support    |
-| PostgreSQL    | 16.x          | Current stable, JSONB mature     |
-| TypeScript    | 5.x           | Both frontend and backend        |
-| Docker        | Latest stable  | Container deployment             |
-| Docker Compose| v2            | Multi-container orchestration    |
+| Component              | Version       | Rationale                        |
+|------------------------|---------------|----------------------------------|
+| Node.js                | 20 LTS        | Long-term support, stable        |
+| Express                | 4.x           | Mature, well-documented          |
+| React                  | 18.x          | Current stable, hooks support    |
+| PostgreSQL             | 16.x          | Current stable, JSONB mature     |
+| TypeScript             | 5.x           | Both frontend and backend        |
+| Docker                 | Latest stable  | Container deployment             |
+| Docker Compose         | v2            | Multi-container orchestration    |
+| express-rate-limit     | 8.x           | API rate limiting                |
+| @modelcontextprotocol/sdk | 1.x        | MCP server for AI agent access   |
+| postgres-backup-local  | 16-alpine     | Automated daily DB backups       |
