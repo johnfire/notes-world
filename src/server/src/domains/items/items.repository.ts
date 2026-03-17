@@ -2,6 +2,7 @@
 // Implemented in Phase 1.2
 import { Item, ItemId, UserId, ItemType, ItemStatus } from '../../types';
 import { query, queryOne, withTransaction } from '../../db/client';
+import { buildUpdate } from '../../utils/buildUpdate';
 
 export async function findById(id: ItemId, userId: UserId): Promise<Item | null> {
   return queryOne<Item>(
@@ -30,24 +31,13 @@ export async function update(
   userId: UserId,
   fields: { title?: string; body?: string; type_data?: unknown; item_type?: string; status?: string; archived_at?: string | null; color?: string | null }
 ): Promise<Item | null> {
-  const sets: string[] = ['updated_at = NOW()'];
-  const params: unknown[] = [];
-  let i = 1;
-
-  if (fields.title     !== undefined) { sets.push(`title = $${i++}`);     params.push(fields.title); }
-  if (fields.body      !== undefined) { sets.push(`body = $${i++}`);      params.push(fields.body); }
-  if (fields.type_data !== undefined) { sets.push(`type_data = $${i++}`); params.push(JSON.stringify(fields.type_data)); }
-  if (fields.item_type !== undefined) { sets.push(`item_type = $${i++}`); params.push(fields.item_type); }
-  if (fields.status      !== undefined) { sets.push(`status = $${i++}`);      params.push(fields.status); }
-  if (fields.archived_at !== undefined) { sets.push(`archived_at = $${i++}`); params.push(fields.archived_at); }
-  if (fields.color       !== undefined) { sets.push(`color = $${i++}`);       params.push(fields.color); }
-
-  params.push(id, userId);
-
-  return queryOne<Item>(
-    `UPDATE items SET ${sets.join(', ')} WHERE id = $${i++} AND user_id = $${i} RETURNING *`,
-    params
+  const { sql, params } = buildUpdate(
+    'items',
+    fields,
+    { id, user_id: userId },
+    { jsonFields: ['type_data'] }
   );
+  return queryOne<Item>(sql, params);
 }
 
 export async function findActive(

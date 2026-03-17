@@ -1,5 +1,6 @@
 import { Dashboard, Block, BlockConfig, UserId, DashboardId, BlockId, ViewType } from '../../types';
 import { query, queryOne, withTransaction } from '../../db/client';
+import { buildUpdate } from '../../utils/buildUpdate';
 import { BlockPosition } from './views.types';
 
 export async function findDashboardByUser(userId: UserId): Promise<Dashboard | null> {
@@ -56,22 +57,13 @@ export async function updateBlock(
   userId: UserId,
   fields: { view_type?: string; title?: string; row?: number; col?: number; config?: BlockConfig }
 ): Promise<Block | null> {
-  const sets: string[] = ['updated_at = NOW()'];
-  const params: unknown[] = [];
-  let i = 1;
-
-  if (fields.view_type !== undefined) { sets.push(`view_type = $${i++}`); params.push(fields.view_type); }
-  if (fields.title     !== undefined) { sets.push(`title = $${i++}`);     params.push(fields.title); }
-  if (fields.row       !== undefined) { sets.push(`row = $${i++}`);       params.push(fields.row); }
-  if (fields.col       !== undefined) { sets.push(`col = $${i++}`);       params.push(fields.col); }
-  if (fields.config    !== undefined) { sets.push(`config = $${i++}`);    params.push(JSON.stringify(fields.config)); }
-
-  params.push(id, userId);
-
-  return queryOne<Block>(
-    `UPDATE blocks SET ${sets.join(', ')} WHERE id = $${i++} AND user_id = $${i} RETURNING *`,
-    params
+  const { sql, params } = buildUpdate(
+    'blocks',
+    fields,
+    { id, user_id: userId },
+    { jsonFields: ['config'] }
   );
+  return queryOne<Block>(sql, params);
 }
 
 export async function deleteBlock(id: BlockId, userId: UserId): Promise<void> {

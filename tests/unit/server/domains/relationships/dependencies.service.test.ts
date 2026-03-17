@@ -288,11 +288,11 @@ describe('getDependentsOfItem', () => {
 describe('getDependencyChain', () => {
   test('delegates to repo', async () => {
     const chain = [ITEM_B_ID, '00000000-0000-0000-0001-000000000003'];
-    mockRepo.findDependencyChain.mockResolvedValue(chain);
+    mockRepo.findReachableItems.mockResolvedValue(chain);
 
     const result = await service.getDependencyChain(TEST_USER_ID, ITEM_A_ID);
 
-    expect(mockRepo.findDependencyChain).toHaveBeenCalledWith(ITEM_A_ID, TEST_USER_ID);
+    expect(mockRepo.findReachableItems).toHaveBeenCalledWith(ITEM_A_ID, TEST_USER_ID);
     expect(result).toBe(chain);
   });
 });

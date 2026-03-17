@@ -101,7 +101,7 @@ export async function getDependentsOfItem(userId: UserId, itemId: ItemId) {
 }
 
 export async function getDependencyChain(userId: UserId, itemId: ItemId) {
-  return repo.findDependencyChain(itemId, userId);
+  return repo.findReachableItems(itemId, userId);
 }
 
 export async function addCrossReference(userId: UserId, itemAId: ItemId, itemBId: ItemId) {

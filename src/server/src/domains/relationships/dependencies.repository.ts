@@ -88,24 +88,10 @@ export async function updateDependencyStatus(
   return rows[0] ?? null;
 }
 
-// Returns all dependency_ids reachable from startId (for cycle detection)
-export async function findReachableItems(startId: ItemId, userId: UserId): Promise<ItemId[]> {
-  const { rows } = await getPool().query<{ dependency_id: string }>(
-    `WITH RECURSIVE chain AS (
-       SELECT dependency_id FROM dependencies
-       WHERE dependent_id = $1 AND user_id = $2 AND status = 'Active'
-       UNION
-       SELECT d.dependency_id FROM dependencies d
-       INNER JOIN chain c ON d.dependent_id = c.dependency_id
-       WHERE d.user_id = $2 AND d.status = 'Active'
-     )
-     SELECT dependency_id FROM chain`,
-    [startId, userId]
-  );
-  return rows.map(r => r.dependency_id);
-}
-
-export async function findDependencyChain(itemId: ItemId, userId: UserId): Promise<ItemId[]> {
+// Returns all dependency_ids reachable from startId via recursive CTE.
+// Used for both cycle detection and the dependency-chain API endpoint.
+// Depth is capped at maxDepth (default 20) to prevent runaway recursion.
+export async function findReachableItems(startId: ItemId, userId: UserId, maxDepth = 20): Promise<ItemId[]> {
   const { rows } = await getPool().query<{ item_id: string }>(
     `WITH RECURSIVE chain AS (
        SELECT dependency_id AS item_id, 1 AS depth FROM dependencies
@@ -113,10 +99,10 @@ export async function findDependencyChain(itemId: ItemId, userId: UserId): Promi
        UNION
        SELECT d.dependency_id, c.depth + 1 FROM dependencies d
        INNER JOIN chain c ON d.dependent_id = c.item_id
-       WHERE d.user_id = $2 AND d.status = 'Active' AND c.depth < 20
+       WHERE d.user_id = $2 AND d.status = 'Active' AND c.depth < $3
      )
      SELECT DISTINCT item_id FROM chain`,
-    [itemId, userId]
+    [startId, userId, maxDepth]
   );
   return rows.map(r => r.item_id);
 }

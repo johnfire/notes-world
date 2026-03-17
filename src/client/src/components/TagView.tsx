@@ -3,159 +3,9 @@ import { Tag, Item, ItemType } from '../types';
 import * as api from '../api';
 import { useApp } from '../context/AppContext';
 import { SortableList } from './SortableList';
-import { PALETTE } from '../utils/colors';
 import { linkify } from '../utils/linkify';
-
-// ── ColorDot ──────────────────────────────────────────────────────────────────
-
-function ColorDot({ color, onChange }: { color?: string | null; onChange: (c: string | null) => void }) {
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
-    }
-    if (open) document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
-  }, [open]);
-
-  return (
-    <div className="relative shrink-0" ref={ref}>
-      <button
-        onClick={(e) => { e.stopPropagation(); setOpen(!open); }}
-        className="w-3 h-3 rounded-full border border-gray-600 hover:border-gray-400 transition-colors opacity-0 group-hover:opacity-100"
-        style={{ backgroundColor: color ?? '#4b5563' }}
-        title="Set color"
-      />
-      {open && (
-        <div className="absolute left-0 top-full mt-1 z-50 bg-surface-800 border border-surface-500 rounded-lg p-2 shadow-xl grid grid-cols-4 gap-1.5 w-[120px]">
-          {PALETTE.map(c => (
-            <button
-              key={c.value}
-              onClick={(e) => { e.stopPropagation(); onChange(c.value); setOpen(false); }}
-              className="w-5 h-5 rounded-full border border-surface-400 hover:scale-125 transition-transform"
-              style={{ backgroundColor: c.value }}
-              title={c.name}
-            />
-          ))}
-          {color && (
-            <button
-              onClick={(e) => { e.stopPropagation(); onChange(null); setOpen(false); }}
-              className="col-span-4 text-xs text-gray-400 hover:text-white mt-1 transition-colors"
-            >
-              Remove color
-            </button>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ── DividerRow ────────────────────────────────────────────────────────────────
-// Isolated component so its edit state doesn't cause the parent list to re-render.
-
-interface DividerRowProps {
-  item:         Item;
-  dragHandle:   React.ReactNode;
-  onSave:       (id: string, title: string) => Promise<void>;
-  onDelete:     (id: string) => Promise<void>;
-  onColorChange: (color: string | null) => void;
-  collapsed:    boolean;
-  onToggle:     () => void;
-  hiddenCount:  number;
-}
-
-function DividerRow({ item, dragHandle, onSave, onDelete, onColorChange, collapsed, onToggle, hiddenCount }: DividerRowProps) {
-  const [editing, setEditing] = useState(false);
-  const [label,   setLabel]   = useState(item.title);
-  const inputRef      = useRef<HTMLInputElement>(null);
-  const committingRef = useRef(false);
-
-  useEffect(() => { setLabel(item.title); }, [item.title]);
-  useEffect(() => { if (editing) inputRef.current?.focus(); }, [editing]);
-
-  function startEdit() {
-    committingRef.current = false;
-    setEditing(true);
-  }
-
-  async function commit() {
-    if (committingRef.current) return;
-    committingRef.current = true;
-    setEditing(false);
-    await onSave(item.id, label.trim());
-    committingRef.current = false;
-  }
-
-  return (
-    <div className="card py-2 px-3 flex items-center gap-2 group">
-      {dragHandle}
-      <button
-        onClick={onToggle}
-        className="text-gray-500 hover:text-white transition-colors shrink-0"
-        title={collapsed ? 'Expand section' : 'Collapse section'}
-      >
-        <svg className={`w-3 h-3 transition-transform ${collapsed ? '' : 'rotate-90'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-      <ColorDot color={item.color} onChange={onColorChange} />
-      <div className="flex-1 flex items-center gap-1 min-w-0">
-        {editing ? (
-          <input
-            ref={inputRef}
-            value={label}
-            onChange={e => setLabel(e.target.value)}
-            onBlur={commit}
-            onKeyDown={e => {
-              if (e.key === 'Enter')  commit();
-              if (e.key === 'Escape') { setEditing(false); setLabel(item.title); }
-            }}
-            className="bg-transparent border-b border-gray-500 text-xs text-gray-300 outline-none w-full"
-            placeholder="Label (optional)"
-          />
-        ) : (
-          <>
-            <div className="flex-1 flex items-center gap-1 min-w-0">
-              <div className="flex-1 h-px bg-surface-500" />
-              {item.title ? (
-                <span
-                  onClick={startEdit}
-                  className="text-xs font-bold cursor-pointer hover:text-gray-300 shrink-0 truncate max-w-[60%]"
-                  style={{ color: item.color ?? '#ffffff' }}
-                >
-                  {item.title}
-                </span>
-              ) : (
-                <span
-                  onClick={startEdit}
-                  className="text-xs text-gray-700 cursor-pointer hover:text-gray-500 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                >
-                  label
-                </span>
-              )}
-              {collapsed && hiddenCount > 0 && (
-                <span className="text-xs text-gray-500 shrink-0">({hiddenCount})</span>
-              )}
-              <div className="flex-1 h-px bg-surface-500" />
-            </div>
-            <button
-              onClick={() => onDelete(item.id)}
-              className="text-gray-700 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 shrink-0 text-xs"
-              title="Remove divider"
-            >
-              ✕
-            </button>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
-
-// ── TagView ───────────────────────────────────────────────────────────────────
+import { ColorDot } from './tag-view/ColorDot';
+import { DividerRow } from './tag-view/DividerRow';
 
 interface Props {
   tag: Tag;
@@ -179,9 +29,6 @@ export function TagView({ tag }: Props) {
       api.collapsedDividers.get(tag.id),
     ]).then(([fetchedItems, collapsed]) => {
       setItems(fetchedItems);
-      // Only reset visual order on tag change, not on refresh.
-      // On refresh, useSortableList's sync effect merges new items
-      // into the existing order, preserving drag-reorder state.
       if (isTagChange) setVisualOrder(fetchedItems);
       setCollapsedSet(new Set(collapsed));
     }).finally(() => setLoading(false));
@@ -202,14 +49,13 @@ export function TagView({ tag }: Props) {
   }
 
   // Build a map: itemId -> parent dividerId (or null if above all dividers)
-  // Uses visualOrder (the actual rendered order after drag reorder)
   function getParentDividerMap(): Map<string, string | null> {
     const map = new Map<string, string | null>();
     let currentDivider: string | null = null;
     for (const item of visualOrder) {
       if (item.item_type === ItemType.Divider) {
         currentDivider = item.id;
-        map.set(item.id, null); // dividers themselves are never hidden
+        map.set(item.id, null);
       } else {
         map.set(item.id, currentDivider);
       }
