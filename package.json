@@ -15,6 +15,6 @@
     "migrate": "npm run migrate --workspace=src/server"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^9.2.1"
   }
 }
