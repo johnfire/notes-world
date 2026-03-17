@@ -54,6 +54,47 @@ notes-world/
 └── *.ispec *.policy     # domain specs (source of truth)
 ```
 
+## Database Backups
+
+The Docker Compose stack includes automatic daily database backups via [postgres-backup-local](https://github.com/prodrigestivill/docker-postgres-backup-local).
+
+**Retention policy:**
+- 7 daily backups
+- 4 weekly backups
+- 3 monthly backups
+
+Backups are stored in `./backups/` as compressed `.sql.gz` files.
+
+### Manual backup
+
+```bash
+docker compose exec db-backup /backup.sh
+```
+
+### Restore from backup
+
+```bash
+# 1. Stop the app (keep db running)
+docker compose stop app
+
+# 2. Decompress the backup
+gunzip -k backups/daily/notes_world-YYYYMMDD-HHMMSS.sql.gz
+
+# 3. Restore into the database
+docker compose exec -T db psql -U notes_world -d notes_world < backups/daily/notes_world-YYYYMMDD-HHMMSS.sql
+
+# 4. Restart
+docker compose up -d app
+```
+
+### Set backup timezone
+
+Add `TZ` to your `.env` file (defaults to UTC):
+
+```
+TZ=America/Chicago
+```
+
 ## Development
 
 ```bash
