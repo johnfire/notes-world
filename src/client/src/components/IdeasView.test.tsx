@@ -1,7 +1,7 @@
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { vi } from 'vitest';
 import { IdeasView } from './IdeasView';
-import { ItemType, IdeaMaturity } from '../types';
+import { ItemType } from '../types';
 
 const mockByType = vi.fn();
 const mockUpdate = vi.fn();

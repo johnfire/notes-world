@@ -93,6 +93,11 @@ export function Sidebar({ onTagSelect, selectedTagId, onTrashSelect, showTrash }
     } catch { /* ignore */ }
   }, [loadTags]);
 
+  const handleRename = useCallback(async (tagId: string, newName: string) => {
+    await api.tags.rename(tagId, newName);
+    await loadTags();
+  }, [loadTags]);
+
   if (collapsed) {
     return (
       <aside className="w-10 bg-surface-900 border-r border-surface-500 flex flex-col items-center py-3 shrink-0">
@@ -122,6 +127,7 @@ export function Sidebar({ onTagSelect, selectedTagId, onTrashSelect, showTrash }
         onItemDragOver={handleDragOver}
         onItemDragLeave={handleDragLeave}
         onColorChange={handleColorChange}
+        onRename={handleRename}
       />
     ));
   }
@@ -239,16 +245,36 @@ interface SortableTagRowProps {
   onItemDragOver: (e: React.DragEvent, tagId: string) => void;
   onItemDragLeave: (e: React.DragEvent) => void;
   onColorChange: (tagId: string, color: string | null) => void;
+  onRename: (tagId: string, newName: string) => Promise<void>;
 }
 
 function SortableTagRow({
   tag, sortable, selected, isDropTarget,
   onTagSelect, onItemDrop, onItemDragOver, onItemDragLeave,
-  onColorChange,
+  onColorChange, onRename,
 }: SortableTagRowProps) {
   const dragAllowed = useRef(false);
   const [showColorPicker, setShowColorPicker] = useState(false);
   const pickerRef = useRef<HTMLDivElement>(null);
+  const [editing, setEditing] = useState(false);
+  const [editName, setEditName] = useState(tag.name);
+  const [renameError, setRenameError] = useState<string | null>(null);
+  const editRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => { if (editing) editRef.current?.select(); }, [editing]);
+
+  async function handleRenameSubmit() {
+    const trimmed = editName.trim();
+    if (!trimmed || trimmed === tag.name) { setEditing(false); setRenameError(null); return; }
+    if (trimmed.length > 100) { setRenameError('100 char max'); return; }
+    try {
+      await onRename(tag.id, trimmed);
+      setEditing(false);
+      setRenameError(null);
+    } catch (err) {
+      setRenameError((err as Error).message);
+    }
+  }
 
   useEffect(() => {
     if (!showColorPicker) return;
@@ -367,15 +393,35 @@ function SortableTagRow({
         )}
       </div>
 
-      <button
-        onClick={() => onTagSelect(tag)}
-        className="flex-1 flex items-center justify-between pr-3 py-1.5 pl-2 min-w-0"
-      >
-        <span className="truncate">{tag.name}</span>
-        {tag.count !== undefined && (
-          <span className="text-xs opacity-50 ml-2">{tag.count}</span>
-        )}
-      </button>
+      {editing ? (
+        <div className="flex-1 flex items-center pr-3 py-0.5 pl-2 min-w-0">
+          <input
+            ref={editRef}
+            type="text"
+            value={editName}
+            onChange={(e) => setEditName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') void handleRenameSubmit();
+              if (e.key === 'Escape') { setEditing(false); setEditName(tag.name); setRenameError(null); }
+            }}
+            onBlur={() => void handleRenameSubmit()}
+            maxLength={100}
+            className="bg-surface-700 text-white text-sm rounded px-1 py-0.5 w-full outline-none ring-1 ring-accent"
+          />
+          {renameError && <span className="text-xs text-red-400 ml-1 shrink-0">{renameError}</span>}
+        </div>
+      ) : (
+        <button
+          onClick={() => onTagSelect(tag)}
+          onDoubleClick={(e) => { e.stopPropagation(); setEditName(tag.name); setEditing(true); }}
+          className="flex-1 flex items-center justify-between pr-3 py-1.5 pl-2 min-w-0"
+        >
+          <span className="truncate">{tag.name}</span>
+          {tag.count !== undefined && (
+            <span className="text-xs opacity-50 ml-2">{tag.count}</span>
+          )}
+        </button>
+      )}
     </div>
   );
 }
