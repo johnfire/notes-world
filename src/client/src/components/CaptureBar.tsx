@@ -8,7 +8,7 @@ interface CaptureBarProps {
 }
 
 export function CaptureBar({ autoTagId, autoTagName }: CaptureBarProps) {
-  const { refresh } = useApp();
+  const { refresh, addUnsorted } = useApp();
   const [value, setValue]     = useState('');
   const [saving, setSaving]   = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -33,6 +33,7 @@ export function CaptureBar({ autoTagId, autoTagName }: CaptureBarProps) {
     try {
       const item = await api.items.capture(title);
       if (autoTagId) await api.tags.tagItem(item.id, autoTagId);
+      addUnsorted(item);
       setValue('');
       void refresh();
     } finally {

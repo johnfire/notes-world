@@ -28,6 +28,9 @@ export function createApp() {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
   });
 
+  // Disable ETag caching for API routes — stale 304s break refresh after mutations
+  app.use('/api', (_req, res, next) => { res.set('Cache-Control', 'no-store'); next(); });
+
   // API routes
   app.use('/api/items',     itemsRouter);
   app.use('/api/tags',      relationshipsRouter);

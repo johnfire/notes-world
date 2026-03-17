@@ -162,20 +162,27 @@ interface Props {
 }
 
 export function TagView({ tag }: Props) {
-  const { openItem, state: { refreshKey } } = useApp();
+  const { openItem, state: { refreshKey, unsortedItems }, removeUnsorted } = useApp();
   const [items,   setItems]   = useState<Item[]>([]);
   const [visualOrder, setVisualOrder] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
   const [collapsedSet, setCollapsedSet] = useState<Set<string>>(new Set());
 
+  const prevTagId = useRef(tag.id);
+
   useEffect(() => {
+    const isTagChange = tag.id !== prevTagId.current;
+    prevTagId.current = tag.id;
     setLoading(true);
     Promise.all([
-      api.tags.getItemsForTag(tag.id),
+      api.tags.getItemsForTag(tag.id, 500),
       api.collapsedDividers.get(tag.id),
     ]).then(([fetchedItems, collapsed]) => {
       setItems(fetchedItems);
-      setVisualOrder(fetchedItems);
+      // Only reset visual order on tag change, not on refresh.
+      // On refresh, useSortableList's sync effect merges new items
+      // into the existing order, preserving drag-reorder state.
+      if (isTagChange) setVisualOrder(fetchedItems);
       setCollapsedSet(new Set(collapsed));
     }).finally(() => setLoading(false));
   }, [tag.id, refreshKey]);
@@ -253,7 +260,24 @@ export function TagView({ tag }: Props) {
     setItems(prev => prev.map(i => i.id === id ? updated : i));
   }
 
-  const itemCount = items.filter(i => i.item_type !== ItemType.Divider).length;
+  // Staging: items in this tag's list that are still unsorted
+  const unsortedIds = new Set(unsortedItems.map(i => i.id));
+  const stagedItems = items.filter(i => unsortedIds.has(i.id));
+  const sortedItems = items.filter(i => !unsortedIds.has(i.id));
+
+  const handleExternalDrop = useCallback((itemId: string) => {
+    removeUnsorted(itemId);
+  }, [removeUnsorted]);
+
+  function handleStageDragStart(e: React.DragEvent, item: Item) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', item.id);
+    e.dataTransfer.setData('application/x-item-id', item.id);
+    e.dataTransfer.setData('application/x-from-tag-id', tag.id);
+    e.dataTransfer.setData('application/x-from-staging', '1');
+  }
+
+  const itemCount = sortedItems.filter(i => i.item_type !== ItemType.Divider).length;
 
   return (
     <div className="p-4 h-full overflow-y-auto">
@@ -279,15 +303,54 @@ export function TagView({ tag }: Props) {
         </div>
       </div>
 
+      {/* Staging area */}
+      {stagedItems.length > 0 && (
+        <div className="mb-4">
+          <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">
+            Unsorted ({stagedItems.length})
+          </p>
+          <div className="flex flex-col gap-1.5">
+            {stagedItems.map(item => (
+              <div
+                key={item.id}
+                draggable
+                onDragStart={e => handleStageDragStart(e, item)}
+                className="card bg-surface-700 border-dashed border-accent/40 hover:border-accent py-2 px-3 flex items-center gap-2 cursor-grab active:cursor-grabbing transition-colors"
+              >
+                <svg className="w-4 h-4 text-gray-600 shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="9" cy="5" r="1.5" /><circle cx="15" cy="5" r="1.5" />
+                  <circle cx="9" cy="12" r="1.5" /><circle cx="15" cy="12" r="1.5" />
+                  <circle cx="9" cy="19" r="1.5" /><circle cx="15" cy="19" r="1.5" />
+                </svg>
+                <button
+                  onClick={() => openItem(item.id)}
+                  className="flex-1 text-left min-w-0"
+                >
+                  <p className="text-sm text-gray-200">{item.title}</p>
+                </button>
+                <button
+                  onClick={() => removeUnsorted(item.id)}
+                  className="text-xs text-gray-600 hover:text-gray-400 shrink-0"
+                  title="Place at end of list"
+                >
+                  ↓
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {loading ? (
         <p className="text-sm text-gray-600 py-8 text-center">Loading…</p>
-      ) : items.length === 0 ? (
+      ) : sortedItems.length === 0 && stagedItems.length === 0 ? (
         <p className="text-sm text-gray-600 py-8 text-center">No items with this tag</p>
       ) : (
         <SortableList
-          items={items}
+          items={sortedItems}
           contextKey={`tag:${tag.id}`}
           onReorder={handleReorder}
+          onExternalDrop={handleExternalDrop}
           extraDragData={(item) => item.item_type !== ItemType.Divider ? [
             { type: 'application/x-item-id',    value: item.id },
             { type: 'application/x-from-tag-id', value: tag.id },

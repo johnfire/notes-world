@@ -13,7 +13,7 @@ interface SidebarProps {
 }
 
 export function Sidebar({ onTagSelect, selectedTagId, onTrashSelect, showTrash }: SidebarProps) {
-  const { state, refresh, loadTags } = useApp();
+  const { state, refresh, loadTags, removeUnsorted } = useApp();
   const [collapsed, setCollapsed] = useState(false);
   const [dropTargetId, setDropTargetId] = useState<string | null>(null);
   const [adding, setAdding] = useState(false);
@@ -57,8 +57,9 @@ export function Sidebar({ onTagSelect, selectedTagId, onTrashSelect, showTrash }
     e.preventDefault();
     setDropTargetId(null);
 
-    const itemId    = e.dataTransfer.getData('application/x-item-id');
-    const fromTagId = e.dataTransfer.getData('application/x-from-tag-id');
+    const itemId      = e.dataTransfer.getData('application/x-item-id');
+    const fromTagId   = e.dataTransfer.getData('application/x-from-tag-id');
+    const fromStaging = e.dataTransfer.getData('application/x-from-staging');
     if (!itemId) return;
 
     const additive = e.shiftKey;
@@ -67,6 +68,7 @@ export function Sidebar({ onTagSelect, selectedTagId, onTrashSelect, showTrash }
     if (!additive && fromTagId && fromTagId !== toTag.id) {
       await api.tags.untagItem(itemId, fromTagId);
     }
+    if (fromStaging) removeUnsorted(itemId);
 
     void refresh();
   }

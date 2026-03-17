@@ -9,6 +9,7 @@ interface Props<T extends HasId> {
   renderItem: (item: T, dragHandle: React.ReactNode) => React.ReactNode;
   extraDragData?: (item: T) => ExtraDragData[];
   onReorder?: (orderedItems: T[]) => void;
+  onExternalDrop?: (itemId: string, targetId: string) => void;
   className?: string;
   itemClassName?: string | ((item: T) => string);
 }
@@ -39,11 +40,12 @@ export function SortableList<T extends HasId>({
   renderItem,
   extraDragData,
   onReorder,
+  onExternalDrop,
   className,
   itemClassName,
 }: Props<T>) {
   const { orderedItems, dragHandleProps, dropZoneProps, dragOverId, dragId } =
-    useSortableList(items, contextKey, extraDragData);
+    useSortableList(items, contextKey, extraDragData, onExternalDrop);
 
   // Notify parent of order changes
   const onReorderRef = useRef(onReorder);

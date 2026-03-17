@@ -13,6 +13,7 @@ interface AppState {
   searchQuery:    string;
   selectedItemId: string | null;
   refreshKey:     number;
+  unsortedItems:  Item[];
 }
 
 type Action =
@@ -27,7 +28,9 @@ type Action =
   | { type: 'SET_ERROR'; payload: string | null }
   | { type: 'OPEN_ITEM'; id: string }
   | { type: 'CLOSE_ITEM' }
-  | { type: 'REFRESH' };
+  | { type: 'REFRESH' }
+  | { type: 'ADD_UNSORTED'; payload: Item }
+  | { type: 'REMOVE_UNSORTED'; payload: string };
 
 function updateItemInList(list: Item[], item: Item): Item[] {
   if (item.status === ItemStatus.Archived) {
@@ -66,6 +69,10 @@ function reducer(state: AppState, action: Action): AppState {
       return { ...state, selectedItemId: null };
     case 'REFRESH':
       return { ...state, refreshKey: state.refreshKey + 1 };
+    case 'ADD_UNSORTED':
+      return { ...state, unsortedItems: [...state.unsortedItems, action.payload] };
+    case 'REMOVE_UNSORTED':
+      return { ...state, unsortedItems: state.unsortedItems.filter(i => i.id !== action.payload) };
     default:
       return state;
   }
@@ -82,6 +89,7 @@ const initialState: AppState = {
   searchQuery:    '',
   selectedItemId: null,
   refreshKey:     0,
+  unsortedItems:  [],
 };
 
 interface AppContextValue {
@@ -96,6 +104,8 @@ interface AppContextValue {
   closeItem: () => void;
   updateItemInContext: (item: Item) => void;
   refresh: () => Promise<void>;
+  addUnsorted: (item: Item) => void;
+  removeUnsorted: (id: string) => void;
 }
 
 const AppContext = createContext<AppContextValue | null>(null);
@@ -149,6 +159,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const openItem     = useCallback((id: string) => dispatch({ type: 'OPEN_ITEM', id }), []);
   const closeItem    = useCallback(() => dispatch({ type: 'CLOSE_ITEM' }), []);
   const updateItemInContext = useCallback((item: Item) => dispatch({ type: 'UPDATE_ITEM', payload: item }), []);
+  const addUnsorted  = useCallback((item: Item) => dispatch({ type: 'ADD_UNSORTED', payload: item }), []);
+  const removeUnsorted = useCallback((id: string) => dispatch({ type: 'REMOVE_UNSORTED', payload: id }), []);
   const refresh      = useCallback(async () => {
     dispatch({ type: 'REFRESH' });
     await Promise.all([loadRecentItems(), loadTags()]);
@@ -159,6 +171,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       state, loadDashboard, loadRecentItems, loadTags,
       captureItem, search, clearSearch,
       openItem, closeItem, updateItemInContext, refresh,
+      addUnsorted, removeUnsorted,
     }}>
       {children}
     </AppContext.Provider>

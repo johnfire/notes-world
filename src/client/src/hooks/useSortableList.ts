@@ -29,7 +29,8 @@ let instanceCounter = 0;
 export function useSortableList<T extends HasId>(
   items: T[],
   contextKey: string | null,
-  extraDragData?: (item: T) => ExtraDragData[]
+  extraDragData?: (item: T) => ExtraDragData[],
+  onExternalDrop?: (itemId: string, targetId: string) => void
 ): UseSortableListResult<T> {
   const [orderedIds, setOrderedIds] = useState<string[]>([]);
   const [dragId,     setDragId]     = useState<string | null>(null);
@@ -134,7 +135,9 @@ export function useSortableList<T extends HasId>(
     e.preventDefault();
     e.stopPropagation();
     e.dataTransfer.dropEffect = 'move';
-    if (dragIdRef.current && dragIdRef.current !== targetId) {
+    const isInternal = dragIdRef.current && dragIdRef.current !== targetId;
+    const isExternal = !dragIdRef.current && e.dataTransfer.types.includes('application/x-from-staging');
+    if (isInternal || isExternal) {
       setDragOverId(targetId);
     }
   }
@@ -168,7 +171,15 @@ export function useSortableList<T extends HasId>(
       const fromIdx = next.indexOf(fromId);
       const toIdx   = next.indexOf(targetId);
       console.log('[drop] reorder fromIdx', fromIdx, 'toIdx', toIdx);
-      if (fromIdx === -1 || toIdx === -1) return prev;
+      if (toIdx === -1) return prev;
+      if (fromIdx === -1) {
+        // External item (e.g. from staging) — insert at target position
+        next.splice(toIdx, 0, fromId);
+        console.log('[drop] external insert', next);
+        saveOrder(next);
+        onExternalDrop?.(fromId, targetId);
+        return next;
+      }
       next.splice(fromIdx, 1);
       next.splice(toIdx, 0, fromId);
       console.log('[drop] result', next);
