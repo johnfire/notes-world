@@ -4,7 +4,8 @@
   "private": true,
   "workspaces": [
     "src/server",
-    "src/client"
+    "src/client",
+    "src/mcp"
   ],
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace=src/server\" \"npm run dev --workspace=src/client\"",

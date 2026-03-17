@@ -9,6 +9,7 @@ Personal productivity dashboard. Consolidates fragmented notes, ideas, tasks, an
 - **Backend:** Node 20 + Express 4 + TypeScript → `src/server/`
 - **Database:** PostgreSQL 16 — raw SQL via `pg`, no ORM
 - **Deployment:** Docker Compose (app + postgres + daily backup)
+- **MCP Server:** `src/mcp/` — stdio MCP server for AI agent access, talks to REST API
 - **Events:** In-process Node EventEmitter (`src/server/src/events/eventBus.ts`)
 
 ## Commands
