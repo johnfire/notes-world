@@ -2,8 +2,8 @@ import request from 'supertest';
 import { TEST_USER_ID } from '../../../../helpers/itemFactory';
 
 // ── Mock service and DB before importing the app ──────────────────────────────
-jest.mock('../../../../../src/server/src/domains/sort-orders/sort-orders.service');
-jest.mock('../../../../../src/server/src/db/client', () => ({
+jest.mock('../../../../../packages/server/src/domains/sort-orders/sort-orders.service');
+jest.mock('../../../../../packages/server/src/db/client', () => ({
   getPool:         jest.fn(),
   query:           jest.fn(),
   queryOne:        jest.fn(),
@@ -11,8 +11,16 @@ jest.mock('../../../../../src/server/src/db/client', () => ({
   closePool:       jest.fn(),
 }));
 
-import * as service from '../../../../../src/server/src/domains/sort-orders/sort-orders.service';
-import { createApp } from '../../../../../src/server/src/app';
+jest.mock('../../../../../packages/server/src/middleware/auth', () => ({
+  requireAuth: (req: import('express').Request, _res: import('express').Response, next: import('express').NextFunction) => {
+    req.userId = '00000000-0000-0000-0000-000000000001';
+    next();
+  },
+}));
+
+
+import * as service from '../../../../../packages/server/src/domains/sort-orders/sort-orders.service';
+import { createApp } from '../../../../../packages/server/src/app';
 
 const mockService = service as jest.Mocked<typeof service>;
 const app = createApp();
@@ -49,7 +57,7 @@ describe('GET /api/sort-orders', () => {
   });
 
   test('422 when context is missing', async () => {
-    const { ValidationError } = await import('../../../../../src/server/src/utils/errors');
+    const { ValidationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.getSortOrders.mockRejectedValue(new ValidationError('contextKey is required'));
 
     const res = await request(app).get('/api/sort-orders');
@@ -85,7 +93,7 @@ describe('PUT /api/sort-orders', () => {
   });
 
   test('422 when context_key is missing', async () => {
-    const { ValidationError } = await import('../../../../../src/server/src/utils/errors');
+    const { ValidationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.saveSortOrders.mockRejectedValue(new ValidationError('contextKey is required'));
 
     const res = await request(app)
@@ -97,7 +105,7 @@ describe('PUT /api/sort-orders', () => {
   });
 
   test('422 when item_ids is not an array', async () => {
-    const { ValidationError } = await import('../../../../../src/server/src/utils/errors');
+    const { ValidationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.saveSortOrders.mockRejectedValue(new ValidationError('item_ids must be an array'));
 
     const res = await request(app)

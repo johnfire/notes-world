@@ -1,0 +1,756 @@
+╭─── Claude Code v2.1.80 ──────────────────────────────────────────────────────╮
+│                               │ Tips for getting started                     │
+│      Welcome back Chris!      │ Run /init to create a CLAUDE.md file with i… │
+│                               │ ──────────────────────────────────────────── │
+│            ▐▛███▜▌            │ Recent activity                              │
+│           ▝▜█████▛▘           │ No recent activity                           │
+│             ▘▘ ▝▝             │                                              │
+│                               │                                              │
+│    Sonnet 4.6 · Claude Pro    │                                              │
+│   ~/programming/notes-world   │                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+❯ /statusline                                                                   
+
+● statusline-setup(Configure status line from PS1)
+  ⎿  Done (4 tool uses · 9.0k tokens · 20s)
+  (ctrl+o to expand)
+
+● Your statusline is already configured and matches your PS1 — user@host in bold
+   green, current directory in bold blue, plus git branch/dirty status and
+  context window usage. No changes needed.
+
+❯ please read the architecture , claude, and other doc files                    
+
+  Searched for 1 pattern, read 14 files (ctrl+o to expand)
+
+● Done. I've read all the docs. Here's a quick summary of what exists:
+
+  6 domains, all spec'd:
+  - Items — core CRUD: capture, promote (Untyped→Task/Idea/Note/Reminder),
+  archive/restore. JSONB type_data for type-specific fields.
+  - Relationships — Tags + ItemTags + Dependencies (DAG, circular detection,
+  AND-logic) + CrossReferences. Resolves dependencies on TaskCompleted event.
+  - Views — Dashboard + Block config. Block types: ActionableTasks, RecentItems,
+   TagCloud, ItemsByTag, BlockedTasks, OverdueTasks, Notes, Ideas. CaptureBar is
+   a persistent header, not a block.
+  - SortOrders — Per-context drag-and-drop ordering. Context keys like tag:<id>,
+   maturity:<stage>, tags:folder. Full-replace save semantics.
+  - Import — Single-file markdown (split by ##, ###, ---, double-blank) or
+  folder import (one file = one item). Auto-tag on import. Per-item failure
+  isolation.
+  - Export — By tag, untagged, or all (zip). Round-trips with import format.
+
+  Dividers — implemented as item_type = 'Divider' rows in the items table (no
+  separate domain). TagView only; sidebar dividers not yet done.
+
+  Key architectural decisions: web app (multi-device), React + Node/Express +
+  PostgreSQL, Docker on home network, single user in Phase 1 with user_id column
+   everywhere for future multi-tenant, REST over GraphQL, HTML5 drag API (no
+  library), MCP server via stdio.
+
+  Current state: Phase 1.1 (scaffolding complete), working through 1.2–1.6.
+
+✻ Crunched for 37s
+
+❯ which doc files did you read?                                                 
+
+● All of them:
+
+  - docs/arch.md
+  - docs/phases.md
+  - docs/context.md
+  - docs/global.policy
+  - docs/dashboard.intent
+  - docs/items.ispec
+  - docs/relationships.ispec
+  - docs/views.ispec
+  - docs/sort-orders.ispec
+  - docs/import.ispec
+  - docs/export.ispec
+  - docs/dividers.ispec
+  - docs/dividers.md
+
+  I did not read:
+  - docs/car-standard-project-structure.md
+  - docs/annex-import-pipeline.md
+  - docs/annex-export-pipeline.md
+  - docs/draganddrop.md
+
+❯ ok, im testing how much of the context that all used it was about 30% im      
+wondering if there is a way to set it up so thatonly the docs you need for a    
+given task are read. some kind of memory management system that classifys what  
+docs go with what code files or maybe domains. what ideas do you have           
+
+● A few approaches, roughly in order of simplicity:
+
+  ---
+  Option A: Doc index in CLAUDE.md (zero overhead)
+
+  Add a compact table to the project CLAUDE.md mapping each doc to its domain
+  and when to read it. Since CLAUDE.md is already loaded into every session, I
+  can scan it and pull only what I need — no extra file reads.
+
+  ## Doc Index
+  | File                        | Domain        | Read when...
+      |
+  |-----------------------------|---------------|-------------------------------
+  ----|
+  | docs/items.ispec            | Items         | any item CRUD, types, events
+      |
+  | docs/relationships.ispec    | Relationships | tags, dependencies, cross-refs
+      |
+  | docs/views.ispec            | Views         | dashboard, blocks, layout
+      |
+  | docs/sort-orders.ispec      | SortOrders    | drag-and-drop ordering
+      |
+  | docs/dividers.ispec/md      | Items/UI      | divider feature work
+      |
+  | docs/import.ispec           | Import        | import pipeline
+      |
+  | docs/export.ispec           | Export        | export pipeline
+      |
+  | docs/arch.md                | Global        | ADRs, architecture decisions
+      |
+  | docs/phases.md              | Global        | scope questions, what's in/out
+      |
+  | docs/global.policy          | Global        | limits, error types, policies
+      |
+
+  This is probably the right default — lightweight, no new infrastructure.
+
+  ---
+  Option B: Memory file with domain→doc mapping
+
+  A memory entry that maps domain names to doc files. I'd consult it at task
+  start and pull only the relevant subset. Slightly more indirection than option
+   A but keeps CLAUDE.md lean.
+
+  ---
+  Option C: Structured .claude/docs-index.md file
+
+  A richer manifest outside docs/ (so it's not a spec file) with tags like
+  domains, triggers, code_paths. More expressive but requires a new file and a
+  convention to actually use it.
+
+  ---
+  My recommendation: Option A. The table costs maybe 15 lines in CLAUDE.md, is
+  already in context, and turns "read all docs" into "read the 1-2 docs that
+  touch this task." Want me to add it?
+
+❯ yes, great idea                                                               
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(.claude/CLAUDE.md)
+  ⎿  Added 22 lines
+      40  - `PHASE1_USER_ID = 00000000-0000-0000-0000-000000000001` —    
+          single user, hardcoded in Phase 1                              
+      41  - All tables have `user_id` column from day 1 (ADR-005)        
+      42                                                                 
+      43 +## Doc Index                                                   
+      44 +Read only the docs relevant to the task at hand.               
+      45 +                                                               
+      46 +| File | Domain | Read when... |                               
+      47 +|------|--------|--------------|                               
+      48 +| `docs/items.ispec` | Items | item CRUD, types, promotion,    
+         +archive, events |                                              
+      49 +| `docs/relationships.ispec` | Relationships | tags,           
+         +dependencies, cross-references |                               
+      50 +| `docs/views.ispec` | Views | dashboard, blocks, layout,      
+         +CaptureBar |                                                   
+      51 +| `docs/sort-orders.ispec` | SortOrders | drag-and-drop        
+         +ordering, context keys |                                       
+      52 +| `docs/dividers.ispec` | Dividers | divider spec (entity,     
+         +operations) |                                                  
+      53 +| `docs/dividers.md` | Dividers | divider implementation       
+         +notes, architecture |                                          
+      54 +| `docs/import.ispec` | Import | import pipeline, markdown     
+         +parsing |                                                      
+      55 +| `docs/export.ispec` | Export | export pipeline, markdown     
+         +format |                                                       
+      56 +| `docs/global.policy` | Global | error types, size limits,    
+         +rate limits, policies |                                        
+      57 +| `docs/arch.md` | Global | ADRs, architecture decisions, tech 
+         + versions |                                                    
+      58 +| `docs/phases.md` | Global | phase scope, what's in/out, test 
+         + gates |                                                       
+      59 +| `docs/context.md` | Global | problem statement, success      
+         +criteria, constraints |                                        
+      60 +| `docs/dashboard.intent` | Global | product values,           
+         +boundaries, fitness criteria |                                 
+      61 +| `docs/draganddrop.md` | SortOrders/UI | drag-and-drop        
+         +implementation details |                                       
+      62 +| `docs/annex-import-pipeline.md` | Import | import pipeline   
+         +deep-dive |                                                    
+      63 +| `docs/annex-export-pipeline.md` | Export | export pipeline   
+         +deep-dive |                                                    
+      64 +                                                               
+      65  ## Do Not Touch                                                
+      66  - `docs/*.ispec`, `docs/*.intent`, `docs/*.policy`,            
+          `docs/*.md` — spec files, source of truth                      
+      67  - `src/server/src/db/migrations/` — only add new files, never  
+          edit existing ones                                             
+● Done. Added a 16-row doc index to .claude/CLAUDE.md. Future sessions will have
+   it in context from the start and can pull only the 1-2 files relevant to the
+  task.
+
+❯ can you create a skill that does this? there are 10 other directories that    
+could use this feature                                                          
+
+● Skill(skill-creator)
+  ⎿  Successfully loaded skill
+
+  Read 1 file (ctrl+o to expand)
+
+● Bash(python3
+      /home/christopher/.claude/skills/skill-creator/scripts/init_skill.py
+      doc-index --path /home/christopher/.claude/skills/)
+  ⎿  🚀 Initializing skill: doc-index
+        Location: /home/christopher/.claude/skills/
+     … +14 lines (ctrl+o to expand)
+
+● Bash(rm /home/christopher/.claude/skills/doc-index/scripts/example.py
+      /home/christopher/.claude/skills/doc-index/references/api_reference.md
+      /home/christopher/.claud…)
+  ⎿  Done
+
+● Write(~/.claude/skills/doc-index/SKILL.md)
+  ⎿  Error writing file
+
+  Read 1 file (ctrl+o to expand)
+
+● Write(~/.claude/skills/doc-index/SKILL.md)
+  ⎿  Added 27 lines, removed 67 lines
+       1  ---                                                            
+       2  name: doc-index                                                
+       3 -description: [TODO: Complete and informative explanation of    
+         -what the skill does and when to use it. Include WHEN to use    
+         -this skill - specific scenarios, file types, or tasks that     
+         -trigger it.]                                                   
+       3 +description: Scans a project's documentation directory and     
+         +adds a "Doc Index" table to the project's CLAUDE.md. The table 
+         + maps each doc file to its domain and when to read it, so      
+         +future AI sessions can load only the relevant docs for a given 
+         + task instead of reading everything upfront. Use when the user 
+         + asks to "add a doc index", "set up doc index", "index the     
+         +docs", or wants context-efficient documentation access for a   
+         +project. Trigger phrase: /doc-index                            
+       4  ---                                                            
+       5                                                                 
+       6  # Doc Index                                                    
+       7                                                                 
+       8 -## Overview                                                    
+       8 +Scan a project's docs and write a compact index table into its 
+         + CLAUDE.md so future sessions know which docs to fetch for a   
+         +given task.                                                    
+       9                                                                 
+      10 -[TODO: 1-2 sentences explaining what this skill enables]       
+      10 +## Steps                                                       
+      11                                                                 
+      12 -## Structuring This Skill                                      
+      12 +1. **Find the docs directory** — check common locations:       
+         +`docs/`, `doc/`, `.docs/`, `documentation/`. If none exists,   
+         +tell the user and stop.                                        
+      13                                                                 
+      14 -[TODO: Choose the structure that best fits this skill's        
+         -purpose. Common patterns:                                      
+      14 +2. **Find the CLAUDE.md** — check `.claude/CLAUDE.md` then     
+         +`CLAUDE.md` at the project root. If none exists, ask the user  
+         +before creating one.                                           
+      15                                                                 
+      16 -**1. Workflow-Based** (best for sequential processes)          
+      17 -- Works well when there are clear step-by-step procedures      
+      18 -- Example: DOCX skill with "Workflow Decision Tree" →          
+         -"Reading" → "Creating" → "Editing"                             
+      19 -- Structure: ## Overview → ## Workflow Decision Tree → ## Step 
+         - 1 → ## Step 2...                                              
+      16 +3. **Read every doc file** — glob all files in the docs        
+         +directory (any depth). Read each one. For each file determine: 
+      17 +   - **Domain** — the feature area or concern it covers (e.g.  
+         +Items, Auth, API, Deployment). Infer from content, not just    
+         +filename.                                                      
+      18 +   - **When to read** — a short phrase (5–10 words) describing 
+         + what task triggers reading this file. Be specific: "item      
+         +CRUD, types, promotion, archive" beats "items stuff".          
+      19                                                                 
+      20 -**2. Task-Based** (best for tool collections)                  
+      21 -- Works well when the skill offers different                   
+         -operations/capabilities                                        
+      22 -- Example: PDF skill with "Quick Start" → "Merge PDFs" →       
+         -"Split PDFs" → "Extract Text"                                  
+      23 -- Structure: ## Overview → ## Quick Start → ## Task Category 1 
+         - → ## Task Category 2...                                       
+      20 +4. **Check for an existing Doc Index** — search CLAUDE.md for  
+         +a `## Doc Index` section. If found, replace it. If not, insert 
+         + it before the first `## Do Not Touch` section, or append to   
+         +the end if that section doesn't exist.                         
+      21                                                                 
+      22 -**3. Reference/Guidelines** (best for standards or             
+         -specifications)                                                
+      23 -- Works well for brand guidelines, coding standards, or        
+         -requirements                                                   
+      24 -- Example: Brand styling with "Brand Guidelines" → "Colors" →  
+         -"Typography" → "Features"                                      
+      25 -- Structure: ## Overview → ## Guidelines → ## Specifications → 
+         - ## Usage...                                                   
+      22 +5. **Write the table** — format:                               
+      23                                                                 
+      24 -**4. Capabilities-Based** (best for integrated systems)        
+      25 -- Works well when the skill provides multiple interrelated     
+         -features                                                       
+      26 -- Example: Product Management with "Core Capabilities" →       
+         -numbered capability list                                       
+      27 -- Structure: ## Overview → ## Core Capabilities → ### 1.       
+         -Feature → ### 2. Feature...                                    
+      24 +```markdown                                                    
+      25 +## Doc Index                                                   
+      26 +Read only the docs relevant to the task at hand.               
+      27                                                                 
+      28 -Patterns can be mixed and matched as needed. Most skills       
+         -combine patterns (e.g., start with task-based, add workflow    
+         -for complex operations).                                       
+      28 +| File | Domain | Read when... |                               
+      29 +|------|--------|--------------|                               
+      30 +| `docs/foo.md` | Auth | login, sessions, JWT |                
+      31 +| `docs/bar.ispec` | Items | item CRUD, types, events |        
+      32 +```                                                            
+      33                                                                 
+      34 -Delete this entire "Structuring This Skill" section when done  
+         -- it's just guidance.]                                         
+      34 +   - Use relative paths from the project root                  
+      35 +   - One row per file                                          
+      36 +   - Keep "Read when..." to a short phrase — no full sentences 
+      37 +   - Sort rows: domain-specific docs first (alphabetically by  
+         +domain), global/cross-cutting docs last                        
+      38                                                                 
+      39 -## [TODO: Replace with the first main section based on chosen  
+         -structure]                                                     
+      39 +6. **Confirm** — tell the user how many files were indexed and 
+         + where the table was inserted.                                 
+      40                                                                 
+      41 -[TODO: Add content here. See examples in existing skills:      
+      42 -- Code samples for technical skills                            
+      43 -- Decision trees for complex workflows                         
+      44 -- Concrete examples with realistic user requests               
+      45 -- References to scripts/templates/references as needed]        
+      41 +## Notes                                                       
+      42                                                                 
+      43 -## Resources                                                   
+      44 -                                                               
+      45 -This skill includes example resource directories that          
+         -demonstrate how to organize different types of bundled         
+         -resources:                                                     
+      46 -                                                               
+      47 -### scripts/                                                   
+      48 -Executable code (Python/Bash/etc.) that can be run directly to 
+         - perform specific operations.                                  
+      49 -                                                               
+      50 -**Examples from other skills:**                                
+      51 -- PDF skill: `fill_fillable_fields.py`,                        
+         -`extract_form_field_info.py` - utilities for PDF manipulation  
+      52 -- DOCX skill: `document.py`, `utilities.py` - Python modules   
+         -for document processing                                        
+      53 -                                                               
+      54 -**Appropriate for:** Python scripts, shell scripts, or any     
+         -executable code that performs automation, data processing, or  
+         -specific operations.                                           
+      55 -                                                               
+      56 -**Note:** Scripts may be executed without loading into         
+         -context, but can still be read by Claude for patching or       
+         -environment adjustments.                                       
+      57 -                                                               
+      58 -### references/                                                
+      59 -Documentation and reference material intended to be loaded     
+         -into context to inform Claude's process and thinking.          
+      60 -                                                               
+      61 -**Examples from other skills:**                                
+      62 -- Product management: `communication.md`,                      
+         -`context_building.md` - detailed workflow guides               
+      63 -- BigQuery: API reference documentation and query examples     
+      64 -- Finance: Schema documentation, company policies              
+      65 -                                                               
+      66 -**Appropriate for:** In-depth documentation, API references,   
+         -database schemas, comprehensive guides, or any detailed        
+         -information that Claude should reference while working.        
+      67 -                                                               
+      68 -### assets/                                                    
+      69 -Files not intended to be loaded into context, but rather used  
+         -within the output Claude produces.                             
+      70 -                                                               
+      71 -**Examples from other skills:**                                
+      72 -- Brand styling: PowerPoint template files (.pptx), logo files 
+      73 -- Frontend builder: HTML/React boilerplate project directories 
+      74 -- Typography: Font files (.ttf, .woff2)                        
+      75 -                                                               
+      76 -**Appropriate for:** Templates, boilerplate code, document     
+         -templates, images, icons, fonts, or any files meant to be      
+         -copied or used in the final output.                            
+      77 -                                                               
+      78 ----                                                            
+      79 -                                                               
+      80 -**Any unneeded directories can be deleted.** Not every skill   
+         -requires all three types of resources.                         
+      43 +- Do not add a Doc Index to projects that have no docs         
+         +directory or no CLAUDE.md equivalent                           
+      44 +- If a docs directory contains many files (>20), group by      
+         +subdirectory in the Domain column                              
+      45 +- The table should be scannable at a glance — brevity is more  
+         +valuable than completeness                                     
+
+● Bash(python3
+      /home/christopher/.claude/skills/skill-creator/scripts/package_skill.py
+      /home/christopher/.claude/skills/doc-index)
+  ⎿  Error: Exit code 1
+     📦 Packaging skill: /home/christopher/.claude/skills/doc-index
+
+     🔍 Validating skill...
+     ❌ Validation failed: Invalid YAML in frontmatter: mapping values are not 
+     allowed here
+       in "<unicode string>", line 2, column 447:
+          ... ss for a project. Trigger phrase: /doc-index
+                                              ^
+        Please fix the validation errors before packaging.
+
+● The /doc-index in the description is being parsed as YAML. Need to quote the
+  description field.
+
+● Update(~/.claude/skills/doc-index/SKILL.md)
+  ⎿  Added 1 line, removed 1 line
+      1  ---                                                             
+      2  name: doc-index                                                 
+      3 -description:                                                    
+        -Scans a project's documentation directory and adds a "Doc Index"
+        - table to the project's CLAUDE.md. The table maps each doc file 
+        -to its domain and when to read it, so future AI sessions can    
+        -load only the relevant docs for a given task instead of reading 
+        -everything upfront. Use when the user asks to "add a doc index" 
+        -, "set up doc index", "index the docs"                          
+        -, or wants context-efficient documentation access for a project.
+        - Trigger phrase: /doc-index                                     
+      3 +description: "                                                  
+        +Scans a project's documentation directory and adds a Doc Index  
+        + table to the project's CLAUDE.md. The table maps each doc file 
+        +to its domain and when to read it, so future AI sessions can    
+        +load only the relevant docs for a given task instead of reading 
+        +everything upfront. Use when the user asks to add a doc index,  
+        +set up doc index, index the docs                                
+        +, or wants context-efficient documentation access for a project.
+        + Trigger phrase: /doc-index"                                    
+      4  ---                                                             
+      5                                                                  
+      6  # Doc Index                                                     
+
+● Bash(python3
+      /home/christopher/.claire/skills/skill-creator/scripts/package_skill.py
+      /home/christopher/.claude/skills/doc-index 2>/dev/null || python3
+      /home/christop…)
+  ⎿  📦 Packaging skill: /home/christopher/.claude/skills/doc-index
+
+     🔍 Validating skill...
+     … +6 lines (ctrl+o to expand)
+
+● Skill created, validated, and packaged. The .skill file landed at
+  /home/christopher/programming/notes-world/doc-index.skill — you can move it
+  wherever you keep distributable skills.
+
+  To use it on any of your other 10 projects, just open that project in Claude
+  Code and run /doc-index. It will:
+
+  1. Find the docs directory
+  2. Read all doc files
+  3. Infer each file's domain and when to read it
+  4. Insert (or replace) the ## Doc Index table in the project's CLAUDE.md
+
+✻ Cooked for 1m 18s
+
+❯ can you make this a global skill?                                             
+
+● It already is — the skill lives at /home/christopher/.claude/skills/doc-index/
+   which is the global skills directory. It's available in every project you
+  open, not just notes-world.
+
+  The doc-index.skill file that got created in the notes-world directory is just
+   a distributable archive (for sharing or reinstalling). You can delete it if
+  you don't need it:
+
+● Bash(rm /home/christopher/programming/notes-world/doc-index.skill)
+  ⎿  Done
+
+● Done. /doc-index is ready to use in any project.
+❯ ok nice. how big are each of the docs you read at the beginning of this task  
+
+  Read 1 file (ctrl+o to expand)
+
+● ┌───────────────────────────────────┬────────────────┐
+  │               File                │     Lines      │
+  ├───────────────────────────────────┼────────────────┤
+  │ relationships.ispec               │ 672            │
+  ├───────────────────────────────────┼────────────────┤
+  │ items.ispec                       │ 630            │
+  ├───────────────────────────────────┼────────────────┤
+  │ annex-import-pipeline.md          │ 448 (not read) │
+  ├───────────────────────────────────┼────────────────┤
+  │ views.ispec                       │ 392            │
+  ├───────────────────────────────────┼────────────────┤
+  │ import.ispec                      │ 354            │
+  ├───────────────────────────────────┼────────────────┤
+  │ arch.md                           │ 342            │
+  ├───────────────────────────────────┼────────────────┤
+  │ car-standard-project-structure.md │ 271 (not read) │
+  ├───────────────────────────────────┼────────────────┤
+  │ phases.md                         │ 196            │
+  ├───────────────────────────────────┼────────────────┤
+  │ dividers.ispec                    │ 185            │
+  ├───────────────────────────────────┼────────────────┤
+  │ export.ispec                      │ 153            │
+  ├───────────────────────────────────┼────────────────┤
+  │ sort-orders.ispec                 │ 146            │
+  ├───────────────────────────────────┼────────────────┤
+  │ annex-export-pipeline.md          │ 140 (not read) │
+  ├───────────────────────────────────┼────────────────┤
+  │ draganddrop.md                    │ 109 (not read) │
+  ├───────────────────────────────────┼────────────────┤
+  │ global.policy                     │ 88             │
+  ├───────────────────────────────────┼────────────────┤
+  │ context.md                        │ 87             │
+  ├───────────────────────────────────┼────────────────┤
+  │ dividers.md                       │ 74             │
+  ├───────────────────────────────────┼────────────────┤
+  │ dashboard.intent                  │ 65             │
+  ├───────────────────────────────────┼────────────────┤
+  │ Total                             │ 4352           │
+  └───────────────────────────────────┴────────────────┘
+
+  I read 13 of 17 files — 3,264 lines. The 4 skipped totalled 968 lines. With
+  the doc index, a typical task would need 2-4 files (150-700 lines) rather than
+   the full 3,264.
+
+❯ hmmmmm im wondering if we could find a way to break up some of the files over 
+ 300 lines. thats a tricky task, because we would have to also probably change  
+some of the architecture. what are yout ideas, think this one through very      
+carefully. the end goal is to minimize what is pulled into the context to do    
+new coding, thus leaving more context free to work with.                        
+
+● This is worth thinking through carefully before touching anything. Let me
+  break down the problem first.
+
+  Why the files are large:
+
+  The .ispec format bundles three concerns in one file: [human] (intent),
+  [policy] (constraints), [spec] (formal contracts — entities, operations,
+  queries, events). Every large file carries all three layers.
+
+  The actual usage pattern:
+
+  When coding a specific task you almost never need the whole file. You need:
+  - Entity/type definitions (always, small)
+  - Either the operation specs (write path) OR the query specs (read path) —
+  rarely both
+  - Policies only when checking limits/constraints
+
+  ---
+  The clearest wins:
+
+  1. Split relationships.ispec into tags.ispec + dependencies.ispec
+  These are genuinely separate concerns — different DB tables, different routes,
+   different service files. Tag work never requires reading dependency specs and
+   vice versa. ~672 lines → ~280 + ~380. This is a real architectural split, not
+   artificial.
+
+  2. Split arch.md by when you'd read it:
+  - arch-stack.md — ADRs 001-006, 009 (tech choices:
+  web/React/Node/PG/Docker/REST). Read when changing the stack or onboarding.
+  - arch-features.md — ADRs 007, 008, 010, 011 (domain model, six domains,
+  drag-drop, MCP). Read when touching domain design.
+  - arch-ops.md — ADRs 012, 013, 014 (backups, env validation, rate limiting).
+  Read when touching ops/deployment.
+  ~342 lines → ~120 + ~130 + ~90.
+
+  3. Split items.ispec into read path + write path + schema:
+  - items-schema.ispec — entities, types, enums, events (~100 lines). Needed by
+  everything.
+  - items-operations.ispec — the 7 operations (CaptureItem through BlockTask)
+  (~350 lines). Read when implementing mutation endpoints.
+  - items-queries.ispec — all 8 queries + indexes (~180 lines). Read when
+  implementing GET endpoints/dashboard blocks.
+
+  ---
+  The tricky parts:
+
+  [human] sections — the intent prose at the top of each ispec is useful
+  orientation for any task, but it's only ~30-60 lines per file. It could live
+  in a shared items.md alongside the split spec files, or stay duplicated in
+  each split file (small enough to tolerate).
+
+  Cross-domain references — relationships.ispec currently imports Item from 
+  items. If you split items into schema/operations/queries, the imports in
+  relationships need to point at items-schema.ispec. Manageable, but every split
+   creates import surface to maintain.
+
+  The doc index — each split creates a new row, but that's the point.
+  items-schema.ispec → "entity definitions, use with any items task" is a
+  legitimate entry.
+
+  ---
+  What I'd leave alone:
+
+  - views.ispec (392 lines) — all block types are referenced together
+  frequently; splitting feels artificial
+  - import.ispec (354 lines) — only read for import work; the whole thing is
+  relevant together
+  - sort-orders.ispec, export.ispec, global.policy — already small enough
+
+  ---
+  Net result if all three splits happen:
+
+  ┌─────────────────────┬───────┬─────────────────────────────────┬─────────┐
+  │       Before        │ Lines │              After              │  Lines  │
+  ├─────────────────────┼───────┼─────────────────────────────────┼─────────┤
+  │ relationships.ispec │ 672   │ tags.ispec + dependencies.ispec │ ~280 +  │
+  │                     │       │                                 │ ~380    │
+  ├─────────────────────┼───────┼─────────────────────────────────┼─────────┤
+  │                     │       │ items-schema.ispec +            │ ~100 +  │
+  │ items.ispec         │ 630   │ items-operations.ispec +        │ ~350 +  │
+  │                     │       │ items-queries.ispec             │ ~180    │
+  ├─────────────────────┼───────┼─────────────────────────────────┼─────────┤
+  │                     │       │ arch-stack.md +                 │ ~120 +  │
+  │ arch.md             │ 342   │ arch-features.md + arch-ops.md  │ ~130 +  │
+  │                     │       │                                 │ ~90     │
+  └─────────────────────┴───────┴─────────────────────────────────┴─────────┘
+
+  A typical coding task currently pulls the whole domain file. After the split,
+  it pulls the schema (~100 lines) + either operations or queries (~180-350
+  lines) — roughly half the lines for a focused task.
+
+  ---
+  My recommendation: Start with just the relationships split since it's
+  architecturally clean and has the highest line count. The items read/write
+  split is valuable but more invasive. The arch.md split is easy and can be done
+   independently any time.
+
+  Want to proceed with any of these?
+
+✻ Cogitated for 1m 14s
+
+❯ is there a way to only read parts of the file? like this part is for humans?  
+
+● Yes — and this might be better than splitting files at all.
+
+  The Read tool takes offset and limit (line numbers). Combined with Grep to
+  find section boundaries first, I can pull exactly the lines I need without
+  touching the file structure.
+
+  The workflow:
+
+  1. Grep for "[/human]" in items.ispec  →  returns line 137
+  2. Read items.ispec offset=1 limit=137  →  just the [human] section
+
+  Or for the spec section only:
+  1. Grep for "\[spec\]" and "\[/spec\]"  →  lines 159, 630
+  2. Read items.ispec offset=159 limit=471
+
+  Or even finer — the spec sections have --- operations ---, --- queries ---,
+  --- entities --- subsection markers:
+  1. Grep for "--- queries ---"  →  line 515
+  2. Read items.ispec offset=515 limit=115  →  just the queries
+
+  This costs almost nothing — a Grep that returns line numbers is a tiny
+  operation compared to reading hundreds of lines of content.
+
+  ---
+  What this means practically:
+
+  The files don't need to be split. Instead, the doc index entries get more
+  specific:
+
+  ┌──────────────────┬──────────────────────┬───────────────────────────────┐
+  │       File       │       Section        │         Read when...          │
+  ├──────────────────┼──────────────────────┼───────────────────────────────┤
+  │ docs/items.ispec │ [human] (lines       │ understanding domain intent   │
+  │                  │ 1–137)               │                               │
+  ├──────────────────┼──────────────────────┼───────────────────────────────┤
+  │ docs/items.ispec │ --- entities ---     │ schema/migration work         │
+  ├──────────────────┼──────────────────────┼───────────────────────────────┤
+  │ docs/items.ispec │ --- operations ---   │ implementing mutation         │
+  │                  │                      │ endpoints                     │
+  ├──────────────────┼──────────────────────┼───────────────────────────────┤
+  │ docs/items.ispec │ --- queries ---      │ implementing GET endpoints    │
+  └──────────────────┴──────────────────────┴───────────────────────────────┘
+
+  ---
+  The catch:
+
+  This only works cleanly if the section markers are consistent across all
+  files. The .ispec files already have [human], [policy], [spec], and --- 
+  subsection --- markers — that structure is already there. The only thing
+  needed is a convention to use targeted reads instead of whole-file reads.
+
+  Could even update the doc-index skill to scan for section markers and record
+  approximate line ranges per file, so the index tells you exactly what
+  offset/limit to use — zero guesswork at task time.
+
+  Want me to update the skill to do that?
+
+❯ let me think about this a while                                               
+
+● Sure, take your time. It's a good problem — worth getting the approach right
+  before changing anything.
+
+❯ /rename minimize-context                                                      
+  ⎿  Session renamed to: minimize-context
+
+❯ my basic idea is that  it would be good to only load what is needed into the  
+context. i know its possible to up the context with a better subscritpion, but  
+i dont have much money now, and i feel like learning to work within these       
+constraints now will make things much easier later                              
+
+● That's a solid engineering mindset — constraints force good habits. Working
+  within a limited context now means you'll have clean, efficient workflows when
+   you do have more capacity, rather than sloppy ones that just happen to fit.
+
+  The ideas you've been building toward naturally form a layered loading
+  strategy:
+
+  1. CLAUDE.md — always in context, tiny, tells you what exists
+  2. Doc index — tells you which file to read for a given task
+  3. Section-targeted reads — tells you which lines within that file
+  4. Code files — read only the specific files the task touches
+
+  Each layer narrows what the next layer needs to load. By the time you're
+  reading code, you've already filtered out 90% of the docs.
+
+  The open question you're sitting with is whether to encode that layer 3
+  knowledge (section line ranges) in the doc index, or trust grep-at-task-time
+  to find it. Both work — one is upfront cost, the other is per-task cost.
+
+  No rush — it'll be clearer once you've worked a few tasks with the doc index
+  as-is and see where the friction actually is.
+
+❯ after i shut this window how do i use reload to get back to this conversation 
+
+● You can't reload a closed conversation — Claude Code doesn't persist
+  conversation history between sessions.
+
+  What you can do is use the /session-handoff skill before closing. It creates a
+   handoff document capturing where things stand, what was decided, and what's
+  next. Then in a new session you load that document and pick up with full
+  context.
+
+  Want me to run it now before you close?
+
+❯ there is a conversation export function isnt there                            
+
+● Yes — there's a /export command in Claude Code that saves the conversation to
+  a file. But that gives you a transcript to read, not something Claude can
+  automatically resume from.
+
+  The session-handoff skill is still useful alongside it — the export is the
+  full record, the handoff doc is the compressed "what matters" summary a new
+  Claude instance can act on immediately.
+
+  Want me to run /session-handoff now?
+
+❯ no im going to export it                                                      
+
+● Ok, sounds good.

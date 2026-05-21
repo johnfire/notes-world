@@ -1,10 +1,10 @@
 import request from 'supertest';
-import { ItemType, TaskStatus, Priority } from '../../../../../src/server/src/types';
-import { makeItem } from '../../../../helpers/itemFactory';
+import { ItemType, TaskStatus, Priority } from '../../../../../packages/server/src/types';
+import { makeItem, TEST_USER_ID } from '../../../../helpers/itemFactory';
 
 // ── Mock service and DB before importing the app ──────────────────────────────
-jest.mock('../../../../../src/server/src/domains/items/items.service');
-jest.mock('../../../../../src/server/src/db/client', () => ({
+jest.mock('../../../../../packages/server/src/domains/items/items.service');
+jest.mock('../../../../../packages/server/src/db/client', () => ({
   getPool:         jest.fn(),
   query:           jest.fn(),
   queryOne:        jest.fn(),
@@ -12,8 +12,16 @@ jest.mock('../../../../../src/server/src/db/client', () => ({
   closePool:       jest.fn(),
 }));
 
-import * as service from '../../../../../src/server/src/domains/items/items.service';
-import { createApp } from '../../../../../src/server/src/app';
+jest.mock('../../../../../packages/server/src/middleware/auth', () => ({
+  requireAuth: (req: import('express').Request, _res: import('express').Response, next: import('express').NextFunction) => {
+    req.userId = '00000000-0000-0000-0000-000000000001';
+    next();
+  },
+}));
+
+
+import * as service from '../../../../../packages/server/src/domains/items/items.service';
+import { createApp } from '../../../../../packages/server/src/app';
 
 const mockService = service as jest.Mocked<typeof service>;
 const app = createApp();
@@ -37,7 +45,7 @@ describe('POST /api/items/:id/complete', () => {
   });
 
   test('422 when StateError (blocked)', async () => {
-    const { StateError } = await import('../../../../../src/server/src/utils/errors');
+    const { StateError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.completeTask.mockRejectedValue(
       new StateError('Cannot complete a blocked task — resolve dependencies first')
     );
@@ -49,7 +57,7 @@ describe('POST /api/items/:id/complete', () => {
   });
 
   test('409 when ConflictError (already done)', async () => {
-    const { ConflictError } = await import('../../../../../src/server/src/utils/errors');
+    const { ConflictError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.completeTask.mockRejectedValue(new ConflictError('Task is already Done'));
 
     const res = await request(app).post('/api/items/some-id/complete');
@@ -76,7 +84,7 @@ describe('POST /api/items/:id/start', () => {
   });
 
   test('422 when StateError', async () => {
-    const { StateError } = await import('../../../../../src/server/src/utils/errors');
+    const { StateError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.startTask.mockRejectedValue(new StateError('Cannot start a blocked task — resolve dependencies first'));
 
     const res = await request(app).post('/api/items/some-id/start');
@@ -103,7 +111,7 @@ describe('POST /api/items/:id/block', () => {
   });
 
   test('422 when ValidationError (not a task)', async () => {
-    const { ValidationError } = await import('../../../../../src/server/src/utils/errors');
+    const { ValidationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.blockTask.mockRejectedValue(new ValidationError('Item is not a Task'));
 
     const res = await request(app).post('/api/items/some-id/block');

@@ -3,16 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "workspaces": [
-    "src/server",
-    "src/client",
-    "src/mcp"
+    "packages/shared",
+    "packages/server",
+    "packages/web",
+    "packages/mcp"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev --workspace=src/server\" \"npm run dev --workspace=src/client\"",
-    "build": "npm run build --workspace=src/client && npm run build --workspace=src/server",
-    "test": "npm run test --workspace=src/server && npm run test --workspace=src/client",
-    "lint": "npm run lint --workspace=src/server && npm run lint --workspace=src/client",
-    "migrate": "npm run migrate --workspace=src/server"
+    "dev": "concurrently \"npm run dev --workspace=packages/server\" \"npm run dev --workspace=packages/web\"",
+    "build": "npm run build --workspace=packages/shared && npm run build --workspace=packages/server && npm run build --workspace=packages/web",
+    "test": "npm run test --workspace=packages/server && npm run test --workspace=packages/web",
+    "lint": "npm run lint --workspace=packages/server && npm run lint --workspace=packages/web",
+    "migrate": "npm run migrate --workspace=packages/server"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

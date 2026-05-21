@@ -1,10 +1,10 @@
 import request from 'supertest';
-import { ItemType, ItemStatus } from '../../../../../src/server/src/types';
+import { ItemType, ItemStatus } from '../../../../../packages/server/src/types';
 import { makeItem, TEST_USER_ID } from '../../../../helpers/itemFactory';
 
 // ── Mock service and DB before importing the app ──────────────────────────────
-jest.mock('../../../../../src/server/src/domains/items/items.service');
-jest.mock('../../../../../src/server/src/db/client', () => ({
+jest.mock('../../../../../packages/server/src/domains/items/items.service');
+jest.mock('../../../../../packages/server/src/db/client', () => ({
   getPool:         jest.fn(),
   query:           jest.fn(),
   queryOne:        jest.fn(),
@@ -12,8 +12,16 @@ jest.mock('../../../../../src/server/src/db/client', () => ({
   closePool:       jest.fn(),
 }));
 
-import * as service from '../../../../../src/server/src/domains/items/items.service';
-import { createApp } from '../../../../../src/server/src/app';
+jest.mock('../../../../../packages/server/src/middleware/auth', () => ({
+  requireAuth: (req: import('express').Request, _res: import('express').Response, next: import('express').NextFunction) => {
+    req.userId = '00000000-0000-0000-0000-000000000001';
+    next();
+  },
+}));
+
+
+import * as service from '../../../../../packages/server/src/domains/items/items.service';
+import { createApp } from '../../../../../packages/server/src/app';
 
 const mockService = service as jest.Mocked<typeof service>;
 const app = createApp();
@@ -37,7 +45,7 @@ describe('POST /api/items', () => {
   });
 
   test('422 when title is missing', async () => {
-    const { ValidationError } = await import('../../../../../src/server/src/utils/errors');
+    const { ValidationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.captureItem.mockRejectedValue(new ValidationError('Title is required'));
 
     const res = await request(app).post('/api/items').send({});
@@ -46,7 +54,7 @@ describe('POST /api/items', () => {
   });
 
   test('422 when title is too long', async () => {
-    const { ValidationError } = await import('../../../../../src/server/src/utils/errors');
+    const { ValidationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.captureItem.mockRejectedValue(
       new ValidationError('Title too long', { length: 301, maximum: 300 })
     );
@@ -70,7 +78,7 @@ describe('GET /api/items/search', () => {
   });
 
   test('422 when query is empty', async () => {
-    const { ValidationError } = await import('../../../../../src/server/src/utils/errors');
+    const { ValidationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.searchItems.mockRejectedValue(new ValidationError('Search text is required'));
 
     const res = await request(app).get('/api/items/search?q=');
@@ -130,7 +138,7 @@ describe('GET /api/items/:id', () => {
   });
 
   test('404 when not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.getItemById.mockRejectedValue(new NotFoundError('Item', 'missing-id'));
 
     const res = await request(app).get('/api/items/missing-id');
@@ -155,7 +163,7 @@ describe('PATCH /api/items/:id', () => {
   });
 
   test('422 when item is archived', async () => {
-    const { StateError } = await import('../../../../../src/server/src/utils/errors');
+    const { StateError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.updateItem.mockRejectedValue(new StateError('Cannot update archived item'));
 
     const res = await request(app).patch('/api/items/x').send({ title: 'y' });
@@ -164,7 +172,7 @@ describe('PATCH /api/items/:id', () => {
   });
 
   test('403 when not owner', async () => {
-    const { AuthorizationError } = await import('../../../../../src/server/src/utils/errors');
+    const { AuthorizationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.updateItem.mockRejectedValue(new AuthorizationError('Not owner'));
 
     const res = await request(app).patch('/api/items/x').send({ title: 'y' });
@@ -188,7 +196,7 @@ describe('POST /api/items/:id/promote', () => {
   });
 
   test('422 when promoting to Untyped', async () => {
-    const { ValidationError } = await import('../../../../../src/server/src/utils/errors');
+    const { ValidationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.promoteItem.mockRejectedValue(new ValidationError('Cannot promote to Untyped'));
 
     const res = await request(app)
@@ -212,7 +220,7 @@ describe('POST /api/items/:id/archive', () => {
   });
 
   test('409 when already archived', async () => {
-    const { ConflictError } = await import('../../../../../src/server/src/utils/errors');
+    const { ConflictError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.archiveItem.mockRejectedValue(new ConflictError('Item is already archived'));
 
     const res = await request(app).post('/api/items/x/archive');
@@ -233,7 +241,7 @@ describe('POST /api/items/:id/restore', () => {
   });
 
   test('409 when item is not archived', async () => {
-    const { ConflictError } = await import('../../../../../src/server/src/utils/errors');
+    const { ConflictError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.restoreItem.mockRejectedValue(new ConflictError('Item is not archived'));
 
     const res = await request(app).post('/api/items/x/restore');

@@ -1,10 +1,10 @@
 import { TEST_USER_ID } from '../../../../helpers/itemFactory';
 
 // ── Mock repository before importing service ──────────────────────────────────
-jest.mock('../../../../../src/server/src/domains/sort-orders/sort-orders.repository');
+jest.mock('../../../../../packages/server/src/domains/sort-orders/sort-orders.repository');
 
-import * as repo    from '../../../../../src/server/src/domains/sort-orders/sort-orders.repository';
-import * as service from '../../../../../src/server/src/domains/sort-orders/sort-orders.service';
+import * as repo    from '../../../../../packages/server/src/domains/sort-orders/sort-orders.repository';
+import * as service from '../../../../../packages/server/src/domains/sort-orders/sort-orders.service';
 
 const mockRepo = repo as jest.Mocked<typeof repo>;
 

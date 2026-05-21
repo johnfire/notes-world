@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { wrapAsync } from '../../../../src/server/src/utils/wrapAsync';
+import { wrapAsync } from '../../../../packages/server/src/utils/wrapAsync';
 
 function mockReqRes() {
   const req = {} as Request;

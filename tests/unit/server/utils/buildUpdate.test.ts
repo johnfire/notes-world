@@ -1,4 +1,4 @@
-import { buildUpdate } from '../../../../src/server/src/utils/buildUpdate';
+import { buildUpdate } from '../../../../packages/server/src/utils/buildUpdate';
 
 describe('buildUpdate', () => {
   test('generates UPDATE with all fields', () => {

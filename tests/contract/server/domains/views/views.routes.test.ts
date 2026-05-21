@@ -1,10 +1,10 @@
 import request from 'supertest';
-import { ViewType } from '../../../../../src/server/src/types';
+import { ViewType } from '../../../../../packages/server/src/types';
 import { TEST_USER_ID } from '../../../../helpers/itemFactory';
 
 // ── Mock service and DB before importing the app ──────────────────────────────
-jest.mock('../../../../../src/server/src/domains/views/views.service');
-jest.mock('../../../../../src/server/src/db/client', () => ({
+jest.mock('../../../../../packages/server/src/domains/views/views.service');
+jest.mock('../../../../../packages/server/src/db/client', () => ({
   getPool:         jest.fn(),
   query:           jest.fn(),
   queryOne:        jest.fn(),
@@ -12,8 +12,16 @@ jest.mock('../../../../../src/server/src/db/client', () => ({
   closePool:       jest.fn(),
 }));
 
-import * as service from '../../../../../src/server/src/domains/views/views.service';
-import { createApp } from '../../../../../src/server/src/app';
+jest.mock('../../../../../packages/server/src/middleware/auth', () => ({
+  requireAuth: (req: import('express').Request, _res: import('express').Response, next: import('express').NextFunction) => {
+    req.userId = '00000000-0000-0000-0000-000000000001';
+    next();
+  },
+}));
+
+
+import * as service from '../../../../../packages/server/src/domains/views/views.service';
+import { createApp } from '../../../../../packages/server/src/app';
 
 const mockService = service as jest.Mocked<typeof service>;
 const app = createApp();
@@ -75,7 +83,7 @@ describe('POST /api/dashboard/:dashboardId/blocks', () => {
   });
 
   test('404 when dashboard not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.addBlock.mockRejectedValue(new NotFoundError('Dashboard', 'missing'));
 
     const res = await request(app)
@@ -87,7 +95,7 @@ describe('POST /api/dashboard/:dashboardId/blocks', () => {
   });
 
   test('422 when block limit exceeded', async () => {
-    const { LimitExceeded } = await import('../../../../../src/server/src/utils/errors');
+    const { LimitExceeded } = await import('../../../../../packages/server/src/utils/errors');
     mockService.addBlock.mockRejectedValue(
       new LimitExceeded('Too many blocks', { current_count: 12, maximum: 12 })
     );
@@ -101,7 +109,7 @@ describe('POST /api/dashboard/:dashboardId/blocks', () => {
   });
 
   test('422 for invalid view type', async () => {
-    const { ValidationError } = await import('../../../../../src/server/src/utils/errors');
+    const { ValidationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.addBlock.mockRejectedValue(new ValidationError('Unsupported view type'));
 
     const res = await request(app)
@@ -133,7 +141,7 @@ describe('PATCH /api/dashboard/blocks/:blockId', () => {
   });
 
   test('404 when block not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.updateBlock.mockRejectedValue(new NotFoundError('Block', 'missing'));
 
     const res = await request(app)
@@ -144,7 +152,7 @@ describe('PATCH /api/dashboard/blocks/:blockId', () => {
   });
 
   test('403 when not owner', async () => {
-    const { AuthorizationError } = await import('../../../../../src/server/src/utils/errors');
+    const { AuthorizationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.updateBlock.mockRejectedValue(new AuthorizationError('Not owner'));
 
     const res = await request(app)
@@ -168,7 +176,7 @@ describe('DELETE /api/dashboard/blocks/:blockId', () => {
   });
 
   test('404 when block not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.removeBlock.mockRejectedValue(new NotFoundError('Block', 'missing'));
 
     const res = await request(app).delete('/api/dashboard/blocks/missing');
@@ -177,7 +185,7 @@ describe('DELETE /api/dashboard/blocks/:blockId', () => {
   });
 
   test('422 when removing last block', async () => {
-    const { PolicyViolation } = await import('../../../../../src/server/src/utils/errors');
+    const { PolicyViolation } = await import('../../../../../packages/server/src/utils/errors');
     mockService.removeBlock.mockRejectedValue(new PolicyViolation('Cannot remove last block'));
 
     const res = await request(app).delete('/api/dashboard/blocks/only-block');
@@ -207,7 +215,7 @@ describe('PUT /api/dashboard/blocks/reorder', () => {
   });
 
   test('404 when a block is not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.reorderBlocks.mockRejectedValue(new NotFoundError('Block', 'missing'));
 
     const res = await request(app)

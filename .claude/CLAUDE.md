@@ -40,6 +40,28 @@ docker compose up --build
 - `PHASE1_USER_ID = 00000000-0000-0000-0000-000000000001` — single user, hardcoded in Phase 1
 - All tables have `user_id` column from day 1 (ADR-005)
 
+## Doc Index
+Read only the docs relevant to the task at hand.
+
+| File | Domain | Read when... |
+|------|--------|--------------|
+| `docs/items.ispec` | Items | item CRUD, types, promotion, archive, events |
+| `docs/relationships.ispec` | Relationships | tags, dependencies, cross-references |
+| `docs/views.ispec` | Views | dashboard, blocks, layout, CaptureBar |
+| `docs/sort-orders.ispec` | SortOrders | drag-and-drop ordering, context keys |
+| `docs/dividers.ispec` | Dividers | divider spec (entity, operations) |
+| `docs/dividers.md` | Dividers | divider implementation notes, architecture |
+| `docs/import.ispec` | Import | import pipeline, markdown parsing |
+| `docs/export.ispec` | Export | export pipeline, markdown format |
+| `docs/global.policy` | Global | error types, size limits, rate limits, policies |
+| `docs/arch.md` | Global | ADRs, architecture decisions, tech versions |
+| `docs/phases.md` | Global | phase scope, what's in/out, test gates |
+| `docs/context.md` | Global | problem statement, success criteria, constraints |
+| `docs/dashboard.intent` | Global | product values, boundaries, fitness criteria |
+| `docs/draganddrop.md` | SortOrders/UI | drag-and-drop implementation details |
+| `docs/annex-import-pipeline.md` | Import | import pipeline deep-dive |
+| `docs/annex-export-pipeline.md` | Export | export pipeline deep-dive |
+
 ## Do Not Touch
 - `docs/*.ispec`, `docs/*.intent`, `docs/*.policy`, `docs/*.md` — spec files, source of truth
 - `src/server/src/db/migrations/` — only add new files, never edit existing ones

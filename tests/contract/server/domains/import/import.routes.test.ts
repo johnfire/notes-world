@@ -1,9 +1,9 @@
 import request from 'supertest';
-import { ImportJobStatus } from '../../../../../src/server/src/types';
+import { ImportJobStatus } from '../../../../../packages/server/src/types';
 
 // Mock service and DB before importing the app
-jest.mock('../../../../../src/server/src/domains/import/import.service');
-jest.mock('../../../../../src/server/src/db/client', () => ({
+jest.mock('../../../../../packages/server/src/domains/import/import.service');
+jest.mock('../../../../../packages/server/src/db/client', () => ({
   getPool:         jest.fn(),
   query:           jest.fn(),
   queryOne:        jest.fn(),
@@ -11,8 +11,16 @@ jest.mock('../../../../../src/server/src/db/client', () => ({
   closePool:       jest.fn(),
 }));
 
-import * as service from '../../../../../src/server/src/domains/import/import.service';
-import { createApp } from '../../../../../src/server/src/app';
+jest.mock('../../../../../packages/server/src/middleware/auth', () => ({
+  requireAuth: (req: import('express').Request, _res: import('express').Response, next: import('express').NextFunction) => {
+    req.userId = '00000000-0000-0000-0000-000000000001';
+    next();
+  },
+}));
+
+
+import * as service from '../../../../../packages/server/src/domains/import/import.service';
+import { createApp } from '../../../../../packages/server/src/app';
 
 const mockService = service as jest.Mocked<typeof service>;
 const app = createApp();
@@ -58,7 +66,7 @@ describe('POST /api/import', () => {
   });
 
   test('422 when filename is invalid', async () => {
-    const { ValidationError } = await import('../../../../../src/server/src/utils/errors');
+    const { ValidationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.createImportJob.mockRejectedValue(new ValidationError('Only .md files are supported'));
 
     const res = await request(app)
@@ -70,7 +78,7 @@ describe('POST /api/import', () => {
   });
 
   test('422 when file too large', async () => {
-    const { LimitExceeded } = await import('../../../../../src/server/src/utils/errors');
+    const { LimitExceeded } = await import('../../../../../packages/server/src/utils/errors');
     mockService.createImportJob.mockRejectedValue(new LimitExceeded('File is too large'));
 
     const res = await request(app)
@@ -99,7 +107,7 @@ describe('POST /api/import/:id/execute', () => {
   });
 
   test('404 when job not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.executeImport.mockRejectedValue(new NotFoundError('ImportJob', JOB_ID));
 
     const res = await request(app)
@@ -111,7 +119,7 @@ describe('POST /api/import/:id/execute', () => {
   });
 
   test('422 when job not in Pending state', async () => {
-    const { StateError } = await import('../../../../../src/server/src/utils/errors');
+    const { StateError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.executeImport.mockRejectedValue(new StateError('Import job is not in Pending state'));
 
     const res = await request(app)
@@ -162,7 +170,7 @@ describe('GET /api/import/:id', () => {
   });
 
   test('404 when job not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.getImportJobById.mockRejectedValue(new NotFoundError('ImportJob', JOB_ID));
 
     const res = await request(app).get(`/api/import/${JOB_ID}`);

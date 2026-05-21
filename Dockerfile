@@ -1,35 +1,44 @@
 FROM node:20-alpine AS base
 WORKDIR /app
 
-# Copy workspace manifests first for layer caching
-COPY package.json ./
-COPY src/server/package.json ./src/server/
-COPY src/client/package.json ./src/client/
-COPY src/mcp/package.json ./src/mcp/
+# Copy workspace manifests for layer caching
+COPY package.json package-lock.json ./
+COPY packages/shared/package.json ./packages/shared/
+COPY packages/server/package.json ./packages/server/
+COPY packages/web/package.json    ./packages/web/
+COPY packages/mcp/package.json    ./packages/mcp/
 RUN npm install
 
-# Build client
-FROM base AS client-builder
-COPY src/client ./src/client
-RUN npm run build --workspace=src/client
+# Build shared (server depends on it)
+FROM base AS shared-builder
+COPY packages/shared ./packages/shared
+RUN npm run build --workspace=packages/shared
 
-# Build server
-FROM base AS server-builder
-COPY src/server ./src/server
-RUN npm run build --workspace=src/server
+# Build server, then prune to prod-only deps
+FROM shared-builder AS server-builder
+COPY packages/server ./packages/server
+RUN npm run build --workspace=packages/server && npm prune --omit=dev
 
-# Production image
+# Build web SPA (served by Nginx, not Express)
+FROM base AS web-builder
+COPY packages/shared ./packages/shared
+COPY packages/web    ./packages/web
+RUN npm run build --workspace=packages/shared && npm run build --workspace=packages/web
+
+# Production API image — pure API server, no static files
 FROM node:20-alpine AS production
 RUN apk add --no-cache curl
 WORKDIR /app
 
-COPY --from=server-builder /app/src/server/dist ./dist
-COPY --from=server-builder /app/src/server/package.json ./
-COPY --from=client-builder /app/src/client/dist ./public
-# Copy SQL migrations into the image (must match __dirname/migrations in dist/db/)
-COPY src/server/src/db/migrations ./dist/db/migrations
-
-RUN npm install --omit=dev
+# node_modules symlink @notes-world/shared → ../../packages/shared, so copy both
+COPY --from=server-builder /app/node_modules ./node_modules
+COPY --from=server-builder /app/packages/shared/package.json ./packages/shared/package.json
+COPY --from=server-builder /app/packages/shared/dist ./packages/shared/dist
+COPY --from=server-builder /app/packages/server/dist ./dist
+COPY packages/server/src/db/migrations ./dist/db/migrations
 
 EXPOSE 3001
+HEALTHCHECK --interval=15s --timeout=5s --start-period=30s --retries=5 \
+  CMD curl -f http://localhost:3001/health || exit 1
+
 CMD ["node", "dist/server.js"]

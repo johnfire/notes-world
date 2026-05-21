@@ -8,7 +8,7 @@ import {
   PolicyViolation,
   CircularDependencyError,
   DatabaseError,
-} from '../../../../src/server/src/utils/errors';
+} from '../../../../packages/server/src/utils/errors';
 
 describe('Error classes', () => {
   test('ValidationError has correct code and status', () => {

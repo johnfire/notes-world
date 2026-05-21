@@ -1,10 +1,10 @@
 import request from 'supertest';
-import { DependencyStatus } from '../../../../../src/server/src/types';
+import { DependencyStatus } from '../../../../../packages/server/src/types';
 import { makeItem, TEST_USER_ID } from '../../../../helpers/itemFactory';
 
 // ── Mock service and DB before importing the app ──────────────────────────────
-jest.mock('../../../../../src/server/src/domains/relationships/dependencies.service');
-jest.mock('../../../../../src/server/src/db/client', () => ({
+jest.mock('../../../../../packages/server/src/domains/relationships/dependencies.service');
+jest.mock('../../../../../packages/server/src/db/client', () => ({
   getPool:         jest.fn(),
   query:           jest.fn(),
   queryOne:        jest.fn(),
@@ -12,8 +12,16 @@ jest.mock('../../../../../src/server/src/db/client', () => ({
   closePool:       jest.fn(),
 }));
 
-import * as service from '../../../../../src/server/src/domains/relationships/dependencies.service';
-import { createApp } from '../../../../../src/server/src/app';
+jest.mock('../../../../../packages/server/src/middleware/auth', () => ({
+  requireAuth: (req: import('express').Request, _res: import('express').Response, next: import('express').NextFunction) => {
+    req.userId = '00000000-0000-0000-0000-000000000001';
+    next();
+  },
+}));
+
+
+import * as service from '../../../../../packages/server/src/domains/relationships/dependencies.service';
+import { createApp } from '../../../../../packages/server/src/app';
 
 const mockService = service as jest.Mocked<typeof service>;
 const app = createApp();
@@ -54,7 +62,7 @@ describe('POST /api/items/:dependentId/dependencies', () => {
   });
 
   test('422 when self-dependency', async () => {
-    const { ValidationError } = await import('../../../../../src/server/src/utils/errors');
+    const { ValidationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.addDependency.mockRejectedValue(new ValidationError('An item cannot depend on itself'));
 
     const res = await request(app)
@@ -66,7 +74,7 @@ describe('POST /api/items/:dependentId/dependencies', () => {
   });
 
   test('404 when item not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.addDependency.mockRejectedValue(new NotFoundError('Item', 'missing'));
 
     const res = await request(app)
@@ -78,7 +86,7 @@ describe('POST /api/items/:dependentId/dependencies', () => {
   });
 
   test('409 when dependency already exists', async () => {
-    const { ConflictError } = await import('../../../../../src/server/src/utils/errors');
+    const { ConflictError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.addDependency.mockRejectedValue(new ConflictError('Dependency already exists'));
 
     const res = await request(app)
@@ -89,7 +97,7 @@ describe('POST /api/items/:dependentId/dependencies', () => {
   });
 
   test('422 when circular dependency', async () => {
-    const { CircularDependencyError } = await import('../../../../../src/server/src/utils/errors');
+    const { CircularDependencyError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.addDependency.mockRejectedValue(new CircularDependencyError([ITEM_A_ID, ITEM_B_ID, ITEM_A_ID]));
 
     const res = await request(app)
@@ -114,7 +122,7 @@ describe('DELETE /api/dependencies/:id', () => {
   });
 
   test('404 when not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.removeDependency.mockRejectedValue(new NotFoundError('Dependency', 'missing'));
 
     const res = await request(app).delete('/api/dependencies/missing');
@@ -123,7 +131,7 @@ describe('DELETE /api/dependencies/:id', () => {
   });
 
   test('409 when not active', async () => {
-    const { ConflictError } = await import('../../../../../src/server/src/utils/errors');
+    const { ConflictError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.removeDependency.mockRejectedValue(new ConflictError('Dependency is not active'));
 
     const res = await request(app).delete('/api/dependencies/dep-id-1');
@@ -192,7 +200,7 @@ describe('POST /api/items/:itemId/cross-references', () => {
   });
 
   test('422 when self-reference', async () => {
-    const { ValidationError } = await import('../../../../../src/server/src/utils/errors');
+    const { ValidationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.addCrossReference.mockRejectedValue(new ValidationError('Cannot cross-reference an item with itself'));
 
     const res = await request(app)
@@ -203,7 +211,7 @@ describe('POST /api/items/:itemId/cross-references', () => {
   });
 
   test('404 when item not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.addCrossReference.mockRejectedValue(new NotFoundError('Item', 'missing'));
 
     const res = await request(app)
@@ -227,7 +235,7 @@ describe('DELETE /api/cross-references/:id', () => {
   });
 
   test('404 when not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.removeCrossReference.mockRejectedValue(new NotFoundError('CrossReference', 'missing'));
 
     const res = await request(app).delete('/api/cross-references/missing');

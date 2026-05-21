@@ -1,11 +1,11 @@
-import { ViewType } from '../../../../../src/server/src/types';
+import { ViewType } from '../../../../../packages/server/src/types';
 import { TEST_USER_ID, OTHER_USER_ID } from '../../../../helpers/itemFactory';
 
 // ── Mock repository before importing service ──────────────────────────────────
-jest.mock('../../../../../src/server/src/domains/views/views.repository');
+jest.mock('../../../../../packages/server/src/domains/views/views.repository');
 
-import * as repo    from '../../../../../src/server/src/domains/views/views.repository';
-import * as service from '../../../../../src/server/src/domains/views/views.service';
+import * as repo    from '../../../../../packages/server/src/domains/views/views.repository';
+import * as service from '../../../../../packages/server/src/domains/views/views.service';
 
 const mockRepo = repo as jest.Mocked<typeof repo>;
 

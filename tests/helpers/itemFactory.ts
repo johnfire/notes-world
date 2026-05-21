@@ -1,19 +1,38 @@
-import { Item, ItemType, ItemStatus, Tag } from '../../src/server/src/types';
+import jwt from "jsonwebtoken";
+import {
+  Item,
+  ItemType,
+  ItemStatus,
+  Tag,
+} from "../../packages/server/src/types";
 
-export const TEST_USER_ID = '00000000-0000-0000-0000-000000000001';
-export const OTHER_USER_ID = '00000000-0000-0000-0000-000000000002';
+export const TEST_USER_ID = "00000000-0000-0000-0000-000000000001";
+export const OTHER_USER_ID = "00000000-0000-0000-0000-000000000002";
+const TEST_JWT_SECRET = "test-secret-for-jest";
 
 let _seq = 1;
-function id() { return `00000000-0000-0000-0000-${String(_seq++).padStart(12, '0')}`; }
-function now() { return new Date().toISOString(); }
+function id() {
+  return `00000000-0000-0000-0000-${String(_seq++).padStart(12, "0")}`;
+}
+function now() {
+  return new Date().toISOString();
+}
+
+export function makeTestToken(
+  userId = TEST_USER_ID,
+  email = "test@example.com",
+): string {
+  process.env.JWT_SECRET = TEST_JWT_SECRET;
+  return jwt.sign({ sub: userId, email }, TEST_JWT_SECRET, { expiresIn: 3600 });
+}
 
 export function makeItem(overrides: Partial<Item> = {}): Item {
   return {
-    id:         id(),
-    user_id:    TEST_USER_ID,
-    title:      'Test item',
-    item_type:  ItemType.Untyped,
-    status:     ItemStatus.Active,
+    id: id(),
+    user_id: TEST_USER_ID,
+    title: "Test item",
+    item_type: ItemType.Untyped,
+    status: ItemStatus.Active,
     created_at: now(),
     updated_at: now(),
     ...overrides,
@@ -22,11 +41,11 @@ export function makeItem(overrides: Partial<Item> = {}): Item {
 
 export function makeTag(overrides: Partial<Tag> = {}): Tag {
   return {
-    id:         id(),
-    user_id:    TEST_USER_ID,
-    name:       'test-tag',
-    tag_source: 'manual',
-    color:      null,
+    id: id(),
+    user_id: TEST_USER_ID,
+    name: "test-tag",
+    tag_source: "manual",
+    color: null,
     created_at: now(),
     updated_at: now(),
     ...overrides,

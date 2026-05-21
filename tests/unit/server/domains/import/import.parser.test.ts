@@ -1,4 +1,4 @@
-import { parseMarkdown } from '../../../../../src/server/src/domains/import/import.parser';
+import { parseMarkdown } from '../../../../../packages/server/src/domains/import/import.parser';
 
 describe('parseMarkdown', () => {
   test('parses ## headings as items', () => {

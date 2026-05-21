@@ -1,17 +1,17 @@
-import { ItemType, ItemStatus, DependencyStatus, TaskStatus, Priority } from '../../../../../src/server/src/types';
+import { ItemType, ItemStatus, DependencyStatus, TaskStatus, Priority } from '../../../../../packages/server/src/types';
 import { makeItem, TEST_USER_ID, OTHER_USER_ID } from '../../../../helpers/itemFactory';
 
 // ── Mock dependencies before importing the service ────────────────────────────
-jest.mock('../../../../../src/server/src/domains/relationships/dependencies.repository');
-jest.mock('../../../../../src/server/src/domains/items/items.repository');
-jest.mock('../../../../../src/server/src/events/eventBus', () => ({
+jest.mock('../../../../../packages/server/src/domains/relationships/dependencies.repository');
+jest.mock('../../../../../packages/server/src/domains/items/items.repository');
+jest.mock('../../../../../packages/server/src/events/eventBus', () => ({
   eventBus: { emit: jest.fn() },
 }));
 
-import * as repo from '../../../../../src/server/src/domains/relationships/dependencies.repository';
-import * as itemRepo from '../../../../../src/server/src/domains/items/items.repository';
-import * as service from '../../../../../src/server/src/domains/relationships/dependencies.service';
-import { eventBus } from '../../../../../src/server/src/events/eventBus';
+import * as repo from '../../../../../packages/server/src/domains/relationships/dependencies.repository';
+import * as itemRepo from '../../../../../packages/server/src/domains/items/items.repository';
+import * as service from '../../../../../packages/server/src/domains/relationships/dependencies.service';
+import { eventBus } from '../../../../../packages/server/src/events/eventBus';
 
 const mockRepo     = repo     as jest.Mocked<typeof repo>;
 const mockItemRepo = itemRepo as jest.Mocked<typeof itemRepo>;

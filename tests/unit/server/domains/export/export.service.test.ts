@@ -1,12 +1,12 @@
-import { ItemType, ItemStatus } from '../../../../../src/server/src/types';
+import { ItemType, ItemStatus } from '../../../../../packages/server/src/types';
 import { makeItem, TEST_USER_ID, makeTag } from '../../../../helpers/itemFactory';
 
-jest.mock('../../../../../src/server/src/domains/items/items.repository');
-jest.mock('../../../../../src/server/src/domains/relationships/relationships.repository');
+jest.mock('../../../../../packages/server/src/domains/items/items.repository');
+jest.mock('../../../../../packages/server/src/domains/relationships/relationships.repository');
 
-import * as itemRepo from '../../../../../src/server/src/domains/items/items.repository';
-import * as relRepo from '../../../../../src/server/src/domains/relationships/relationships.repository';
-import * as service from '../../../../../src/server/src/domains/export/export.service';
+import * as itemRepo from '../../../../../packages/server/src/domains/items/items.repository';
+import * as relRepo from '../../../../../packages/server/src/domains/relationships/relationships.repository';
+import * as service from '../../../../../packages/server/src/domains/export/export.service';
 
 const mockItemRepo = itemRepo as jest.Mocked<typeof itemRepo>;
 const mockRelRepo = relRepo as jest.Mocked<typeof relRepo>;

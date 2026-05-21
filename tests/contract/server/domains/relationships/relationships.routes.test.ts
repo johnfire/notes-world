@@ -2,8 +2,8 @@ import request from 'supertest';
 import { makeItem, makeTag, TEST_USER_ID } from '../../../../helpers/itemFactory';
 
 // ── Mock service and DB before importing the app ──────────────────────────────
-jest.mock('../../../../../src/server/src/domains/relationships/relationships.service');
-jest.mock('../../../../../src/server/src/db/client', () => ({
+jest.mock('../../../../../packages/server/src/domains/relationships/relationships.service');
+jest.mock('../../../../../packages/server/src/db/client', () => ({
   getPool:         jest.fn(),
   query:           jest.fn(),
   queryOne:        jest.fn(),
@@ -11,8 +11,16 @@ jest.mock('../../../../../src/server/src/db/client', () => ({
   closePool:       jest.fn(),
 }));
 
-import * as service from '../../../../../src/server/src/domains/relationships/relationships.service';
-import { createApp } from '../../../../../src/server/src/app';
+jest.mock('../../../../../packages/server/src/middleware/auth', () => ({
+  requireAuth: (req: import('express').Request, _res: import('express').Response, next: import('express').NextFunction) => {
+    req.userId = '00000000-0000-0000-0000-000000000001';
+    next();
+  },
+}));
+
+
+import * as service from '../../../../../packages/server/src/domains/relationships/relationships.service';
+import { createApp } from '../../../../../packages/server/src/app';
 
 const mockService = service as jest.Mocked<typeof service>;
 const app = createApp();
@@ -64,7 +72,7 @@ describe('POST /api/tags', () => {
   });
 
   test('422 when name is empty', async () => {
-    const { ValidationError } = await import('../../../../../src/server/src/utils/errors');
+    const { ValidationError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.createTag.mockRejectedValue(new ValidationError('Tag name is required'));
 
     const res = await request(app).post('/api/tags').send({ name: '' });
@@ -74,7 +82,7 @@ describe('POST /api/tags', () => {
   });
 
   test('409 when tag already exists', async () => {
-    const { ConflictError } = await import('../../../../../src/server/src/utils/errors');
+    const { ConflictError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.createTag.mockRejectedValue(new ConflictError('Tag "work" already exists'));
 
     const res = await request(app).post('/api/tags').send({ name: 'work' });
@@ -101,7 +109,7 @@ describe('PATCH /api/tags/:id', () => {
   });
 
   test('404 when tag not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.renameTag.mockRejectedValue(new NotFoundError('Tag', 'missing-id'));
 
     const res = await request(app)
@@ -113,7 +121,7 @@ describe('PATCH /api/tags/:id', () => {
   });
 
   test('409 when new name conflicts', async () => {
-    const { ConflictError } = await import('../../../../../src/server/src/utils/errors');
+    const { ConflictError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.renameTag.mockRejectedValue(new ConflictError('Tag already exists'));
 
     const res = await request(app)
@@ -137,7 +145,7 @@ describe('DELETE /api/tags/:id', () => {
   });
 
   test('404 when tag not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.deleteTag.mockRejectedValue(new NotFoundError('Tag', 'missing-id'));
 
     const res = await request(app).delete('/api/tags/missing-id');
@@ -197,7 +205,7 @@ describe('POST /api/tags/item/:itemId/:tagId', () => {
   });
 
   test('404 when item not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.tagItem.mockRejectedValue(new NotFoundError('Item', 'missing'));
 
     const res = await request(app).post('/api/tags/item/missing/tag-id-1');
@@ -206,7 +214,7 @@ describe('POST /api/tags/item/:itemId/:tagId', () => {
   });
 
   test('422 when tag limit exceeded', async () => {
-    const { LimitExceeded } = await import('../../../../../src/server/src/utils/errors');
+    const { LimitExceeded } = await import('../../../../../packages/server/src/utils/errors');
     mockService.tagItem.mockRejectedValue(new LimitExceeded('Too many tags', { current_count: 20, maximum: 20 }));
 
     const res = await request(app).post('/api/tags/item/item-id-1/tag-id-1');
@@ -229,7 +237,7 @@ describe('DELETE /api/tags/item/:itemId/:tagId', () => {
   });
 
   test('404 when item not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.untagItem.mockRejectedValue(new NotFoundError('Item', 'missing'));
 
     const res = await request(app).delete('/api/tags/item/missing/tag-id-1');

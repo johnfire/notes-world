@@ -2,8 +2,8 @@ import request from 'supertest';
 import { PassThrough } from 'stream';
 import { makeTag, TEST_USER_ID } from '../../../../helpers/itemFactory';
 
-jest.mock('../../../../../src/server/src/domains/export/export.service');
-jest.mock('../../../../../src/server/src/db/client', () => ({
+jest.mock('../../../../../packages/server/src/domains/export/export.service');
+jest.mock('../../../../../packages/server/src/db/client', () => ({
   getPool:         jest.fn(),
   query:           jest.fn(),
   queryOne:        jest.fn(),
@@ -11,8 +11,16 @@ jest.mock('../../../../../src/server/src/db/client', () => ({
   closePool:       jest.fn(),
 }));
 
-import * as service from '../../../../../src/server/src/domains/export/export.service';
-import { createApp } from '../../../../../src/server/src/app';
+jest.mock('../../../../../packages/server/src/middleware/auth', () => ({
+  requireAuth: (req: import('express').Request, _res: import('express').Response, next: import('express').NextFunction) => {
+    req.userId = '00000000-0000-0000-0000-000000000001';
+    next();
+  },
+}));
+
+
+import * as service from '../../../../../packages/server/src/domains/export/export.service';
+import { createApp } from '../../../../../packages/server/src/app';
 
 const mockService = service as jest.Mocked<typeof service>;
 const app = createApp();
@@ -37,7 +45,7 @@ describe('GET /api/export/tag/:tagId', () => {
   });
 
   test('404 when tag not found', async () => {
-    const { NotFoundError } = await import('../../../../../src/server/src/utils/errors');
+    const { NotFoundError } = await import('../../../../../packages/server/src/utils/errors');
     mockService.exportTag.mockRejectedValue(new NotFoundError('Tag', 'bad'));
 
     const res = await request(app).get('/api/export/tag/bad');

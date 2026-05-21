@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(*)"
+      "Bash(*)",
+      "Edit(*)",
+      "Write(*)",
+      "mcp__art-crm__contacts_list",
+      "mcp__open-brain__search_thoughts"
     ]
   }
 }
