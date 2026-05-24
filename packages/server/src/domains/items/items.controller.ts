@@ -4,6 +4,23 @@ import { ItemType } from "../../types";
 import { wrapAsync } from "../../utils/wrapAsync";
 import * as service from "./items.service";
 
+export const listItems = wrapAsync(async (req: Request, res: Response) => {
+  const page = Math.max(1, parseInt(req.query.page as string) || 1);
+  const pageSize = Math.min(
+    100,
+    Math.max(1, parseInt(req.query.page_size as string) || 30),
+  );
+  const status = req.query.status as string | undefined;
+  const itemType = req.query.item_type as string | undefined;
+  const result = await service.listItems(req.userId, {
+    page,
+    pageSize,
+    status,
+    itemType,
+  });
+  res.json(result);
+});
+
 export const captureItem = wrapAsync(async (req: Request, res: Response) => {
   const item = await service.captureItem(req.userId, {
     title: req.body.title,

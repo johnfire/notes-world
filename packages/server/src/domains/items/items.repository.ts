@@ -184,6 +184,46 @@ export async function purgeExpired(userId: UserId, days = 30): Promise<number> {
   return rows.length;
 }
 
+export async function findPaginated(
+  userId: UserId,
+  opts: {
+    page: number;
+    pageSize: number;
+    status?: ItemStatus;
+    itemType?: ItemType;
+  },
+): Promise<{ items: Item[]; total: number }> {
+  const { page, pageSize, status, itemType } = opts;
+  const offset = (page - 1) * pageSize;
+  const conditions: string[] = ["user_id = $1", "item_type != 'Divider'"];
+  const params: unknown[] = [userId];
+
+  if (status) {
+    params.push(status);
+    conditions.push(`status = $${params.length}`);
+  }
+  if (itemType) {
+    params.push(itemType);
+    conditions.push(`item_type = $${params.length}`);
+  }
+
+  const where = conditions.join(" AND ");
+
+  const countRows = await query<{ count: string }>(
+    `SELECT COUNT(*) AS count FROM items WHERE ${where}`,
+    params,
+  );
+  const total = parseInt(countRows[0]?.count ?? "0", 10);
+
+  params.push(pageSize, offset);
+  const items = await query<Item>(
+    `SELECT * FROM items WHERE ${where} ORDER BY updated_at DESC LIMIT $${params.length - 1} OFFSET $${params.length}`,
+    params,
+  );
+
+  return { items, total };
+}
+
 export async function findAllForExport(userId: UserId): Promise<Item[]> {
   return query<Item>(
     `SELECT * FROM items WHERE user_id = $1 ORDER BY created_at ASC`,

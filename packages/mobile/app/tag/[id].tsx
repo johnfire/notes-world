@@ -33,7 +33,7 @@ export default function TagScreen() {
   async function load() {
     try {
       const res = await getItemsByTag(id);
-      setItems(res.items);
+      setItems(res);
     } finally {
       setLoading(false);
       setRefreshing(false);

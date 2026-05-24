@@ -18,11 +18,11 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="tags"
         options={{
-          title: "Notes",
+          title: "Tags",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="document-text-outline" size={size} color={color} />
+            <Ionicons name="pricetag-outline" size={size} color={color} />
           ),
         }}
       />
@@ -36,11 +36,11 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="tags"
+        name="index"
         options={{
-          title: "Tags",
+          title: "Notes",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="pricetag-outline" size={size} color={color} />
+            <Ionicons name="document-text-outline" size={size} color={color} />
           ),
         }}
       />
