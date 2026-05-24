@@ -27,6 +27,9 @@ const VERSION = process.env.npm_package_version ?? "0.1.0";
 export function createApp() {
   const app = express();
 
+  // Trust the first proxy (Apache) so express-rate-limit reads X-Forwarded-For correctly
+  app.set("trust proxy", 1);
+
   app.use(
     helmet({ contentSecurityPolicy: process.env.NODE_ENV === "production" }),
   );

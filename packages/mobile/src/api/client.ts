@@ -19,6 +19,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   const token = await getToken();
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
+    "X-Client-Type": "native-app",
     ...(options.headers as Record<string, string>),
   };
   if (token) headers["Authorization"] = `Bearer ${token}`;
@@ -27,7 +28,12 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
-    throw new ApiError(res.status, body.message ?? res.statusText);
+    const message =
+      body.error?.message ??
+      body.message ??
+      res.statusText ??
+      `HTTP ${res.status}`;
+    throw new ApiError(res.status, message);
   }
 
   if (res.status === 204) return undefined as T;

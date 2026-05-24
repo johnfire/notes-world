@@ -1,33 +1,41 @@
-import { useEffect } from "react";
-import { Stack, useRouter, useSegments } from "expo-router";
+import { Stack, Redirect, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { View, ActivityIndicator } from "react-native";
 import { AuthProvider, useAuth } from "../src/store/auth";
+import { colors } from "../src/theme";
 
 function RootRedirect() {
   const { user, loading } = useAuth();
   const segments = useSegments();
-  const router = useRouter();
 
-  useEffect(() => {
-    if (loading) return;
-    const inAuth = segments[0] === "(auth)";
-    if (!user && !inAuth) {
-      router.replace("/(auth)/login");
-    } else if (user && inAuth) {
-      router.replace("/(tabs)");
-    }
-  }, [user, loading, segments]);
+  if (loading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: colors.bg,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator color={colors.accent} />
+      </View>
+    );
+  }
 
+  const inAuth = segments[0] === "(auth)";
+
+  if (!user && !inAuth) return <Redirect href="/(auth)/login" />;
+  if (user && inAuth) return <Redirect href="/(tabs)" />;
   return null;
 }
 
 export default function RootLayout() {
   return (
     <AuthProvider>
-      <RootRedirect />
       <StatusBar style="light" />
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="(auth)/login" />
         <Stack.Screen name="(tabs)" />
         <Stack.Screen
           name="item/[id]"
@@ -49,6 +57,7 @@ export default function RootLayout() {
           }}
         />
       </Stack>
+      <RootRedirect />
     </AuthProvider>
   );
 }
