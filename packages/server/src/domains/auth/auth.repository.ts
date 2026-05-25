@@ -168,3 +168,54 @@ export async function updateUserPasswordHash(
 export async function deleteUser(userId: string): Promise<void> {
   await query("DELETE FROM users WHERE id = $1", [userId]);
 }
+
+// ── API Keys ──────────────────────────────────────────────────────────────────
+
+export type ApiKeyRow = {
+  user_id: string;
+  name: string;
+  key_prefix: string;
+  created_at: string;
+};
+
+export async function insertApiKey(
+  userId: string,
+  keyHash: string,
+  keyPrefix: string,
+  name: string,
+): Promise<ApiKeyRow> {
+  const row = await queryOne<ApiKeyRow>(
+    `INSERT INTO user_api_keys (key_hash, user_id, key_prefix, name)
+     VALUES ($1, $2, $3, $4)
+     RETURNING user_id, name, key_prefix, created_at`,
+    [keyHash, userId, keyPrefix, name],
+  );
+  return row!;
+}
+
+export async function findApiKeyByHash(
+  keyHash: string,
+): Promise<{ user_id: string } | null> {
+  return queryOne<{ user_id: string }>(
+    "SELECT user_id FROM user_api_keys WHERE key_hash = $1",
+    [keyHash],
+  );
+}
+
+export async function listApiKeys(userId: string): Promise<ApiKeyRow[]> {
+  return query<ApiKeyRow>(
+    "SELECT user_id, name, key_prefix, created_at FROM user_api_keys WHERE user_id = $1 ORDER BY created_at DESC",
+    [userId],
+  );
+}
+
+export async function deleteApiKeyByPrefix(
+  keyPrefix: string,
+  userId: string,
+): Promise<boolean> {
+  const rows = await query<{ key_prefix: string }>(
+    "DELETE FROM user_api_keys WHERE key_prefix = $1 AND user_id = $2 RETURNING key_prefix",
+    [keyPrefix, userId],
+  );
+  return rows.length > 0;
+}

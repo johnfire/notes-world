@@ -14,3 +14,8 @@ authRouter.get("/me", requireAuth, controller.getMe);
 authRouter.put("/me/password", requireAuth, controller.changePassword);
 authRouter.put("/me/email", requireAuth, controller.changeEmail);
 authRouter.delete("/me", requireAuth, controller.deleteAccount);
+
+// API key management
+authRouter.post("/api-keys", requireAuth, controller.createApiKey);
+authRouter.get("/api-keys", requireAuth, controller.listApiKeys);
+authRouter.delete("/api-keys/:prefix", requireAuth, controller.deleteApiKey);

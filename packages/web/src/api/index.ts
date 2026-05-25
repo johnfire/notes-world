@@ -311,6 +311,26 @@ export const admin = {
     request<void>(`/admin/coupons/${code}`, { method: "DELETE" }),
 };
 
+// ── API Keys ──────────────────────────────────────────────────────────────────
+
+export type ApiKey = {
+  user_id: string;
+  name: string;
+  key_prefix: string;
+  created_at: string;
+};
+
+export const apiKeys = {
+  list: () => request<ApiKey[]>("/auth/api-keys"),
+  create: (name?: string) =>
+    request<ApiKey & { key: string }>("/auth/api-keys", {
+      method: "POST",
+      body: JSON.stringify({ name }),
+    }),
+  revoke: (prefix: string) =>
+    request<void>(`/auth/api-keys/${prefix}`, { method: "DELETE" }),
+};
+
 // ── Import ────────────────────────────────────────────────────────────────────
 
 export const importApi = {

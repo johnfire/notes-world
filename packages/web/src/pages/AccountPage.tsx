@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n";
 import { useAuth } from "../context/AuthContext";
-import { billing } from "../api";
+import { billing, apiKeys } from "../api";
+import type { ApiKey } from "../api";
 import { UpgradePage } from "./UpgradePage";
 import { LANGUAGES } from "../i18n/languages";
 
@@ -285,6 +286,9 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
             </form>
           </section>
 
+          {/* API Keys */}
+          <ApiKeysSection />
+
           {/* Sign out */}
           <section>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
@@ -328,5 +332,149 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
         </div>
       </div>
     </div>
+  );
+}
+
+function ApiKeysSection() {
+  const [keys, setKeys] = useState<ApiKey[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [creating, setCreating] = useState(false);
+  const [newKeyName, setNewKeyName] = useState("");
+  const [revealed, setRevealed] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    apiKeys
+      .list()
+      .then(setKeys)
+      .catch(() => setError("Failed to load API keys"))
+      .finally(() => setLoading(false));
+  }, []);
+
+  async function handleCreate() {
+    setError("");
+    setCreating(true);
+    try {
+      const result = await apiKeys.create(newKeyName || undefined);
+      setKeys((prev) => [result, ...prev]);
+      setNewKeyName("");
+      setRevealed(result.key);
+      setCopied(false);
+    } catch {
+      setError("Failed to create API key");
+    } finally {
+      setCreating(false);
+    }
+  }
+
+  async function handleRevoke(prefix: string) {
+    if (!window.confirm(`Revoke API key ${prefix}…?`)) return;
+    try {
+      await apiKeys.revoke(prefix);
+      setKeys((prev) => prev.filter((k) => k.key_prefix !== prefix));
+      if (revealed) setRevealed(null);
+    } catch {
+      setError("Failed to revoke API key");
+    }
+  }
+
+  function copyKey() {
+    if (!revealed) return;
+    void navigator.clipboard.writeText(revealed);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+  return (
+    <section>
+      <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
+        API Keys
+      </h3>
+
+      {revealed && (
+        <div className="mb-3 p-3 bg-yellow-400/10 border border-yellow-400/30 rounded-lg space-y-2">
+          <p className="text-yellow-400 text-xs font-semibold">
+            Copy this key now — it will not be shown again.
+          </p>
+          <div className="flex gap-2">
+            <code className="flex-1 bg-surface-700 text-gray-200 text-xs px-2 py-1.5 rounded font-mono break-all">
+              {revealed}
+            </code>
+            <button
+              className="shrink-0 text-xs px-3 py-1 border border-surface-400 rounded hover:border-accent transition-colors"
+              onClick={copyKey}
+            >
+              {copied ? "Copied!" : "Copy"}
+            </button>
+          </div>
+          <button
+            className="text-gray-500 text-xs hover:text-gray-300"
+            onClick={() => setRevealed(null)}
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
+
+      <div className="flex gap-2 mb-3">
+        <input
+          className="input text-sm flex-1"
+          placeholder="Key name (e.g. Claude Code)"
+          value={newKeyName}
+          onChange={(e) => setNewKeyName(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && void handleCreate()}
+        />
+        <button
+          className="btn-primary text-sm px-4 shrink-0"
+          onClick={() => void handleCreate()}
+          disabled={creating}
+        >
+          {creating ? "…" : "Generate"}
+        </button>
+      </div>
+
+      {error && <p className="text-danger text-xs mb-2">{error}</p>}
+
+      {loading ? (
+        <div className="flex justify-center py-4">
+          <div className="w-4 h-4 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+        </div>
+      ) : keys.length === 0 ? (
+        <p className="text-gray-600 text-xs">No API keys yet.</p>
+      ) : (
+        <table className="w-full text-xs">
+          <thead>
+            <tr className="text-gray-500 text-left">
+              <th className="pb-1 font-medium">Prefix</th>
+              <th className="pb-1 font-medium">Name</th>
+              <th className="pb-1 font-medium">Created</th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            {keys.map((k) => (
+              <tr key={k.key_prefix} className="border-t border-surface-600">
+                <td className="py-1.5 font-mono text-gray-300 pr-3">
+                  {k.key_prefix}…
+                </td>
+                <td className="py-1.5 text-gray-400 pr-3">{k.name}</td>
+                <td className="py-1.5 text-gray-500 pr-3">
+                  {new Date(k.created_at).toLocaleDateString()}
+                </td>
+                <td className="py-1.5">
+                  <button
+                    className="text-gray-600 hover:text-danger"
+                    onClick={() => void handleRevoke(k.key_prefix)}
+                  >
+                    Revoke
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </section>
   );
 }

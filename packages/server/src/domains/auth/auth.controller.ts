@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
+import { randomBytes, createHash } from "crypto";
 import { wrapAsync } from "../../utils/wrapAsync";
 import * as service from "./auth.service";
+import * as authRepo from "./auth.repository";
 
 function detectClient(req: Request): string {
   const ua = req.headers["user-agent"] ?? "";
@@ -98,5 +100,42 @@ export const changeEmail = wrapAsync(async (req: Request, res: Response) => {
 export const deleteAccount = wrapAsync(async (req: Request, res: Response) => {
   await service.deleteAccount(req.userId!, req.body.current_password);
   res.clearCookie(REFRESH_COOKIE, { path: "/api/auth" });
+  res.status(204).end();
+});
+
+// ── API Keys ──────────────────────────────────────────────────────────────────
+
+export const createApiKey = wrapAsync(async (req: Request, res: Response) => {
+  const name =
+    typeof req.body.name === "string" && req.body.name.trim()
+      ? req.body.name.trim()
+      : "MCP";
+  const rawKey = "nw_" + randomBytes(32).toString("hex");
+  const keyHash = createHash("sha256").update(rawKey).digest("hex");
+  const keyPrefix = rawKey.slice(0, 12);
+  const row = await authRepo.insertApiKey(
+    req.userId!,
+    keyHash,
+    keyPrefix,
+    name,
+  );
+  // Return the raw key only once — it is not stored and cannot be retrieved again
+  res.status(201).json({ ...row, key: rawKey });
+});
+
+export const listApiKeys = wrapAsync(async (req: Request, res: Response) => {
+  const keys = await authRepo.listApiKeys(req.userId!);
+  res.json(keys);
+});
+
+export const deleteApiKey = wrapAsync(async (req: Request, res: Response) => {
+  const found = await authRepo.deleteApiKeyByPrefix(
+    req.params.prefix,
+    req.userId!,
+  );
+  if (!found) {
+    res.status(404).json({ error: { message: "API key not found" } });
+    return;
+  }
   res.status(204).end();
 });
