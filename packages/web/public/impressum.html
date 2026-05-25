@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Impressum — Notes World</title>
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0f0f0f;
+        --surface: #1a1a1a;
+        --border: #2a2a2a;
+        --text: #f0f0f0;
+        --muted: #888;
+        --dim: #555;
+        --accent: #7c6aff;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        border-bottom: 1px solid var(--border);
+        background: rgba(15, 15, 15, 0.92);
+        backdrop-filter: blur(8px);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      .logo-mark {
+        width: 26px;
+        height: 26px;
+        background: var(--accent);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: #fff;
+      }
+
+      .container {
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 3rem 1.5rem 5rem;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.5rem;
+      }
+
+      .subtitle {
+        color: var(--muted);
+        font-size: 0.875rem;
+        margin-bottom: 2.5rem;
+      }
+
+      section {
+        margin-bottom: 2rem;
+      }
+
+      h2 {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        margin-bottom: 0.625rem;
+      }
+
+      .card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.25rem 1.5rem;
+        font-size: 0.9375rem;
+        color: var(--text);
+      }
+
+      .card p + p {
+        margin-top: 0.2rem;
+      }
+
+      .prose {
+        font-size: 0.875rem;
+        color: var(--muted);
+        line-height: 1.75;
+      }
+
+      .prose p + p {
+        margin-top: 0.75rem;
+      }
+
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 2rem;
+        text-align: center;
+        color: var(--dim);
+        font-size: 0.8125rem;
+      }
+
+      footer a {
+        color: var(--muted);
+      }
+      footer a:hover {
+        color: var(--text);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="/" class="logo">
+        <div class="logo-mark">N</div>
+        notes-world
+      </a>
+    </nav>
+
+    <div class="container">
+      <h1>Impressum</h1>
+      <p class="subtitle">Angaben gemäß § 5 TMG</p>
+
+      <section>
+        <h2>Verantwortlicher</h2>
+        <div class="card">
+          <p>Christopher Rehm</p>
+          <p>Alpenstraße 3</p>
+          <p>86836 Klosterlechfeld</p>
+          <p>Deutschland</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Kontakt</h2>
+        <div class="card">
+          <p>E-Mail: <a href="mailto:car2187bus@pm.me">car2187bus@pm.me</a></p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV</h2>
+        <div class="card">
+          <p>Christopher Rehm</p>
+          <p>Alpenstraße 3</p>
+          <p>86836 Klosterlechfeld</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Haftungsausschluss</h2>
+        <div class="prose">
+          <p>
+            <strong style="color: var(--text)">Haftung für Inhalte:</strong> Die
+            Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt.
+            Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte
+            übernehmen wir jedoch keine Gewähr. Als Diensteanbieter sind wir
+            gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten nach den
+            allgemeinen Gesetzen verantwortlich.
+          </p>
+          <p>
+            <strong style="color: var(--text)">Haftung für Links:</strong> Unser
+            Angebot enthält Links zu externen Websites Dritter, auf deren
+            Inhalte wir keinen Einfluss haben. Deshalb können wir für diese
+            fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der
+            verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber
+            der Seiten verantwortlich.
+          </p>
+          <p>
+            <strong style="color: var(--text)">Urheberrecht:</strong> Die durch
+            den Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten
+            unterliegen dem deutschen Urheberrecht. Die Vervielfältigung,
+            Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der
+            Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des
+            jeweiligen Autors bzw. Erstellers.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Datenschutz</h2>
+        <div class="prose">
+          <p>
+            Wir nehmen den Schutz Ihrer persönlichen Daten ernst.
+            Personenbezogene Daten (Name, E-Mail-Adresse) werden ausschließlich
+            zur Bereitstellung des Dienstes gespeichert und nicht an Dritte
+            weitergegeben. Zahlungsabwicklung erfolgt über Stripe. Weitere
+            Informationen auf Anfrage per E-Mail.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      <p>
+        &copy; 2026 Notes World &mdash; <a href="/">Startseite</a> &middot;
+        <a href="/app">Anmelden</a>
+      </p>
+    </footer>
+  </body>
+</html>
