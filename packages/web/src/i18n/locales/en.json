@@ -67,7 +67,12 @@
       "cta": "Start free trial"
     }
   },
-  "footer": { "signIn": "Sign in", "impressum": "Impressum" },
+  "footer": {
+    "signIn": "Sign in",
+    "impressum": "Impressum",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
   "login": {
     "title": "notes-world",
     "email": "Email",
@@ -76,7 +81,12 @@
     "createAccount": "Create account",
     "noAccount": "No account? Register",
     "haveAccount": "Have an account? Sign in",
-    "loading": "..."
+    "loading": "...",
+    "agreeStart": "I agree to the ",
+    "termsLink": "Terms of Service",
+    "agreeMid": " and ",
+    "privacyLink": "Privacy Policy",
+    "mustAgree": "You must agree to the terms to register"
   },
   "app": {
     "actions": {

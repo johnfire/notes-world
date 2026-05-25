@@ -73,7 +73,9 @@
   },
   "footer": {
     "signIn": "Anmelden",
-    "impressum": "Impressum"
+    "impressum": "Impressum",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen"
   },
   "login": {
     "title": "notes-world",
@@ -83,31 +85,194 @@
     "createAccount": "Konto erstellen",
     "noAccount": "Kein Konto? Registrieren",
     "haveAccount": "Konto vorhanden? Anmelden",
-    "loading": "..."
+    "loading": "...",
+    "agreeStart": "Ich stimme den ",
+    "termsLink": "Nutzungsbedingungen",
+    "agreeMid": " und der ",
+    "privacyLink": "Datenschutzerklärung",
+    "mustAgree": "Du musst den Bedingungen zustimmen, um dich zu registrieren."
   },
   "app": {
-    "actions": { "save": "Speichern", "saving": "Wird gespeichert…", "cancel": "Abbrechen", "add": "Hinzufügen", "export": "Exportieren", "import": "Importieren", "upgrade": "Upgraden", "archive": "Archivieren", "restore": "Wiederherstellen", "delete": "Löschen", "deletePerma": "Endgültig löschen", "capture": "Erfassen", "loading": "Wird geladen…", "clearSearch": "Suche löschen" },
-    "types": { "note": "Notiz", "task": "Aufgabe", "idea": "Idee", "reminder": "Erinnerung", "untyped": "Ohne Typ" },
-    "status": { "open": "Offen", "inProgress": "In Bearbeitung", "blocked": "Blockiert", "done": "Erledigt" },
-    "maturity": { "seed": "Keim", "developing": "In Entwicklung", "ready": "Bereit", "parked": "Geparkt" },
-    "search": { "placeholder": "Einträge suchen… (/ zum Fokussieren)", "loading": "Wird geladen", "results_one": "{{count}} Ergebnis für «{{query}}»", "results_other": "{{count}} Ergebnisse für «{{query}}»", "noResults": "Keine Einträge gefunden" },
-    "views": { "dashboard": "Dashboard", "tasks": "Aufgaben", "ideas": "Ideen" },
-    "sidebar": { "tags": "Tags", "allItems": "Alle Einträge", "trash": "Papierkorb", "createTag": "Tag erstellen", "tagNamePlaceholder": "Tag-Name…", "expandSidebar": "Seitenleiste ausklappen", "collapseSidebar": "Seitenleiste einklappen", "setColor": "Farbe setzen", "removeColor": "Farbe entfernen", "dragToReorder": "Zum Sortieren ziehen", "exportUntagged": "Einträge ohne Tag exportieren", "tagNameTooLong": "Max. 100 Zeichen" },
-    "capture": { "placeholder": "Etwas erfassen… (C drücken)", "placeholderTag": "Unter «{{tag}}» erfassen… (C drücken)" },
-    "drawer": { "archived": "Archiviert", "notes": "Notizen", "addNotes": "Notizen hinzufügen…", "promoteTo": "Befördern zu…", "created": "Erstellt", "updated": "Aktualisiert", "status": "Status", "priority": "Priorität", "due": "Fällig", "completed": "Abgeschlossen", "maturity": "Reifegrad", "remindAt": "Erinnern am", "dismissed": "Verworfen", "yes": "Ja", "no": "Nein" },
-    "tags": { "label": "Tags", "add": "+ Tag", "searchOrCreate": "Suchen oder erstellen…", "create": "«{{name}}» erstellen", "noMatching": "Keine passenden Tags", "allApplied": "Alle Tags vergeben" },
-    "taskActions": { "label": "Aktionen", "start": "Starten", "complete": "Abschließen", "block": "Blockieren", "removeDepToUnblock": "Abhängigkeit entfernen zum Entsperren" },
-    "tagView": { "unsorted": "Unsortiert ({{count}})", "placeAtEnd": "Am Ende der Liste einfügen", "noItems": "Keine Einträge mit diesem Tag", "itemCount": "{{count}} Einträge", "addDivider": "+ Trennlinie" },
-    "tasksView": { "moveLeft": "Nach links verschieben", "moveRight": "Nach rechts verschieben", "noTasks": "Keine Aufgaben hier" },
-    "ideasView": { "moveLeft": "Nach links verschieben", "moveRight": "Nach rechts verschieben", "dropHere": "Ideen hier ablegen" },
-    "trashView": { "title": "Papierkorb", "empty": "Papierkorb ist leer", "daysLeft": "{{days}} Tage bis zur endgültigen Löschung", "restoreTitle": "Eintrag wiederherstellen" },
-    "blocks": {
-      "quickCapture": { "title": "Schnellerfassung", "placeholder": "Gedanken erfassen…", "notesPlaceholder": "Zusätzliche Notizen (optional)" },
-      "recentItems": { "title": "Letzte Einträge", "empty": "Noch keine Einträge", "justNow": "gerade eben", "minsAgo": "vor {{mins}} Min.", "hrsAgo": "vor {{hrs}} Std.", "daysAgo": "vor {{days}} Tagen" },
-      "tagCloud": { "title": "Tags", "empty": "Noch keine Tags", "itemCount": "{{count}} Einträge" },
-      "notes": { "title": "Notizen", "empty": "Noch keine Notizen" },
-      "actionableTasks": { "title": "Offene Aufgaben", "empty": "Keine offenen Aufgaben" }
+    "actions": {
+      "save": "Speichern",
+      "saving": "Wird gespeichert…",
+      "cancel": "Abbrechen",
+      "add": "Hinzufügen",
+      "export": "Exportieren",
+      "import": "Importieren",
+      "upgrade": "Upgraden",
+      "archive": "Archivieren",
+      "restore": "Wiederherstellen",
+      "delete": "Löschen",
+      "deletePerma": "Endgültig löschen",
+      "capture": "Erfassen",
+      "loading": "Wird geladen…",
+      "clearSearch": "Suche löschen"
     },
-    "account": { "title": "Konto", "signedInAs": "Angemeldet als", "roles": { "free": "Kostenlos", "gift": "Pro (Geschenk)", "paid": "Pro", "admin": "Admin" }, "freePlanLimit": "Im kostenlosen Plan auf 20 Tags beschränkt.", "upgrade": "Upgraden →", "proPlan": "Pro-Plan", "manageBilling": "Abrechnung verwalten →", "loadingPortal": "Wird geladen…", "changeEmail": "E-Mail ändern", "newEmail": "Neue E-Mail", "currentPassword": "Aktuelles Passwort", "emailUpdated": "E-Mail aktualisiert.", "updateEmail": "E-Mail aktualisieren", "saving": "Wird gespeichert…", "changePassword": "Passwort ändern", "newPassword": "Neues Passwort", "confirmPassword": "Neues Passwort bestätigen", "passwordMismatch": "Passwörter stimmen nicht überein", "passwordUpdated": "Passwort aktualisiert.", "updatePassword": "Passwort aktualisieren", "session": "Sitzung", "signOut": "Abmelden", "dangerZone": "Gefahrenzone", "confirmPasswordPlaceholder": "Aktuelles Passwort zur Bestätigung", "deleteAccount": "Konto löschen", "deleting": "Wird gelöscht…", "deleteConfirm": "Konto dauerhaft löschen? Dies kann nicht rückgängig gemacht werden.", "failed": "Fehlgeschlagen", "language": "Sprache" }
+    "types": {
+      "note": "Notiz",
+      "task": "Aufgabe",
+      "idea": "Idee",
+      "reminder": "Erinnerung",
+      "untyped": "Ohne Typ"
+    },
+    "status": {
+      "open": "Offen",
+      "inProgress": "In Bearbeitung",
+      "blocked": "Blockiert",
+      "done": "Erledigt"
+    },
+    "maturity": {
+      "seed": "Keim",
+      "developing": "In Entwicklung",
+      "ready": "Bereit",
+      "parked": "Geparkt"
+    },
+    "search": {
+      "placeholder": "Einträge suchen… (/ zum Fokussieren)",
+      "loading": "Wird geladen",
+      "results_one": "{{count}} Ergebnis für «{{query}}»",
+      "results_other": "{{count}} Ergebnisse für «{{query}}»",
+      "noResults": "Keine Einträge gefunden"
+    },
+    "views": {
+      "dashboard": "Dashboard",
+      "tasks": "Aufgaben",
+      "ideas": "Ideen"
+    },
+    "sidebar": {
+      "tags": "Tags",
+      "allItems": "Alle Einträge",
+      "trash": "Papierkorb",
+      "createTag": "Tag erstellen",
+      "tagNamePlaceholder": "Tag-Name…",
+      "expandSidebar": "Seitenleiste ausklappen",
+      "collapseSidebar": "Seitenleiste einklappen",
+      "setColor": "Farbe setzen",
+      "removeColor": "Farbe entfernen",
+      "dragToReorder": "Zum Sortieren ziehen",
+      "exportUntagged": "Einträge ohne Tag exportieren",
+      "tagNameTooLong": "Max. 100 Zeichen"
+    },
+    "capture": {
+      "placeholder": "Etwas erfassen… (C drücken)",
+      "placeholderTag": "Unter «{{tag}}» erfassen… (C drücken)"
+    },
+    "drawer": {
+      "archived": "Archiviert",
+      "notes": "Notizen",
+      "addNotes": "Notizen hinzufügen…",
+      "promoteTo": "Befördern zu…",
+      "created": "Erstellt",
+      "updated": "Aktualisiert",
+      "status": "Status",
+      "priority": "Priorität",
+      "due": "Fällig",
+      "completed": "Abgeschlossen",
+      "maturity": "Reifegrad",
+      "remindAt": "Erinnern am",
+      "dismissed": "Verworfen",
+      "yes": "Ja",
+      "no": "Nein"
+    },
+    "tags": {
+      "label": "Tags",
+      "add": "+ Tag",
+      "searchOrCreate": "Suchen oder erstellen…",
+      "create": "«{{name}}» erstellen",
+      "noMatching": "Keine passenden Tags",
+      "allApplied": "Alle Tags vergeben"
+    },
+    "taskActions": {
+      "label": "Aktionen",
+      "start": "Starten",
+      "complete": "Abschließen",
+      "block": "Blockieren",
+      "removeDepToUnblock": "Abhängigkeit entfernen zum Entsperren"
+    },
+    "tagView": {
+      "unsorted": "Unsortiert ({{count}})",
+      "placeAtEnd": "Am Ende der Liste einfügen",
+      "noItems": "Keine Einträge mit diesem Tag",
+      "itemCount": "{{count}} Einträge",
+      "addDivider": "+ Trennlinie"
+    },
+    "tasksView": {
+      "moveLeft": "Nach links verschieben",
+      "moveRight": "Nach rechts verschieben",
+      "noTasks": "Keine Aufgaben hier"
+    },
+    "ideasView": {
+      "moveLeft": "Nach links verschieben",
+      "moveRight": "Nach rechts verschieben",
+      "dropHere": "Ideen hier ablegen"
+    },
+    "trashView": {
+      "title": "Papierkorb",
+      "empty": "Papierkorb ist leer",
+      "daysLeft": "{{days}} Tage bis zur endgültigen Löschung",
+      "restoreTitle": "Eintrag wiederherstellen"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Schnellerfassung",
+        "placeholder": "Gedanken erfassen…",
+        "notesPlaceholder": "Zusätzliche Notizen (optional)"
+      },
+      "recentItems": {
+        "title": "Letzte Einträge",
+        "empty": "Noch keine Einträge",
+        "justNow": "gerade eben",
+        "minsAgo": "vor {{mins}} Min.",
+        "hrsAgo": "vor {{hrs}} Std.",
+        "daysAgo": "vor {{days}} Tagen"
+      },
+      "tagCloud": {
+        "title": "Tags",
+        "empty": "Noch keine Tags",
+        "itemCount": "{{count}} Einträge"
+      },
+      "notes": { "title": "Notizen", "empty": "Noch keine Notizen" },
+      "actionableTasks": {
+        "title": "Offene Aufgaben",
+        "empty": "Keine offenen Aufgaben"
+      }
+    },
+    "account": {
+      "title": "Konto",
+      "signedInAs": "Angemeldet als",
+      "roles": {
+        "free": "Kostenlos",
+        "gift": "Pro (Geschenk)",
+        "paid": "Pro",
+        "admin": "Admin"
+      },
+      "freePlanLimit": "Im kostenlosen Plan auf 20 Tags beschränkt.",
+      "upgrade": "Upgraden →",
+      "proPlan": "Pro-Plan",
+      "manageBilling": "Abrechnung verwalten →",
+      "loadingPortal": "Wird geladen…",
+      "changeEmail": "E-Mail ändern",
+      "newEmail": "Neue E-Mail",
+      "currentPassword": "Aktuelles Passwort",
+      "emailUpdated": "E-Mail aktualisiert.",
+      "updateEmail": "E-Mail aktualisieren",
+      "saving": "Wird gespeichert…",
+      "changePassword": "Passwort ändern",
+      "newPassword": "Neues Passwort",
+      "confirmPassword": "Neues Passwort bestätigen",
+      "passwordMismatch": "Passwörter stimmen nicht überein",
+      "passwordUpdated": "Passwort aktualisiert.",
+      "updatePassword": "Passwort aktualisieren",
+      "session": "Sitzung",
+      "signOut": "Abmelden",
+      "dangerZone": "Gefahrenzone",
+      "confirmPasswordPlaceholder": "Aktuelles Passwort zur Bestätigung",
+      "deleteAccount": "Konto löschen",
+      "deleting": "Wird gelöscht…",
+      "deleteConfirm": "Konto dauerhaft löschen? Dies kann nicht rückgängig gemacht werden.",
+      "failed": "Fehlgeschlagen",
+      "language": "Sprache"
+    }
   }
 }

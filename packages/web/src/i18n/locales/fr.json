@@ -73,7 +73,9 @@
   },
   "footer": {
     "signIn": "Se connecter",
-    "impressum": "Mentions légales"
+    "impressum": "Mentions légales",
+    "privacy": "Confidentialité",
+    "terms": "Conditions"
   },
   "login": {
     "title": "notes-world",
@@ -83,7 +85,12 @@
     "createAccount": "Créer un compte",
     "noAccount": "Pas de compte ? S'inscrire",
     "haveAccount": "Déjà un compte ? Se connecter",
-    "loading": "..."
+    "loading": "...",
+    "agreeStart": "J'accepte les ",
+    "termsLink": "Conditions d'utilisation",
+    "agreeMid": " et la ",
+    "privacyLink": "Politique de confidentialité",
+    "mustAgree": "Vous devez accepter les conditions pour vous inscrire."
   },
   "app": {
     "actions": {

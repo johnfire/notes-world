@@ -285,6 +285,20 @@ export function LandingPage() {
             {t("footer.signIn")}
           </Link>{" "}
           &middot;{" "}
+          <Link
+            to="/privacy"
+            className="text-[#888] hover:text-white transition-colors"
+          >
+            {t("footer.privacy")}
+          </Link>{" "}
+          &middot;{" "}
+          <Link
+            to="/terms"
+            className="text-[#888] hover:text-white transition-colors"
+          >
+            {t("footer.terms")}
+          </Link>{" "}
+          &middot;{" "}
           <a
             href="/impressum.html"
             className="text-[#888] hover:text-white transition-colors"

@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
 
@@ -10,11 +10,16 @@ export function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState<"login" | "register">("login");
+  const [agreed, setAgreed] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
+    if (mode === "register" && !agreed) {
+      setError(t("login.mustAgree"));
+      return;
+    }
     setError(null);
     setLoading(true);
     try {
@@ -65,6 +70,35 @@ export function LoginPage() {
             />
           </div>
 
+          {mode === "register" && (
+            <label className="flex items-start gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={agreed}
+                onChange={(e) => setAgreed(e.target.checked)}
+                className="mt-0.5 shrink-0 accent-blue-500"
+              />
+              <span className="text-sm text-gray-400">
+                {t("login.agreeStart")}
+                <Link
+                  to="/terms"
+                  target="_blank"
+                  className="text-blue-400 hover:underline"
+                >
+                  {t("login.termsLink")}
+                </Link>
+                {t("login.agreeMid")}
+                <Link
+                  to="/privacy"
+                  target="_blank"
+                  className="text-blue-400 hover:underline"
+                >
+                  {t("login.privacyLink")}
+                </Link>
+              </span>
+            </label>
+          )}
+
           {error && <p className="text-red-400 text-sm">{error}</p>}
 
           <button
@@ -84,6 +118,7 @@ export function LoginPage() {
           onClick={() => {
             setMode((m) => (m === "login" ? "register" : "login"));
             setError(null);
+            setAgreed(false);
           }}
           className="mt-4 w-full text-center text-sm text-gray-500 hover:text-gray-300 transition-colors"
         >
