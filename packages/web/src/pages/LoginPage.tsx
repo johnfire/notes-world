@@ -1,8 +1,12 @@
 import { useState, FormEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
 
 export function LoginPage() {
   const { login, register } = useAuth();
+  const navigate = useNavigate();
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mode, setMode] = useState<"login" | "register">("login");
@@ -19,6 +23,7 @@ export function LoginPage() {
       } else {
         await register(email, password);
       }
+      navigate("/app", { replace: true });
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong");
     } finally {
@@ -30,12 +35,14 @@ export function LoginPage() {
     <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <h1 className="text-2xl font-semibold text-white mb-8 text-center">
-          notes-world
+          {t("login.title")}
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm text-gray-400 mb-1">Email</label>
+            <label className="block text-sm text-gray-400 mb-1">
+              {t("login.email")}
+            </label>
             <input
               type="email"
               value={email}
@@ -45,7 +52,9 @@ export function LoginPage() {
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-400 mb-1">Password</label>
+            <label className="block text-sm text-gray-400 mb-1">
+              {t("login.password")}
+            </label>
             <input
               type="password"
               value={password}
@@ -63,7 +72,11 @@ export function LoginPage() {
             disabled={loading}
             className="w-full bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white rounded px-3 py-2 text-sm font-medium transition-colors"
           >
-            {loading ? "..." : mode === "login" ? "Sign in" : "Create account"}
+            {loading
+              ? t("login.loading")
+              : mode === "login"
+                ? t("login.signIn")
+                : t("login.createAccount")}
           </button>
         </form>
 
@@ -74,9 +87,7 @@ export function LoginPage() {
           }}
           className="mt-4 w-full text-center text-sm text-gray-500 hover:text-gray-300 transition-colors"
         >
-          {mode === "login"
-            ? "No account? Register"
-            : "Have an account? Sign in"}
+          {mode === "login" ? t("login.noAccount") : t("login.haveAccount")}
         </button>
       </div>
     </div>

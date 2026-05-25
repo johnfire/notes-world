@@ -1,0 +1,84 @@
+{
+  "nav": {
+    "features": "Features",
+    "pricing": "Pricing",
+    "signIn": "Sign in",
+    "getStarted": "Get started free"
+  },
+  "hero": {
+    "badge": "Simple & effective",
+    "headline": "Your notes,",
+    "headlineAccent": "organised at last",
+    "subtitle": "Notes World brings your ideas, tasks, and reminders into one clean, fast app. Tag everything, find anything, stay on top of it all.",
+    "cta": "Start for free",
+    "ctaSecondary": "See pricing"
+  },
+  "features": {
+    "sectionLabel": "What's included",
+    "sectionTitle": "Everything you need, nothing you don't",
+    "tags": {
+      "title": "Tags",
+      "desc": "Organise anything with colour-coded tags. Filter your dashboard by tag in one click."
+    },
+    "types": {
+      "title": "Four item types",
+      "desc": "Notes, Tasks, Ideas, and Reminders — each with its own view and workflow."
+    },
+    "capture": {
+      "title": "Quick capture",
+      "desc": "A persistent capture bar means you can jot anything down without losing your place."
+    },
+    "import": {
+      "title": "Import & export",
+      "desc": "Bring notes in from other apps or export everything as markdown — your data is always yours."
+    },
+    "mobile": {
+      "title": "Mobile app",
+      "desc": "Native Android app via Expo. Capture notes on the go, fully synced with the web app."
+    },
+    "dark": {
+      "title": "Dark by default",
+      "desc": "Built for long sessions. A clean dark interface that's easy on the eyes."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Pricing",
+    "sectionTitle": "Simple, transparent pricing",
+    "free": {
+      "name": "Free",
+      "price": "€0",
+      "period": "/ forever",
+      "features": [
+        "Unlimited notes, tasks & ideas",
+        "Up to 20 tags",
+        "Import & export",
+        "Web & mobile access",
+        "Quick capture"
+      ],
+      "cta": "Get started"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ month",
+      "alt": "or €45 / year — save 25%",
+      "features": ["Everything in Free", "Unlimited tags", "Priority support"],
+      "cta": "Start free trial"
+    }
+  },
+  "footer": {
+    "signIn": "Sign in",
+    "impressum": "Impressum"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "createAccount": "Create account",
+    "noAccount": "No account? Register",
+    "haveAccount": "Have an account? Sign in",
+    "loading": "..."
+  }
+}

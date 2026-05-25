@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "features": "Fonctionnalités",
+    "pricing": "Tarifs",
+    "signIn": "Se connecter",
+    "getStarted": "Commencer gratuitement"
+  },
+  "hero": {
+    "badge": "Simple & efficace",
+    "headline": "Vos notes,",
+    "headlineAccent": "enfin organisées",
+    "subtitle": "Notes World rassemble vos idées, tâches et rappels dans une application claire et rapide. Taguez tout, retrouvez n'importe quoi.",
+    "cta": "Démarrer gratuitement",
+    "ctaSecondary": "Voir les tarifs"
+  },
+  "features": {
+    "sectionLabel": "Ce qui est inclus",
+    "sectionTitle": "Tout ce dont vous avez besoin, rien de superflu",
+    "tags": {
+      "title": "Tags",
+      "desc": "Organisez tout avec des tags colorés. Filtrez votre tableau de bord par tag en un clic."
+    },
+    "types": {
+      "title": "Quatre types d'éléments",
+      "desc": "Notes, Tâches, Idées et Rappels — chacun avec sa propre vue et son flux de travail."
+    },
+    "capture": {
+      "title": "Capture rapide",
+      "desc": "Une barre de saisie persistante vous permet de noter n'importe quoi sans perdre le fil."
+    },
+    "import": {
+      "title": "Import & export",
+      "desc": "Importez des notes depuis d'autres applications ou exportez tout en markdown — vos données vous appartiennent."
+    },
+    "mobile": {
+      "title": "Application mobile",
+      "desc": "Application Android native via Expo. Prenez des notes en déplacement, synchronisées avec l'application web."
+    },
+    "dark": {
+      "title": "Mode sombre",
+      "desc": "Conçu pour les longues sessions. Une interface sombre et épurée qui repose les yeux."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Tarifs",
+    "sectionTitle": "Des tarifs simples et transparents",
+    "free": {
+      "name": "Gratuit",
+      "price": "€0",
+      "period": "/ pour toujours",
+      "features": [
+        "Notes, tâches & idées illimitées",
+        "Jusqu'à 20 tags",
+        "Import & export",
+        "Accès web & mobile",
+        "Capture rapide"
+      ],
+      "cta": "Commencer"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ mois",
+      "alt": "ou €45 / an — économisez 25%",
+      "features": [
+        "Tout ce qui est inclus dans Gratuit",
+        "Tags illimités",
+        "Support prioritaire"
+      ],
+      "cta": "Essai gratuit"
+    }
+  },
+  "footer": {
+    "signIn": "Se connecter",
+    "impressum": "Mentions légales"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "signIn": "Se connecter",
+    "createAccount": "Créer un compte",
+    "noAccount": "Pas de compte ? S'inscrire",
+    "haveAccount": "Déjà un compte ? Se connecter",
+    "loading": "..."
+  }
+}

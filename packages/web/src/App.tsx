@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { AppProvider, useApp } from "./context/AppContext";
 import { AuthProvider } from "./context/AuthContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { LandingPage } from "./pages/LandingPage";
+import { LoginPage } from "./pages/LoginPage";
 import { ActionBar } from "./components/layout/ActionBar";
 import { ViewBar, AppView } from "./components/layout/ViewBar";
 import { Sidebar } from "./components/layout/Sidebar";
@@ -138,11 +141,21 @@ function SearchResults() {
 export default function App() {
   return (
     <AuthProvider>
-      <ProtectedRoute>
-        <AppProvider>
-          <DashboardView />
-        </AppProvider>
-      </ProtectedRoute>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/app/*"
+          element={
+            <ProtectedRoute>
+              <AppProvider>
+                <DashboardView />
+              </AppProvider>
+            </ProtectedRoute>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
     </AuthProvider>
   );
 }

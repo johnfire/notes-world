@@ -1,0 +1,88 @@
+{
+  "nav": {
+    "features": "Funzionalità",
+    "pricing": "Prezzi",
+    "signIn": "Accedi",
+    "getStarted": "Inizia gratis"
+  },
+  "hero": {
+    "badge": "Semplice ed efficace",
+    "headline": "Le tue note,",
+    "headlineAccent": "finalmente organizzate",
+    "subtitle": "Notes World raccoglie idee, attività e promemoria in un'app pulita e veloce. Tagga tutto, trova qualsiasi cosa.",
+    "cta": "Inizia gratis",
+    "ctaSecondary": "Vedi i prezzi"
+  },
+  "features": {
+    "sectionLabel": "Cosa è incluso",
+    "sectionTitle": "Tutto quello che ti serve, niente di più",
+    "tags": {
+      "title": "Tag",
+      "desc": "Organizza tutto con tag colorati. Filtra la dashboard per tag con un clic."
+    },
+    "types": {
+      "title": "Quattro tipi di elementi",
+      "desc": "Note, Attività, Idee e Promemoria — ognuno con la propria vista e flusso di lavoro."
+    },
+    "capture": {
+      "title": "Acquisizione rapida",
+      "desc": "Una barra di acquisizione permanente ti permette di annotare qualsiasi cosa senza perdere il filo."
+    },
+    "import": {
+      "title": "Importa ed esporta",
+      "desc": "Importa note da altre app o esporta tutto in markdown — i tuoi dati sono sempre tuoi."
+    },
+    "mobile": {
+      "title": "App mobile",
+      "desc": "App Android nativa tramite Expo. Acquisisci note in movimento, sincronizzate con l'app web."
+    },
+    "dark": {
+      "title": "Tema scuro",
+      "desc": "Progettato per sessioni lunghe. Un'interfaccia scura e pulita che rispetta gli occhi."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Prezzi",
+    "sectionTitle": "Prezzi semplici e trasparenti",
+    "free": {
+      "name": "Gratuito",
+      "price": "€0",
+      "period": "/ per sempre",
+      "features": [
+        "Note, attività e idee illimitate",
+        "Fino a 20 tag",
+        "Importa ed esporta",
+        "Accesso web e mobile",
+        "Acquisizione rapida"
+      ],
+      "cta": "Inizia"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ mese",
+      "alt": "o €45 / anno — risparmia il 25%",
+      "features": [
+        "Tutto il piano Gratuito",
+        "Tag illimitati",
+        "Supporto prioritario"
+      ],
+      "cta": "Prova gratuita"
+    }
+  },
+  "footer": {
+    "signIn": "Accedi",
+    "impressum": "Note legali"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Accedi",
+    "createAccount": "Crea account",
+    "noAccount": "Nessun account? Registrati",
+    "haveAccount": "Hai già un account? Accedi",
+    "loading": "..."
+  }
+}
