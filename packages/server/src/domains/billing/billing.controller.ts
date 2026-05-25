@@ -10,8 +10,20 @@ export const checkout = wrapAsync(async (req: Request, res: Response) => {
     return;
   }
   const plan = req.body.plan === "annual" ? "annual" : "monthly";
-  const url = await service.createCheckoutSession(user, plan);
+  const couponCode =
+    typeof req.body.couponCode === "string" ? req.body.couponCode : undefined;
+  const url = await service.createCheckoutSession(user, plan, couponCode);
   res.json({ url });
+});
+
+export const validateCoupon = wrapAsync(async (req: Request, res: Response) => {
+  const code = typeof req.body.code === "string" ? req.body.code.trim() : "";
+  if (!code) {
+    res.status(400).json({ message: "code required" });
+    return;
+  }
+  const result = await service.validateCoupon(code);
+  res.json(result);
 });
 
 export const portal = wrapAsync(async (req: Request, res: Response) => {

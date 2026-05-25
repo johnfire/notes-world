@@ -8,12 +8,15 @@ import {
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
+  Linking,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams } from "expo-router";
 import { useAuth } from "../../src/store/auth";
 import { login, register } from "../../src/api/auth";
 import { colors, spacing, radius, font } from "../../src/theme";
+
+const WEB_BASE = "https://notes-world.christopherrehm.de";
 
 type Mode = "login" | "register";
 
@@ -27,6 +30,7 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [agreed, setAgreed] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -34,6 +38,10 @@ export default function LoginScreen() {
     setError("");
     if (mode === "register" && password !== confirmPassword) {
       setError("Passwords do not match");
+      return;
+    }
+    if (mode === "register" && !agreed) {
+      setError("You must agree to the Terms of Service and Privacy Policy");
       return;
     }
     setLoading(true);
@@ -61,6 +69,7 @@ export default function LoginScreen() {
     setError("");
     setPassword("");
     setConfirmPassword("");
+    setAgreed(false);
   }
 
   return (
@@ -119,6 +128,43 @@ export default function LoginScreen() {
               returnKeyType="go"
               onSubmitEditing={handleSubmit}
             />
+          )}
+
+          {mode === "register" && (
+            <Pressable
+              style={s.consentRow}
+              onPress={() => setAgreed((v) => !v)}
+              accessibilityRole="checkbox"
+              accessibilityState={{ checked: agreed }}
+            >
+              <View style={[s.checkbox, agreed && s.checkboxChecked]}>
+                {agreed && (
+                  <Ionicons name="checkmark" size={12} color={colors.bg} />
+                )}
+              </View>
+              <Text style={s.consentText}>
+                I agree to the{" "}
+                <Text
+                  style={s.consentLink}
+                  onPress={(e) => {
+                    e.stopPropagation();
+                    void Linking.openURL(`${WEB_BASE}/terms`);
+                  }}
+                >
+                  Terms of Service
+                </Text>
+                {" and "}
+                <Text
+                  style={s.consentLink}
+                  onPress={(e) => {
+                    e.stopPropagation();
+                    void Linking.openURL(`${WEB_BASE}/privacy`);
+                  }}
+                >
+                  Privacy Policy
+                </Text>
+              </Text>
+            </Pressable>
           )}
 
           {!!error && <Text style={s.error}>{error}</Text>}
@@ -195,8 +241,37 @@ const s = StyleSheet.create({
     padding: spacing.md,
     fontSize: font.md,
   },
-  eyeBtn: {
-    padding: spacing.md,
+  eyeBtn: { padding: spacing.md },
+  consentRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: spacing.sm,
+    paddingVertical: spacing.xs,
+  },
+  checkbox: {
+    width: 18,
+    height: 18,
+    borderRadius: 4,
+    borderWidth: 1.5,
+    borderColor: colors.border,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 1,
+    flexShrink: 0,
+  },
+  checkboxChecked: {
+    backgroundColor: colors.accent,
+    borderColor: colors.accent,
+  },
+  consentText: {
+    flex: 1,
+    color: colors.textMuted,
+    fontSize: font.sm,
+    lineHeight: 20,
+  },
+  consentLink: {
+    color: colors.accent,
+    textDecorationLine: "underline",
   },
   error: {
     color: colors.danger,
@@ -212,12 +287,6 @@ const s = StyleSheet.create({
   },
   btnPressed: { opacity: 0.8 },
   btnText: { color: colors.text, fontSize: font.md, fontWeight: "700" },
-  switchBtn: {
-    marginTop: spacing.lg,
-    alignItems: "center",
-  },
-  switchText: {
-    color: colors.accent,
-    fontSize: font.sm,
-  },
+  switchBtn: { marginTop: spacing.lg, alignItems: "center" },
+  switchText: { color: colors.accent, fontSize: font.sm },
 });

@@ -14,3 +14,4 @@ billingRouter.post(
 
 billingRouter.post("/checkout", requireAuth, controller.checkout);
 billingRouter.post("/portal", requireAuth, controller.portal);
+billingRouter.post("/validate-coupon", requireAuth, controller.validateCoupon);

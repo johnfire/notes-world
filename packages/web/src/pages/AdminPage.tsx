@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { admin } from "../api";
+import type { Coupon } from "../api";
 import type { User, UserRole } from "../types";
 
 const ROLES: UserRole[] = ["free", "gift", "paid", "admin"];
@@ -11,7 +12,60 @@ const ROLE_COLORS: Record<UserRole, string> = {
   admin: "text-yellow-400",
 };
 
+type Tab = "users" | "coupons";
+
 export function AdminPage({ onClose }: { onClose: () => void }) {
+  const [tab, setTab] = useState<Tab>("users");
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+      <div className="bg-surface-800 border border-surface-500 rounded-xl w-full max-w-3xl mx-4 max-h-[90vh] flex flex-col">
+        <div className="flex items-center justify-between p-4 border-b border-surface-500 shrink-0">
+          <div className="flex items-center gap-4">
+            <h2 className="text-white font-semibold text-base">Admin</h2>
+            <div className="flex gap-1">
+              {(["users", "coupons"] as Tab[]).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setTab(t)}
+                  className={`text-xs px-3 py-1 rounded-full transition-colors ${
+                    tab === t
+                      ? "bg-accent text-white"
+                      : "text-gray-400 hover:text-white"
+                  }`}
+                >
+                  {t.charAt(0).toUpperCase() + t.slice(1)}
+                </button>
+              ))}
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="btn-ghost text-gray-400 hover:text-white p-1"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+
+        {tab === "users" ? <UsersTab /> : <CouponsTab />}
+      </div>
+    </div>
+  );
+}
+
+function UsersTab() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<string | null>(null);
@@ -42,107 +96,255 @@ export function AdminPage({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-      <div className="bg-surface-800 border border-surface-500 rounded-xl w-full max-w-3xl mx-4 max-h-[90vh] flex flex-col">
-        <div className="flex items-center justify-between p-4 border-b border-surface-500 shrink-0">
-          <h2 className="text-white font-semibold text-base">Admin — Users</h2>
-          <button
-            onClick={onClose}
-            className="btn-ghost text-gray-400 hover:text-white p-1"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
+    <>
+      <div className="flex gap-6 px-4 py-3 border-b border-surface-500 text-xs text-gray-400 shrink-0">
+        <span>
+          Total: <strong className="text-white">{stats.total}</strong>
+        </span>
+        <span>
+          Free: <strong className="text-gray-300">{stats.free}</strong>
+        </span>
+        <span>
+          Gift: <strong className="text-green-400">{stats.gift}</strong>
+        </span>
+        <span>
+          Paid: <strong className="text-accent">{stats.paid}</strong>
+        </span>
+        <span>
+          Admin: <strong className="text-yellow-400">{stats.admin}</strong>
+        </span>
+      </div>
 
-        {/* Stats bar */}
-        <div className="flex gap-6 px-4 py-3 border-b border-surface-500 text-xs text-gray-400 shrink-0">
-          <span>
-            Total: <strong className="text-white">{stats.total}</strong>
-          </span>
-          <span>
-            Free: <strong className="text-gray-300">{stats.free}</strong>
-          </span>
-          <span>
-            Gift: <strong className="text-green-400">{stats.gift}</strong>
-          </span>
-          <span>
-            Paid: <strong className="text-accent">{stats.paid}</strong>
-          </span>
-          <span>
-            Admin: <strong className="text-yellow-400">{stats.admin}</strong>
-          </span>
-        </div>
-
-        <div className="overflow-y-auto flex-1">
-          {loading ? (
-            <div className="flex items-center justify-center py-12">
-              <div className="w-5 h-5 border-2 border-accent border-t-transparent rounded-full animate-spin" />
-            </div>
-          ) : (
-            <table className="w-full text-sm">
-              <thead className="sticky top-0 bg-surface-800 border-b border-surface-500">
-                <tr>
-                  <th className="text-left px-4 py-2 text-gray-500 font-medium">
-                    Email
-                  </th>
-                  <th className="text-left px-4 py-2 text-gray-500 font-medium">
-                    Role
-                  </th>
-                  <th className="text-left px-4 py-2 text-gray-500 font-medium">
-                    Stripe status
-                  </th>
-                  <th className="text-left px-4 py-2 text-gray-500 font-medium">
-                    Joined
-                  </th>
+      <div className="overflow-y-auto flex-1">
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <div className="w-5 h-5 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : (
+          <table className="w-full text-sm">
+            <thead className="sticky top-0 bg-surface-800 border-b border-surface-500">
+              <tr>
+                <th className="text-left px-4 py-2 text-gray-500 font-medium">
+                  Email
+                </th>
+                <th className="text-left px-4 py-2 text-gray-500 font-medium">
+                  Role
+                </th>
+                <th className="text-left px-4 py-2 text-gray-500 font-medium">
+                  Stripe status
+                </th>
+                <th className="text-left px-4 py-2 text-gray-500 font-medium">
+                  Joined
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user) => (
+                <tr
+                  key={user.id}
+                  className="border-b border-surface-600 hover:bg-surface-700"
+                >
+                  <td className="px-4 py-2 text-gray-200">{user.email}</td>
+                  <td className="px-4 py-2">
+                    <select
+                      className={`bg-surface-700 border border-surface-500 rounded px-2 py-0.5 text-xs ${ROLE_COLORS[user.role]} focus:outline-none focus:border-accent`}
+                      value={user.role}
+                      disabled={saving === user.id}
+                      onChange={(e) =>
+                        handleRoleChange(user.id, e.target.value as UserRole)
+                      }
+                    >
+                      {ROLES.map((r) => (
+                        <option key={r} value={r}>
+                          {r}
+                        </option>
+                      ))}
+                    </select>
+                  </td>
+                  <td className="px-4 py-2 text-gray-500 text-xs">
+                    {user.stripe_subscription_status ?? "—"}
+                  </td>
+                  <td className="px-4 py-2 text-gray-500 text-xs">
+                    {new Date(user.created_at).toLocaleDateString()}
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {users.map((user) => (
-                  <tr
-                    key={user.id}
-                    className="border-b border-surface-600 hover:bg-surface-700"
-                  >
-                    <td className="px-4 py-2 text-gray-200">{user.email}</td>
-                    <td className="px-4 py-2">
-                      <select
-                        className={`bg-surface-700 border border-surface-500 rounded px-2 py-0.5 text-xs ${ROLE_COLORS[user.role]} focus:outline-none focus:border-accent`}
-                        value={user.role}
-                        disabled={saving === user.id}
-                        onChange={(e) =>
-                          handleRoleChange(user.id, e.target.value as UserRole)
-                        }
-                      >
-                        {ROLES.map((r) => (
-                          <option key={r} value={r}>
-                            {r}
-                          </option>
-                        ))}
-                      </select>
-                    </td>
-                    <td className="px-4 py-2 text-gray-500 text-xs">
-                      {user.stripe_subscription_status ?? "—"}
-                    </td>
-                    <td className="px-4 py-2 text-gray-500 text-xs">
-                      {new Date(user.created_at).toLocaleDateString()}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </>
+  );
+}
+
+const blankForm = { code: "", stripe_coupon_id: "", description: "" };
+
+function CouponsTab() {
+  const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [form, setForm] = useState(blankForm);
+  const [saving, setSaving] = useState(false);
+  const [formError, setFormError] = useState("");
+
+  useEffect(() => {
+    admin
+      .listCoupons()
+      .then(setCoupons)
+      .finally(() => setLoading(false));
+  }, []);
+
+  async function handleCreate(e: React.FormEvent) {
+    e.preventDefault();
+    setFormError("");
+    setSaving(true);
+    try {
+      const created = await admin.createCoupon(form);
+      setCoupons((prev) => [created, ...prev]);
+      setForm(blankForm);
+    } catch (err) {
+      setFormError(err instanceof Error ? err.message : "Failed to create");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function toggleActive(coupon: Coupon) {
+    const updated = await admin.updateCoupon(coupon.code, {
+      active: !coupon.active,
+    });
+    setCoupons((prev) =>
+      prev.map((c) => (c.code === coupon.code ? updated : c)),
+    );
+  }
+
+  async function handleDelete(code: string) {
+    if (!window.confirm(`Delete coupon "${code}"?`)) return;
+    await admin.deleteCoupon(code);
+    setCoupons((prev) => prev.filter((c) => c.code !== code));
+  }
+
+  return (
+    <div className="flex flex-col flex-1 overflow-hidden">
+      {/* Create form */}
+      <div className="p-4 border-b border-surface-500 shrink-0">
+        <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-3">
+          New coupon
+        </p>
+        <form
+          onSubmit={(e) => void handleCreate(e)}
+          className="flex gap-2 flex-wrap"
+        >
+          <input
+            className="input text-sm w-28"
+            placeholder="Code"
+            value={form.code}
+            onChange={(e) =>
+              setForm((f) => ({
+                ...f,
+                code: e.target.value.toLowerCase().trim(),
+              }))
+            }
+            required
+          />
+          <input
+            className="input text-sm flex-1 min-w-40"
+            placeholder="Stripe coupon ID"
+            value={form.stripe_coupon_id}
+            onChange={(e) =>
+              setForm((f) => ({ ...f, stripe_coupon_id: e.target.value }))
+            }
+            required
+          />
+          <input
+            className="input text-sm flex-1 min-w-48"
+            placeholder="Description shown to user"
+            value={form.description}
+            onChange={(e) =>
+              setForm((f) => ({ ...f, description: e.target.value }))
+            }
+            required
+          />
+          <button className="btn-primary text-sm px-4" disabled={saving}>
+            {saving ? "…" : "Add"}
+          </button>
+        </form>
+        {formError && <p className="text-danger text-xs mt-1">{formError}</p>}
+        <p className="text-gray-600 text-xs mt-2">
+          Create the coupon in the Stripe dashboard first, then paste its ID
+          here. For onebukk: create a coupon with amount_off=400, currency=eur,
+          duration=once.
+        </p>
+      </div>
+
+      {/* List */}
+      <div className="overflow-y-auto flex-1">
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <div className="w-5 h-5 border-2 border-accent border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : coupons.length === 0 ? (
+          <p className="text-gray-600 text-sm text-center py-8">
+            No coupons yet
+          </p>
+        ) : (
+          <table className="w-full text-sm">
+            <thead className="sticky top-0 bg-surface-800 border-b border-surface-500">
+              <tr>
+                <th className="text-left px-4 py-2 text-gray-500 font-medium">
+                  Code
+                </th>
+                <th className="text-left px-4 py-2 text-gray-500 font-medium">
+                  Stripe ID
+                </th>
+                <th className="text-left px-4 py-2 text-gray-500 font-medium">
+                  Description
+                </th>
+                <th className="text-left px-4 py-2 text-gray-500 font-medium">
+                  Active
+                </th>
+                <th />
+              </tr>
+            </thead>
+            <tbody>
+              {coupons.map((c) => (
+                <tr
+                  key={c.code}
+                  className="border-b border-surface-600 hover:bg-surface-700"
+                >
+                  <td className="px-4 py-2 font-mono text-gray-200">
+                    {c.code}
+                  </td>
+                  <td className="px-4 py-2 text-gray-500 text-xs font-mono">
+                    {c.stripe_coupon_id || (
+                      <span className="text-yellow-500">not set</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-2 text-gray-300">{c.description}</td>
+                  <td className="px-4 py-2">
+                    <button
+                      onClick={() => void toggleActive(c)}
+                      className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                        c.active
+                          ? "bg-green-400/10 text-green-400"
+                          : "bg-surface-600 text-gray-500"
+                      }`}
+                    >
+                      {c.active ? "active" : "off"}
+                    </button>
+                  </td>
+                  <td className="px-4 py-2">
+                    <button
+                      onClick={() => void handleDelete(c.code)}
+                      className="text-gray-600 hover:text-danger text-xs"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

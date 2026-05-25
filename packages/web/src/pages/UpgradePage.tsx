@@ -9,11 +9,38 @@ export function UpgradePage({
   reason?: string;
 }) {
   const [loading, setLoading] = useState<"monthly" | "annual" | null>(null);
+  const [couponInput, setCouponInput] = useState("");
+  const [appliedCoupon, setAppliedCoupon] = useState<{
+    code: string;
+    description: string;
+  } | null>(null);
+  const [couponError, setCouponError] = useState("");
+  const [couponChecking, setCouponChecking] = useState(false);
+
+  async function applyCoupon() {
+    const code = couponInput.trim();
+    if (!code) return;
+    setCouponError("");
+    setCouponChecking(true);
+    try {
+      const result = await billing.validateCoupon(code);
+      if (result.valid) {
+        setAppliedCoupon({ code, description: result.description });
+        setCouponInput("");
+      } else {
+        setCouponError("Invalid or expired coupon code");
+      }
+    } catch {
+      setCouponError("Could not check coupon — try again");
+    } finally {
+      setCouponChecking(false);
+    }
+  }
 
   async function startCheckout(plan: "monthly" | "annual") {
     setLoading(plan);
     try {
-      const { url } = await billing.checkout(plan);
+      const { url } = await billing.checkout(plan, appliedCoupon?.code);
       window.location.href = url;
     } catch {
       setLoading(null);
@@ -64,6 +91,52 @@ export function UpgradePage({
               anytime
             </div>
           </div>
+
+          {/* Coupon */}
+          {appliedCoupon ? (
+            <div className="flex items-center justify-between bg-green-400/10 border border-green-400/30 rounded-lg px-3 py-2">
+              <div>
+                <p className="text-green-400 text-xs font-semibold uppercase tracking-wide">
+                  Coupon applied
+                </p>
+                <p className="text-gray-300 text-sm">
+                  {appliedCoupon.description}
+                </p>
+              </div>
+              <button
+                className="text-gray-500 hover:text-gray-300 text-xs ml-3"
+                onClick={() => setAppliedCoupon(null)}
+              >
+                Remove
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-1">
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={couponInput}
+                  onChange={(e) => {
+                    setCouponInput(e.target.value);
+                    setCouponError("");
+                  }}
+                  onKeyDown={(e) => e.key === "Enter" && void applyCoupon()}
+                  placeholder="Coupon code"
+                  className="input flex-1 text-sm"
+                />
+                <button
+                  className="btn-ghost text-sm border border-surface-400 px-3 py-1.5 disabled:opacity-40"
+                  onClick={() => void applyCoupon()}
+                  disabled={couponChecking || !couponInput.trim()}
+                >
+                  {couponChecking ? "…" : "Apply"}
+                </button>
+              </div>
+              {couponError && (
+                <p className="text-danger text-xs">{couponError}</p>
+              )}
+            </div>
+          )}
 
           <div className="grid grid-cols-2 gap-3">
             <button

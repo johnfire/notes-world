@@ -1,5 +1,6 @@
 import Stripe from "stripe";
 import * as repo from "../auth/auth.repository";
+import { query, queryOne } from "../../db/client";
 import { User } from "../../types";
 
 type StripeClient = InstanceType<typeof Stripe>;
@@ -17,9 +18,26 @@ const APP_URL = process.env.APP_URL ?? "https://notes-world.christopherrehm.de";
 
 type FullUser = User & { stripe_customer_id?: string | null };
 
+type CouponRow = {
+  stripe_coupon_id: string;
+  description: string;
+};
+
+export async function validateCoupon(
+  code: string,
+): Promise<{ valid: boolean; description: string }> {
+  const row = await queryOne<CouponRow>(
+    "SELECT stripe_coupon_id, description FROM coupons WHERE code = $1 AND active = true",
+    [code.toLowerCase().trim()],
+  );
+  if (!row || !row.stripe_coupon_id) return { valid: false, description: "" };
+  return { valid: true, description: row.description };
+}
+
 export async function createCheckoutSession(
   user: User,
   plan: "monthly" | "annual",
+  couponCode?: string,
 ): Promise<string> {
   const stripe = getStripe();
   if (!stripe) throw new Error("Stripe is not configured");
@@ -36,6 +54,15 @@ export async function createCheckoutSession(
     await repo.updateUserStripe(user.id, { stripe_customer_id: customerId });
   }
 
+  let stripeCouponId: string | undefined;
+  if (couponCode) {
+    const row = await queryOne<CouponRow>(
+      "SELECT stripe_coupon_id FROM coupons WHERE code = $1 AND active = true",
+      [couponCode.toLowerCase().trim()],
+    );
+    if (row?.stripe_coupon_id) stripeCouponId = row.stripe_coupon_id;
+  }
+
   const session = await stripe.checkout.sessions.create({
     customer: customerId,
     mode: "subscription",
@@ -43,7 +70,8 @@ export async function createCheckoutSession(
     subscription_data: { trial_period_days: 14 },
     success_url: `${APP_URL}/?billing=success`,
     cancel_url: `${APP_URL}/?billing=cancelled`,
-    allow_promotion_codes: true,
+    allow_promotion_codes: !stripeCouponId,
+    ...(stripeCouponId ? { discounts: [{ coupon: stripeCouponId }] } : {}),
   });
 
   return session.url!;

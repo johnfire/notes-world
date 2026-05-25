@@ -252,18 +252,35 @@ export const dashboard = {
 // ── Billing ───────────────────────────────────────────────────────────────────
 
 export const billing = {
-  checkout: (plan: "monthly" | "annual") =>
+  checkout: (plan: "monthly" | "annual", couponCode?: string) =>
     request<{ url: string }>("/billing/checkout", {
       method: "POST",
-      body: JSON.stringify({ plan }),
+      body: JSON.stringify({ plan, couponCode }),
     }),
 
   portal: () => request<{ url: string }>("/billing/portal", { method: "POST" }),
+
+  validateCoupon: (code: string) =>
+    request<{ valid: boolean; description: string }>(
+      "/billing/validate-coupon",
+      {
+        method: "POST",
+        body: JSON.stringify({ code }),
+      },
+    ),
 };
 
 // ── Admin ─────────────────────────────────────────────────────────────────────
 
 import type { User, UserRole } from "../types";
+
+export type Coupon = {
+  code: string;
+  stripe_coupon_id: string;
+  description: string;
+  active: boolean;
+  created_at: string;
+};
 
 export const admin = {
   listUsers: () => request<User[]>("/admin/users"),
@@ -272,6 +289,26 @@ export const admin = {
       method: "PUT",
       body: JSON.stringify({ role }),
     }),
+  listCoupons: () => request<Coupon[]>("/admin/coupons"),
+  createCoupon: (data: {
+    code: string;
+    stripe_coupon_id: string;
+    description: string;
+  }) =>
+    request<Coupon>("/admin/coupons", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+  updateCoupon: (
+    code: string,
+    data: Partial<Pick<Coupon, "stripe_coupon_id" | "description" | "active">>,
+  ) =>
+    request<Coupon>(`/admin/coupons/${code}`, {
+      method: "PATCH",
+      body: JSON.stringify(data),
+    }),
+  deleteCoupon: (code: string) =>
+    request<void>(`/admin/coupons/${code}`, { method: "DELETE" }),
 };
 
 // ── Import ────────────────────────────────────────────────────────────────────
