@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes World — Simple, powerful notes</title>
+    <meta
+      name="description"
+      content="A clean, fast notes app with tags, tasks, ideas, and reminders. Free to start, pro for power users."
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --bg: #0f0f0f;
+        --surface: #1a1a1a;
+        --surface-high: #242424;
+        --border: #2a2a2a;
+        --text: #f0f0f0;
+        --muted: #888;
+        --dim: #555;
+        --accent: #7c6aff;
+        --accent-dim: rgba(124, 106, 255, 0.15);
+        --green: #4caf7d;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+        min-height: 100vh;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* NAV */
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        background: rgba(15, 15, 15, 0.92);
+        backdrop-filter: blur(8px);
+        z-index: 10;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: 0.02em;
+      }
+
+      .logo-mark {
+        width: 26px;
+        height: 26px;
+        background: var(--accent);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 800;
+        color: #fff;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+        font-size: 0.875rem;
+        transition: color 0.15s;
+      }
+      .nav-links a:hover {
+        color: var(--text);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 1.25rem;
+        border-radius: 8px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          opacity 0.15s,
+          background 0.15s;
+        border: none;
+      }
+      .btn:hover {
+        opacity: 0.88;
+      }
+
+      .btn-primary {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--muted);
+        border: 1px solid var(--border);
+      }
+      .btn-ghost:hover {
+        color: var(--text);
+        border-color: #444;
+      }
+
+      /* HERO */
+      .hero {
+        text-align: center;
+        padding: 5rem 1.5rem 4rem;
+        max-width: 720px;
+        margin: 0 auto;
+      }
+
+      .hero-badge {
+        display: inline-block;
+        background: var(--accent-dim);
+        color: var(--accent);
+        border: 1px solid rgba(124, 106, 255, 0.3);
+        border-radius: 999px;
+        padding: 0.25rem 0.875rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        font-weight: 800;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin-bottom: 1.25rem;
+      }
+
+      h1 span {
+        color: var(--accent);
+      }
+
+      .hero p {
+        font-size: 1.125rem;
+        color: var(--muted);
+        max-width: 520px;
+        margin: 0 auto 2.5rem;
+      }
+
+      .hero-cta {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .hero-cta .btn {
+        padding: 0.65rem 1.75rem;
+        font-size: 0.9375rem;
+      }
+
+      /* PREVIEW */
+      .preview {
+        max-width: 860px;
+        margin: 0 auto 5rem;
+        padding: 0 1.5rem;
+      }
+
+      .preview-window {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6);
+      }
+
+      .preview-bar {
+        background: var(--surface-high);
+        border-bottom: 1px solid var(--border);
+        padding: 0.625rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+      .dot-red {
+        background: #ff5f57;
+      }
+      .dot-yellow {
+        background: #febc2e;
+      }
+      .dot-green {
+        background: #28c840;
+      }
+
+      .preview-content {
+        padding: 1.5rem;
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        gap: 1rem;
+        min-height: 320px;
+      }
+
+      .preview-sidebar {
+        border-right: 1px solid var(--border);
+        padding-right: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+      }
+
+      .preview-sidebar-label {
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--dim);
+        padding: 0.5rem 0 0.25rem;
+      }
+
+      .sidebar-tag {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.3rem 0.5rem;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        color: var(--muted);
+        cursor: default;
+      }
+      .sidebar-tag.active {
+        background: var(--accent-dim);
+        color: var(--accent);
+      }
+
+      .tag-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+      }
+
+      .preview-main {
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
+      }
+
+      .note-card {
+        background: var(--surface-high);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+      }
+
+      .note-type {
+        font-size: 0.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        margin-bottom: 0.25rem;
+      }
+
+      .note-title {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--text);
+      }
+      .note-body {
+        font-size: 0.75rem;
+        color: var(--muted);
+        margin-top: 0.2rem;
+      }
+
+      /* FEATURES */
+      .features {
+        max-width: 900px;
+        margin: 0 auto 5rem;
+        padding: 0 1.5rem;
+      }
+
+      .section-label {
+        text-align: center;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--accent);
+        margin-bottom: 1rem;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: clamp(1.5rem, 3vw, 2rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 3rem;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1rem;
+      }
+
+      .feature-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem;
+        transition: border-color 0.2s;
+      }
+      .feature-card:hover {
+        border-color: #3a3a3a;
+      }
+
+      .feature-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        background: var(--accent-dim);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.125rem;
+        margin-bottom: 1rem;
+      }
+
+      .feature-card h3 {
+        font-size: 0.9375rem;
+        font-weight: 700;
+        margin-bottom: 0.375rem;
+      }
+      .feature-card p {
+        font-size: 0.8125rem;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      /* PRICING */
+      .pricing {
+        max-width: 680px;
+        margin: 0 auto 5rem;
+        padding: 0 1.5rem;
+        text-align: center;
+      }
+
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 2.5rem;
+        text-align: left;
+      }
+
+      @media (max-width: 520px) {
+        .pricing-grid {
+          grid-template-columns: 1fr;
+        }
+        .preview-content {
+          grid-template-columns: 1fr;
+        }
+        .preview-sidebar {
+          border-right: none;
+          border-bottom: 1px solid var(--border);
+          padding-right: 0;
+          padding-bottom: 1rem;
+        }
+      }
+
+      .plan {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 1.75rem;
+      }
+
+      .plan-pro {
+        border-color: var(--accent);
+        background: linear-gradient(
+          135deg,
+          rgba(124, 106, 255, 0.06),
+          var(--surface)
+        );
+        position: relative;
+      }
+
+      .plan-badge {
+        position: absolute;
+        top: -11px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--accent);
+        color: #fff;
+        font-size: 0.65rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 0.2rem 0.75rem;
+        border-radius: 999px;
+      }
+
+      .plan-name {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--muted);
+        margin-bottom: 0.5rem;
+      }
+      .plan-price {
+        font-size: 2rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.25rem;
+      }
+      .plan-price span {
+        font-size: 0.875rem;
+        font-weight: 400;
+        color: var(--muted);
+      }
+      .plan-alt {
+        font-size: 0.75rem;
+        color: var(--dim);
+        margin-bottom: 1.25rem;
+      }
+
+      .plan-features {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .plan-features li {
+        font-size: 0.8125rem;
+        color: var(--muted);
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      .plan-features li::before {
+        content: "✓";
+        color: var(--green);
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      /* FOOTER */
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 2rem;
+        text-align: center;
+        color: var(--dim);
+        font-size: 0.8125rem;
+      }
+
+      footer a {
+        color: var(--muted);
+      }
+      footer a:hover {
+        color: var(--text);
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="logo">
+        <div class="logo-mark">N</div>
+        notes-world
+      </div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="/app" class="btn btn-ghost">Sign in</a>
+        <a href="/app" class="btn btn-primary">Get started free</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-badge">Simple &amp; effective</div>
+      <h1>Your notes,<br /><span>organised at last</span></h1>
+      <p>
+        Notes World brings your ideas, tasks, and reminders into one clean, fast
+        app. Tag everything, find anything, stay on top of it all.
+      </p>
+      <div class="hero-cta">
+        <a href="/app" class="btn btn-primary">Start for free</a>
+        <a href="#pricing" class="btn btn-ghost">See pricing</a>
+      </div>
+    </section>
+
+    <!-- APP PREVIEW -->
+    <div class="preview">
+      <div class="preview-window">
+        <div class="preview-bar">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-yellow"></div>
+          <div class="dot dot-green"></div>
+        </div>
+        <div class="preview-content">
+          <div class="preview-sidebar">
+            <div class="preview-sidebar-label">Tags</div>
+            <div class="sidebar-tag active">
+              <div class="tag-dot" style="background: #7c6aff"></div>
+              Work
+            </div>
+            <div class="sidebar-tag">
+              <div class="tag-dot" style="background: #4caf7d"></div>
+              Personal
+            </div>
+            <div class="sidebar-tag">
+              <div class="tag-dot" style="background: #f59e0b"></div>
+              Ideas
+            </div>
+            <div class="sidebar-tag">
+              <div class="tag-dot" style="background: #e05c5c"></div>
+              Urgent
+            </div>
+            <div class="preview-sidebar-label" style="margin-top: 0.5rem">
+              Views
+            </div>
+            <div class="sidebar-tag">📋 Tasks</div>
+            <div class="sidebar-tag">💡 Ideas</div>
+            <div class="sidebar-tag">🗑 Trash</div>
+          </div>
+          <div class="preview-main">
+            <div class="note-card">
+              <div class="note-type" style="color: #7c6aff">Note</div>
+              <div class="note-title">Meeting notes — Q2 planning</div>
+              <div class="note-body">
+                Discussed roadmap priorities, confirmed timeline for v2
+                launch...
+              </div>
+            </div>
+            <div class="note-card">
+              <div class="note-type" style="color: #f59e0b">Task</div>
+              <div class="note-title">Review pull request #48</div>
+              <div class="note-body">
+                Authentication refactor, check edge cases for token refresh.
+              </div>
+            </div>
+            <div class="note-card">
+              <div class="note-type" style="color: #4caf7d">Idea</div>
+              <div class="note-title">Add weekly digest export</div>
+              <div class="note-body">
+                Auto-generate a markdown summary of completed tasks each week.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+      <div class="section-label">What's included</div>
+      <div class="section-title">Everything you need, nothing you don't</div>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🏷</div>
+          <h3>Tags</h3>
+          <p>
+            Organise anything with colour-coded tags. Filter your dashboard by
+            tag in one click.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📋</div>
+          <h3>Four item types</h3>
+          <p>
+            Notes, Tasks, Ideas, and Reminders — each with its own view and
+            workflow.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Quick capture</h3>
+          <p>
+            A persistent capture bar means you can jot anything down without
+            losing your place.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📤</div>
+          <h3>Import &amp; export</h3>
+          <p>
+            Bring notes in from other apps or export everything as markdown —
+            your data is always yours.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Mobile app</h3>
+          <p>
+            Native Android app via Expo. Capture notes on the go, fully synced
+            with the web app.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌑</div>
+          <h3>Dark by default</h3>
+          <p>
+            Built for long sessions. A clean dark interface that's easy on the
+            eyes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing" id="pricing">
+      <div class="section-label">Pricing</div>
+      <div class="section-title">Simple, transparent pricing</div>
+      <div class="pricing-grid">
+        <div class="plan">
+          <div class="plan-name">Free</div>
+          <div class="plan-price">€0 <span>/ forever</span></div>
+          <div class="plan-alt">&nbsp;</div>
+          <ul class="plan-features">
+            <li>Unlimited notes, tasks &amp; ideas</li>
+            <li>Up to 20 tags</li>
+            <li>Import &amp; export</li>
+            <li>Web &amp; mobile access</li>
+            <li>Quick capture</li>
+          </ul>
+          <a
+            href="/app"
+            class="btn btn-ghost"
+            style="width: 100%; text-align: center"
+            >Get started</a
+          >
+        </div>
+
+        <div class="plan plan-pro">
+          <div class="plan-badge">Pro</div>
+          <div class="plan-name">Pro</div>
+          <div class="plan-price">€5 <span>/ month</span></div>
+          <div class="plan-alt">or €45 / year — save 25%</div>
+          <ul class="plan-features">
+            <li>Everything in Free</li>
+            <li>Unlimited tags</li>
+            <li>Priority support</li>
+          </ul>
+          <a
+            href="/app"
+            class="btn btn-primary"
+            style="width: 100%; text-align: center"
+            >Start free trial</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 Notes World &mdash; <a href="/app">Sign in</a></p>
+    </footer>
+  </body>
+</html>
