@@ -75,7 +75,8 @@
     "signIn": "Anmelden",
     "impressum": "Impressum",
     "privacy": "Datenschutz",
-    "terms": "Nutzungsbedingungen"
+    "terms": "Nutzungsbedingungen",
+    "docs": "Docs"
   },
   "login": {
     "title": "notes-world",
@@ -232,7 +233,10 @@
         "empty": "Noch keine Tags",
         "itemCount": "{{count}} Einträge"
       },
-      "notes": { "title": "Notizen", "empty": "Noch keine Notizen" },
+      "notes": {
+        "title": "Notizen",
+        "empty": "Noch keine Notizen"
+      },
       "actionableTasks": {
         "title": "Offene Aufgaben",
         "empty": "Keine offenen Aufgaben"

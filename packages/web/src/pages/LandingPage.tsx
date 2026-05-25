@@ -286,6 +286,13 @@ export function LandingPage() {
           </Link>{" "}
           &middot;{" "}
           <Link
+            to="/docs"
+            className="text-[#888] hover:text-white transition-colors"
+          >
+            {t("footer.docs")}
+          </Link>{" "}
+          &middot;{" "}
+          <Link
             to="/privacy"
             className="text-[#888] hover:text-white transition-colors"
           >

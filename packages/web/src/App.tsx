@@ -7,6 +7,7 @@ import { LandingPage } from "./pages/LandingPage";
 import { LoginPage } from "./pages/LoginPage";
 import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
 import { TermsOfServicePage } from "./pages/TermsOfServicePage";
+import { DocsPage } from "./pages/DocsPage";
 import { ActionBar } from "./components/layout/ActionBar";
 import { ViewBar, AppView } from "./components/layout/ViewBar";
 import { Sidebar } from "./components/layout/Sidebar";
@@ -148,6 +149,7 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/privacy" element={<PrivacyPolicyPage />} />
         <Route path="/terms" element={<TermsOfServicePage />} />
+        <Route path="/docs" element={<DocsPage />} />
         <Route
           path="/app/*"
           element={

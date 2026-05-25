@@ -75,7 +75,8 @@
     "signIn": "Iniciar sesión",
     "impressum": "Aviso legal",
     "privacy": "Privacidad",
-    "terms": "Términos"
+    "terms": "Términos",
+    "docs": "Docs"
   },
   "login": {
     "title": "notes-world",
@@ -135,7 +136,11 @@
       "results_other": "{{count}} resultados para «{{query}}»",
       "noResults": "Ningún elemento coincide con tu búsqueda"
     },
-    "views": { "dashboard": "Panel", "tasks": "Tareas", "ideas": "Ideas" },
+    "views": {
+      "dashboard": "Panel",
+      "tasks": "Tareas",
+      "ideas": "Ideas"
+    },
     "sidebar": {
       "tags": "Etiquetas",
       "allItems": "Todos los elementos",
@@ -228,7 +233,10 @@
         "empty": "Aún no hay etiquetas",
         "itemCount": "{{count}} elementos"
       },
-      "notes": { "title": "Notas", "empty": "Aún no hay notas" },
+      "notes": {
+        "title": "Notas",
+        "empty": "Aún no hay notas"
+      },
       "actionableTasks": {
         "title": "Tareas accionables",
         "empty": "No hay tareas accionables"

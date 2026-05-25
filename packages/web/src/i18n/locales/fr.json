@@ -75,7 +75,8 @@
     "signIn": "Se connecter",
     "impressum": "Mentions légales",
     "privacy": "Confidentialité",
-    "terms": "Conditions"
+    "terms": "Conditions",
+    "docs": "Docs"
   },
   "login": {
     "title": "notes-world",
@@ -232,7 +233,10 @@
         "empty": "Aucun tag pour l'instant",
         "itemCount": "{{count}} éléments"
       },
-      "notes": { "title": "Notes", "empty": "Aucune note pour l'instant" },
+      "notes": {
+        "title": "Notes",
+        "empty": "Aucune note pour l'instant"
+      },
       "actionableTasks": {
         "title": "Tâches réalisables",
         "empty": "Aucune tâche réalisable"

@@ -75,7 +75,8 @@
     "signIn": "Accedi",
     "impressum": "Note legali",
     "privacy": "Privacy",
-    "terms": "Termini"
+    "terms": "Termini",
+    "docs": "Docs"
   },
   "login": {
     "title": "notes-world",
@@ -135,7 +136,11 @@
       "results_other": "{{count}} risultati per \"{{query}}\"",
       "noResults": "Nessun elemento corrisponde alla ricerca"
     },
-    "views": { "dashboard": "Dashboard", "tasks": "Attività", "ideas": "Idee" },
+    "views": {
+      "dashboard": "Dashboard",
+      "tasks": "Attività",
+      "ideas": "Idee"
+    },
     "sidebar": {
       "tags": "Tag",
       "allItems": "Tutti gli elementi",
@@ -228,7 +233,10 @@
         "empty": "Nessun tag ancora",
         "itemCount": "{{count}} elementi"
       },
-      "notes": { "title": "Note", "empty": "Nessuna nota ancora" },
+      "notes": {
+        "title": "Note",
+        "empty": "Nessuna nota ancora"
+      },
       "actionableTasks": {
         "title": "Attività eseguibili",
         "empty": "Nessuna attività eseguibile"
