@@ -1,10 +1,8 @@
-export type AppView = 'dashboard' | 'ideas' | 'tasks';
+import { useTranslation } from "react-i18next";
 
-const VIEWS: { id: AppView; label: string }[] = [
-  { id: 'dashboard', label: 'Dashboard' },
-  { id: 'ideas',     label: 'Ideas'     },
-  { id: 'tasks',     label: 'Tasks'     },
-];
+export type AppView = "dashboard" | "ideas" | "tasks";
+
+const VIEW_IDS: AppView[] = ["dashboard", "ideas", "tasks"];
 
 interface ViewBarProps {
   currentView: AppView;
@@ -12,19 +10,20 @@ interface ViewBarProps {
 }
 
 export function ViewBar({ currentView, onViewChange }: ViewBarProps) {
+  const { t } = useTranslation();
   return (
     <nav className="h-9 bg-surface-800 border-b border-surface-500 flex items-center px-4 gap-1 shrink-0">
-      {VIEWS.map(({ id, label }) => (
+      {VIEW_IDS.map((id) => (
         <button
           key={id}
           onClick={() => onViewChange(id)}
           className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
             currentView === id
-              ? 'bg-surface-600 text-white'
-              : 'text-gray-400 hover:text-white hover:bg-surface-700'
+              ? "bg-surface-600 text-white"
+              : "text-gray-400 hover:text-white hover:bg-surface-700"
           }`}
         >
-          {label}
+          {t(`app.views.${id}`)}
         </button>
       ))}
     </nav>

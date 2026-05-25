@@ -67,10 +67,7 @@
       "cta": "Start free trial"
     }
   },
-  "footer": {
-    "signIn": "Sign in",
-    "impressum": "Impressum"
-  },
+  "footer": { "signIn": "Sign in", "impressum": "Impressum" },
   "login": {
     "title": "notes-world",
     "email": "Email",
@@ -80,5 +77,188 @@
     "noAccount": "No account? Register",
     "haveAccount": "Have an account? Sign in",
     "loading": "..."
+  },
+  "app": {
+    "actions": {
+      "save": "Save",
+      "saving": "Saving…",
+      "cancel": "Cancel",
+      "add": "Add",
+      "export": "Export",
+      "import": "Import",
+      "upgrade": "Upgrade",
+      "archive": "Archive",
+      "restore": "Restore",
+      "delete": "Delete",
+      "deletePerma": "Delete permanently",
+      "capture": "Capture",
+      "loading": "Loading…",
+      "clearSearch": "Clear search"
+    },
+    "types": {
+      "note": "Note",
+      "task": "Task",
+      "idea": "Idea",
+      "reminder": "Reminder",
+      "untyped": "Untyped"
+    },
+    "status": {
+      "open": "Open",
+      "inProgress": "In Progress",
+      "blocked": "Blocked",
+      "done": "Done"
+    },
+    "maturity": {
+      "seed": "Seed",
+      "developing": "Developing",
+      "ready": "Ready",
+      "parked": "Parked"
+    },
+    "search": {
+      "placeholder": "Search items… (press / to focus)",
+      "loading": "Loading",
+      "results_one": "{{count}} result for \"{{query}}\"",
+      "results_other": "{{count}} results for \"{{query}}\"",
+      "noResults": "No items matched your search"
+    },
+    "views": {
+      "dashboard": "Dashboard",
+      "tasks": "Tasks",
+      "ideas": "Ideas"
+    },
+    "sidebar": {
+      "tags": "Tags",
+      "allItems": "All Items",
+      "trash": "Trash",
+      "createTag": "Create tag",
+      "tagNamePlaceholder": "Tag name…",
+      "expandSidebar": "Expand sidebar",
+      "collapseSidebar": "Collapse sidebar",
+      "setColor": "Set color",
+      "removeColor": "Remove color",
+      "dragToReorder": "Drag to reorder",
+      "exportUntagged": "Export untagged items",
+      "tagNameTooLong": "100 char max"
+    },
+    "capture": {
+      "placeholder": "Capture something… (press C)",
+      "placeholderTag": "Capture under \"{{tag}}\"… (press C)"
+    },
+    "drawer": {
+      "archived": "Archived",
+      "notes": "Notes",
+      "addNotes": "Add notes…",
+      "promoteTo": "Promote to…",
+      "created": "Created",
+      "updated": "Updated",
+      "status": "Status",
+      "priority": "Priority",
+      "due": "Due",
+      "completed": "Completed",
+      "maturity": "Maturity",
+      "remindAt": "Remind at",
+      "dismissed": "Dismissed",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "tags": {
+      "label": "Tags",
+      "add": "+ tag",
+      "searchOrCreate": "Search or create…",
+      "create": "Create \"{{name}}\"",
+      "noMatching": "No matching tags",
+      "allApplied": "All tags applied"
+    },
+    "taskActions": {
+      "label": "Actions",
+      "start": "Start",
+      "complete": "Complete",
+      "block": "Block",
+      "removeDepToUnblock": "Remove a dependency to unblock"
+    },
+    "tagView": {
+      "unsorted": "Unsorted ({{count}})",
+      "placeAtEnd": "Place at end of list",
+      "noItems": "No items with this tag",
+      "itemCount": "{{count}} items",
+      "addDivider": "+ Divider"
+    },
+    "tasksView": {
+      "moveLeft": "Move left",
+      "moveRight": "Move right",
+      "noTasks": "No tasks here"
+    },
+    "ideasView": {
+      "moveLeft": "Move left",
+      "moveRight": "Move right",
+      "dropHere": "Drop ideas here"
+    },
+    "trashView": {
+      "title": "Trash",
+      "empty": "Trash is empty",
+      "daysLeft": "{{days}} days until permanent deletion",
+      "restoreTitle": "Restore item"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Quick Capture",
+        "placeholder": "Capture a thought…",
+        "notesPlaceholder": "Additional notes (optional)"
+      },
+      "recentItems": {
+        "title": "Recent Items",
+        "empty": "No items yet",
+        "justNow": "just now",
+        "minsAgo": "{{mins}}m ago",
+        "hrsAgo": "{{hrs}}h ago",
+        "daysAgo": "{{days}}d ago"
+      },
+      "tagCloud": {
+        "title": "Tags",
+        "empty": "No tags yet",
+        "itemCount": "{{count}} items"
+      },
+      "notes": { "title": "Notes", "empty": "No notes yet" },
+      "actionableTasks": {
+        "title": "Actionable Tasks",
+        "empty": "No actionable tasks"
+      }
+    },
+    "account": {
+      "title": "Account",
+      "signedInAs": "Signed in as",
+      "roles": {
+        "free": "Free",
+        "gift": "Pro (gift)",
+        "paid": "Pro",
+        "admin": "Admin"
+      },
+      "freePlanLimit": "Limited to 20 tags on the free plan.",
+      "upgrade": "Upgrade →",
+      "proPlan": "Pro plan",
+      "manageBilling": "Manage billing →",
+      "loadingPortal": "Loading…",
+      "changeEmail": "Change email",
+      "newEmail": "New email",
+      "currentPassword": "Current password",
+      "emailUpdated": "Email updated.",
+      "updateEmail": "Update email",
+      "saving": "Saving…",
+      "changePassword": "Change password",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm new password",
+      "passwordMismatch": "Passwords do not match",
+      "passwordUpdated": "Password updated.",
+      "updatePassword": "Update password",
+      "session": "Session",
+      "signOut": "Sign out",
+      "dangerZone": "Danger zone",
+      "confirmPasswordPlaceholder": "Current password to confirm",
+      "deleteAccount": "Delete account",
+      "deleting": "Deleting…",
+      "deleteConfirm": "Delete your account permanently? This cannot be undone.",
+      "failed": "Failed",
+      "language": "Language"
+    }
   }
 }

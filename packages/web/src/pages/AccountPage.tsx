@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "../i18n";
 import { useAuth } from "../context/AuthContext";
 import { billing } from "../api";
 import { UpgradePage } from "./UpgradePage";
@@ -11,14 +13,16 @@ interface FormState {
 
 const blank: FormState = { loading: false, error: "", success: "" };
 
-const ROLE_LABELS: Record<string, string> = {
-  free: "Free",
-  gift: "Pro (gift)",
-  paid: "Pro",
-  admin: "Admin",
-};
+const LANGUAGES = [
+  { code: "en", label: "EN" },
+  { code: "de", label: "DE" },
+  { code: "fr", label: "FR" },
+  { code: "es", label: "ES" },
+  { code: "it", label: "IT" },
+];
 
 export function AccountPage({ onClose }: { onClose: () => void }) {
+  const { t } = useTranslation();
   const { user, logout, changeEmail, changePassword, deleteAccount } =
     useAuth();
   const [upgradeOpen, setUpgradeOpen] = useState(false);
@@ -39,11 +43,15 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
     try {
       await changeEmail(emailForm.email.trim(), emailForm.password);
       setEmailForm({ email: "", password: "" });
-      setEmailState({ loading: false, error: "", success: "Email updated." });
+      setEmailState({
+        loading: false,
+        error: "",
+        success: t("app.account.emailUpdated"),
+      });
     } catch (err: unknown) {
       setEmailState({
         loading: false,
-        error: err instanceof Error ? err.message : "Failed",
+        error: err instanceof Error ? err.message : t("app.account.failed"),
         success: "",
       });
     }
@@ -54,7 +62,7 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
     if (pwForm.next !== pwForm.confirm) {
       setPwState({
         loading: false,
-        error: "Passwords do not match",
+        error: t("app.account.passwordMismatch"),
         success: "",
       });
       return;
@@ -63,11 +71,15 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
     try {
       await changePassword(pwForm.current, pwForm.next);
       setPwForm({ current: "", next: "", confirm: "" });
-      setPwState({ loading: false, error: "", success: "Password updated." });
+      setPwState({
+        loading: false,
+        error: "",
+        success: t("app.account.passwordUpdated"),
+      });
     } catch (err: unknown) {
       setPwState({
         loading: false,
-        error: err instanceof Error ? err.message : "Failed",
+        error: err instanceof Error ? err.message : t("app.account.failed"),
         success: "",
       });
     }
@@ -75,17 +87,14 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
 
   async function handleDeleteAccount(e: React.FormEvent) {
     e.preventDefault();
-    if (
-      !window.confirm("Delete your account permanently? This cannot be undone.")
-    )
-      return;
+    if (!window.confirm(t("app.account.deleteConfirm"))) return;
     setDeleteState({ loading: true, error: "", success: "" });
     try {
       await deleteAccount(deletePassword);
     } catch (err: unknown) {
       setDeleteState({
         loading: false,
-        error: err instanceof Error ? err.message : "Failed",
+        error: err instanceof Error ? err.message : t("app.account.failed"),
         success: "",
       });
     }
@@ -95,7 +104,9 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
       <div className="bg-surface-800 border border-surface-500 rounded-xl w-full max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between p-4 border-b border-surface-500">
-          <h2 className="text-white font-semibold text-base">Account</h2>
+          <h2 className="text-white font-semibold text-base">
+            {t("app.account.title")}
+          </h2>
           <button
             onClick={onClose}
             className="btn-ghost text-gray-400 hover:text-white p-1"
@@ -119,23 +130,24 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
         <div className="p-4 space-y-6">
           <div className="flex items-center justify-between">
             <p className="text-gray-400 text-sm">
-              Signed in as <span className="text-gray-200">{user?.email}</span>
+              {t("app.account.signedInAs")}{" "}
+              <span className="text-gray-200">{user?.email}</span>
             </p>
             <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-surface-700 text-gray-300">
-              {ROLE_LABELS[user?.role ?? "free"] ?? user?.role}
+              {t(`app.account.roles.${user?.role ?? "free"}`)}
             </span>
           </div>
 
           {user?.role === "free" && (
             <div className="bg-accent/10 border border-accent/20 rounded-lg p-3 flex items-center justify-between">
               <p className="text-sm text-gray-300">
-                Limited to 20 tags on the free plan.
+                {t("app.account.freePlanLimit")}
               </p>
               <button
                 className="text-xs font-medium text-accent hover:underline shrink-0 ml-3"
                 onClick={() => setUpgradeOpen(true)}
               >
-                Upgrade →
+                {t("app.account.upgrade")}
               </button>
             </div>
           )}
@@ -143,7 +155,7 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
           {user?.role === "paid" && (
             <div className="bg-green-400/10 border border-green-400/20 rounded-lg p-3 flex items-center justify-between">
               <p className="text-sm text-gray-300">
-                Pro plan
+                {t("app.account.proPlan")}
                 {user.stripe_subscription_status
                   ? ` · ${user.stripe_subscription_status}`
                   : ""}
@@ -157,23 +169,47 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
                   window.location.href = url;
                 }}
               >
-                {portalLoading ? "Loading…" : "Manage billing →"}
+                {portalLoading
+                  ? t("app.account.loadingPortal")
+                  : t("app.account.manageBilling")}
               </button>
             </div>
           )}
 
           {upgradeOpen && <UpgradePage onClose={() => setUpgradeOpen(false)} />}
 
+          {/* Language */}
+          <section>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
+              {t("app.account.language")}
+            </h3>
+            <div className="flex gap-2">
+              {LANGUAGES.map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => void i18n.changeLanguage(lang.code)}
+                  className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
+                    i18n.language === lang.code
+                      ? "bg-accent text-white"
+                      : "bg-surface-700 text-gray-400 hover:text-white hover:bg-surface-600"
+                  }`}
+                >
+                  {lang.label}
+                </button>
+              ))}
+            </div>
+          </section>
+
           {/* Change email */}
           <section>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
-              Change email
+              {t("app.account.changeEmail")}
             </h3>
             <form onSubmit={handleChangeEmail} className="space-y-2">
               <input
                 className="input w-full"
                 type="email"
-                placeholder="New email"
+                placeholder={t("app.account.newEmail")}
                 value={emailForm.email}
                 onChange={(e) =>
                   setEmailForm((f) => ({ ...f, email: e.target.value }))
@@ -183,7 +219,7 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
               <input
                 className="input w-full"
                 type="password"
-                placeholder="Current password"
+                placeholder={t("app.account.currentPassword")}
                 value={emailForm.password}
                 onChange={(e) =>
                   setEmailForm((f) => ({ ...f, password: e.target.value }))
@@ -200,7 +236,9 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
                 className="btn-primary text-sm w-full"
                 disabled={emailState.loading}
               >
-                {emailState.loading ? "Saving…" : "Update email"}
+                {emailState.loading
+                  ? t("app.account.saving")
+                  : t("app.account.updateEmail")}
               </button>
             </form>
           </section>
@@ -208,13 +246,13 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
           {/* Change password */}
           <section>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
-              Change password
+              {t("app.account.changePassword")}
             </h3>
             <form onSubmit={handleChangePassword} className="space-y-2">
               <input
                 className="input w-full"
                 type="password"
-                placeholder="Current password"
+                placeholder={t("app.account.currentPassword")}
                 value={pwForm.current}
                 onChange={(e) =>
                   setPwForm((f) => ({ ...f, current: e.target.value }))
@@ -224,7 +262,7 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
               <input
                 className="input w-full"
                 type="password"
-                placeholder="New password"
+                placeholder={t("app.account.newPassword")}
                 value={pwForm.next}
                 onChange={(e) =>
                   setPwForm((f) => ({ ...f, next: e.target.value }))
@@ -234,7 +272,7 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
               <input
                 className="input w-full"
                 type="password"
-                placeholder="Confirm new password"
+                placeholder={t("app.account.confirmPassword")}
                 value={pwForm.confirm}
                 onChange={(e) =>
                   setPwForm((f) => ({ ...f, confirm: e.target.value }))
@@ -251,7 +289,9 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
                 className="btn-primary text-sm w-full"
                 disabled={pwState.loading}
               >
-                {pwState.loading ? "Saving…" : "Update password"}
+                {pwState.loading
+                  ? t("app.account.saving")
+                  : t("app.account.updatePassword")}
               </button>
             </form>
           </section>
@@ -259,26 +299,26 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
           {/* Sign out */}
           <section>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
-              Session
+              {t("app.account.session")}
             </h3>
             <button
               className="btn-ghost text-sm w-full border border-surface-400 py-2"
               onClick={() => logout()}
             >
-              Sign out
+              {t("app.account.signOut")}
             </button>
           </section>
 
           {/* Delete account */}
           <section>
             <h3 className="text-xs font-semibold uppercase tracking-wider text-red-500 mb-3">
-              Danger zone
+              {t("app.account.dangerZone")}
             </h3>
             <form onSubmit={handleDeleteAccount} className="space-y-2">
               <input
                 className="input w-full"
                 type="password"
-                placeholder="Current password to confirm"
+                placeholder={t("app.account.confirmPasswordPlaceholder")}
                 value={deletePassword}
                 onChange={(e) => setDeletePassword(e.target.value)}
                 required
@@ -290,7 +330,9 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
                 className="w-full py-2 rounded-md text-sm font-medium border border-red-600 text-red-400 hover:bg-red-900/20 transition-colors"
                 disabled={deleteState.loading}
               >
-                {deleteState.loading ? "Deleting…" : "Delete account"}
+                {deleteState.loading
+                  ? t("app.account.deleting")
+                  : t("app.account.deleteAccount")}
               </button>
             </form>
           </section>

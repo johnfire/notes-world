@@ -22,8 +22,9 @@ i18n
     fallbackLng: "en",
     supportedLngs: ["en", "de", "fr", "es", "it"],
     detection: {
-      order: ["navigator", "htmlTag"],
-      caches: [],
+      order: ["localStorage", "navigator", "htmlTag"],
+      caches: ["localStorage"],
+      lookupLocalStorage: "nw_language",
     },
     interpolation: { escapeValue: false },
   });

@@ -84,5 +84,188 @@
     "noAccount": "Pas de compte ? S'inscrire",
     "haveAccount": "Déjà un compte ? Se connecter",
     "loading": "..."
+  },
+  "app": {
+    "actions": {
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "cancel": "Annuler",
+      "add": "Ajouter",
+      "export": "Exporter",
+      "import": "Importer",
+      "upgrade": "Passer Pro",
+      "archive": "Archiver",
+      "restore": "Restaurer",
+      "delete": "Supprimer",
+      "deletePerma": "Supprimer définitivement",
+      "capture": "Capturer",
+      "loading": "Chargement…",
+      "clearSearch": "Effacer la recherche"
+    },
+    "types": {
+      "note": "Note",
+      "task": "Tâche",
+      "idea": "Idée",
+      "reminder": "Rappel",
+      "untyped": "Sans type"
+    },
+    "status": {
+      "open": "Ouvert",
+      "inProgress": "En cours",
+      "blocked": "Bloqué",
+      "done": "Terminé"
+    },
+    "maturity": {
+      "seed": "Germe",
+      "developing": "En développement",
+      "ready": "Prêt",
+      "parked": "En attente"
+    },
+    "search": {
+      "placeholder": "Rechercher… (appuyez sur / pour cibler)",
+      "loading": "Chargement",
+      "results_one": "{{count}} résultat pour « {{query}} »",
+      "results_other": "{{count}} résultats pour « {{query}} »",
+      "noResults": "Aucun élément ne correspond à votre recherche"
+    },
+    "views": {
+      "dashboard": "Tableau de bord",
+      "tasks": "Tâches",
+      "ideas": "Idées"
+    },
+    "sidebar": {
+      "tags": "Tags",
+      "allItems": "Tous les éléments",
+      "trash": "Corbeille",
+      "createTag": "Créer un tag",
+      "tagNamePlaceholder": "Nom du tag…",
+      "expandSidebar": "Développer la barre latérale",
+      "collapseSidebar": "Réduire la barre latérale",
+      "setColor": "Définir la couleur",
+      "removeColor": "Supprimer la couleur",
+      "dragToReorder": "Glisser pour réorganiser",
+      "exportUntagged": "Exporter les éléments sans tag",
+      "tagNameTooLong": "100 caractères max"
+    },
+    "capture": {
+      "placeholder": "Capturez quelque chose… (appuyez sur C)",
+      "placeholderTag": "Capturer sous « {{tag}} »… (appuyez sur C)"
+    },
+    "drawer": {
+      "archived": "Archivé",
+      "notes": "Notes",
+      "addNotes": "Ajouter des notes…",
+      "promoteTo": "Promouvoir en…",
+      "created": "Créé",
+      "updated": "Modifié",
+      "status": "Statut",
+      "priority": "Priorité",
+      "due": "Échéance",
+      "completed": "Terminé",
+      "maturity": "Maturité",
+      "remindAt": "Me rappeler le",
+      "dismissed": "Ignoré",
+      "yes": "Oui",
+      "no": "Non"
+    },
+    "tags": {
+      "label": "Tags",
+      "add": "+ tag",
+      "searchOrCreate": "Rechercher ou créer…",
+      "create": "Créer « {{name}} »",
+      "noMatching": "Aucun tag correspondant",
+      "allApplied": "Tous les tags sont appliqués"
+    },
+    "taskActions": {
+      "label": "Actions",
+      "start": "Démarrer",
+      "complete": "Terminer",
+      "block": "Bloquer",
+      "removeDepToUnblock": "Supprimer une dépendance pour débloquer"
+    },
+    "tagView": {
+      "unsorted": "Non triés ({{count}})",
+      "placeAtEnd": "Placer en fin de liste",
+      "noItems": "Aucun élément avec ce tag",
+      "itemCount": "{{count}} éléments",
+      "addDivider": "+ Séparateur"
+    },
+    "tasksView": {
+      "moveLeft": "Déplacer à gauche",
+      "moveRight": "Déplacer à droite",
+      "noTasks": "Aucune tâche ici"
+    },
+    "ideasView": {
+      "moveLeft": "Déplacer à gauche",
+      "moveRight": "Déplacer à droite",
+      "dropHere": "Déposez des idées ici"
+    },
+    "trashView": {
+      "title": "Corbeille",
+      "empty": "La corbeille est vide",
+      "daysLeft": "{{days}} jours avant suppression définitive",
+      "restoreTitle": "Restaurer l'élément"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Capture rapide",
+        "placeholder": "Capturez une pensée…",
+        "notesPlaceholder": "Notes supplémentaires (facultatif)"
+      },
+      "recentItems": {
+        "title": "Éléments récents",
+        "empty": "Aucun élément pour l'instant",
+        "justNow": "à l'instant",
+        "minsAgo": "il y a {{mins}} min",
+        "hrsAgo": "il y a {{hrs}} h",
+        "daysAgo": "il y a {{days}} j"
+      },
+      "tagCloud": {
+        "title": "Tags",
+        "empty": "Aucun tag pour l'instant",
+        "itemCount": "{{count}} éléments"
+      },
+      "notes": { "title": "Notes", "empty": "Aucune note pour l'instant" },
+      "actionableTasks": {
+        "title": "Tâches réalisables",
+        "empty": "Aucune tâche réalisable"
+      }
+    },
+    "account": {
+      "title": "Compte",
+      "signedInAs": "Connecté en tant que",
+      "roles": {
+        "free": "Gratuit",
+        "gift": "Pro (offert)",
+        "paid": "Pro",
+        "admin": "Admin"
+      },
+      "freePlanLimit": "Limité à 20 tags avec le plan gratuit.",
+      "upgrade": "Passer Pro →",
+      "proPlan": "Plan Pro",
+      "manageBilling": "Gérer la facturation →",
+      "loadingPortal": "Chargement…",
+      "changeEmail": "Modifier l'e-mail",
+      "newEmail": "Nouvel e-mail",
+      "currentPassword": "Mot de passe actuel",
+      "emailUpdated": "E-mail mis à jour.",
+      "updateEmail": "Mettre à jour l'e-mail",
+      "saving": "Enregistrement…",
+      "changePassword": "Modifier le mot de passe",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le nouveau mot de passe",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "passwordUpdated": "Mot de passe mis à jour.",
+      "updatePassword": "Mettre à jour le mot de passe",
+      "session": "Session",
+      "signOut": "Se déconnecter",
+      "dangerZone": "Zone dangereuse",
+      "confirmPasswordPlaceholder": "Mot de passe actuel pour confirmer",
+      "deleteAccount": "Supprimer le compte",
+      "deleting": "Suppression…",
+      "deleteConfirm": "Supprimer définitivement votre compte ? Cette action est irréversible.",
+      "failed": "Échec",
+      "language": "Langue"
+    }
   }
 }

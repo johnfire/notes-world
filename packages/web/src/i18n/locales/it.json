@@ -84,5 +84,184 @@
     "noAccount": "Nessun account? Registrati",
     "haveAccount": "Hai già un account? Accedi",
     "loading": "..."
+  },
+  "app": {
+    "actions": {
+      "save": "Salva",
+      "saving": "Salvataggio…",
+      "cancel": "Annulla",
+      "add": "Aggiungi",
+      "export": "Esporta",
+      "import": "Importa",
+      "upgrade": "Aggiorna",
+      "archive": "Archivia",
+      "restore": "Ripristina",
+      "delete": "Elimina",
+      "deletePerma": "Elimina definitivamente",
+      "capture": "Acquisisci",
+      "loading": "Caricamento…",
+      "clearSearch": "Cancella ricerca"
+    },
+    "types": {
+      "note": "Nota",
+      "task": "Attività",
+      "idea": "Idea",
+      "reminder": "Promemoria",
+      "untyped": "Senza tipo"
+    },
+    "status": {
+      "open": "Aperto",
+      "inProgress": "In corso",
+      "blocked": "Bloccato",
+      "done": "Completato"
+    },
+    "maturity": {
+      "seed": "Seme",
+      "developing": "In sviluppo",
+      "ready": "Pronto",
+      "parked": "Parcheggiato"
+    },
+    "search": {
+      "placeholder": "Cerca elementi… (premi / per attivare)",
+      "loading": "Caricamento",
+      "results_one": "{{count}} risultato per \"{{query}}\"",
+      "results_other": "{{count}} risultati per \"{{query}}\"",
+      "noResults": "Nessun elemento corrisponde alla ricerca"
+    },
+    "views": { "dashboard": "Dashboard", "tasks": "Attività", "ideas": "Idee" },
+    "sidebar": {
+      "tags": "Tag",
+      "allItems": "Tutti gli elementi",
+      "trash": "Cestino",
+      "createTag": "Crea tag",
+      "tagNamePlaceholder": "Nome tag…",
+      "expandSidebar": "Espandi barra laterale",
+      "collapseSidebar": "Comprimi barra laterale",
+      "setColor": "Imposta colore",
+      "removeColor": "Rimuovi colore",
+      "dragToReorder": "Trascina per riordinare",
+      "exportUntagged": "Esporta elementi senza tag",
+      "tagNameTooLong": "Massimo 100 caratteri"
+    },
+    "capture": {
+      "placeholder": "Acquisisci qualcosa… (premi C)",
+      "placeholderTag": "Acquisisci in \"{{tag}}\"… (premi C)"
+    },
+    "drawer": {
+      "archived": "Archiviato",
+      "notes": "Note",
+      "addNotes": "Aggiungi note…",
+      "promoteTo": "Promuovi a…",
+      "created": "Creato",
+      "updated": "Aggiornato",
+      "status": "Stato",
+      "priority": "Priorità",
+      "due": "Scadenza",
+      "completed": "Completato",
+      "maturity": "Maturità",
+      "remindAt": "Promemoria alle",
+      "dismissed": "Ignorato",
+      "yes": "Sì",
+      "no": "No"
+    },
+    "tags": {
+      "label": "Tag",
+      "add": "+ tag",
+      "searchOrCreate": "Cerca o crea…",
+      "create": "Crea \"{{name}}\"",
+      "noMatching": "Nessun tag corrispondente",
+      "allApplied": "Tutti i tag applicati"
+    },
+    "taskActions": {
+      "label": "Azioni",
+      "start": "Inizia",
+      "complete": "Completa",
+      "block": "Blocca",
+      "removeDepToUnblock": "Rimuovi una dipendenza per sbloccare"
+    },
+    "tagView": {
+      "unsorted": "Non ordinati ({{count}})",
+      "placeAtEnd": "Posiziona in fondo alla lista",
+      "noItems": "Nessun elemento con questo tag",
+      "itemCount": "{{count}} elementi",
+      "addDivider": "+ Divisore"
+    },
+    "tasksView": {
+      "moveLeft": "Sposta a sinistra",
+      "moveRight": "Sposta a destra",
+      "noTasks": "Nessuna attività qui"
+    },
+    "ideasView": {
+      "moveLeft": "Sposta a sinistra",
+      "moveRight": "Sposta a destra",
+      "dropHere": "Trascina le idee qui"
+    },
+    "trashView": {
+      "title": "Cestino",
+      "empty": "Il cestino è vuoto",
+      "daysLeft": "{{days}} giorni prima dell'eliminazione definitiva",
+      "restoreTitle": "Ripristina elemento"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Acquisizione rapida",
+        "placeholder": "Acquisisci un pensiero…",
+        "notesPlaceholder": "Note aggiuntive (facoltativo)"
+      },
+      "recentItems": {
+        "title": "Elementi recenti",
+        "empty": "Nessun elemento ancora",
+        "justNow": "adesso",
+        "minsAgo": "{{mins}} min fa",
+        "hrsAgo": "{{hrs}} ore fa",
+        "daysAgo": "{{days}} gg fa"
+      },
+      "tagCloud": {
+        "title": "Tag",
+        "empty": "Nessun tag ancora",
+        "itemCount": "{{count}} elementi"
+      },
+      "notes": { "title": "Note", "empty": "Nessuna nota ancora" },
+      "actionableTasks": {
+        "title": "Attività eseguibili",
+        "empty": "Nessuna attività eseguibile"
+      }
+    },
+    "account": {
+      "title": "Account",
+      "signedInAs": "Connesso come",
+      "roles": {
+        "free": "Gratuito",
+        "gift": "Pro (regalo)",
+        "paid": "Pro",
+        "admin": "Amministratore"
+      },
+      "freePlanLimit": "Limitato a 20 tag con il piano gratuito.",
+      "upgrade": "Aggiorna →",
+      "proPlan": "Piano Pro",
+      "manageBilling": "Gestisci fatturazione →",
+      "loadingPortal": "Caricamento…",
+      "changeEmail": "Cambia email",
+      "newEmail": "Nuova email",
+      "currentPassword": "Password attuale",
+      "emailUpdated": "Email aggiornata.",
+      "updateEmail": "Aggiorna email",
+      "saving": "Salvataggio…",
+      "changePassword": "Cambia password",
+      "newPassword": "Nuova password",
+      "confirmPassword": "Conferma nuova password",
+      "passwordMismatch": "Le password non coincidono",
+      "passwordUpdated": "Password aggiornata.",
+      "updatePassword": "Aggiorna password",
+      "session": "Sessione",
+      "signOut": "Esci",
+      "dangerZone": "Zona pericolosa",
+      "confirmPasswordPlaceholder": "Password attuale per confermare",
+      "deleteAccount": "Elimina account",
+      "deleting": "Eliminazione…",
+      "deleteConfirm": "Eliminare definitivamente il tuo account? Questa azione è irreversibile.",
+      "failed": "Errore",
+      "language": "Lingua"
+    }
   }
 }

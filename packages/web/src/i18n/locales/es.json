@@ -84,5 +84,184 @@
     "noAccount": "¿Sin cuenta? Regístrate",
     "haveAccount": "¿Ya tienes cuenta? Inicia sesión",
     "loading": "..."
+  },
+  "app": {
+    "actions": {
+      "save": "Guardar",
+      "saving": "Guardando…",
+      "cancel": "Cancelar",
+      "add": "Añadir",
+      "export": "Exportar",
+      "import": "Importar",
+      "upgrade": "Mejorar plan",
+      "archive": "Archivar",
+      "restore": "Restaurar",
+      "delete": "Eliminar",
+      "deletePerma": "Eliminar definitivamente",
+      "capture": "Capturar",
+      "loading": "Cargando…",
+      "clearSearch": "Limpiar búsqueda"
+    },
+    "types": {
+      "note": "Nota",
+      "task": "Tarea",
+      "idea": "Idea",
+      "reminder": "Recordatorio",
+      "untyped": "Sin tipo"
+    },
+    "status": {
+      "open": "Abierto",
+      "inProgress": "En progreso",
+      "blocked": "Bloqueado",
+      "done": "Hecho"
+    },
+    "maturity": {
+      "seed": "Semilla",
+      "developing": "En desarrollo",
+      "ready": "Listo",
+      "parked": "Aparcado"
+    },
+    "search": {
+      "placeholder": "Buscar elementos… (pulsa / para enfocar)",
+      "loading": "Cargando",
+      "results_one": "{{count}} resultado para «{{query}}»",
+      "results_other": "{{count}} resultados para «{{query}}»",
+      "noResults": "Ningún elemento coincide con tu búsqueda"
+    },
+    "views": { "dashboard": "Panel", "tasks": "Tareas", "ideas": "Ideas" },
+    "sidebar": {
+      "tags": "Etiquetas",
+      "allItems": "Todos los elementos",
+      "trash": "Papelera",
+      "createTag": "Crear etiqueta",
+      "tagNamePlaceholder": "Nombre de etiqueta…",
+      "expandSidebar": "Expandir barra lateral",
+      "collapseSidebar": "Contraer barra lateral",
+      "setColor": "Asignar color",
+      "removeColor": "Quitar color",
+      "dragToReorder": "Arrastra para reordenar",
+      "exportUntagged": "Exportar elementos sin etiqueta",
+      "tagNameTooLong": "Máximo 100 caracteres"
+    },
+    "capture": {
+      "placeholder": "Captura algo… (pulsa C)",
+      "placeholderTag": "Capturar en «{{tag}}»… (pulsa C)"
+    },
+    "drawer": {
+      "archived": "Archivado",
+      "notes": "Notas",
+      "addNotes": "Añadir notas…",
+      "promoteTo": "Promover a…",
+      "created": "Creado",
+      "updated": "Actualizado",
+      "status": "Estado",
+      "priority": "Prioridad",
+      "due": "Vencimiento",
+      "completed": "Completado",
+      "maturity": "Madurez",
+      "remindAt": "Recordar el",
+      "dismissed": "Descartado",
+      "yes": "Sí",
+      "no": "No"
+    },
+    "tags": {
+      "label": "Etiquetas",
+      "add": "+ etiqueta",
+      "searchOrCreate": "Buscar o crear…",
+      "create": "Crear «{{name}}»",
+      "noMatching": "Sin etiquetas coincidentes",
+      "allApplied": "Todas las etiquetas aplicadas"
+    },
+    "taskActions": {
+      "label": "Acciones",
+      "start": "Iniciar",
+      "complete": "Completar",
+      "block": "Bloquear",
+      "removeDepToUnblock": "Elimina una dependencia para desbloquear"
+    },
+    "tagView": {
+      "unsorted": "Sin ordenar ({{count}})",
+      "placeAtEnd": "Colocar al final de la lista",
+      "noItems": "No hay elementos con esta etiqueta",
+      "itemCount": "{{count}} elementos",
+      "addDivider": "+ Separador"
+    },
+    "tasksView": {
+      "moveLeft": "Mover a la izquierda",
+      "moveRight": "Mover a la derecha",
+      "noTasks": "No hay tareas aquí"
+    },
+    "ideasView": {
+      "moveLeft": "Mover a la izquierda",
+      "moveRight": "Mover a la derecha",
+      "dropHere": "Suelta ideas aquí"
+    },
+    "trashView": {
+      "title": "Papelera",
+      "empty": "La papelera está vacía",
+      "daysLeft": "{{days}} días hasta la eliminación definitiva",
+      "restoreTitle": "Restaurar elemento"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Captura rápida",
+        "placeholder": "Captura un pensamiento…",
+        "notesPlaceholder": "Notas adicionales (opcional)"
+      },
+      "recentItems": {
+        "title": "Elementos recientes",
+        "empty": "Aún no hay elementos",
+        "justNow": "ahora mismo",
+        "minsAgo": "hace {{mins}}m",
+        "hrsAgo": "hace {{hrs}}h",
+        "daysAgo": "hace {{days}}d"
+      },
+      "tagCloud": {
+        "title": "Etiquetas",
+        "empty": "Aún no hay etiquetas",
+        "itemCount": "{{count}} elementos"
+      },
+      "notes": { "title": "Notas", "empty": "Aún no hay notas" },
+      "actionableTasks": {
+        "title": "Tareas accionables",
+        "empty": "No hay tareas accionables"
+      }
+    },
+    "account": {
+      "title": "Cuenta",
+      "signedInAs": "Sesión iniciada como",
+      "roles": {
+        "free": "Gratis",
+        "gift": "Pro (regalo)",
+        "paid": "Pro",
+        "admin": "Administrador"
+      },
+      "freePlanLimit": "Limitado a 20 etiquetas en el plan gratuito.",
+      "upgrade": "Mejorar plan →",
+      "proPlan": "Plan Pro",
+      "manageBilling": "Gestionar facturación →",
+      "loadingPortal": "Cargando…",
+      "changeEmail": "Cambiar correo electrónico",
+      "newEmail": "Nuevo correo electrónico",
+      "currentPassword": "Contraseña actual",
+      "emailUpdated": "Correo electrónico actualizado.",
+      "updateEmail": "Actualizar correo electrónico",
+      "saving": "Guardando…",
+      "changePassword": "Cambiar contraseña",
+      "newPassword": "Nueva contraseña",
+      "confirmPassword": "Confirmar nueva contraseña",
+      "passwordMismatch": "Las contraseñas no coinciden",
+      "passwordUpdated": "Contraseña actualizada.",
+      "updatePassword": "Actualizar contraseña",
+      "session": "Sesión",
+      "signOut": "Cerrar sesión",
+      "dangerZone": "Zona de peligro",
+      "confirmPasswordPlaceholder": "Contraseña actual para confirmar",
+      "deleteAccount": "Eliminar cuenta",
+      "deleting": "Eliminando…",
+      "deleteConfirm": "¿Eliminar tu cuenta de forma permanente? Esta acción no se puede deshacer.",
+      "failed": "Error",
+      "language": "Idioma"
+    }
   }
 }

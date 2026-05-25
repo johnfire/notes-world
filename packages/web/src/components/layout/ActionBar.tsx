@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useApp } from "../../context/AppContext";
 import { useAuth } from "../../context/AuthContext";
 import { ImportModal } from "../ImportModal";
@@ -9,6 +10,7 @@ import { UpgradePage } from "../../pages/UpgradePage";
 export function ActionBar() {
   const { state, search, clearSearch, refresh } = useApp();
   const { user } = useAuth();
+  const { t } = useTranslation();
   const [searchInput, setSearchInput] = useState("");
   const [importOpen, setImportOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
@@ -79,7 +81,7 @@ export function ActionBar() {
           type="text"
           value={searchInput}
           onChange={(e) => handleSearch(e.target.value)}
-          placeholder="Search items… (press / to focus)"
+          placeholder={t("app.search.placeholder")}
           className="w-full bg-surface-700 border border-surface-500 rounded-md pl-9 pr-3 py-1.5 text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent"
         />
         {searchInput && (
@@ -111,7 +113,7 @@ export function ActionBar() {
       {state.loading && (
         <div className="flex items-center gap-1.5 text-xs text-gray-500">
           <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-          Loading
+          {t("app.actions.loading")}
         </div>
       )}
       {state.error && (
@@ -126,20 +128,20 @@ export function ActionBar() {
         onClick={() => (window.location.href = "/api/export/all")}
         className="btn-ghost text-xs shrink-0"
       >
-        Export
+        {t("app.actions.export")}
       </button>
       <button
         onClick={() => setImportOpen(true)}
         className="btn-ghost text-xs shrink-0"
       >
-        Import
+        {t("app.actions.import")}
       </button>
       {user?.role === "free" && (
         <button
           onClick={() => setUpgradeOpen(true)}
           className="text-xs shrink-0 px-2 py-1 rounded bg-accent/20 text-accent border border-accent/30 hover:bg-accent/30 transition-colors"
         >
-          Upgrade
+          {t("app.actions.upgrade")}
         </button>
       )}
       {user?.role === "admin" && (
