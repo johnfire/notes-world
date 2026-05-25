@@ -153,7 +153,8 @@
       "removeColor": "Quitar color",
       "dragToReorder": "Arrastra para reordenar",
       "exportUntagged": "Exportar elementos sin etiqueta",
-      "tagNameTooLong": "Máximo 100 caracteres"
+      "tagNameTooLong": "Máximo 100 caracteres",
+      "docs": "Docs"
     },
     "capture": {
       "placeholder": "Captura algo… (pulsa C)",

@@ -63,7 +63,11 @@
       "price": "€5",
       "period": "/ month",
       "alt": "or €45 / year — save 25%",
-      "features": ["Everything in Free", "Unlimited tags", "Priority support"],
+      "features": [
+        "Everything in Free",
+        "Unlimited tags",
+        "Priority support"
+      ],
       "cta": "Start free trial"
     }
   },
@@ -149,7 +153,8 @@
       "removeColor": "Remove color",
       "dragToReorder": "Drag to reorder",
       "exportUntagged": "Export untagged items",
-      "tagNameTooLong": "100 char max"
+      "tagNameTooLong": "100 char max",
+      "docs": "Docs"
     },
     "capture": {
       "placeholder": "Capture something… (press C)",
@@ -229,7 +234,10 @@
         "empty": "No tags yet",
         "itemCount": "{{count}} items"
       },
-      "notes": { "title": "Notes", "empty": "No notes yet" },
+      "notes": {
+        "title": "Notes",
+        "empty": "No notes yet"
+      },
       "actionableTasks": {
         "title": "Actionable Tasks",
         "empty": "No actionable tasks"

@@ -153,7 +153,8 @@
       "removeColor": "Farbe entfernen",
       "dragToReorder": "Zum Sortieren ziehen",
       "exportUntagged": "Einträge ohne Tag exportieren",
-      "tagNameTooLong": "Max. 100 Zeichen"
+      "tagNameTooLong": "Max. 100 Zeichen",
+      "docs": "Docs"
     },
     "capture": {
       "placeholder": "Etwas erfassen… (C drücken)",
