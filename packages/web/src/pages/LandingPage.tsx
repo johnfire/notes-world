@@ -1,13 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-
-const LANGUAGES = [
-  { code: "en", label: "EN" },
-  { code: "de", label: "DE" },
-  { code: "fr", label: "FR" },
-  { code: "es", label: "ES" },
-  { code: "it", label: "IT" },
-];
+import { LANGUAGES } from "../i18n/languages";
 
 export function LandingPage() {
   const { t, i18n } = useTranslation();
@@ -43,21 +36,17 @@ export function LandingPage() {
             {t("nav.pricing")}
           </a>
           {/* Language switcher */}
-          <div className="flex items-center gap-1">
+          <select
+            value={i18n.resolvedLanguage}
+            onChange={(e) => i18n.changeLanguage(e.target.value)}
+            className="text-xs bg-[#1a1a1a] text-[#888] border border-[#2a2a2a] rounded px-2 py-1 hover:border-[#444] focus:outline-none focus:border-accent transition-colors cursor-pointer"
+          >
             {LANGUAGES.map((lang) => (
-              <button
-                key={lang.code}
-                onClick={() => i18n.changeLanguage(lang.code)}
-                className={`text-xs px-1.5 py-0.5 rounded transition-colors ${
-                  i18n.resolvedLanguage === lang.code
-                    ? "text-accent font-bold"
-                    : "text-[#555] hover:text-[#888]"
-                }`}
-              >
+              <option key={lang.code} value={lang.code}>
                 {lang.label}
-              </button>
+              </option>
             ))}
-          </div>
+          </select>
           <Link
             to="/login"
             className="text-sm text-[#888] border border-[#2a2a2a] px-4 py-1.5 rounded-lg hover:text-white hover:border-[#444] transition-colors"

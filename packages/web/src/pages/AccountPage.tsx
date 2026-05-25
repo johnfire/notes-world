@@ -4,6 +4,7 @@ import i18n from "../i18n";
 import { useAuth } from "../context/AuthContext";
 import { billing } from "../api";
 import { UpgradePage } from "./UpgradePage";
+import { LANGUAGES } from "../i18n/languages";
 
 interface FormState {
   loading: boolean;
@@ -12,14 +13,6 @@ interface FormState {
 }
 
 const blank: FormState = { loading: false, error: "", success: "" };
-
-const LANGUAGES = [
-  { code: "en", label: "EN" },
-  { code: "de", label: "DE" },
-  { code: "fr", label: "FR" },
-  { code: "es", label: "ES" },
-  { code: "it", label: "IT" },
-];
 
 export function AccountPage({ onClose }: { onClose: () => void }) {
   const { t } = useTranslation();
@@ -183,21 +176,17 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
             <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
               {t("app.account.language")}
             </h3>
-            <div className="flex gap-2">
+            <select
+              value={i18n.resolvedLanguage}
+              onChange={(e) => void i18n.changeLanguage(e.target.value)}
+              className="input text-sm w-full"
+            >
               {LANGUAGES.map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => void i18n.changeLanguage(lang.code)}
-                  className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
-                    i18n.language === lang.code
-                      ? "bg-accent text-white"
-                      : "bg-surface-700 text-gray-400 hover:text-white hover:bg-surface-600"
-                  }`}
-                >
+                <option key={lang.code} value={lang.code}>
                   {lang.label}
-                </button>
+                </option>
               ))}
-            </div>
+            </select>
           </section>
 
           {/* Change email */}
