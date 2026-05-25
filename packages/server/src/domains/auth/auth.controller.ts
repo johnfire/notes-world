@@ -71,3 +71,32 @@ export const logout = wrapAsync(async (req: Request, res: Response) => {
   res.clearCookie(REFRESH_COOKIE, { path: "/api/auth" });
   res.status(204).end();
 });
+
+export const getMe = wrapAsync(async (req: Request, res: Response) => {
+  const user = await service.getMe(req.userId!);
+  res.json(user);
+});
+
+export const changePassword = wrapAsync(async (req: Request, res: Response) => {
+  await service.changePassword(
+    req.userId!,
+    req.body.current_password,
+    req.body.new_password,
+  );
+  res.status(204).end();
+});
+
+export const changeEmail = wrapAsync(async (req: Request, res: Response) => {
+  const user = await service.changeEmail(
+    req.userId!,
+    req.body.email,
+    req.body.current_password,
+  );
+  res.json(user);
+});
+
+export const deleteAccount = wrapAsync(async (req: Request, res: Response) => {
+  await service.deleteAccount(req.userId!, req.body.current_password);
+  res.clearCookie(REFRESH_COOKIE, { path: "/api/auth" });
+  res.status(204).end();
+});

@@ -20,8 +20,15 @@
     },
     "plugins": ["expo-router", "expo-secure-store"],
     "scheme": "notesworld",
+    "updates": {
+      "enabled": false
+    },
+    "platforms": ["ios", "android"],
     "experiments": {
       "typedRoutes": false
+    },
+    "extra": {
+      "router": {}
     }
   }
 }

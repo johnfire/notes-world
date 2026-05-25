@@ -1,5 +1,6 @@
 import React from "react";
-import { View, Text, Pressable, StyleSheet } from "react-native";
+import { View, Text, Pressable, StyleSheet, Alert } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import type { Item } from "@notes-world/shared";
 import { ItemType } from "@notes-world/shared";
 import { colors, spacing, radius, font } from "../theme";
@@ -16,14 +17,26 @@ const TYPE_COLORS: Record<string, string> = {
 interface Props {
   item: Item;
   onPress: () => void;
+  onDelete?: (id: string) => void;
 }
 
-export function ItemCard({ item, onPress }: Props) {
+export function ItemCard({ item, onPress, onDelete }: Props) {
   const typeColor = TYPE_COLORS[item.item_type] ?? colors.typeUntyped;
   const date = new Date(item.updated_at).toLocaleDateString("de-DE", {
     day: "2-digit",
     month: "short",
   });
+
+  function handleDelete() {
+    Alert.alert("Delete note?", "This cannot be undone.", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: () => onDelete?.(item.id),
+      },
+    ]);
+  }
 
   return (
     <Pressable
@@ -42,7 +55,18 @@ export function ItemCard({ item, onPress }: Props) {
         )}
         <View style={s.footer}>
           <Text style={[s.badge, { color: typeColor }]}>{item.item_type}</Text>
-          <Text style={s.date}>{date}</Text>
+          <View style={s.footerRight}>
+            <Text style={s.date}>{date}</Text>
+            {onDelete && (
+              <Pressable onPress={handleDelete} hitSlop={8} style={s.deleteBtn}>
+                <Ionicons
+                  name="trash-outline"
+                  size={15}
+                  color={colors.textDim}
+                />
+              </Pressable>
+            )}
+          </View>
         </View>
       </View>
     </Pressable>
@@ -85,6 +109,11 @@ const s = StyleSheet.create({
     alignItems: "center",
     marginTop: spacing.xs,
   },
+  footerRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
+  },
   badge: {
     fontSize: 11,
     fontWeight: "700",
@@ -94,5 +123,8 @@ const s = StyleSheet.create({
   date: {
     color: colors.textDim,
     fontSize: 11,
+  },
+  deleteBtn: {
+    padding: 2,
   },
 });

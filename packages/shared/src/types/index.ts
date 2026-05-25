@@ -11,9 +11,14 @@ export type ImportRecordId = string;
 
 // ─── Auth ────────────────────────────────────────────────────────────────────
 
+export type UserRole = "free" | "gift" | "paid" | "admin";
+
 export interface User {
   id: UserId;
   email: string;
+  role: UserRole;
+  stripe_subscription_status?: string | null;
+  trial_ends_at?: string | null;
   created_at: string;
   updated_at: string;
 }

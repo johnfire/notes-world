@@ -25,7 +25,7 @@ function RootRedirect() {
 
   const inAuth = segments[0] === "(auth)";
 
-  if (!user && !inAuth) return <Redirect href="/(auth)/login" />;
+  if (!user && !inAuth) return <Redirect href="/(auth)/welcome" />;
   if (user && inAuth) return <Redirect href="/(tabs)" />;
   return null;
 }
@@ -35,6 +35,7 @@ export default function RootLayout() {
     <AuthProvider>
       <StatusBar style="light" />
       <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(auth)/welcome" />
         <Stack.Screen name="(auth)/login" />
         <Stack.Screen name="(tabs)" />
         <Stack.Screen

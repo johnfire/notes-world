@@ -10,9 +10,20 @@ export async function findUserByEmail(
   );
 }
 
+const USER_SAFE_COLS =
+  "id, email, role, stripe_subscription_status, trial_ends_at, created_at, updated_at";
+
 export async function findUserById(id: string): Promise<User | null> {
-  return queryOne<User>(
-    "SELECT id, email, created_at, updated_at FROM users WHERE id = $1",
+  return queryOne<User>(`SELECT ${USER_SAFE_COLS} FROM users WHERE id = $1`, [
+    id,
+  ]);
+}
+
+export async function findUserByIdFull(
+  id: string,
+): Promise<(User & { password_hash: string }) | null> {
+  return queryOne<User & { password_hash: string }>(
+    "SELECT * FROM users WHERE id = $1",
     [id],
   );
 }
@@ -24,10 +35,77 @@ export async function insertUser(
   const rows = await query<User>(
     `INSERT INTO users (email, password_hash)
      VALUES ($1, $2)
-     RETURNING id, email, created_at, updated_at`,
+     RETURNING ${USER_SAFE_COLS}`,
     [email, passwordHash],
   );
   return rows[0];
+}
+
+export async function updateUserRole(
+  userId: string,
+  role: string,
+): Promise<User> {
+  const rows = await query<User>(
+    `UPDATE users SET role = $1, updated_at = now()
+     WHERE id = $2
+     RETURNING ${USER_SAFE_COLS}`,
+    [role, userId],
+  );
+  return rows[0];
+}
+
+export async function updateUserStripe(
+  userId: string,
+  data: {
+    stripe_customer_id?: string;
+    stripe_subscription_id?: string | null;
+    stripe_subscription_status?: string | null;
+    role?: string;
+    trial_ends_at?: Date | null;
+  },
+): Promise<void> {
+  const sets: string[] = [];
+  const params: unknown[] = [];
+  let i = 1;
+  if (data.stripe_customer_id !== undefined) {
+    sets.push(`stripe_customer_id = $${i++}`);
+    params.push(data.stripe_customer_id);
+  }
+  if (data.stripe_subscription_id !== undefined) {
+    sets.push(`stripe_subscription_id = $${i++}`);
+    params.push(data.stripe_subscription_id);
+  }
+  if (data.stripe_subscription_status !== undefined) {
+    sets.push(`stripe_subscription_status = $${i++}`);
+    params.push(data.stripe_subscription_status);
+  }
+  if (data.role !== undefined) {
+    sets.push(`role = $${i++}`);
+    params.push(data.role);
+  }
+  if (data.trial_ends_at !== undefined) {
+    sets.push(`trial_ends_at = $${i++}`);
+    params.push(data.trial_ends_at);
+  }
+  if (sets.length === 0) return;
+  sets.push("updated_at = now()");
+  params.push(userId);
+  await query(`UPDATE users SET ${sets.join(", ")} WHERE id = $${i}`, params);
+}
+
+export async function listAllUsers(): Promise<User[]> {
+  return query<User>(
+    `SELECT ${USER_SAFE_COLS} FROM users ORDER BY created_at DESC`,
+  );
+}
+
+export async function findUserByStripeCustomerId(
+  customerId: string,
+): Promise<User | null> {
+  return queryOne<User>(
+    `SELECT ${USER_SAFE_COLS} FROM users WHERE stripe_customer_id = $1`,
+    [customerId],
+  );
 }
 
 export async function insertRefreshToken(
@@ -62,4 +140,31 @@ export async function deleteAllRefreshTokensForUser(
 
 export async function deleteExpiredRefreshTokens(): Promise<void> {
   await query("DELETE FROM refresh_tokens WHERE expires_at < now()");
+}
+
+export async function updateUserEmail(
+  userId: string,
+  email: string,
+): Promise<User> {
+  const rows = await query<User>(
+    `UPDATE users SET email = $1, updated_at = now()
+     WHERE id = $2
+     RETURNING ${USER_SAFE_COLS}`,
+    [email, userId],
+  );
+  return rows[0];
+}
+
+export async function updateUserPasswordHash(
+  userId: string,
+  passwordHash: string,
+): Promise<void> {
+  await query(
+    "UPDATE users SET password_hash = $1, updated_at = now() WHERE id = $2",
+    [passwordHash, userId],
+  );
+}
+
+export async function deleteUser(userId: string): Promise<void> {
+  await query("DELETE FROM users WHERE id = $1", [userId]);
 }

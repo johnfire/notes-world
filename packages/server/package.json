@@ -24,6 +24,7 @@
     "jsonwebtoken": "^9.0.3",
     "morgan": "^1.10.0",
     "pg": "^8.11.3",
+    "stripe": "^22.1.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

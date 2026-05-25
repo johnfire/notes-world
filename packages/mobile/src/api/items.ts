@@ -56,5 +56,5 @@ export function archiveItem(id: string): Promise<Item> {
 }
 
 export function deleteItem(id: string): Promise<void> {
-  return api.delete<void>(`/items/${id}`);
+  return api.post<void>(`/items/${id}/purge`, {});
 }

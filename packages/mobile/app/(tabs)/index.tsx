@@ -12,7 +12,7 @@ import {
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { listItems } from "../../src/api/items";
+import { listItems, archiveItem } from "../../src/api/items";
 import { ItemCard } from "../../src/components/ItemCard";
 import { useAuth } from "../../src/store/auth";
 import { colors, spacing, radius, font } from "../../src/theme";
@@ -59,6 +59,16 @@ export default function ItemsScreen() {
     load(1, search);
   }
 
+  async function onDelete(id: string) {
+    try {
+      await archiveItem(id);
+      setItems((prev) => prev.filter((i) => i.id !== id));
+      setTotal((t) => t - 1);
+    } catch {
+      // silent — item stays in list if delete fails
+    }
+  }
+
   function onEndReached() {
     if (items.length >= total) return;
     const next = page + 1;
@@ -103,6 +113,7 @@ export default function ItemsScreen() {
             <ItemCard
               item={item}
               onPress={() => router.push(`/item/${item.id}`)}
+              onDelete={onDelete}
             />
           )}
           refreshControl={

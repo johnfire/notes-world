@@ -160,3 +160,11 @@ export async function findTagsForItems(
   }
   return result;
 }
+
+export async function countTagsForUser(userId: UserId): Promise<number> {
+  const row = await queryOne<{ count: number }>(
+    "SELECT COUNT(*)::int AS count FROM tags WHERE user_id = $1",
+    [userId],
+  );
+  return row?.count ?? 0;
+}

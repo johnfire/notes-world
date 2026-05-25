@@ -10,31 +10,57 @@ import {
   Platform,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useLocalSearchParams } from "expo-router";
 import { useAuth } from "../../src/store/auth";
-import { login } from "../../src/api/auth";
+import { login, register } from "../../src/api/auth";
 import { colors, spacing, radius, font } from "../../src/theme";
+
+type Mode = "login" | "register";
 
 export default function LoginScreen() {
   const { setUser } = useAuth();
+  const params = useLocalSearchParams<{ mode?: string }>();
+  const [mode, setMode] = useState<Mode>(
+    params.mode === "register" ? "register" : "login",
+  );
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleLogin() {
+  async function handleSubmit() {
     setError("");
+    if (mode === "register" && password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
     setLoading(true);
     try {
-      const user = await login({ email: email.trim(), password });
+      const user =
+        mode === "login"
+          ? await login({ email: email.trim(), password })
+          : await register({ email: email.trim(), password });
       setUser(user);
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : "";
-      setError(msg || "Login failed — check your connection and credentials");
-      console.error("[login]", e);
+      setError(
+        msg ||
+          (mode === "login"
+            ? "Login failed — check your connection and credentials"
+            : "Registration failed — try a different email"),
+      );
     } finally {
       setLoading(false);
     }
+  }
+
+  function switchMode() {
+    setMode((m) => (m === "login" ? "register" : "login"));
+    setError("");
+    setPassword("");
+    setConfirmPassword("");
   }
 
   return (
@@ -66,8 +92,8 @@ export default function LoginScreen() {
               value={password}
               onChangeText={setPassword}
               secureTextEntry={!showPassword}
-              returnKeyType="go"
-              onSubmitEditing={handleLogin}
+              returnKeyType={mode === "register" ? "next" : "go"}
+              onSubmitEditing={mode === "login" ? handleSubmit : undefined}
             />
             <Pressable
               style={s.eyeBtn}
@@ -82,20 +108,43 @@ export default function LoginScreen() {
             </Pressable>
           </View>
 
+          {mode === "register" && (
+            <TextInput
+              style={s.input}
+              placeholder="Confirm password"
+              placeholderTextColor={colors.textDim}
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              secureTextEntry={!showPassword}
+              returnKeyType="go"
+              onSubmitEditing={handleSubmit}
+            />
+          )}
+
           {!!error && <Text style={s.error}>{error}</Text>}
 
           <Pressable
             style={({ pressed }) => [s.btn, pressed && s.btnPressed]}
-            onPress={handleLogin}
+            onPress={handleSubmit}
             disabled={loading}
           >
             {loading ? (
               <ActivityIndicator color={colors.text} />
             ) : (
-              <Text style={s.btnText}>Sign in</Text>
+              <Text style={s.btnText}>
+                {mode === "login" ? "Sign in" : "Create account"}
+              </Text>
             )}
           </Pressable>
         </View>
+
+        <Pressable style={s.switchBtn} onPress={switchMode}>
+          <Text style={s.switchText}>
+            {mode === "login"
+              ? "No account yet? Register"
+              : "Already have an account? Sign in"}
+          </Text>
+        </Pressable>
       </View>
     </KeyboardAvoidingView>
   );
@@ -163,4 +212,12 @@ const s = StyleSheet.create({
   },
   btnPressed: { opacity: 0.8 },
   btnText: { color: colors.text, fontSize: font.md, fontWeight: "700" },
+  switchBtn: {
+    marginTop: spacing.lg,
+    alignItems: "center",
+  },
+  switchText: {
+    color: colors.accent,
+    fontSize: font.sm,
+  },
 });

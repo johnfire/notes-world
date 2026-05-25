@@ -13,6 +13,8 @@ import { importRouter } from "./domains/import/import.routes";
 import { sortOrdersRouter } from "./domains/sort-orders/sort-orders.routes";
 import { exportRouter } from "./domains/export/export.routes";
 import { authRouter } from "./domains/auth/auth.routes";
+import { billingRouter } from "./domains/billing/billing.routes";
+import { adminRouter } from "./domains/admin/admin.routes";
 import { requireAuth } from "./middleware/auth";
 import { errorHandler } from "./middleware/errorHandler";
 
@@ -71,6 +73,9 @@ export function createApp() {
   // Auth routes — no JWT required
   app.use("/api/auth", authRouter);
 
+  // Billing webhook — no JWT required (Stripe signs its own requests)
+  app.use("/api/billing", billingRouter);
+
   // All routes below this line require a valid JWT
   app.use("/api", requireAuth);
 
@@ -81,6 +86,7 @@ export function createApp() {
   app.use("/api/import", importRouter);
   app.use("/api/sort-orders", sortOrdersRouter);
   app.use("/api/export", exportRouter);
+  app.use("/api/admin", adminRouter);
 
   // Serve React build in production
   if (process.env.NODE_ENV === "production") {

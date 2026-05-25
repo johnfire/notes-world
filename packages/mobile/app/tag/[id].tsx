@@ -9,8 +9,8 @@ import {
 } from "react-native";
 import { useLocalSearchParams, useRouter, useNavigation } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getItemsByTag } from "../../src/api/tags";
-import { listTags } from "../../src/api/tags";
+import { getItemsByTag, listTags } from "../../src/api/tags";
+import { archiveItem } from "../../src/api/items";
 import { ItemCard } from "../../src/components/ItemCard";
 import { colors, spacing, font } from "../../src/theme";
 import type { Item } from "@notes-world/shared";
@@ -29,6 +29,15 @@ export default function TagScreen() {
       if (tag) navigation.setOptions({ headerTitle: tag.name });
     });
   }, [id]);
+
+  async function onDelete(id: string) {
+    try {
+      await archiveItem(id);
+      setItems((prev) => prev.filter((i) => i.id !== id));
+    } catch {
+      // silent
+    }
+  }
 
   async function load() {
     try {
@@ -56,6 +65,7 @@ export default function TagScreen() {
             <ItemCard
               item={item}
               onPress={() => router.push(`/item/${item.id}`)}
+              onDelete={onDelete}
             />
           )}
           refreshControl={

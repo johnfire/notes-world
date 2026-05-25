@@ -3,6 +3,8 @@ export const PAGINATION = {
   MAX_PAGE_SIZE: 200,
 } as const;
 
+export const FREE_TAGS_MAX = 20;
+
 export const LIMITS = {
   ITEM_TITLE_MAX: 300,
   ITEM_BODY_MAX: 50_000,

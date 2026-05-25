@@ -249,6 +249,31 @@ export const dashboard = {
     }),
 };
 
+// ── Billing ───────────────────────────────────────────────────────────────────
+
+export const billing = {
+  checkout: (plan: "monthly" | "annual") =>
+    request<{ url: string }>("/billing/checkout", {
+      method: "POST",
+      body: JSON.stringify({ plan }),
+    }),
+
+  portal: () => request<{ url: string }>("/billing/portal", { method: "POST" }),
+};
+
+// ── Admin ─────────────────────────────────────────────────────────────────────
+
+import type { User, UserRole } from "../types";
+
+export const admin = {
+  listUsers: () => request<User[]>("/admin/users"),
+  setRole: (userId: string, role: UserRole) =>
+    request<User>(`/admin/users/${userId}/role`, {
+      method: "PUT",
+      body: JSON.stringify({ role }),
+    }),
+};
+
 // ── Import ────────────────────────────────────────────────────────────────────
 
 export const importApi = {

@@ -1,28 +1,40 @@
-import { useState, useRef, useEffect } from 'react';
-import { useApp } from '../../context/AppContext';
-import { ImportModal } from '../ImportModal';
+import { useState, useRef, useEffect } from "react";
+import { useApp } from "../../context/AppContext";
+import { useAuth } from "../../context/AuthContext";
+import { ImportModal } from "../ImportModal";
+import { AccountPage } from "../../pages/AccountPage";
+import { AdminPage } from "../../pages/AdminPage";
+import { UpgradePage } from "../../pages/UpgradePage";
 
 export function ActionBar() {
   const { state, search, clearSearch, refresh } = useApp();
-  const [searchInput, setSearchInput] = useState('');
+  const { user } = useAuth();
+  const [searchInput, setSearchInput] = useState("");
   const [importOpen, setImportOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
+  const [adminOpen, setAdminOpen] = useState(false);
+  const [upgradeOpen, setUpgradeOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Keyboard shortcut: / to focus search
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === '/' && document.activeElement?.tagName !== 'INPUT' && document.activeElement?.tagName !== 'TEXTAREA') {
+      if (
+        e.key === "/" &&
+        document.activeElement?.tagName !== "INPUT" &&
+        document.activeElement?.tagName !== "TEXTAREA"
+      ) {
         e.preventDefault();
         inputRef.current?.focus();
       }
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         inputRef.current?.blur();
-        setSearchInput('');
+        setSearchInput("");
         clearSearch();
       }
     };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
   }, [clearSearch]);
 
   const handleSearch = (value: string) => {
@@ -42,13 +54,25 @@ export function ActionBar() {
         <div className="w-6 h-6 rounded bg-accent flex items-center justify-center">
           <span className="text-white text-xs font-bold">N</span>
         </div>
-        <span className="text-white font-semibold text-sm tracking-wide">notes-world</span>
+        <span className="text-white font-semibold text-sm tracking-wide">
+          notes-world
+        </span>
       </div>
 
       {/* Search */}
       <div className="flex-1 max-w-xl relative">
-        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        <svg
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
         </svg>
         <input
           ref={inputRef}
@@ -60,11 +84,24 @@ export function ActionBar() {
         />
         {searchInput && (
           <button
-            onClick={() => { setSearchInput(''); clearSearch(); }}
+            onClick={() => {
+              setSearchInput("");
+              clearSearch();
+            }}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300"
           >
-            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-3.5 h-3.5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         )}
@@ -84,9 +121,9 @@ export function ActionBar() {
         </div>
       )}
 
-      {/* Export / Import buttons */}
+      {/* Export / Import / Upgrade / Admin / Account buttons */}
       <button
-        onClick={() => window.location.href = '/api/export/all'}
+        onClick={() => (window.location.href = "/api/export/all")}
         className="btn-ghost text-xs shrink-0"
       >
         Export
@@ -97,8 +134,52 @@ export function ActionBar() {
       >
         Import
       </button>
+      {user?.role === "free" && (
+        <button
+          onClick={() => setUpgradeOpen(true)}
+          className="text-xs shrink-0 px-2 py-1 rounded bg-accent/20 text-accent border border-accent/30 hover:bg-accent/30 transition-colors"
+        >
+          Upgrade
+        </button>
+      )}
+      {user?.role === "admin" && (
+        <button
+          onClick={() => setAdminOpen(true)}
+          className="btn-ghost text-xs shrink-0 text-yellow-400"
+          title="Admin panel"
+        >
+          Admin
+        </button>
+      )}
+      <button
+        onClick={() => setAccountOpen(true)}
+        className="btn-ghost text-xs shrink-0"
+        title="Account"
+      >
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      </button>
 
-      {importOpen && <ImportModal onClose={() => setImportOpen(false)} onImported={() => void refresh()} />}
+      {importOpen && (
+        <ImportModal
+          onClose={() => setImportOpen(false)}
+          onImported={() => void refresh()}
+        />
+      )}
+      {accountOpen && <AccountPage onClose={() => setAccountOpen(false)} />}
+      {adminOpen && <AdminPage onClose={() => setAdminOpen(false)} />}
+      {upgradeOpen && <UpgradePage onClose={() => setUpgradeOpen(false)} />}
     </header>
   );
 }

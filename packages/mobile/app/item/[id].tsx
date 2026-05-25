@@ -14,7 +14,13 @@ import {
 import { useLocalSearchParams, useRouter, useNavigation } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getItem, updateItem, archiveItem } from "../../src/api/items";
+import {
+  getItem,
+  updateItem,
+  archiveItem,
+  deleteItem,
+} from "../../src/api/items";
+import { TagManager } from "../../src/components/TagManager";
 import { colors, spacing, radius, font } from "../../src/theme";
 import { ItemType } from "@notes-world/shared";
 import type { Item } from "@notes-world/shared";
@@ -110,6 +116,22 @@ export default function ItemScreen() {
     }
   }
 
+  function handleDelete() {
+    Alert.alert("Delete item?", "This cannot be undone.", [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: async () => {
+          if (!item) return;
+          await archiveItem(item.id);
+          await deleteItem(item.id);
+          router.back();
+        },
+      },
+    ]);
+  }
+
   function handleArchive() {
     Alert.alert("Archive item?", "This will move the item to the archive.", [
       { text: "Cancel", style: "cancel" },
@@ -173,6 +195,11 @@ export default function ItemScreen() {
             placeholder="Body…"
             placeholderTextColor={colors.textDim}
           />
+          <TagManager itemId={item.id} />
+          <Pressable style={s.deleteBtn} onPress={handleDelete} hitSlop={8}>
+            <Ionicons name="trash-outline" size={18} color={colors.danger} />
+            <Text style={s.deleteTxt}>Delete note</Text>
+          </Pressable>
           <Text style={s.meta}>
             Updated {new Date(item.updated_at).toLocaleDateString("de-DE")}
           </Text>
@@ -211,9 +238,19 @@ const s = StyleSheet.create({
     minHeight: 200,
     paddingTop: spacing.sm,
   },
+  deleteBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.xs,
+    marginTop: spacing.lg,
+  },
+  deleteTxt: {
+    color: colors.danger,
+    fontSize: font.sm,
+  },
   meta: {
     color: colors.textDim,
     fontSize: 12,
-    marginTop: spacing.lg,
+    marginTop: spacing.sm,
   },
 });

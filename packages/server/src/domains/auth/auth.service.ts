@@ -112,6 +112,57 @@ export async function logout(
   await repo.deleteRefreshToken(hashToken(rawRefreshToken));
 }
 
+export async function getMe(userId: string): Promise<User> {
+  const user = await repo.findUserById(userId);
+  if (!user) throw new AuthorizationError("User not found");
+  return user;
+}
+
+export async function changePassword(
+  userId: string,
+  currentPassword: string,
+  newPassword: string,
+): Promise<void> {
+  if (!newPassword || newPassword.length < 8) {
+    throw new ValidationError("New password must be at least 8 characters");
+  }
+  const row = await repo.findUserByIdFull(userId);
+  if (!row) throw new AuthorizationError("User not found");
+  const valid = await bcrypt.compare(currentPassword, row.password_hash);
+  if (!valid) throw new AuthorizationError("Current password is incorrect");
+  const hash = await bcrypt.hash(newPassword, BCRYPT_ROUNDS);
+  await repo.updateUserPasswordHash(userId, hash);
+}
+
+export async function changeEmail(
+  userId: string,
+  newEmail: string,
+  currentPassword: string,
+): Promise<User> {
+  if (!newEmail || !newEmail.includes("@")) {
+    throw new ValidationError("Invalid email address");
+  }
+  const row = await repo.findUserByIdFull(userId);
+  if (!row) throw new AuthorizationError("User not found");
+  const valid = await bcrypt.compare(currentPassword, row.password_hash);
+  if (!valid) throw new AuthorizationError("Current password is incorrect");
+  const existing = await repo.findUserByEmail(newEmail.toLowerCase());
+  if (existing) throw new ConflictError("Email already in use");
+  return repo.updateUserEmail(userId, newEmail.toLowerCase());
+}
+
+export async function deleteAccount(
+  userId: string,
+  currentPassword: string,
+): Promise<void> {
+  const row = await repo.findUserByIdFull(userId);
+  if (!row) throw new AuthorizationError("User not found");
+  const valid = await bcrypt.compare(currentPassword, row.password_hash);
+  if (!valid) throw new AuthorizationError("Current password is incorrect");
+  await repo.deleteAllRefreshTokensForUser(userId);
+  await repo.deleteUser(userId);
+}
+
 export function verifyAccessToken(token: string): JwtPayload {
   try {
     return jwt.verify(token, getJwtSecret()) as JwtPayload;

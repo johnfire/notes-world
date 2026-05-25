@@ -6,7 +6,7 @@ import {
   TagWithCount as SharedTagWithCount,
 } from "../../types";
 import { eventBus } from "../../events/eventBus";
-import { LIMITS } from "../../constants";
+import { LIMITS, FREE_TAGS_MAX } from "../../constants";
 import {
   ValidationError,
   NotFoundError,
@@ -16,6 +16,7 @@ import {
 } from "../../utils/errors";
 import * as repo from "./relationships.repository";
 import * as itemRepo from "../items/items.repository";
+import * as authRepo from "../auth/auth.repository";
 import { TagWithCount } from "./relationships.types";
 
 function normalizeName(name: string): string {
@@ -34,6 +35,16 @@ export async function createTag(userId: UserId, name: string): Promise<Tag> {
 
   const existing = await repo.findTagByName(normalized, userId);
   if (existing) throw new ConflictError(`Tag "${normalized}" already exists`);
+
+  const user = await authRepo.findUserById(userId);
+  if (user?.role === "free") {
+    const count = await repo.countTagsForUser(userId);
+    if (count >= FREE_TAGS_MAX) {
+      throw new LimitExceeded(
+        `Free plan is limited to ${FREE_TAGS_MAX} tags. Upgrade to create more.`,
+      );
+    }
+  }
 
   return repo.insertTag(normalized, userId);
 }
