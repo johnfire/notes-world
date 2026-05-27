@@ -65,10 +65,15 @@ export function AdminPage({ onClose }: { onClose: () => void }) {
   );
 }
 
+const blankUserForm = { email: "", password: "", role: "free" as UserRole };
+
 function UsersTab() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<string | null>(null);
+  const [form, setForm] = useState(blankUserForm);
+  const [creating, setCreating] = useState(false);
+  const [createError, setCreateError] = useState("");
 
   useEffect(() => {
     admin
@@ -76,6 +81,21 @@ function UsersTab() {
       .then(setUsers)
       .finally(() => setLoading(false));
   }, []);
+
+  async function handleCreate(e: React.FormEvent) {
+    e.preventDefault();
+    setCreateError("");
+    setCreating(true);
+    try {
+      const created = await admin.createUser(form);
+      setUsers((prev) => [created, ...prev]);
+      setForm(blankUserForm);
+    } catch (err) {
+      setCreateError(err instanceof Error ? err.message : "Failed to create");
+    } finally {
+      setCreating(false);
+    }
+  }
 
   async function handleRoleChange(userId: string, role: UserRole) {
     setSaving(userId);
@@ -97,6 +117,54 @@ function UsersTab() {
 
   return (
     <>
+      <div className="p-4 border-b border-surface-500 shrink-0">
+        <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold mb-3">
+          Create user
+        </p>
+        <form
+          onSubmit={(e) => void handleCreate(e)}
+          className="flex gap-2 flex-wrap"
+        >
+          <input
+            className="input text-sm flex-1 min-w-48"
+            placeholder="Email"
+            type="email"
+            value={form.email}
+            onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+            required
+          />
+          <input
+            className="input text-sm w-36"
+            placeholder="Password"
+            type="text"
+            value={form.password}
+            onChange={(e) =>
+              setForm((f) => ({ ...f, password: e.target.value }))
+            }
+            required
+          />
+          <select
+            className="input text-sm w-24"
+            value={form.role}
+            onChange={(e) =>
+              setForm((f) => ({ ...f, role: e.target.value as UserRole }))
+            }
+          >
+            {ROLES.map((r) => (
+              <option key={r} value={r}>
+                {r}
+              </option>
+            ))}
+          </select>
+          <button className="btn-primary text-sm px-4" disabled={creating}>
+            {creating ? "…" : "Create"}
+          </button>
+        </form>
+        {createError && (
+          <p className="text-danger text-xs mt-1">{createError}</p>
+        )}
+      </div>
+
       <div className="flex gap-6 px-4 py-3 border-b border-surface-500 text-xs text-gray-400 shrink-0">
         <span>
           Total: <strong className="text-white">{stats.total}</strong>
