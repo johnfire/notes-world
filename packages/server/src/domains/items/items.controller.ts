@@ -88,16 +88,22 @@ export const getRecentItems = wrapAsync(async (req: Request, res: Response) => {
 
 export const searchItems = wrapAsync(async (req: Request, res: Response) => {
   const q = String(req.query.q ?? "");
-  const limit = Number(req.query.limit ?? 50);
-  const offset = Number(req.query.offset ?? 0);
+  const limit = Math.min(
+    PAGINATION.MAX_PAGE_SIZE,
+    Math.max(1, Number(req.query.limit ?? 50) || 50),
+  );
+  const offset = Math.max(0, Number(req.query.offset ?? 0) || 0);
   const items = await service.searchItems(req.userId, q, limit, offset);
   res.json(items);
 });
 
 export const getItemsByType = wrapAsync(async (req: Request, res: Response) => {
   const itemType = req.params.type as ItemType;
-  const limit = Number(req.query.limit ?? 50);
-  const offset = Number(req.query.offset ?? 0);
+  const limit = Math.min(
+    PAGINATION.MAX_PAGE_SIZE,
+    Math.max(1, Number(req.query.limit ?? 50) || 50),
+  );
+  const offset = Math.max(0, Number(req.query.offset ?? 0) || 0);
   const items = await service.getItemsByType(
     req.userId,
     itemType,
@@ -109,8 +115,11 @@ export const getItemsByType = wrapAsync(async (req: Request, res: Response) => {
 
 export const getByEntryType = wrapAsync(async (req: Request, res: Response) => {
   const entryType = req.params.entryType;
-  const limit = Number(req.query.limit ?? 50);
-  const offset = Number(req.query.offset ?? 0);
+  const limit = Math.min(
+    PAGINATION.MAX_PAGE_SIZE,
+    Math.max(1, Number(req.query.limit ?? 50) || 50),
+  );
+  const offset = Math.max(0, Number(req.query.offset ?? 0) || 0);
   const items = await service.getItemsByEntryType(
     req.userId,
     entryType,
@@ -121,8 +130,11 @@ export const getByEntryType = wrapAsync(async (req: Request, res: Response) => {
 });
 
 export const getTrash = wrapAsync(async (req: Request, res: Response) => {
-  const limit = Number(req.query.limit ?? 50);
-  const offset = Number(req.query.offset ?? 0);
+  const limit = Math.min(
+    PAGINATION.MAX_PAGE_SIZE,
+    Math.max(1, Number(req.query.limit ?? 50) || 50),
+  );
+  const offset = Math.max(0, Number(req.query.offset ?? 0) || 0);
   const items = await service.getTrash(req.userId, limit, offset);
   res.json(items);
 });

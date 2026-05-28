@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { PAGINATION } from "../../constants";
 import { wrapAsync } from "../../utils/wrapAsync";
 import * as service from "./relationships.service";
 
@@ -48,8 +49,11 @@ export const getTagsForItem = wrapAsync(async (req: Request, res: Response) => {
 });
 
 export const getItemsForTag = wrapAsync(async (req: Request, res: Response) => {
-  const limit = Number(req.query.limit ?? 50);
-  const offset = Number(req.query.offset ?? 0);
+  const limit = Math.min(
+    PAGINATION.MAX_PAGE_SIZE,
+    Math.max(1, Number(req.query.limit ?? 50) || 50),
+  );
+  const offset = Math.max(0, Number(req.query.offset ?? 0) || 0);
   const items = await service.getItemsForTag(
     req.userId,
     req.params.id,

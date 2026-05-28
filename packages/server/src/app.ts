@@ -35,7 +35,15 @@ export function createApp() {
   app.use(
     helmet({ contentSecurityPolicy: process.env.NODE_ENV === "production" }),
   );
-  app.use(cors({ origin: process.env.CORS_ORIGIN ?? true, credentials: true }));
+  if (!process.env.CORS_ORIGIN && process.env.NODE_ENV === "production") {
+    throw new Error("CORS_ORIGIN must be set in production");
+  }
+  app.use(
+    cors({
+      origin: process.env.CORS_ORIGIN ?? "http://localhost:5173",
+      credentials: true,
+    }),
+  );
   app.use(express.json({ limit: "10mb" }));
   app.use(cookieParser());
 
@@ -51,17 +59,27 @@ export function createApp() {
         legacyHeaders: false,
       }),
     );
+    // Tighter limit for auth endpoints — 20 attempts per 15 minutes per IP
+    app.use(
+      "/api/auth",
+      rateLimit({
+        windowMs: 15 * 60_000,
+        limit: 20,
+        standardHeaders: "draft-7",
+        legacyHeaders: false,
+        message: {
+          error: {
+            code: "RATE_LIMIT_EXCEEDED",
+            message: "Too many login attempts, please try again later",
+          },
+        },
+      }),
+    );
   }
 
   // Health check — not rate-limited
   app.get("/health", (_req, res) => {
-    const uptime = Math.floor((Date.now() - startedAt.getTime()) / 1000);
-    res.json({
-      status: "ok",
-      version: VERSION,
-      uptime,
-      timestamp: new Date().toISOString(),
-    });
+    res.json({ status: "ok" });
   });
 
   // Disable ETag caching for API routes — stale 304s break refresh after mutations

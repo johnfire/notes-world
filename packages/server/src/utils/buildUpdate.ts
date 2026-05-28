@@ -8,16 +8,20 @@ export function buildUpdate(
   table: string,
   fields: Record<string, unknown>,
   where: Record<string, unknown>,
-  options?: { jsonFields?: string[] }
+  options?: { jsonFields?: string[]; allowedFields?: string[] },
 ): { sql: string; params: unknown[] } {
-  const sets: string[] = ['updated_at = NOW()'];
+  const sets: string[] = ["updated_at = NOW()"];
   const params: unknown[] = [];
   let i = 1;
 
   const jsonFields = new Set(options?.jsonFields ?? []);
+  const allowedFields = options?.allowedFields
+    ? new Set(options.allowedFields)
+    : null;
 
   for (const [col, val] of Object.entries(fields)) {
     if (val === undefined) continue;
+    if (allowedFields && !allowedFields.has(col)) continue;
     sets.push(`${col} = $${i++}`);
     params.push(jsonFields.has(col) ? JSON.stringify(val) : val);
   }
@@ -28,6 +32,6 @@ export function buildUpdate(
     params.push(val);
   }
 
-  const sql = `UPDATE ${table} SET ${sets.join(', ')} WHERE ${whereClauses.join(' AND ')} RETURNING *`;
+  const sql = `UPDATE ${table} SET ${sets.join(", ")} WHERE ${whereClauses.join(" AND ")} RETURNING *`;
   return { sql, params };
 }

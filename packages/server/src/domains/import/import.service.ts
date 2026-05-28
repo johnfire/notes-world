@@ -317,7 +317,7 @@ export async function getImportJobById(
 ): Promise<{ job: ImportJob; records: unknown[] }> {
   const job = await repo.findImportJobById(id, userId);
   if (!job) throw new NotFoundError("ImportJob", id);
-  const records = await repo.findImportRecords(id);
+  const records = await repo.findImportRecords(id, userId);
   return { job, records };
 }
 

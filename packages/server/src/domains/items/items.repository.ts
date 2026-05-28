@@ -46,7 +46,18 @@ export async function update(
     "items",
     fields,
     { id, user_id: userId },
-    { jsonFields: ["type_data"] },
+    {
+      jsonFields: ["type_data"],
+      allowedFields: [
+        "title",
+        "body",
+        "type_data",
+        "item_type",
+        "status",
+        "archived_at",
+        "color",
+      ],
+    },
   );
   return queryOne<Item>(sql, params);
 }

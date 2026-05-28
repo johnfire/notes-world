@@ -7,7 +7,8 @@ import * as authRepo from "./auth.repository";
 function detectClient(req: Request): string {
   const ua = req.headers["user-agent"] ?? "";
   const clientHeader = req.headers["x-client-type"] as string | undefined;
-  if (clientHeader) return clientHeader;
+  if (clientHeader)
+    return clientHeader.replace(/[\r\n\t\x00-\x1f]/g, "").slice(0, 50);
   if (ua.includes("Expo") || ua.includes("okhttp")) return "native-app";
   if (ua.includes("Mozilla") || ua.includes("Chrome") || ua.includes("Safari"))
     return "web";

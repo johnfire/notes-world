@@ -90,6 +90,12 @@ export async function updateItem(
     }
   }
 
+  if (input.color !== undefined && input.color !== null) {
+    if (!/^#[0-9a-fA-F]{3,8}$/.test(input.color)) {
+      throw new ValidationError("color must be a hex color string");
+    }
+  }
+
   const updated = await repo.update(id, userId, input);
   if (!updated) throw new NotFoundError("Item", id);
   eventBus.emit("ItemUpdated", {

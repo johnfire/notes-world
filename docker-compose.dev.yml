@@ -16,7 +16,7 @@ services:
       - POSTGRES_DB=notes_world
       - POSTGRES_USER=notes_world
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-devpassword}
-      - JWT_SECRET=${JWT_SECRET:-dev-jwt-secret-change-in-production}
+      - JWT_SECRET=${JWT_SECRET}
       - CORS_ORIGIN=http://localhost
     depends_on:
       db:

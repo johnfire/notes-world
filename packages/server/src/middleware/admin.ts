@@ -7,7 +7,9 @@ export async function requireAdmin(
   res: Response,
   next: NextFunction,
 ): Promise<void> {
-  const user = await authRepo.findUserById(req.userId!);
+  if (!req.userId)
+    return next(new AuthorizationError("Authentication required"));
+  const user = await authRepo.findUserById(req.userId);
   if (!user || user.role !== "admin") {
     throw new AuthorizationError("Admin access required");
   }
