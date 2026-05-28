@@ -70,6 +70,15 @@ export function createApp() {
     next();
   });
 
+  // Mobile app version info — public, no auth
+  app.get("/api/mobile/version", (_req, res) => {
+    res.json({
+      version: "0.1.0",
+      versionCode: 1,
+      downloadUrl: "/downloads/notes-world-0.1.0.apk",
+    });
+  });
+
   // Auth routes — no JWT required
   app.use("/api/auth", authRouter);
 

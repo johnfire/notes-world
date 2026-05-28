@@ -286,6 +286,28 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
             </form>
           </section>
 
+          {/* Android app */}
+          <section>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
+              Android App
+            </h3>
+            <div className="bg-surface-700 rounded-lg p-3 flex items-center justify-between gap-3">
+              <div>
+                <p className="text-sm text-gray-200">Notes World for Android</p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  v0.1.0 · Sideload APK
+                </p>
+              </div>
+              <a
+                href="/downloads/notes-world-0.1.0.apk"
+                download
+                className="btn-primary text-xs px-3 py-1.5 shrink-0"
+              >
+                Download APK
+              </a>
+            </div>
+          </section>
+
           {/* API Keys */}
           <ApiKeysSection />
 

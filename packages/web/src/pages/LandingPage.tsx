@@ -68,7 +68,13 @@ export function LandingPage() {
           {t("hero.badge")}
         </div>
         <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight mb-5">
-          {t("hero.headline")}
+          <span className="text-base font-normal tracking-widest text-gray-600 align-middle">
+            — prototype —
+          </span>{" "}
+          {t("hero.headline")}{" "}
+          <span className="text-base font-normal tracking-widest text-gray-600 align-middle">
+            — prototype —
+          </span>
           <br />
           <span className="text-accent">{t("hero.headlineAccent")}</span>
         </h1>

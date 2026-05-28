@@ -1,10 +1,39 @@
 import { Request, Response } from "express";
+import bcrypt from "bcrypt";
 import { wrapAsync } from "../../utils/wrapAsync";
 import * as authRepo from "../auth/auth.repository";
 import { query, queryOne } from "../../db/client";
-import { AuthorizationError, ValidationError } from "../../utils/errors";
+import {
+  AuthorizationError,
+  ConflictError,
+  ValidationError,
+} from "../../utils/errors";
 
 const VALID_ROLES = ["free", "gift", "paid", "admin"];
+
+export const createUser = wrapAsync(async (req: Request, res: Response) => {
+  const { email, password, role = "free" } = req.body as Record<string, string>;
+  if (!email?.trim()) throw new ValidationError("Email is required");
+  if (!password || password.length < 8)
+    throw new ValidationError("Password must be at least 8 characters");
+  if (!VALID_ROLES.includes(role))
+    throw new ValidationError(
+      `Invalid role. Must be one of: ${VALID_ROLES.join(", ")}`,
+    );
+
+  const existing = await authRepo.findUserByEmail(email.toLowerCase().trim());
+  if (existing) throw new ConflictError("Email already registered");
+
+  const passwordHash = await bcrypt.hash(password, 12);
+  let user = await authRepo.insertUser(
+    email.toLowerCase().trim(),
+    passwordHash,
+  );
+  if (role !== "free") {
+    user = await authRepo.updateUserRole(user.id, role);
+  }
+  res.status(201).json(user);
+});
 
 export const listUsers = wrapAsync(async (_req: Request, res: Response) => {
   const users = await authRepo.listAllUsers();

@@ -1,75 +1,57 @@
 # notes-world
 
-Personal productivity dashboard. Consolidates fragmented notes, ideas, tasks, and reminders into a single structured view.
+Personal productivity web app. Consolidates notes, ideas, tasks, and reminders. Live at https://notes-world.christopherrehm.de. In daily use.
 
-## Current Phase: 1.1 — Scaffolding complete, implementing backend domains
+## Current State
 
-## Architecture
-- **Frontend:** React 18 + TypeScript + Vite + Tailwind CSS (dark theme) → `src/client/`
-- **Backend:** Node 20 + Express 4 + TypeScript → `src/server/`
-- **Database:** PostgreSQL 16 — raw SQL via `pg`, no ORM
-- **Deployment:** Docker Compose (app + postgres + daily backup)
-- **MCP Server:** `src/mcp/` — stdio MCP server for AI agent access, talks to REST API
-- **Events:** In-process Node EventEmitter (`src/server/src/events/eventBus.ts`)
+Phase 1 complete and deployed. Multi-user JWT auth, admin panel, mobile app (Expo), MCP server for AI access, full item/tag/dashboard system.
+
+## Monorepo Structure
+
+```
+packages/
+  server/    Express API (TypeScript, Node 20) — port 3001
+  web/       React 18 SPA (Vite, Tailwind) — port 5173 in dev
+  shared/    Shared types
+  mcp/       MCP server (stdio) for AI agent access
+  mobile/    React Native app (Expo SDK 54)
+  importer/  Python markdown importer
+```
 
 ## Commands
+
 ```bash
 # Development
-npm run dev                        # starts both client (5173) and server (3001)
-npm run dev --workspace=src/server # server only
-npm run dev --workspace=src/client # client only
+npm run dev                           # client + server
+npm run dev --workspace=packages/web  # web only
+npm run dev --workspace=packages/server # server only
 
-# Database
-npm run migrate                    # run pending SQL migrations
-./scripts/setup.sh                 # bootstrap clean machine
+# Build
+npm run build --workspace=packages/web
 
 # Tests
-npm test                           # all tests
-npm run test --workspace=src/server
-npm run test --workspace=src/client
+npm test
 
 # Production
 docker compose up --build
 ```
 
-## Phase 1 Scope
-**In scope:** Items CRUD + promotion/archive, Tags, Dashboard blocks (QuickCapture, RecentItems, TagCloud, ItemsByTag, Notes, ActionableTasks, BlockedTasks, OverdueTasks as placeholders)
-**Out of scope:** Dependencies, Import, CompleteTask/StartTask/BlockTask, multi-user auth
-
 ## Key Constants
-- `PHASE1_USER_ID = 00000000-0000-0000-0000-000000000001` — single user, hardcoded in Phase 1
-- All tables have `user_id` column from day 1 (ADR-005)
+
+- `PHASE1_USER_ID = 00000000-0000-0000-0000-000000000001` — hardcoded single-user constant, still used in non-auth contexts
+- All tables have `user_id` column (ADR-005)
+- Migrations: `packages/server/src/db/migrations/` — only add new files, never edit existing
 
 ## Doc Index
-Read only the docs relevant to the task at hand.
 
-| File | Domain | Read when... |
-|------|--------|--------------|
-| `docs/items.ispec` | Items | item CRUD, types, promotion, archive, events |
-| `docs/relationships.ispec` | Relationships | tags, dependencies, cross-references |
-| `docs/views.ispec` | Views | dashboard, blocks, layout, CaptureBar |
-| `docs/sort-orders.ispec` | SortOrders | drag-and-drop ordering, context keys |
-| `docs/dividers.ispec` | Dividers | divider spec (entity, operations) |
-| `docs/dividers.md` | Dividers | divider implementation notes, architecture |
-| `docs/import.ispec` | Import | import pipeline, markdown parsing |
-| `docs/export.ispec` | Export | export pipeline, markdown format |
-| `docs/global.policy` | Global | error types, size limits, rate limits, policies |
-| `docs/arch.md` | Global | ADRs, architecture decisions, tech versions |
-| `docs/phases.md` | Global | phase scope, what's in/out, test gates |
-| `docs/context.md` | Global | problem statement, success criteria, constraints |
-| `docs/dashboard.intent` | Global | product values, boundaries, fitness criteria |
-| `docs/draganddrop.md` | SortOrders/UI | drag-and-drop implementation details |
-| `docs/annex-import-pipeline.md` | Import | import pipeline deep-dive |
-| `docs/annex-export-pipeline.md` | Export | export pipeline deep-dive |
+Read only the doc relevant to the current task.
 
-## Do Not Touch
-- `docs/*.ispec`, `docs/*.intent`, `docs/*.policy`, `docs/*.md` — spec files, source of truth
-- `src/server/src/db/migrations/` — only add new files, never edit existing ones
-
-## Sub-phases
-- [x] 1.1 Scaffolding
-- [ ] 1.2 Items domain backend
-- [ ] 1.3 Relationships domain backend (tags)
-- [ ] 1.4 Views domain backend
-- [ ] 1.5 React frontend
-- [ ] 1.6 Contract tests + Docker deploy
+| File                   | Domain       | Read when...                                                    |
+| ---------------------- | ------------ | --------------------------------------------------------------- |
+| `docs/architecture.md` | Architecture | understanding the stack, packages, ADRs, data flow              |
+| `docs/deployment.md`   | Deployment   | deploying, SSH access, Docker, VPS setup                        |
+| `docs/database.md`     | Database     | schema, migrations, limits, backup, archive policy              |
+| `docs/features.md`     | Features     | what's built, what's planned, phase status                      |
+| `docs/vision.md`       | Vision       | long-term direction, AI-as-interface, architectural decisions   |
+| `docs/api.md`          | API          | endpoints, auth, rate limiting, MCP server, error format        |
+| `docs/older-docs/`     | Archive      | old ispec/intent/policy specs — not current, for reference only |

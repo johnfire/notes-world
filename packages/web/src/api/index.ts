@@ -283,6 +283,11 @@ export type Coupon = {
 };
 
 export const admin = {
+  createUser: (data: { email: string; password: string; role: UserRole }) =>
+    request<User>("/admin/users", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
   listUsers: () => request<User[]>("/admin/users"),
   setRole: (userId: string, role: UserRole) =>
     request<User>(`/admin/users/${userId}/role`, {

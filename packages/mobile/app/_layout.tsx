@@ -1,8 +1,15 @@
 import { Stack, Redirect, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { View, ActivityIndicator } from "react-native";
+import {
+  View,
+  ActivityIndicator,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { AuthProvider, useAuth } from "../src/store/auth";
 import { colors } from "../src/theme";
+import { useUpdateCheck } from "../src/hooks/useUpdateCheck";
 
 function RootRedirect() {
   const { user, loading } = useAuth();
@@ -29,6 +36,49 @@ function RootRedirect() {
   if (user && inAuth) return <Redirect href="/(tabs)" />;
   return null;
 }
+
+function UpdateBanner() {
+  const { update, dismiss, openDownload } = useUpdateCheck();
+  if (!update) return null;
+  return (
+    <View style={styles.banner}>
+      <Text style={styles.bannerText}>A new version is available</Text>
+      <TouchableOpacity onPress={openDownload} style={styles.bannerBtn}>
+        <Text style={styles.bannerBtnText}>Download</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={dismiss} style={styles.bannerDismiss}>
+        <Text style={styles.bannerDismissText}>✕</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  banner: {
+    position: "absolute",
+    bottom: 80,
+    left: 16,
+    right: 16,
+    backgroundColor: "#1e3a5f",
+    borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    zIndex: 999,
+    gap: 10,
+  },
+  bannerText: { color: "#e0e0e0", flex: 1, fontSize: 13 },
+  bannerBtn: {
+    backgroundColor: colors.accent,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 6,
+  },
+  bannerBtnText: { color: "#fff", fontSize: 13, fontWeight: "600" },
+  bannerDismiss: { padding: 4 },
+  bannerDismissText: { color: "#888", fontSize: 14 },
+});
 
 export default function RootLayout() {
   return (
@@ -59,6 +109,7 @@ export default function RootLayout() {
         />
       </Stack>
       <RootRedirect />
+      <UpdateBanner />
     </AuthProvider>
   );
 }

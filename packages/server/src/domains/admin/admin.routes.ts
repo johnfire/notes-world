@@ -4,6 +4,7 @@ import { requireAdmin } from "../../middleware/admin";
 
 export const adminRouter = Router();
 
+adminRouter.post("/users", requireAdmin, controller.createUser);
 adminRouter.get("/users", requireAdmin, controller.listUsers);
 adminRouter.put("/users/:id/role", requireAdmin, controller.updateUserRole);
 

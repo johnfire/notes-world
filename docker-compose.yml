@@ -25,6 +25,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/templates/default.conf.template:ro
       - ./packages/web/dist:/var/www/notes-world:ro
+      - ./nginx/downloads:/var/www/notes-world/downloads:ro
     environment:
       - NGINX_HOST=${NGINX_HOST}
     depends_on:
