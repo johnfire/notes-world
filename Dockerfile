@@ -25,6 +25,21 @@ COPY packages/shared ./packages/shared
 COPY packages/web    ./packages/web
 RUN npm run build --workspace=packages/shared && npm run build --workspace=packages/web
 
+# Build MCP HTTP server
+FROM shared-builder AS mcp-builder
+COPY packages/mcp ./packages/mcp
+RUN npm run build --workspace=packages/mcp && npm prune --omit=dev
+
+# MCP HTTP image
+FROM node:20-alpine AS mcp
+WORKDIR /app
+COPY --from=mcp-builder /app/node_modules ./node_modules
+COPY --from=mcp-builder /app/packages/mcp/dist ./dist
+EXPOSE 3002
+HEALTHCHECK --interval=15s --timeout=5s --start-period=30s --retries=5 \
+  CMD wget -qO- http://localhost:3002/health || exit 1
+CMD ["node", "dist/index.js"]
+
 # Production API image — pure API server, no static files
 FROM node:20-alpine AS production
 RUN apk add --no-cache curl

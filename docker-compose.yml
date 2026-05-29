@@ -18,6 +18,19 @@ services:
         condition: service_healthy
     restart: unless-stopped
 
+  mcp:
+    build:
+      context: .
+      target: mcp
+    environment:
+      - NOTES_WORLD_API_URL=http://app:3001
+      - NOTES_WORLD_API_KEY=${NOTES_WORLD_API_KEY}
+      - MCP_API_KEY=${MCP_API_KEY}
+      - MCP_PORT=3002
+    depends_on:
+      - app
+    restart: unless-stopped
+
   nginx:
     image: nginx:alpine
     ports:

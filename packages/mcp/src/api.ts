@@ -1,9 +1,15 @@
+import { AsyncLocalStorage } from "async_hooks";
+
 const BASE_URL = process.env.NOTES_WORLD_API_URL ?? "http://localhost:3001";
-const API_KEY = process.env.NOTES_WORLD_API_KEY;
+
+// Per-request key threaded from the incoming MCP HTTP request.
+// Falls back to NOTES_WORLD_API_KEY for local dev / single-user setups.
+export const requestKeyStore = new AsyncLocalStorage<string>();
 
 function authHeaders(extra?: Record<string, string>): Record<string, string> {
   const headers: Record<string, string> = { ...extra };
-  if (API_KEY) headers["Authorization"] = `Bearer ${API_KEY}`;
+  const key = requestKeyStore.getStore() ?? process.env.NOTES_WORLD_API_KEY;
+  if (key) headers["Authorization"] = `Bearer ${key}`;
   return headers;
 }
 
