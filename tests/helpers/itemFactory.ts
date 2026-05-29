@@ -4,6 +4,7 @@ import {
   ItemType,
   ItemStatus,
   Tag,
+  TagWithCount,
 } from "../../packages/server/src/types";
 
 export const TEST_USER_ID = "00000000-0000-0000-0000-000000000001";
@@ -50,4 +51,10 @@ export function makeTag(overrides: Partial<Tag> = {}): Tag {
     updated_at: now(),
     ...overrides,
   };
+}
+
+export function makeTagWithCount(
+  overrides: Partial<TagWithCount> = {},
+): TagWithCount {
+  return { ...makeTag(overrides), item_count: 0, ...overrides };
 }
