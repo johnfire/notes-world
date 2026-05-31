@@ -1,0 +1,202 @@
+[
+  {
+    "hash": "fd029f6",
+    "message": "feat: add joyride onboarding tour for new users (closes #38)",
+    "date": "2026-05-31T15:53:04+02:00"
+  },
+  {
+    "hash": "a186a58",
+    "message": "feat: add hover tooltips with per-user toggle (closes #36)",
+    "date": "2026-05-31T15:06:34+02:00"
+  },
+  {
+    "hash": "8aa76cd",
+    "message": "fix(test): mock auth repository in relationships.service.test",
+    "date": "2026-05-31T14:47:21+02:00"
+  },
+  {
+    "hash": "ce3621b",
+    "message": "ci: build shared package before running tests",
+    "date": "2026-05-31T14:43:02+02:00"
+  },
+  {
+    "hash": "ab88ac2",
+    "message": "chore: pipeline smoke test",
+    "date": "2026-05-31T14:31:50+02:00"
+  },
+  {
+    "hash": "333a1f3",
+    "message": "ci: add test-and-deploy pipeline on push to master",
+    "date": "2026-05-31T14:19:30+02:00"
+  },
+  {
+    "hash": "7ed390b",
+    "message": "feat: pass GITHUB_TOKEN to app container for bug reporting",
+    "date": "2026-05-31T14:05:58+02:00"
+  },
+  {
+    "hash": "f7d1565",
+    "message": "docs: document bug reporting GitHub token + labels",
+    "date": "2026-05-31T13:55:35+02:00"
+  },
+  {
+    "hash": "f0592a5",
+    "message": "test(web): cover bug report submit success + error paths",
+    "date": "2026-05-31T13:55:12+02:00"
+  },
+  {
+    "hash": "c7df604",
+    "message": "feat(web): show bug report button on authenticated pages",
+    "date": "2026-05-31T13:55:11+02:00"
+  },
+  {
+    "hash": "e2937b6",
+    "message": "feat(web): add bug report button + modal",
+    "date": "2026-05-31T13:55:10+02:00"
+  },
+  {
+    "hash": "55fc2ac",
+    "message": "feat(web): add bugReports API client",
+    "date": "2026-05-31T13:55:09+02:00"
+  },
+  {
+    "hash": "ae448a6",
+    "message": "test(server): contract tests for POST /api/bug-reports",
+    "date": "2026-05-31T13:55:08+02:00"
+  },
+  {
+    "hash": "3a2b1a0",
+    "message": "feat(server): mount bug-reports router at /api/bug-reports",
+    "date": "2026-05-31T13:55:06+02:00"
+  },
+  {
+    "hash": "83bdb42",
+    "message": "feat(server): add bug-reports router with rate limit",
+    "date": "2026-05-31T13:55:05+02:00"
+  },
+  {
+    "hash": "b056c7f",
+    "message": "feat(server): add bug-reports controller with validation",
+    "date": "2026-05-31T13:55:04+02:00"
+  },
+  {
+    "hash": "bcf4904",
+    "message": "test(server): cover bug-reports service (success + 503/502/404)",
+    "date": "2026-05-31T13:55:03+02:00"
+  },
+  {
+    "hash": "aaf815c",
+    "message": "feat(server): add bug-reports service (GitHub issue creation)",
+    "date": "2026-05-31T13:55:02+02:00"
+  },
+  {
+    "hash": "7e921b6",
+    "message": "feat(server): add bug-reports domain types",
+    "date": "2026-05-31T13:55:01+02:00"
+  },
+  {
+    "hash": "ae49929",
+    "message": "feat(server): add bug-report input limits",
+    "date": "2026-05-31T13:55:00+02:00"
+  },
+  {
+    "hash": "5247836",
+    "message": "docs: add bug reporting implementation plan (#46)",
+    "date": "2026-05-31T13:36:00+02:00"
+  },
+  {
+    "hash": "bc39a6c",
+    "message": "docs: add bug reporting feature design spec (#46)",
+    "date": "2026-05-31T13:04:11+02:00"
+  },
+  {
+    "hash": "b452167",
+    "message": "fix: resolve dependabot alerts for uuid and postcss via overrides",
+    "date": "2026-05-30T16:25:02+02:00"
+  },
+  {
+    "hash": "9ce225f",
+    "message": "fix: resolve all pre-existing test failures across server and web packages",
+    "date": "2026-05-29T14:30:07+02:00"
+  },
+  {
+    "hash": "5a72e34",
+    "message": "feat: convert MCP server to HTTP transport for VPS deployment",
+    "date": "2026-05-29T14:00:17+02:00"
+  },
+  {
+    "hash": "1704b7e",
+    "message": "fix: apply security hardening across server — auth rate limit, CORS, pagination caps, IDOR, log injection, color validation",
+    "date": "2026-05-28T11:20:14+02:00"
+  },
+  {
+    "hash": "f1f9369",
+    "message": "fix: count only active items in tag usage query",
+    "date": "2026-05-28T10:44:28+02:00"
+  },
+  {
+    "hash": "cb81e62",
+    "message": "feat: replace ✕ delete button with trash icon on note and divider rows",
+    "date": "2026-05-28T10:05:12+02:00"
+  },
+  {
+    "hash": "7a0d390",
+    "message": "fix: resolve Dependabot security alerts in packages/mcp and packages/server",
+    "date": "2026-05-28T09:52:00+02:00"
+  },
+  {
+    "hash": "a2506c9",
+    "message": "chore: update code",
+    "date": "2026-05-28T09:47:33+02:00"
+  },
+  {
+    "hash": "d4d7589",
+    "message": "fix: resolve 10 Dependabot security alerts in src-desktop",
+    "date": "2026-05-28T09:43:35+02:00"
+  },
+  {
+    "hash": "7a7d10e",
+    "message": "fix: show plain text in admin password field",
+    "date": "2026-05-27T07:52:55+02:00"
+  },
+  {
+    "hash": "8557561",
+    "message": "feat: add Docs link to sidebar",
+    "date": "2026-05-25T15:51:24+02:00"
+  },
+  {
+    "hash": "91555b5",
+    "message": "feat: user guide at /docs",
+    "date": "2026-05-25T15:49:05+02:00"
+  },
+  {
+    "hash": "a4c324d",
+    "message": "feat: API key auth for MCP — SHA-256 hashed, revocable",
+    "date": "2026-05-25T15:23:38+02:00"
+  },
+  {
+    "hash": "254dd38",
+    "message": "feat: coupon system + GDPR consent on mobile signup",
+    "date": "2026-05-25T14:59:05+02:00"
+  },
+  {
+    "hash": "6aeef2e",
+    "message": "feat: add Privacy Policy + Terms pages, consent checkbox on signup",
+    "date": "2026-05-25T14:42:42+02:00"
+  },
+  {
+    "hash": "c1bcc2a",
+    "message": "refactor: language switcher → dropdown select on landing + account pages",
+    "date": "2026-05-25T11:04:05+02:00"
+  },
+  {
+    "hash": "838b92f",
+    "message": "feat: full i18n for dashboard UI (EN/DE/FR/ES/IT)",
+    "date": "2026-05-25T10:55:29+02:00"
+  },
+  {
+    "hash": "62dc5e3",
+    "message": "feat: i18n landing page (EN/DE/FR/ES/IT) + React Router",
+    "date": "2026-05-25T10:29:54+02:00"
+  }
+]

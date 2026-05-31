@@ -6,6 +6,7 @@ import * as api from "../../api";
 import { useSortableList } from "../../hooks/useSortableList";
 import { PALETTE } from "../../utils/colors";
 import { Tooltip } from "../Tooltip";
+import { ChangelogPage } from "../../pages/ChangelogPage";
 
 interface SidebarProps {
   onTagSelect: (tag: Tag | null) => void;
@@ -28,6 +29,7 @@ export function Sidebar({
   const [newName, setNewName] = useState("");
   const [saving, setSaving] = useState(false);
   const [createError, setCreateError] = useState<string | null>(null);
+  const [changelogOpen, setChangelogOpen] = useState(false);
   const createInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -322,6 +324,31 @@ export function Sidebar({
         </svg>
         {t("app.sidebar.docs")}
       </a>
+
+      {/* What's new */}
+      <button
+        onClick={() => setChangelogOpen(true)}
+        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-500 hover:text-white hover:bg-surface-700 transition-colors border-t border-surface-500 shrink-0"
+      >
+        <svg
+          className="w-3.5 h-3.5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M13 10V3L4 14h7v7l9-11h-7z"
+          />
+        </svg>
+        What's new
+      </button>
+
+      {changelogOpen && (
+        <ChangelogPage onClose={() => setChangelogOpen(false)} />
+      )}
 
       {/* Trash */}
       <button

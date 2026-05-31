@@ -8,6 +8,7 @@ import { UpgradePage } from "./UpgradePage";
 import { LANGUAGES } from "../i18n/languages";
 import { useTooltips } from "../hooks/useTooltips";
 import { useOnboardingTour } from "../hooks/useOnboardingTour";
+import { ChangelogPage } from "./ChangelogPage";
 
 interface FormState {
   loading: boolean;
@@ -23,6 +24,7 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
     useAuth();
   const tooltips = useTooltips();
   const tour = useOnboardingTour();
+  const [changelogOpen, setChangelogOpen] = useState(false);
   const [upgradeOpen, setUpgradeOpen] = useState(false);
   const [portalLoading, setPortalLoading] = useState(false);
 
@@ -217,7 +219,25 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
                 Restart tour
               </button>
             </div>
+            <div className="flex items-center justify-between mt-4">
+              <div>
+                <p className="text-sm text-gray-200">What's new</p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  Recent updates and changes
+                </p>
+              </div>
+              <button
+                onClick={() => setChangelogOpen(true)}
+                className="btn-ghost text-xs border border-surface-400 px-3 py-1.5 shrink-0 ml-4"
+              >
+                View changelog
+              </button>
+            </div>
           </section>
+
+          {changelogOpen && (
+            <ChangelogPage onClose={() => setChangelogOpen(false)} />
+          )}
 
           {/* Language */}
           <section>
