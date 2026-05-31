@@ -6,6 +6,7 @@ import { ImportModal } from "../ImportModal";
 import { AccountPage } from "../../pages/AccountPage";
 import { AdminPage } from "../../pages/AdminPage";
 import { UpgradePage } from "../../pages/UpgradePage";
+import { Tooltip } from "../Tooltip";
 
 export function ActionBar() {
   const { state, search, clearSearch, refresh } = useApp();
@@ -124,54 +125,64 @@ export function ActionBar() {
       )}
 
       {/* Export / Import / Upgrade / Admin / Account buttons */}
-      <button
-        onClick={() => (window.location.href = "/api/export/all")}
-        className="btn-ghost text-xs shrink-0"
-      >
-        {t("app.actions.export")}
-      </button>
-      <button
-        onClick={() => setImportOpen(true)}
-        className="btn-ghost text-xs shrink-0"
-      >
-        {t("app.actions.import")}
-      </button>
-      {user?.role === "free" && (
+      <Tooltip text="Download all your data as JSON">
         <button
-          onClick={() => setUpgradeOpen(true)}
-          className="text-xs shrink-0 px-2 py-1 rounded bg-accent/20 text-accent border border-accent/30 hover:bg-accent/30 transition-colors"
+          onClick={() => (window.location.href = "/api/export/all")}
+          className="btn-ghost text-xs shrink-0"
         >
-          {t("app.actions.upgrade")}
+          {t("app.actions.export")}
         </button>
+      </Tooltip>
+      <Tooltip text="Import notes from a file">
+        <button
+          onClick={() => setImportOpen(true)}
+          className="btn-ghost text-xs shrink-0"
+        >
+          {t("app.actions.import")}
+        </button>
+      </Tooltip>
+      {user?.role === "free" && (
+        <Tooltip text="Unlock unlimited tags">
+          <button
+            onClick={() => setUpgradeOpen(true)}
+            className="text-xs shrink-0 px-2 py-1 rounded bg-accent/20 text-accent border border-accent/30 hover:bg-accent/30 transition-colors"
+          >
+            {t("app.actions.upgrade")}
+          </button>
+        </Tooltip>
       )}
       {user?.role === "admin" && (
-        <button
-          onClick={() => setAdminOpen(true)}
-          className="btn-ghost text-xs shrink-0 text-yellow-400"
-          title="Admin panel"
-        >
-          Admin
-        </button>
+        <Tooltip text="Open admin panel">
+          <button
+            onClick={() => setAdminOpen(true)}
+            className="btn-ghost text-xs shrink-0 text-yellow-400"
+            title="Admin panel"
+          >
+            Admin
+          </button>
+        </Tooltip>
       )}
-      <button
-        onClick={() => setAccountOpen(true)}
-        className="btn-ghost text-xs shrink-0"
-        title="Account"
-      >
-        <svg
-          className="w-4 h-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+      <Tooltip text="Account & settings">
+        <button
+          onClick={() => setAccountOpen(true)}
+          className="btn-ghost text-xs shrink-0"
+          title="Account"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-          />
-        </svg>
-      </button>
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+        </button>
+      </Tooltip>
 
       {importOpen && (
         <ImportModal

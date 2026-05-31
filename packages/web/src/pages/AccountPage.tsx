@@ -6,6 +6,7 @@ import { billing, apiKeys } from "../api";
 import type { ApiKey } from "../api";
 import { UpgradePage } from "./UpgradePage";
 import { LANGUAGES } from "../i18n/languages";
+import { useTooltips } from "../hooks/useTooltips";
 
 interface FormState {
   loading: boolean;
@@ -19,6 +20,7 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
   const { t } = useTranslation();
   const { user, logout, changeEmail, changePassword, deleteAccount } =
     useAuth();
+  const tooltips = useTooltips();
   const [upgradeOpen, setUpgradeOpen] = useState(false);
   const [portalLoading, setPortalLoading] = useState(false);
 
@@ -171,6 +173,32 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
           )}
 
           {upgradeOpen && <UpgradePage onClose={() => setUpgradeOpen(false)} />}
+
+          {/* Preferences */}
+          <section>
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
+              {t("app.account.preferences")}
+            </h3>
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-gray-200">
+                  {t("app.account.tooltipsToggle")}
+                </p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  {t("app.account.tooltipsDesc")}
+                </p>
+              </div>
+              <button
+                onClick={tooltips.toggle}
+                className={`relative w-10 h-5 rounded-full transition-colors shrink-0 ml-4 ${tooltips.enabled ? "bg-accent" : "bg-surface-600"}`}
+                aria-pressed={tooltips.enabled}
+              >
+                <span
+                  className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${tooltips.enabled ? "translate-x-5" : "translate-x-0.5"}`}
+                />
+              </button>
+            </div>
+          </section>
 
           {/* Language */}
           <section>

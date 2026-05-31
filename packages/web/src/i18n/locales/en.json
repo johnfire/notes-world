@@ -63,11 +63,7 @@
       "price": "€5",
       "period": "/ month",
       "alt": "or €45 / year — save 25%",
-      "features": [
-        "Everything in Free",
-        "Unlimited tags",
-        "Priority support"
-      ],
+      "features": ["Everything in Free", "Unlimited tags", "Priority support"],
       "cta": "Start free trial"
     }
   },
@@ -277,7 +273,10 @@
       "deleting": "Deleting…",
       "deleteConfirm": "Delete your account permanently? This cannot be undone.",
       "failed": "Failed",
-      "language": "Language"
+      "language": "Language",
+      "preferences": "Preferences",
+      "tooltipsToggle": "Show tooltips",
+      "tooltipsDesc": "Hover hints on buttons and icons"
     }
   }
 }

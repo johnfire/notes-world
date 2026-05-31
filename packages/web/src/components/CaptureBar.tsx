@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useApp } from "../context/AppContext";
 import * as api from "../api";
+import { Tooltip } from "./Tooltip";
 
 interface CaptureBarProps {
   autoTagId?: string;
@@ -57,19 +58,21 @@ export function CaptureBar({ autoTagId, autoTagName }: CaptureBarProps) {
 
   return (
     <div className="h-10 bg-surface-700 border-b border-surface-500 flex items-center px-4 gap-2">
-      <svg
-        className="w-3.5 h-3.5 text-gray-600 shrink-0"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M12 4v16m8-8H4"
-        />
-      </svg>
+      <Tooltip text="Press C to focus · Enter to save" position="bottom">
+        <svg
+          className="w-3.5 h-3.5 text-gray-600 shrink-0"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 4v16m8-8H4"
+          />
+        </svg>
+      </Tooltip>
       <input
         ref={inputRef}
         type="text"

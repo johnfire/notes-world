@@ -5,6 +5,7 @@ import { Tag } from "../../types";
 import * as api from "../../api";
 import { useSortableList } from "../../hooks/useSortableList";
 import { PALETTE } from "../../utils/colors";
+import { Tooltip } from "../Tooltip";
 
 interface SidebarProps {
   onTagSelect: (tag: Tag | null) => void;
@@ -118,25 +119,27 @@ export function Sidebar({
   if (collapsed) {
     return (
       <aside className="w-10 bg-surface-900 border-r border-surface-500 flex flex-col items-center py-3 shrink-0">
-        <button
-          onClick={() => setCollapsed(false)}
-          className="text-gray-500 hover:text-white p-1"
-          title={t("app.sidebar.expandSidebar")}
-        >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        <Tooltip text={t("app.sidebar.expandSidebar")} position="bottom">
+          <button
+            onClick={() => setCollapsed(false)}
+            className="text-gray-500 hover:text-white p-1"
+            title={t("app.sidebar.expandSidebar")}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </button>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </Tooltip>
       </aside>
     );
   }
@@ -168,34 +171,38 @@ export function Sidebar({
             {t("app.sidebar.tags")}
           </span>
           {!adding && (
-            <button
-              onClick={() => setAdding(true)}
-              className="text-gray-500 hover:text-accent transition-colors text-sm leading-none"
-              title={t("app.sidebar.createTag")}
-            >
-              +
-            </button>
+            <Tooltip text={t("app.sidebar.createTag")} position="bottom">
+              <button
+                onClick={() => setAdding(true)}
+                className="text-gray-500 hover:text-accent transition-colors text-sm leading-none"
+                title={t("app.sidebar.createTag")}
+              >
+                +
+              </button>
+            </Tooltip>
           )}
         </div>
-        <button
-          onClick={() => setCollapsed(true)}
-          className="text-gray-500 hover:text-white"
-          title={t("app.sidebar.collapseSidebar")}
-        >
-          <svg
-            className="w-4 h-4"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        <Tooltip text={t("app.sidebar.collapseSidebar")} position="bottom">
+          <button
+            onClick={() => setCollapsed(true)}
+            className="text-gray-500 hover:text-white"
+            title={t("app.sidebar.collapseSidebar")}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+        </Tooltip>
       </div>
 
       {/* Inline tag creation */}
@@ -265,25 +272,27 @@ export function Sidebar({
           </svg>
           {t("app.sidebar.allItems")}
         </button>
-        <button
-          onClick={() => (window.location.href = "/api/export/untagged")}
-          className="text-gray-600 hover:text-gray-300 transition-colors px-2 py-2 text-xs shrink-0"
-          title={t("app.sidebar.exportUntagged")}
-        >
-          <svg
-            className="w-3.5 h-3.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+        <Tooltip text={t("app.sidebar.exportUntagged")} position="bottom">
+          <button
+            onClick={() => (window.location.href = "/api/export/untagged")}
+            className="text-gray-600 hover:text-gray-300 transition-colors px-2 py-2 text-xs shrink-0"
+            title={t("app.sidebar.exportUntagged")}
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-            />
-          </svg>
-        </button>
+            <svg
+              className="w-3.5 h-3.5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+              />
+            </svg>
+          </button>
+        </Tooltip>
       </div>
 
       <div className="flex-1 overflow-y-auto">{renderTagList()}</div>
