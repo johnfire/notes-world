@@ -1,0 +1,71 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run server tests
+        run: npm test --workspace=packages/server
+        env:
+          NODE_ENV: test
+          POSTGRES_PASSWORD: ci-placeholder
+          JWT_SECRET: ci-placeholder
+
+      - name: Run web tests
+        run: npm test --workspace=packages/web
+
+      - name: Build web
+        run: npm run build --workspace=packages/web
+
+      - name: Deploy to VPS
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan 82.165.32.162 >> ~/.ssh/known_hosts
+
+          # Sync source (as chris, .env excluded so secrets stay on server)
+          rsync -az --delete --no-group \
+            --exclude='node_modules' \
+            --exclude='.git' \
+            --exclude='packages/web/dist' \
+            --exclude='packages/*/dist' \
+            --exclude='backups' \
+            --exclude='.env' \
+            -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
+            ./ chris@82.165.32.162:/opt/notes-world/
+
+          # Sync built SPA (as chris)
+          rsync -az --no-group \
+            -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
+            packages/web/dist/ \
+            chris@82.165.32.162:/opt/notes-world/packages/web/dist/
+
+          # Rebuild and restart containers (as claude)
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no \
+            claude@82.165.32.162 \
+            "cd /opt/notes-world && docker compose up --build -d 2>&1"
+
+      - name: Verify deploy
+        run: |
+          sleep 10
+          ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no \
+            claude@82.165.32.162 \
+            "docker compose -f /opt/notes-world/docker-compose.yml logs app --tail=5 2>&1"
