@@ -11,20 +11,26 @@ jest.mock(
   "../../../../../packages/server/src/domains/relationships/relationships.repository",
 );
 jest.mock("../../../../../packages/server/src/domains/items/items.repository");
+jest.mock("../../../../../packages/server/src/domains/auth/auth.repository");
 jest.mock("../../../../../packages/server/src/events/eventBus", () => ({
   eventBus: { emit: jest.fn() },
 }));
 
 import * as repo from "../../../../../packages/server/src/domains/relationships/relationships.repository";
 import * as itemRepo from "../../../../../packages/server/src/domains/items/items.repository";
+import * as authRepo from "../../../../../packages/server/src/domains/auth/auth.repository";
 import * as service from "../../../../../packages/server/src/domains/relationships/relationships.service";
 import { eventBus } from "../../../../../packages/server/src/events/eventBus";
 
 const mockRepo = repo as jest.Mocked<typeof repo>;
 const mockItemRepo = itemRepo as jest.Mocked<typeof itemRepo>;
+const mockAuthRepo = authRepo as jest.Mocked<typeof authRepo>;
 const mockBus = eventBus.emit as jest.Mock;
 
-beforeEach(() => jest.clearAllMocks());
+beforeEach(() => {
+  jest.clearAllMocks();
+  mockAuthRepo.findUserById.mockResolvedValue(null);
+});
 
 // ── createTag ─────────────────────────────────────────────────────────────────
 
