@@ -18,6 +18,7 @@ import { IdeasView } from "./components/IdeasView";
 import { TasksView } from "./components/TasksView";
 import { CaptureBar } from "./components/CaptureBar";
 import { TrashView } from "./components/TrashView";
+import { BugReportButton } from "./components/BugReportButton";
 import { Tag } from "./types";
 
 function DashboardView() {
@@ -89,6 +90,7 @@ function DashboardView() {
         <main className="flex-1 overflow-hidden">{renderMain()}</main>
       </div>
       <ItemDrawer />
+      <BugReportButton />
     </div>
   );
 }
