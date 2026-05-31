@@ -362,3 +362,13 @@ export const importApi = {
   get: (id: string) =>
     request<{ job: ImportJob; records: ImportRecord[] }>(`/import/${id}`),
 };
+
+// ── Bug Reports ────────────────────────────────────────────────────────────────
+
+export const bugReports = {
+  submit: (data: { description: string; page?: string; userAgent?: string }) =>
+    request<{ number: number; url: string }>("/bug-reports", {
+      method: "POST",
+      body: JSON.stringify(data),
+    }),
+};
