@@ -7,6 +7,7 @@ import type { ApiKey } from "../api";
 import { UpgradePage } from "./UpgradePage";
 import { LANGUAGES } from "../i18n/languages";
 import { useTooltips } from "../hooks/useTooltips";
+import { useOnboardingTour } from "../hooks/useOnboardingTour";
 
 interface FormState {
   loading: boolean;
@@ -21,6 +22,7 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
   const { user, logout, changeEmail, changePassword, deleteAccount } =
     useAuth();
   const tooltips = useTooltips();
+  const tour = useOnboardingTour();
   const [upgradeOpen, setUpgradeOpen] = useState(false);
   const [portalLoading, setPortalLoading] = useState(false);
 
@@ -196,6 +198,23 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
                 <span
                   className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${tooltips.enabled ? "translate-x-5" : "translate-x-0.5"}`}
                 />
+              </button>
+            </div>
+            <div className="flex items-center justify-between mt-4">
+              <div>
+                <p className="text-sm text-gray-200">App tour</p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  Replay the new-user walkthrough
+                </p>
+              </div>
+              <button
+                onClick={() => {
+                  tour.restart();
+                  onClose();
+                }}
+                className="btn-ghost text-xs border border-surface-400 px-3 py-1.5 shrink-0 ml-4"
+              >
+                Restart tour
               </button>
             </div>
           </section>

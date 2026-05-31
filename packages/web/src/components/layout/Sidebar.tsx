@@ -163,7 +163,10 @@ export function Sidebar({
   }
 
   return (
-    <aside className="w-1/4 bg-surface-900 border-r border-surface-500 flex flex-col shrink-0 overflow-hidden">
+    <aside
+      className="w-1/4 bg-surface-900 border-r border-surface-500 flex flex-col shrink-0 overflow-hidden"
+      data-tour="sidebar"
+    >
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-surface-500">
         <div className="flex items-center gap-2">

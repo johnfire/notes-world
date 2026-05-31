@@ -43,6 +43,7 @@ export function BugReportButton() {
       <button
         onClick={() => setOpen(true)}
         title="Report a bug"
+        data-tour="bug-report"
         className="fixed bottom-4 right-4 z-40 px-3 py-2 text-xs rounded-full bg-surface-700 border border-surface-500 text-gray-300 shadow-lg hover:bg-surface-600 hover:text-white transition-colors"
       >
         Report a bug

@@ -12,7 +12,10 @@ interface ViewBarProps {
 export function ViewBar({ currentView, onViewChange }: ViewBarProps) {
   const { t } = useTranslation();
   return (
-    <nav className="h-9 bg-surface-800 border-b border-surface-500 flex items-center px-4 gap-1 shrink-0">
+    <nav
+      className="h-9 bg-surface-800 border-b border-surface-500 flex items-center px-4 gap-1 shrink-0"
+      data-tour="viewbar"
+    >
       {VIEW_IDS.map((id) => (
         <button
           key={id}

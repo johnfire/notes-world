@@ -57,7 +57,10 @@ export function CaptureBar({ autoTagId, autoTagName }: CaptureBarProps) {
     : t("app.capture.placeholder");
 
   return (
-    <div className="h-10 bg-surface-700 border-b border-surface-500 flex items-center px-4 gap-2">
+    <div
+      className="h-10 bg-surface-700 border-b border-surface-500 flex items-center px-4 gap-2"
+      data-tour="capture"
+    >
       <Tooltip text="Press C to focus · Enter to save" position="bottom">
         <svg
           className="w-3.5 h-3.5 text-gray-600 shrink-0"

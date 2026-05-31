@@ -19,6 +19,7 @@ import { TasksView } from "./components/TasksView";
 import { CaptureBar } from "./components/CaptureBar";
 import { TrashView } from "./components/TrashView";
 import { BugReportButton } from "./components/BugReportButton";
+import { OnboardingTour } from "./components/OnboardingTour";
 import { Tag } from "./types";
 
 function DashboardView() {
@@ -91,6 +92,7 @@ function DashboardView() {
       </div>
       <ItemDrawer />
       <BugReportButton />
+      <OnboardingTour />
     </div>
   );
 }

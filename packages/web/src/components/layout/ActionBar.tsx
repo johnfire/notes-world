@@ -63,7 +63,7 @@ export function ActionBar() {
       </div>
 
       {/* Search */}
-      <div className="flex-1 max-w-xl relative">
+      <div className="flex-1 max-w-xl relative" data-tour="search">
         <svg
           className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500"
           fill="none"
@@ -167,6 +167,7 @@ export function ActionBar() {
           onClick={() => setAccountOpen(true)}
           className="btn-ghost text-xs shrink-0"
           title="Account"
+          data-tour="account"
         >
           <svg
             className="w-4 h-4"
