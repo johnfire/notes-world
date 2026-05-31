@@ -73,6 +73,20 @@ ssh -i ~/.ssh/id_ed25519 claude@82.165.32.162 \
 
 Look for `Server running on port 3001 (production)` and any migration output.
 
+## Bug reporting (GitHub issues)
+
+The in-app "Report a bug" button files a GitHub issue in `johnfire/notes-world`.
+
+- Create a **fine-grained PAT** scoped to `johnfire/notes-world` only, with
+  **Issues: Read and write** permission.
+- Set it on the server container as `GITHUB_TOKEN`. Optionally override the
+  target repo with `GITHUB_REPO` (`owner/repo`, default `johnfire/notes-world`).
+- If `GITHUB_TOKEN` is unset, the endpoint returns `503` and the feature is
+  simply disabled — the server still runs.
+- Ensure the `bug` and `user-reported` labels exist in the repo (GitHub ships a
+  `bug` label by default; create `user-reported` once):
+  `gh label create user-reported --repo johnfire/notes-world --color ededed`
+
 ## Notes
 
 - Node is NOT installed on the VPS host — build web locally before rsyncing
