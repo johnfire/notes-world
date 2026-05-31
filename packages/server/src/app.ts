@@ -15,6 +15,7 @@ import { exportRouter } from "./domains/export/export.routes";
 import { authRouter } from "./domains/auth/auth.routes";
 import { billingRouter } from "./domains/billing/billing.routes";
 import { adminRouter } from "./domains/admin/admin.routes";
+import { bugReportsRouter } from "./domains/bug-reports/bug-reports.routes";
 import { requireAuth } from "./middleware/auth";
 import { errorHandler } from "./middleware/errorHandler";
 
@@ -114,6 +115,7 @@ export function createApp() {
   app.use("/api/sort-orders", sortOrdersRouter);
   app.use("/api/export", exportRouter);
   app.use("/api/admin", adminRouter);
+  app.use("/api/bug-reports", bugReportsRouter);
 
   // Serve React build in production
   if (process.env.NODE_ENV === "production") {
