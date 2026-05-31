@@ -1,8 +1,8 @@
-import 'dotenv/config';
-import { validateEnv } from './config/env';
-import { createApp, setStartedAt } from './app';
-import { getPool } from './db/client';
-import { runMigrations } from './db/migrate';
+import "dotenv/config";
+import { validateEnv } from "./config/env";
+import { createApp, setStartedAt } from "./app";
+import { getPool } from "./db/client";
+import { runMigrations } from "./db/migrate";
 
 // Validate environment before anything else
 const env = validateEnv();
@@ -12,12 +12,12 @@ async function start() {
 
   // Verify DB connection
   try {
-    await pool.query('SELECT 1');
+    await pool.query("SELECT 1");
     // eslint-disable-next-line no-console
-    console.log('Database connection established');
+    console.log("Database connection established");
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error('Failed to connect to database:', err);
+    console.error("Failed to connect to database:", err);
     process.exit(1);
   }
 
@@ -33,4 +33,4 @@ async function start() {
   });
 }
 
-start();
+start(); // pipeline test 2026-05-31
