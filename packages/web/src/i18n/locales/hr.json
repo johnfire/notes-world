@@ -60,9 +60,9 @@
     "pro": {
       "badge": "Pro",
       "name": "Pro",
-      "price": "€5",
+      "price": "€3",
       "period": "/ mjesec",
-      "alt": "ili €45 / godina — uštedite 25 %",
+      "alt": "ili €30 / godišnje — 2 mjeseca besplatno",
       "features": [
         "Sve iz besplatnog plana",
         "Neograničeni tagovi",
@@ -234,7 +234,10 @@
         "empty": "Još nema tagova",
         "itemCount": "{{count}} stavki"
       },
-      "notes": { "title": "Bilješke", "empty": "Još nema bilješki" },
+      "notes": {
+        "title": "Bilješke",
+        "empty": "Još nema bilješki"
+      },
       "actionableTasks": {
         "title": "Zadaci koji se mogu izvršiti",
         "empty": "Nema zadataka koji se mogu izvršiti"

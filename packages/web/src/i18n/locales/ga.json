@@ -60,9 +60,9 @@
     "pro": {
       "badge": "Pro",
       "name": "Pro",
-      "price": "€5",
+      "price": "€3",
       "period": "/ mí",
-      "alt": "nó €45 / bliain — sábháil 25%",
+      "alt": "nó €30 / bliain — 2 mhí saor in aisce",
       "features": [
         "Gach rud sa phlean saor in aisce",
         "Clibeanna gan teorainn",
@@ -136,7 +136,11 @@
       "results_other": "{{count}} toradh do \"{{query}}\"",
       "noResults": "Níor mheaitseáil aon mhír le do chuardach"
     },
-    "views": { "dashboard": "Deais", "tasks": "Cúraimí", "ideas": "Smaointe" },
+    "views": {
+      "dashboard": "Deais",
+      "tasks": "Cúraimí",
+      "ideas": "Smaointe"
+    },
     "sidebar": {
       "tags": "Clibeanna",
       "allItems": "Gach Mír",
@@ -230,7 +234,10 @@
         "empty": "Gan clibeanna fós",
         "itemCount": "{{count}} míreanna"
       },
-      "notes": { "title": "Nótaí", "empty": "Gan nótaí fós" },
+      "notes": {
+        "title": "Nótaí",
+        "empty": "Gan nótaí fós"
+      },
       "actionableTasks": {
         "title": "Cúraimí Inghníomhaithe",
         "empty": "Gan cúraimí inghníomhaithe"

@@ -60,9 +60,9 @@
     "pro": {
       "badge": "Pro",
       "name": "Pro",
-      "price": "€5",
+      "price": "€3",
       "period": "/ xahar",
-      "alt": "jew €45 / sena — iffranka 25%",
+      "alt": "jew €30 / sena — 2 xhur b'xejn",
       "features": [
         "Kollox fil-pjan b'xejn",
         "Tagi mingħajr limitu",
@@ -136,7 +136,11 @@
       "results_other": "{{count}} riżultati għal \"{{query}}\"",
       "noResults": "L-ebda element ma jaqbel mat-tfittxija tiegħek"
     },
-    "views": { "dashboard": "Dashboard", "tasks": "Kompiti", "ideas": "Ideat" },
+    "views": {
+      "dashboard": "Dashboard",
+      "tasks": "Kompiti",
+      "ideas": "Ideat"
+    },
     "sidebar": {
       "tags": "Tagi",
       "allItems": "L-Elementi Kollha",
@@ -230,7 +234,10 @@
         "empty": "Għadhom ma hemm l-ebda tag",
         "itemCount": "{{count}} elementi"
       },
-      "notes": { "title": "Noti", "empty": "Għadhom ma hemm l-ebda nota" },
+      "notes": {
+        "title": "Noti",
+        "empty": "Għadhom ma hemm l-ebda nota"
+      },
       "actionableTasks": {
         "title": "Kompiti li Jistgħu Jitwettqu",
         "empty": "L-ebda kompitu li jista' jitwettaq"

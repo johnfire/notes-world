@@ -60,9 +60,9 @@
     "pro": {
       "badge": "Pro",
       "name": "Pro",
-      "price": "€5",
+      "price": "€3",
       "period": "/ maand",
-      "alt": "of €45 / jaar — bespaar 25%",
+      "alt": "of €30 / jaar — 2 maanden gratis",
       "features": [
         "Alles in Gratis",
         "Onbeperkte tags",
@@ -136,7 +136,11 @@
       "results_other": "{{count}} resultaten voor \"{{query}}\"",
       "noResults": "Geen items gevonden voor jouw zoekopdracht"
     },
-    "views": { "dashboard": "Dashboard", "tasks": "Taken", "ideas": "Ideeën" },
+    "views": {
+      "dashboard": "Dashboard",
+      "tasks": "Taken",
+      "ideas": "Ideeën"
+    },
     "sidebar": {
       "tags": "Tags",
       "allItems": "Alle items",
@@ -230,7 +234,10 @@
         "empty": "Nog geen tags",
         "itemCount": "{{count}} items"
       },
-      "notes": { "title": "Notities", "empty": "Nog geen notities" },
+      "notes": {
+        "title": "Notities",
+        "empty": "Nog geen notities"
+      },
       "actionableTasks": {
         "title": "Uitvoerbare taken",
         "empty": "Geen uitvoerbare taken"

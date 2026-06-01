@@ -60,10 +60,14 @@
     "pro": {
       "badge": "Pro",
       "name": "Pro",
-      "price": "€5",
+      "price": "€3",
       "period": "/ kuukausi",
-      "alt": "tai €45 / vuosi — säästä 25 %",
-      "features": ["Kaikki ilmaisessa", "Rajattomat tagit", "Prioriteettituki"],
+      "alt": "tai €30 / vuosi — 2 kuukautta ilmaiseksi",
+      "features": [
+        "Kaikki ilmaisessa",
+        "Rajattomat tagit",
+        "Prioriteettituki"
+      ],
       "cta": "Aloita ilmainen kokeilu"
     }
   },
@@ -230,7 +234,10 @@
         "empty": "Ei tageja vielä",
         "itemCount": "{{count}} elementtiä"
       },
-      "notes": { "title": "Muistiinpanot", "empty": "Ei muistiinpanoja vielä" },
+      "notes": {
+        "title": "Muistiinpanot",
+        "empty": "Ei muistiinpanoja vielä"
+      },
       "actionableTasks": {
         "title": "Toiminnalliset tehtävät",
         "empty": "Ei toiminnallisia tehtäviä"

@@ -60,9 +60,9 @@
     "pro": {
       "badge": "Pro",
       "name": "Pro",
-      "price": "€5",
+      "price": "€3",
       "period": "/ mēnesī",
-      "alt": "vai €45 / gadā — ietaupi 25%",
+      "alt": "vai €30 / gadā — 2 mēneši bez maksas",
       "features": [
         "Viss bezmaksas plānā",
         "Neierobežotas atzīmes",
@@ -234,7 +234,10 @@
         "empty": "Vēl nav atzīmju",
         "itemCount": "{{count}} vienumi"
       },
-      "notes": { "title": "Piezīmes", "empty": "Vēl nav piezīmju" },
+      "notes": {
+        "title": "Piezīmes",
+        "empty": "Vēl nav piezīmju"
+      },
       "actionableTasks": {
         "title": "Izpildāmie uzdevumi",
         "empty": "Nav izpildāmu uzdevumu"

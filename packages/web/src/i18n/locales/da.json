@@ -60,10 +60,14 @@
     "pro": {
       "badge": "Pro",
       "name": "Pro",
-      "price": "€5",
+      "price": "€3",
       "period": "/ måned",
-      "alt": "eller €45 / år — spar 25%",
-      "features": ["Alt i Gratis", "Ubegrænsede tags", "Prioritetssupport"],
+      "alt": "eller €30 / år — 2 måneder gratis",
+      "features": [
+        "Alt i Gratis",
+        "Ubegrænsede tags",
+        "Prioritetssupport"
+      ],
       "cta": "Start gratis prøveperiode"
     }
   },
@@ -132,7 +136,11 @@
       "results_other": "{{count}} resultater for \"{{query}}\"",
       "noResults": "Ingen elementer matchede din søgning"
     },
-    "views": { "dashboard": "Dashboard", "tasks": "Opgaver", "ideas": "Idéer" },
+    "views": {
+      "dashboard": "Dashboard",
+      "tasks": "Opgaver",
+      "ideas": "Idéer"
+    },
     "sidebar": {
       "tags": "Tags",
       "allItems": "Alle elementer",
@@ -226,7 +234,10 @@
         "empty": "Ingen tags endnu",
         "itemCount": "{{count}} elementer"
       },
-      "notes": { "title": "Noter", "empty": "Ingen noter endnu" },
+      "notes": {
+        "title": "Noter",
+        "empty": "Ingen noter endnu"
+      },
       "actionableTasks": {
         "title": "Handlingsklare opgaver",
         "empty": "Ingen handlingsklare opgaver"

@@ -60,10 +60,14 @@
     "pro": {
       "badge": "Pro",
       "name": "Pro",
-      "price": "€5",
+      "price": "€3",
       "period": "/ 月",
-      "alt": "或 €45 / 年——节省 25%",
-      "features": ["包含免费版全部功能", "无限标签", "优先支持"],
+      "alt": "或 €30 / 年 — 免费使用2个月",
+      "features": [
+        "包含免费版全部功能",
+        "无限标签",
+        "优先支持"
+      ],
       "cta": "开始免费试用"
     }
   },
@@ -132,7 +136,11 @@
       "results_other": "\"{{query}}\" 有 {{count}} 个结果",
       "noResults": "没有匹配的条目"
     },
-    "views": { "dashboard": "仪表板", "tasks": "任务", "ideas": "想法" },
+    "views": {
+      "dashboard": "仪表板",
+      "tasks": "任务",
+      "ideas": "想法"
+    },
     "sidebar": {
       "tags": "标签",
       "allItems": "全部条目",
@@ -226,8 +234,14 @@
         "empty": "暂无标签",
         "itemCount": "{{count}} 个条目"
       },
-      "notes": { "title": "笔记", "empty": "暂无笔记" },
-      "actionableTasks": { "title": "可执行任务", "empty": "没有可执行任务" }
+      "notes": {
+        "title": "笔记",
+        "empty": "暂无笔记"
+      },
+      "actionableTasks": {
+        "title": "可执行任务",
+        "empty": "没有可执行任务"
+      }
     },
     "account": {
       "title": "账户",

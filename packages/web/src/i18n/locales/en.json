@@ -60,10 +60,14 @@
     "pro": {
       "badge": "Pro",
       "name": "Pro",
-      "price": "€5",
+      "price": "€3",
       "period": "/ month",
-      "alt": "or €45 / year — save 25%",
-      "features": ["Everything in Free", "Unlimited tags", "Priority support"],
+      "alt": "or €30 / year — 2 months free",
+      "features": [
+        "Everything in Free",
+        "Unlimited tags",
+        "Priority support"
+      ],
       "cta": "Start free trial"
     }
   },

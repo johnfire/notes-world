@@ -60,9 +60,9 @@
     "pro": {
       "badge": "Pro",
       "name": "Pro",
-      "price": "€5",
+      "price": "€3",
       "period": "/ mês",
-      "alt": "ou €45 / ano — poupe 25%",
+      "alt": "ou €30 / ano — 2 meses grátis",
       "features": [
         "Tudo do plano Grátis",
         "Tags ilimitadas",
@@ -234,7 +234,10 @@
         "empty": "Ainda sem tags",
         "itemCount": "{{count}} itens"
       },
-      "notes": { "title": "Notas", "empty": "Ainda sem notas" },
+      "notes": {
+        "title": "Notas",
+        "empty": "Ainda sem notas"
+      },
       "actionableTasks": {
         "title": "Tarefas Acionáveis",
         "empty": "Sem tarefas acionáveis"

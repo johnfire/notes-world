@@ -144,7 +144,7 @@ export function UpgradePage({
               onClick={() => startCheckout("monthly")}
               disabled={loading !== null}
             >
-              <span className="text-white font-semibold text-lg">€5</span>
+              <span className="text-white font-semibold text-lg">€3</span>
               <span className="text-gray-400 text-xs">per month</span>
               {loading === "monthly" && (
                 <div className="w-3 h-3 border border-accent border-t-transparent rounded-full animate-spin mt-1" />
@@ -157,9 +157,9 @@ export function UpgradePage({
               disabled={loading !== null}
             >
               <span className="absolute -top-2 right-2 bg-accent text-white text-xs px-1.5 py-0.5 rounded-full font-medium">
-                Save 25%
+                2 months free
               </span>
-              <span className="text-white font-semibold text-lg">€45</span>
+              <span className="text-white font-semibold text-lg">€30</span>
               <span className="text-gray-400 text-xs">per year</span>
               {loading === "annual" && (
                 <div className="w-3 h-3 border border-accent border-t-transparent rounded-full animate-spin mt-1" />

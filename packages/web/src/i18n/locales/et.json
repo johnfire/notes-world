@@ -60,9 +60,9 @@
     "pro": {
       "badge": "Pro",
       "name": "Pro",
-      "price": "€5",
+      "price": "€3",
       "period": "/ kuu",
-      "alt": "või €45 / aasta — säästa 25%",
+      "alt": "või €30 / aastas — 2 kuud tasuta",
       "features": [
         "Kõik tasuta plaanis",
         "Piiramatu arv silte",
@@ -234,7 +234,10 @@
         "empty": "Silte pole veel",
         "itemCount": "{{count}} elementi"
       },
-      "notes": { "title": "Märkmed", "empty": "Märkmeid pole veel" },
+      "notes": {
+        "title": "Märkmed",
+        "empty": "Märkmeid pole veel"
+      },
       "actionableTasks": {
         "title": "Teostatavad ülesanded",
         "empty": "Teostatavaid ülesandeid pole"

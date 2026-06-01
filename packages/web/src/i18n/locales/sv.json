@@ -60,10 +60,14 @@
     "pro": {
       "badge": "Pro",
       "name": "Pro",
-      "price": "€5",
+      "price": "€3",
       "period": "/ månad",
-      "alt": "eller €45 / år — spara 25%",
-      "features": ["Allt i Gratis", "Obegränsade taggar", "Prioritetssupport"],
+      "alt": "eller €30 / år — 2 månader gratis",
+      "features": [
+        "Allt i Gratis",
+        "Obegränsade taggar",
+        "Prioritetssupport"
+      ],
       "cta": "Starta gratis provperiod"
     }
   },
@@ -230,7 +234,10 @@
         "empty": "Inga taggar ännu",
         "itemCount": "{{count}} objekt"
       },
-      "notes": { "title": "Anteckningar", "empty": "Inga anteckningar ännu" },
+      "notes": {
+        "title": "Anteckningar",
+        "empty": "Inga anteckningar ännu"
+      },
       "actionableTasks": {
         "title": "Åtgärdbara uppgifter",
         "empty": "Inga åtgärdbara uppgifter"
