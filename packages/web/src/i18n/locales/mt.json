@@ -1,0 +1,279 @@
+{
+  "nav": {
+    "features": "Karatteristiċi",
+    "pricing": "Prezzijiet",
+    "signIn": "Idħol",
+    "getStarted": "Ibda b'xejn"
+  },
+  "hero": {
+    "badge": "Sempliċi u effettiv",
+    "headline": "In-noti tiegħek,",
+    "headlineAccent": "organizzati fl-aħħar",
+    "subtitle": "notes-world iġib flimkien l-ideat, il-kompiti u t-tfakkir tiegħek f'app waħda nadifa u veloċi. Ittag kollox, issib kull ħaġa, ibqa' fuq kollox.",
+    "cta": "Ibda b'xejn",
+    "ctaSecondary": "Ara l-prezzijiet"
+  },
+  "features": {
+    "sectionLabel": "X'hemm inkluz",
+    "sectionTitle": "Kollox li teħtieġ, xejn li ma teħtieġx",
+    "tags": {
+      "title": "Tagi",
+      "desc": "Organizza kollox b'tagi bil-kuluri kodifikati. Iffiltra d-dashboard tiegħek bit-tag b'klikk wieħed."
+    },
+    "types": {
+      "title": "Erba' tipi ta' elementi",
+      "desc": "Noti, Kompiti, Ideat, u Tfakkir — kull wieħed b'veduta u flusso tax-xogħol tagħha."
+    },
+    "capture": {
+      "title": "Qbid rapidu",
+      "desc": "Barra tal-qbid persistenti tfisser li tista' tikteb kull ħaġa mingħajr ma titlef il-post tiegħek."
+    },
+    "import": {
+      "title": "Importa u esporta",
+      "desc": "Ġib noti minn apps oħra jew esporta kollox bħala markdown — id-data tiegħek hija dejjem tiegħek."
+    },
+    "mobile": {
+      "title": "App mobbli",
+      "desc": "App nattiva tal-Android permezz ta' Expo. Aqbad noti waqt li timxi, sinkronizzat kompletament mal-app tal-web."
+    },
+    "dark": {
+      "title": "Skur b'mod awtomatiku",
+      "desc": "Mibni għal sessjonijiet twal. Interface skur nadif li hu komdu għall-għajnejn."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Prezzijiet",
+    "sectionTitle": "Prezzijiet sempliċi u trasparenti",
+    "free": {
+      "name": "B'xejn",
+      "price": "€0",
+      "period": "/ għal dejjem",
+      "features": [
+        "Noti, kompiti u ideat mingħajr limitu",
+        "Sa 20 tag",
+        "Importa u esporta",
+        "Aċċess mill-web u mobbli",
+        "Qbid rapidu"
+      ],
+      "cta": "Ibda"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ xahar",
+      "alt": "jew €45 / sena — iffranka 25%",
+      "features": [
+        "Kollox fil-pjan b'xejn",
+        "Tagi mingħajr limitu",
+        "Appoġġ prijoritarju"
+      ],
+      "cta": "Ibda prova b'xejn"
+    }
+  },
+  "footer": {
+    "signIn": "Idħol",
+    "docs": "Dokumentazzjoni",
+    "impressum": "Impressum",
+    "privacy": "Politika tal-Privatezza",
+    "terms": "Termini tas-Servizz"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Idħol",
+    "createAccount": "Oħloq kont",
+    "noAccount": "M'għandekx kont? Irreġistra",
+    "haveAccount": "Għandek kont? Idħol",
+    "loading": "...",
+    "agreeStart": "Naqbel mat-",
+    "termsLink": "Termini tas-Servizz",
+    "agreeMid": " u l-",
+    "privacyLink": "Politika tal-Privatezza",
+    "mustAgree": "Trid taqbel mat-termini biex tirreġistra"
+  },
+  "app": {
+    "actions": {
+      "save": "Issejvja",
+      "saving": "Qed tissejvja…",
+      "cancel": "Ikkanċella",
+      "add": "Żid",
+      "export": "Esporta",
+      "import": "Importa",
+      "upgrade": "Aġġorna",
+      "archive": "Arkivja",
+      "restore": "Irrestawra",
+      "delete": "Ħassar",
+      "deletePerma": "Ħassar b'mod permanenti",
+      "capture": "Aqbad",
+      "loading": "Qed jgħabbi…",
+      "clearSearch": "Ħassar it-tfittxija"
+    },
+    "types": {
+      "note": "Nota",
+      "task": "Kompitu",
+      "idea": "Idea",
+      "reminder": "Tfakkira",
+      "untyped": "Mingħajr tip"
+    },
+    "status": {
+      "open": "Miftuħ",
+      "inProgress": "Għaddej",
+      "blocked": "Imblukkat",
+      "done": "Lest"
+    },
+    "maturity": {
+      "seed": "Żerriegħa",
+      "developing": "Qed jiżviluppa",
+      "ready": "Lest",
+      "parked": "Imwaqqaf"
+    },
+    "search": {
+      "placeholder": "Fittex elementi… (agħfas / għall-fokus)",
+      "loading": "Qed jgħabbi",
+      "results_one": "{{count}} riżultat għal \"{{query}}\"",
+      "results_other": "{{count}} riżultati għal \"{{query}}\"",
+      "noResults": "L-ebda element ma jaqbel mat-tfittxija tiegħek"
+    },
+    "views": { "dashboard": "Dashboard", "tasks": "Kompiti", "ideas": "Ideat" },
+    "sidebar": {
+      "tags": "Tagi",
+      "allItems": "L-Elementi Kollha",
+      "trash": "Skart",
+      "createTag": "Oħloq tag",
+      "tagNamePlaceholder": "Isem it-tag…",
+      "expandSidebar": "Werri l-barra laterali",
+      "collapseSidebar": "Agħlaq il-barra laterali",
+      "setColor": "Issettja l-kulur",
+      "removeColor": "Neħħi l-kulur",
+      "dragToReorder": "Dragg biex tordna mill-ġdid",
+      "exportUntagged": "Esporta elementi mingħajr tag",
+      "tagNameTooLong": "Massimu 100 karattru",
+      "docs": "Dokumentazzjoni"
+    },
+    "capture": {
+      "placeholder": "Aqbad xi ħaġa… (agħfas C)",
+      "placeholderTag": "Aqbad taħt \"{{tag}}\"… (agħfas C)"
+    },
+    "drawer": {
+      "archived": "Arkivjat",
+      "notes": "Noti",
+      "addNotes": "Żid noti…",
+      "promoteTo": "Promwovi għal…",
+      "created": "Maħluq",
+      "updated": "Aġġornat",
+      "status": "Status",
+      "priority": "Prijorità",
+      "due": "Skadenza",
+      "completed": "Komplut",
+      "maturity": "Maturità",
+      "remindAt": "Iftakar fid",
+      "dismissed": "Rifjutat",
+      "yes": "Iva",
+      "no": "Le"
+    },
+    "tags": {
+      "label": "Tagi",
+      "add": "+ tag",
+      "searchOrCreate": "Fittex jew oħloq…",
+      "create": "Oħloq \"{{name}}\"",
+      "noMatching": "L-ebda tag li jaqbel",
+      "allApplied": "It-tagi kollha ġew applikati"
+    },
+    "taskActions": {
+      "label": "Azzjonijiet",
+      "start": "Ibda",
+      "complete": "Lesta",
+      "block": "Imblukka",
+      "removeDepToUnblock": "Neħħi dipendenza biex tiżblukka"
+    },
+    "tagView": {
+      "unsorted": "Mhux imsortjat ({{count}})",
+      "placeAtEnd": "Poġġi fi tmiem il-lista",
+      "noItems": "L-ebda element b'dan it-tag",
+      "itemCount": "{{count}} elementi",
+      "addDivider": "+ Diviżur"
+    },
+    "tasksView": {
+      "moveLeft": "Mexxi x-xellug",
+      "moveRight": "Mexxi l-lemin",
+      "noTasks": "L-ebda kompitu hawn"
+    },
+    "ideasView": {
+      "moveLeft": "Mexxi x-xellug",
+      "moveRight": "Mexxi l-lemin",
+      "dropHere": "Agħti ideat hawn"
+    },
+    "trashView": {
+      "title": "Skart",
+      "empty": "L-iskart huwa vojt",
+      "daysLeft": "{{days}} jiem sa tħassir permanenti",
+      "restoreTitle": "Irrestawra element"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Qbid Rapidu",
+        "placeholder": "Aqbad ħsieb…",
+        "notesPlaceholder": "Noti addizzjonali (mhux obbligatorji)"
+      },
+      "recentItems": {
+        "title": "Elementi Reċenti",
+        "empty": "Għadhom ma hemm l-ebda element",
+        "justNow": "bħalissa",
+        "minsAgo": "{{mins}}m ilu",
+        "hrsAgo": "{{hrs}}s ilu",
+        "daysAgo": "{{days}}j ilu"
+      },
+      "tagCloud": {
+        "title": "Tagi",
+        "empty": "Għadhom ma hemm l-ebda tag",
+        "itemCount": "{{count}} elementi"
+      },
+      "notes": { "title": "Noti", "empty": "Għadhom ma hemm l-ebda nota" },
+      "actionableTasks": {
+        "title": "Kompiti li Jistgħu Jitwettqu",
+        "empty": "L-ebda kompitu li jista' jitwettaq"
+      }
+    },
+    "account": {
+      "title": "Kont",
+      "signedInAs": "Daħalt bħala",
+      "roles": {
+        "free": "B'xejn",
+        "gift": "Pro (rigal)",
+        "paid": "Pro",
+        "admin": "Amministratur"
+      },
+      "freePlanLimit": "Limitat għal 20 tag fil-pjan b'xejn.",
+      "upgrade": "Aġġorna →",
+      "proPlan": "Pjan Pro",
+      "manageBilling": "Immaniġġja l-fatturazzjoni →",
+      "loadingPortal": "Qed jgħabbi…",
+      "changeEmail": "Ibdel l-email",
+      "newEmail": "Email ġdid",
+      "currentPassword": "Password attwali",
+      "emailUpdated": "L-email ġie aġġornat.",
+      "updateEmail": "Aġġorna l-email",
+      "saving": "Qed tissejvja…",
+      "changePassword": "Ibdel il-password",
+      "newPassword": "Password ġdida",
+      "confirmPassword": "Ikkonfirma l-password il-ġdida",
+      "passwordMismatch": "Il-passwords ma jaqblux",
+      "passwordUpdated": "Il-password ġiet aġġornata.",
+      "updatePassword": "Aġġorna l-password",
+      "session": "Sessjoni",
+      "signOut": "Oħroġ",
+      "dangerZone": "Żona Perikoluża",
+      "confirmPasswordPlaceholder": "Password attwali biex tikkonferma",
+      "deleteAccount": "Ħassar il-kont",
+      "deleting": "Qed iħassar…",
+      "deleteConfirm": "Tħassar il-kont tiegħek b'mod permanenti? Dan ma jistax jiġi rtirat.",
+      "failed": "Falla",
+      "language": "Lingwa",
+      "preferences": "Preferenzi",
+      "tooltipsToggle": "Uri t-tooltips",
+      "tooltipsDesc": "Ljungazzi fuq il-buttuni u l-ikoni"
+    }
+  }
+}

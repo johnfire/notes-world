@@ -1,0 +1,286 @@
+{
+  "nav": {
+    "features": "Funkce",
+    "pricing": "Ceník",
+    "signIn": "Přihlásit se",
+    "getStarted": "Začít zdarma"
+  },
+  "hero": {
+    "badge": "Jednoduché a efektivní",
+    "headline": "Vaše poznámky,",
+    "headlineAccent": "konečně uspořádané",
+    "subtitle": "Notes World přináší vaše nápady, úkoly a připomínky do jedné přehledné, rychlé aplikace. Tagujte vše, najděte cokoli, mějte vše pod kontrolou.",
+    "cta": "Začít zdarma",
+    "ctaSecondary": "Zobrazit ceník"
+  },
+  "features": {
+    "sectionLabel": "Co je zahrnuto",
+    "sectionTitle": "Vše, co potřebujete, nic navíc",
+    "tags": {
+      "title": "Štítky",
+      "desc": "Uspořádejte cokoli pomocí barevně odlišených štítků. Filtrujte přehled jedním kliknutím."
+    },
+    "types": {
+      "title": "Čtyři typy položek",
+      "desc": "Poznámky, Úkoly, Nápady a Připomínky — každý s vlastním zobrazením a pracovním postupem."
+    },
+    "capture": {
+      "title": "Rychlé zachycení",
+      "desc": "Trvalý panel zachycení umožňuje zapsat cokoli, aniž byste ztratili místo."
+    },
+    "import": {
+      "title": "Import a export",
+      "desc": "Importujte poznámky z jiných aplikací nebo exportujte vše jako markdown — vaše data jsou vždy vaše."
+    },
+    "mobile": {
+      "title": "Mobilní aplikace",
+      "desc": "Nativní aplikace pro Android přes Expo. Pořizujte poznámky na cestách, plně synchronizované s webovou aplikací."
+    },
+    "dark": {
+      "title": "Tmavý jako výchozí",
+      "desc": "Navrženo pro dlouhé sezení. Přehledné tmavé rozhraní šetrné k očím."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Ceník",
+    "sectionTitle": "Jednoduché, transparentní ceny",
+    "free": {
+      "name": "Zdarma",
+      "price": "€0",
+      "period": "/ navždy",
+      "features": [
+        "Neomezené poznámky, úkoly a nápady",
+        "Až 20 štítků",
+        "Import a export",
+        "Webový a mobilní přístup",
+        "Rychlé zachycení"
+      ],
+      "cta": "Začít"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ měsíc",
+      "alt": "nebo €45 / rok — ušetřete 25 %",
+      "features": [
+        "Vše ze Zdarma",
+        "Neomezené štítky",
+        "Prioritní podpora"
+      ],
+      "cta": "Začít zkušební období"
+    }
+  },
+  "footer": {
+    "signIn": "Přihlásit se",
+    "docs": "Dokumentace",
+    "impressum": "Impressum",
+    "privacy": "Zásady ochrany osobních údajů",
+    "terms": "Podmínky služby"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "E-mail",
+    "password": "Heslo",
+    "signIn": "Přihlásit se",
+    "createAccount": "Vytvořit účet",
+    "noAccount": "Nemáte účet? Zaregistrujte se",
+    "haveAccount": "Máte účet? Přihlaste se",
+    "loading": "...",
+    "agreeStart": "Souhlasím s ",
+    "termsLink": "Podmínkami služby",
+    "agreeMid": " a ",
+    "privacyLink": "Zásadami ochrany osobních údajů",
+    "mustAgree": "Musíte souhlasit s podmínkami pro registraci"
+  },
+  "app": {
+    "actions": {
+      "save": "Uložit",
+      "saving": "Ukládání…",
+      "cancel": "Zrušit",
+      "add": "Přidat",
+      "export": "Exportovat",
+      "import": "Importovat",
+      "upgrade": "Upgradovat",
+      "archive": "Archivovat",
+      "restore": "Obnovit",
+      "delete": "Smazat",
+      "deletePerma": "Smazat trvale",
+      "capture": "Zachytit",
+      "loading": "Načítání…",
+      "clearSearch": "Vymazat vyhledávání"
+    },
+    "types": {
+      "note": "Poznámka",
+      "task": "Úkol",
+      "idea": "Nápad",
+      "reminder": "Připomínka",
+      "untyped": "Bez typu"
+    },
+    "status": {
+      "open": "Otevřené",
+      "inProgress": "Probíhá",
+      "blocked": "Blokováno",
+      "done": "Hotovo"
+    },
+    "maturity": {
+      "seed": "Zárodek",
+      "developing": "Rozvíjí se",
+      "ready": "Připraveno",
+      "parked": "Odloženo"
+    },
+    "search": {
+      "placeholder": "Hledat položky… (stiskněte / pro zaměření)",
+      "loading": "Načítání",
+      "results_one": "{{count}} výsledek pro \"{{query}}\"",
+      "results_other": "{{count}} výsledků pro \"{{query}}\"",
+      "noResults": "Žádné položky neodpovídají vašemu hledání"
+    },
+    "views": {
+      "dashboard": "Přehled",
+      "tasks": "Úkoly",
+      "ideas": "Nápady"
+    },
+    "sidebar": {
+      "tags": "Štítky",
+      "allItems": "Všechny položky",
+      "trash": "Koš",
+      "createTag": "Vytvořit štítek",
+      "tagNamePlaceholder": "Název štítku…",
+      "expandSidebar": "Rozbalit postranní panel",
+      "collapseSidebar": "Sbalit postranní panel",
+      "setColor": "Nastavit barvu",
+      "removeColor": "Odebrat barvu",
+      "dragToReorder": "Přetáhnout pro změnu pořadí",
+      "exportUntagged": "Exportovat neoznačené položky",
+      "tagNameTooLong": "Max. 100 znaků",
+      "docs": "Dokumentace"
+    },
+    "capture": {
+      "placeholder": "Zachyťte něco… (stiskněte C)",
+      "placeholderTag": "Zachytit v \"{{tag}}\"… (stiskněte C)"
+    },
+    "drawer": {
+      "archived": "Archivováno",
+      "notes": "Poznámky",
+      "addNotes": "Přidat poznámky…",
+      "promoteTo": "Povýšit na…",
+      "created": "Vytvořeno",
+      "updated": "Aktualizováno",
+      "status": "Stav",
+      "priority": "Priorita",
+      "due": "Termín",
+      "completed": "Dokončeno",
+      "maturity": "Zralost",
+      "remindAt": "Připomenout v",
+      "dismissed": "Odmítnuto",
+      "yes": "Ano",
+      "no": "Ne"
+    },
+    "tags": {
+      "label": "Štítky",
+      "add": "+ štítek",
+      "searchOrCreate": "Hledat nebo vytvořit…",
+      "create": "Vytvořit \"{{name}}\"",
+      "noMatching": "Žádné odpovídající štítky",
+      "allApplied": "Všechny štítky aplikovány"
+    },
+    "taskActions": {
+      "label": "Akce",
+      "start": "Spustit",
+      "complete": "Dokončit",
+      "block": "Blokovat",
+      "removeDepToUnblock": "Odebrat závislost pro odblokování"
+    },
+    "tagView": {
+      "unsorted": "Neseřazeno ({{count}})",
+      "placeAtEnd": "Umístit na konec seznamu",
+      "noItems": "Žádné položky s tímto štítkem",
+      "itemCount": "{{count}} položek",
+      "addDivider": "+ Oddělovač"
+    },
+    "tasksView": {
+      "moveLeft": "Přesunout vlevo",
+      "moveRight": "Přesunout vpravo",
+      "noTasks": "Žádné úkoly zde"
+    },
+    "ideasView": {
+      "moveLeft": "Přesunout vlevo",
+      "moveRight": "Přesunout vpravo",
+      "dropHere": "Přetáhněte nápady sem"
+    },
+    "trashView": {
+      "title": "Koš",
+      "empty": "Koš je prázdný",
+      "daysLeft": "{{days}} dní do trvalého smazání",
+      "restoreTitle": "Obnovit položku"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Rychlé zachycení",
+        "placeholder": "Zachyťte myšlenku…",
+        "notesPlaceholder": "Další poznámky (volitelné)"
+      },
+      "recentItems": {
+        "title": "Nedávné položky",
+        "empty": "Zatím žádné položky",
+        "justNow": "právě teď",
+        "minsAgo": "před {{mins}} min",
+        "hrsAgo": "před {{hrs}} hod",
+        "daysAgo": "před {{days}} dny"
+      },
+      "tagCloud": {
+        "title": "Štítky",
+        "empty": "Zatím žádné štítky",
+        "itemCount": "{{count}} položek"
+      },
+      "notes": {
+        "title": "Poznámky",
+        "empty": "Zatím žádné poznámky"
+      },
+      "actionableTasks": {
+        "title": "Proveditelné úkoly",
+        "empty": "Žádné proveditelné úkoly"
+      }
+    },
+    "account": {
+      "title": "Účet",
+      "signedInAs": "Přihlášen jako",
+      "roles": {
+        "free": "Zdarma",
+        "gift": "Pro (dárek)",
+        "paid": "Pro",
+        "admin": "Admin"
+      },
+      "freePlanLimit": "Omezeno na 20 štítků v bezplatném plánu.",
+      "upgrade": "Upgradovat →",
+      "proPlan": "Plán Pro",
+      "manageBilling": "Spravovat fakturaci →",
+      "loadingPortal": "Načítání…",
+      "changeEmail": "Změnit e-mail",
+      "newEmail": "Nový e-mail",
+      "currentPassword": "Aktuální heslo",
+      "emailUpdated": "E-mail aktualizován.",
+      "updateEmail": "Aktualizovat e-mail",
+      "saving": "Ukládání…",
+      "changePassword": "Změnit heslo",
+      "newPassword": "Nové heslo",
+      "confirmPassword": "Potvrdit nové heslo",
+      "passwordMismatch": "Hesla se neshodují",
+      "passwordUpdated": "Heslo aktualizováno.",
+      "updatePassword": "Aktualizovat heslo",
+      "session": "Relace",
+      "signOut": "Odhlásit se",
+      "dangerZone": "Nebezpečná zóna",
+      "confirmPasswordPlaceholder": "Aktuální heslo pro potvrzení",
+      "deleteAccount": "Smazat účet",
+      "deleting": "Mazání…",
+      "deleteConfirm": "Trvale smazat účet? Tuto akci nelze vrátit zpět.",
+      "failed": "Chyba",
+      "language": "Jazyk",
+      "preferences": "Předvolby",
+      "tooltipsToggle": "Zobrazit nápovědy",
+      "tooltipsDesc": "Tipy po najetí na tlačítka a ikony"
+    }
+  }
+}

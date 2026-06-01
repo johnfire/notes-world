@@ -1,0 +1,283 @@
+{
+  "nav": {
+    "features": "Funktsioonid",
+    "pricing": "Hinnad",
+    "signIn": "Logi sisse",
+    "getStarted": "Alusta tasuta"
+  },
+  "hero": {
+    "badge": "Lihtne ja tõhus",
+    "headline": "Sinu märkmed,",
+    "headlineAccent": "lõpuks korras",
+    "subtitle": "notes-world koondab sinu ideed, ülesanded ja meeldetuletused ühte puhtasse ja kiiresse rakendusse. Märgenda kõike, leia ükskõik mida, püsi kõige toimuvaga kursis.",
+    "cta": "Alusta tasuta",
+    "ctaSecondary": "Vaata hindu"
+  },
+  "features": {
+    "sectionLabel": "Mis on kaasas",
+    "sectionTitle": "Kõik vajalik, mitte midagi üleliigset",
+    "tags": {
+      "title": "Sildid",
+      "desc": "Korrasta kõike värvikoodiga siltidega. Filtreeri armatuurlauda sildi järgi ühe klõpsuga."
+    },
+    "types": {
+      "title": "Neli elemendi tüüpi",
+      "desc": "Märkmed, ülesanded, ideed ja meeldetuletused — igaühel oma vaade ja töövoog."
+    },
+    "capture": {
+      "title": "Kiire jäädvustamine",
+      "desc": "Püsiv jäädvustamisriba tähendab, et saad kõike üles märkida ilma kohta kaotamata."
+    },
+    "import": {
+      "title": "Import ja eksport",
+      "desc": "Too märkmeid teistest rakendustest või ekspordi kõik markdownina — sinu andmed kuuluvad alati sulle."
+    },
+    "mobile": {
+      "title": "Mobiilirakendus",
+      "desc": "Natiivne Androidi rakendus Expo kaudu. Jäädvusta märkmeid liikvel olles, täielikult sünkroniseeritud veebirakendusega."
+    },
+    "dark": {
+      "title": "Vaikimisi tume",
+      "desc": "Ehitatud pikkade seansside jaoks. Puhas tume liides, mis on silmadele hea."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Hinnad",
+    "sectionTitle": "Lihtne ja läbipaistev hinnakujundus",
+    "free": {
+      "name": "Tasuta",
+      "price": "€0",
+      "period": "/ igavesti",
+      "features": [
+        "Piiramatu arv märkmeid, ülesandeid ja ideid",
+        "Kuni 20 silti",
+        "Import ja eksport",
+        "Veeb ja mobiil",
+        "Kiire jäädvustamine"
+      ],
+      "cta": "Alusta"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ kuu",
+      "alt": "või €45 / aasta — säästa 25%",
+      "features": [
+        "Kõik tasuta plaanis",
+        "Piiramatu arv silte",
+        "Prioriteetne tugi"
+      ],
+      "cta": "Alusta tasuta prooviperioodi"
+    }
+  },
+  "footer": {
+    "signIn": "Logi sisse",
+    "docs": "Dokumendid",
+    "impressum": "Impressum",
+    "privacy": "Privaatsuspoliitika",
+    "terms": "Kasutustingimused"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "E-post",
+    "password": "Parool",
+    "signIn": "Logi sisse",
+    "createAccount": "Loo konto",
+    "noAccount": "Pole kontot? Registreeru",
+    "haveAccount": "On konto? Logi sisse",
+    "loading": "...",
+    "agreeStart": "Nõustun ",
+    "termsLink": "kasutustingimustega",
+    "agreeMid": " ja ",
+    "privacyLink": "privaatsuspoliitikaga",
+    "mustAgree": "Registreerumiseks pead tingimustega nõustuma"
+  },
+  "app": {
+    "actions": {
+      "save": "Salvesta",
+      "saving": "Salvestamine…",
+      "cancel": "Tühista",
+      "add": "Lisa",
+      "export": "Ekspordi",
+      "import": "Impordi",
+      "upgrade": "Uuenda",
+      "archive": "Arhiveeri",
+      "restore": "Taasta",
+      "delete": "Kustuta",
+      "deletePerma": "Kustuta jäädavalt",
+      "capture": "Jäädvusta",
+      "loading": "Laadimine…",
+      "clearSearch": "Tühjenda otsing"
+    },
+    "types": {
+      "note": "Märkus",
+      "task": "Ülesanne",
+      "idea": "Idee",
+      "reminder": "Meeldetuletus",
+      "untyped": "Tüübita"
+    },
+    "status": {
+      "open": "Avatud",
+      "inProgress": "Töös",
+      "blocked": "Blokeeritud",
+      "done": "Tehtud"
+    },
+    "maturity": {
+      "seed": "Seeme",
+      "developing": "Arenemas",
+      "ready": "Valmis",
+      "parked": "Pargitud"
+    },
+    "search": {
+      "placeholder": "Otsi elemente… (vajuta / fookuse saamiseks)",
+      "loading": "Laadimine",
+      "results_one": "{{count}} tulemus \"{{query}}\" jaoks",
+      "results_other": "{{count}} tulemust \"{{query}}\" jaoks",
+      "noResults": "Otsing ei andnud tulemusi"
+    },
+    "views": {
+      "dashboard": "Armatuurlaud",
+      "tasks": "Ülesanded",
+      "ideas": "Ideed"
+    },
+    "sidebar": {
+      "tags": "Sildid",
+      "allItems": "Kõik elemendid",
+      "trash": "Prügikast",
+      "createTag": "Loo silt",
+      "tagNamePlaceholder": "Sildi nimi…",
+      "expandSidebar": "Laienda külgriba",
+      "collapseSidebar": "Ahenda külgriba",
+      "setColor": "Määra värv",
+      "removeColor": "Eemalda värv",
+      "dragToReorder": "Lohista ümber järjestamiseks",
+      "exportUntagged": "Ekspordi siltideta elemendid",
+      "tagNameTooLong": "Max 100 tähemärki",
+      "docs": "Dokumendid"
+    },
+    "capture": {
+      "placeholder": "Jäädvusta midagi… (vajuta C)",
+      "placeholderTag": "Jäädvusta \"{{tag}}\" all… (vajuta C)"
+    },
+    "drawer": {
+      "archived": "Arhiveeritud",
+      "notes": "Märkmed",
+      "addNotes": "Lisa märkmeid…",
+      "promoteTo": "Eduta…",
+      "created": "Loodud",
+      "updated": "Uuendatud",
+      "status": "Olek",
+      "priority": "Prioriteet",
+      "due": "Tähtaeg",
+      "completed": "Lõpetatud",
+      "maturity": "Küpsus",
+      "remindAt": "Meenuta",
+      "dismissed": "Hüljatud",
+      "yes": "Jah",
+      "no": "Ei"
+    },
+    "tags": {
+      "label": "Sildid",
+      "add": "+ silt",
+      "searchOrCreate": "Otsi või loo…",
+      "create": "Loo \"{{name}}\"",
+      "noMatching": "Sobivaid silte pole",
+      "allApplied": "Kõik sildid rakendatud"
+    },
+    "taskActions": {
+      "label": "Toimingud",
+      "start": "Alusta",
+      "complete": "Lõpeta",
+      "block": "Blokeeri",
+      "removeDepToUnblock": "Eemalda sõltuvus blokeeringu eemaldamiseks"
+    },
+    "tagView": {
+      "unsorted": "Sorteerimata ({{count}})",
+      "placeAtEnd": "Aseta loendi lõppu",
+      "noItems": "Selle sildiga elemente pole",
+      "itemCount": "{{count}} elementi",
+      "addDivider": "+ Eraldaja"
+    },
+    "tasksView": {
+      "moveLeft": "Liiguta vasakule",
+      "moveRight": "Liiguta paremale",
+      "noTasks": "Siin pole ülesandeid"
+    },
+    "ideasView": {
+      "moveLeft": "Liiguta vasakule",
+      "moveRight": "Liiguta paremale",
+      "dropHere": "Lohista ideed siia"
+    },
+    "trashView": {
+      "title": "Prügikast",
+      "empty": "Prügikast on tühi",
+      "daysLeft": "{{days}} päeva püstikustutamiseni",
+      "restoreTitle": "Taasta element"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Kiire jäädvustamine",
+        "placeholder": "Jäädvusta mõte…",
+        "notesPlaceholder": "Lisamärkmed (valikuline)"
+      },
+      "recentItems": {
+        "title": "Hiljutised elemendid",
+        "empty": "Elemente pole veel",
+        "justNow": "just nüüd",
+        "minsAgo": "{{mins}} min tagasi",
+        "hrsAgo": "{{hrs}} h tagasi",
+        "daysAgo": "{{days}} p tagasi"
+      },
+      "tagCloud": {
+        "title": "Sildid",
+        "empty": "Silte pole veel",
+        "itemCount": "{{count}} elementi"
+      },
+      "notes": { "title": "Märkmed", "empty": "Märkmeid pole veel" },
+      "actionableTasks": {
+        "title": "Teostatavad ülesanded",
+        "empty": "Teostatavaid ülesandeid pole"
+      }
+    },
+    "account": {
+      "title": "Konto",
+      "signedInAs": "Sisse logitud kasutajana",
+      "roles": {
+        "free": "Tasuta",
+        "gift": "Pro (kingitus)",
+        "paid": "Pro",
+        "admin": "Admin"
+      },
+      "freePlanLimit": "Tasuta plaanis on piiratud 20 sildiga.",
+      "upgrade": "Uuenda →",
+      "proPlan": "Pro plaan",
+      "manageBilling": "Halda arveldust →",
+      "loadingPortal": "Laadimine…",
+      "changeEmail": "Muuda e-posti",
+      "newEmail": "Uus e-post",
+      "currentPassword": "Praegune parool",
+      "emailUpdated": "E-post uuendatud.",
+      "updateEmail": "Uuenda e-posti",
+      "saving": "Salvestamine…",
+      "changePassword": "Muuda parooli",
+      "newPassword": "Uus parool",
+      "confirmPassword": "Kinnita uus parool",
+      "passwordMismatch": "Paroolid ei kattu",
+      "passwordUpdated": "Parool uuendatud.",
+      "updatePassword": "Uuenda parool",
+      "session": "Seanss",
+      "signOut": "Logi välja",
+      "dangerZone": "Ohtlik tsoon",
+      "confirmPasswordPlaceholder": "Praegune parool kinnitamiseks",
+      "deleteAccount": "Kustuta konto",
+      "deleting": "Kustutamine…",
+      "deleteConfirm": "Kustuta konto jäädavalt? Seda ei saa tagasi võtta.",
+      "failed": "Ebaõnnestus",
+      "language": "Keel",
+      "preferences": "Eelistused",
+      "tooltipsToggle": "Kuva tööriistavihjeid",
+      "tooltipsDesc": "Hõljutusvihjed nuppudel ja ikoonidel"
+    }
+  }
+}

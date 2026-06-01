@@ -1,0 +1,283 @@
+{
+  "nav": {
+    "features": "Značajke",
+    "pricing": "Cijene",
+    "signIn": "Prijava",
+    "getStarted": "Počnite besplatno"
+  },
+  "hero": {
+    "badge": "Jednostavno i učinkovito",
+    "headline": "Vaše bilješke,",
+    "headlineAccent": "napokon organizirane",
+    "subtitle": "notes-world objedinjuje vaše ideje, zadatke i podsjetnike u jednu čistu, brzu aplikaciju. Označite sve tagovima, pronađite bilo što, budite korak ispred.",
+    "cta": "Počnite besplatno",
+    "ctaSecondary": "Pogledajte cijene"
+  },
+  "features": {
+    "sectionLabel": "Što je uključeno",
+    "sectionTitle": "Sve što trebate, ništa što ne trebate",
+    "tags": {
+      "title": "Tagovi",
+      "desc": "Organizirajte sve s tagovima u boji. Filtrirajte nadzornu ploču po tagu jednim klikom."
+    },
+    "types": {
+      "title": "Četiri vrste stavki",
+      "desc": "Bilješke, zadaci, ideje i podsjetnici — svaki sa svojim prikazom i tijekom rada."
+    },
+    "capture": {
+      "title": "Brzo bilježenje",
+      "desc": "Trajna traka za bilježenje omogućuje vam da zapišete bilo što bez gubitka mjesta."
+    },
+    "import": {
+      "title": "Uvoz i izvoz",
+      "desc": "Unesite bilješke iz drugih aplikacija ili izvezite sve kao markdown — vaši podaci su uvijek vaši."
+    },
+    "mobile": {
+      "title": "Mobilna aplikacija",
+      "desc": "Nativna Android aplikacija putem Expa. Bilježite u pokretu, potpuno sinkronizirano s web aplikacijom."
+    },
+    "dark": {
+      "title": "Tamna tema prema zadanim postavkama",
+      "desc": "Izrađeno za duge sesije. Čisto tamno sučelje koje ne zamara oči."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Cijene",
+    "sectionTitle": "Jednostavne, transparentne cijene",
+    "free": {
+      "name": "Besplatno",
+      "price": "€0",
+      "period": "/ zauvijek",
+      "features": [
+        "Neograničene bilješke, zadaci i ideje",
+        "Do 20 tagova",
+        "Uvoz i izvoz",
+        "Pristup putem weba i mobitela",
+        "Brzo bilježenje"
+      ],
+      "cta": "Počnite"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ mjesec",
+      "alt": "ili €45 / godina — uštedite 25 %",
+      "features": [
+        "Sve iz besplatnog plana",
+        "Neograničeni tagovi",
+        "Prioritetna podrška"
+      ],
+      "cta": "Pokrenite besplatno probno razdoblje"
+    }
+  },
+  "footer": {
+    "signIn": "Prijava",
+    "docs": "Dokumentacija",
+    "impressum": "Impressum",
+    "privacy": "Pravila privatnosti",
+    "terms": "Uvjeti korištenja"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "E-pošta",
+    "password": "Lozinka",
+    "signIn": "Prijava",
+    "createAccount": "Stvori račun",
+    "noAccount": "Nemate račun? Registrirajte se",
+    "haveAccount": "Imate račun? Prijavite se",
+    "loading": "...",
+    "agreeStart": "Slažem se s ",
+    "termsLink": "Uvjetima korištenja",
+    "agreeMid": " i ",
+    "privacyLink": "Pravilima privatnosti",
+    "mustAgree": "Morate prihvatiti uvjete kako biste se registrirali"
+  },
+  "app": {
+    "actions": {
+      "save": "Spremi",
+      "saving": "Sprema se…",
+      "cancel": "Odustani",
+      "add": "Dodaj",
+      "export": "Izvezi",
+      "import": "Uvezi",
+      "upgrade": "Nadogradi",
+      "archive": "Arhiviraj",
+      "restore": "Vrati",
+      "delete": "Izbriši",
+      "deletePerma": "Trajno izbriši",
+      "capture": "Zabilježi",
+      "loading": "Učitava se…",
+      "clearSearch": "Obriši pretragu"
+    },
+    "types": {
+      "note": "Bilješka",
+      "task": "Zadatak",
+      "idea": "Ideja",
+      "reminder": "Podsjetnik",
+      "untyped": "Bez vrste"
+    },
+    "status": {
+      "open": "Otvoreno",
+      "inProgress": "U tijeku",
+      "blocked": "Blokirano",
+      "done": "Završeno"
+    },
+    "maturity": {
+      "seed": "Sjeme",
+      "developing": "U razvoju",
+      "ready": "Spremno",
+      "parked": "Parkirano"
+    },
+    "search": {
+      "placeholder": "Pretraži stavke… (pritisni / za fokus)",
+      "loading": "Učitava se",
+      "results_one": "{{count}} rezultat za \"{{query}}\"",
+      "results_other": "{{count}} rezultata za \"{{query}}\"",
+      "noResults": "Nema stavki koje odgovaraju pretrazi"
+    },
+    "views": {
+      "dashboard": "Nadzorna ploča",
+      "tasks": "Zadaci",
+      "ideas": "Ideje"
+    },
+    "sidebar": {
+      "tags": "Tagovi",
+      "allItems": "Sve stavke",
+      "trash": "Smeće",
+      "createTag": "Stvori tag",
+      "tagNamePlaceholder": "Naziv taga…",
+      "expandSidebar": "Proširi bočnu traku",
+      "collapseSidebar": "Sažmi bočnu traku",
+      "setColor": "Postavi boju",
+      "removeColor": "Ukloni boju",
+      "dragToReorder": "Povuci za promjenu redoslijeda",
+      "exportUntagged": "Izvezi stavke bez taga",
+      "tagNameTooLong": "Maks. 100 znakova",
+      "docs": "Dokumentacija"
+    },
+    "capture": {
+      "placeholder": "Zabilježi nešto… (pritisni C)",
+      "placeholderTag": "Zabilježi pod \"{{tag}}\"… (pritisni C)"
+    },
+    "drawer": {
+      "archived": "Arhivirano",
+      "notes": "Bilješke",
+      "addNotes": "Dodaj bilješke…",
+      "promoteTo": "Unaprijedi u…",
+      "created": "Stvoreno",
+      "updated": "Ažurirano",
+      "status": "Status",
+      "priority": "Prioritet",
+      "due": "Rok",
+      "completed": "Završeno",
+      "maturity": "Zrelost",
+      "remindAt": "Podsjeti u",
+      "dismissed": "Odbačeno",
+      "yes": "Da",
+      "no": "Ne"
+    },
+    "tags": {
+      "label": "Tagovi",
+      "add": "+ tag",
+      "searchOrCreate": "Pretraži ili stvori…",
+      "create": "Stvori \"{{name}}\"",
+      "noMatching": "Nema odgovarajućih tagova",
+      "allApplied": "Svi tagovi su primijenjeni"
+    },
+    "taskActions": {
+      "label": "Radnje",
+      "start": "Pokreni",
+      "complete": "Završi",
+      "block": "Blokiraj",
+      "removeDepToUnblock": "Uklonite ovisnost za deblokiranje"
+    },
+    "tagView": {
+      "unsorted": "Nesortirano ({{count}})",
+      "placeAtEnd": "Postavi na kraj popisa",
+      "noItems": "Nema stavki s ovim tagom",
+      "itemCount": "{{count}} stavki",
+      "addDivider": "+ Razdjelnik"
+    },
+    "tasksView": {
+      "moveLeft": "Premjesti lijevo",
+      "moveRight": "Premjesti desno",
+      "noTasks": "Ovdje nema zadataka"
+    },
+    "ideasView": {
+      "moveLeft": "Premjesti lijevo",
+      "moveRight": "Premjesti desno",
+      "dropHere": "Ispustite ideje ovdje"
+    },
+    "trashView": {
+      "title": "Smeće",
+      "empty": "Koš za smeće je prazan",
+      "daysLeft": "{{days}} dana do trajnog brisanja",
+      "restoreTitle": "Vrati stavku"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Brzo bilježenje",
+        "placeholder": "Zabilježi misao…",
+        "notesPlaceholder": "Dodatne bilješke (neobavezno)"
+      },
+      "recentItems": {
+        "title": "Nedavne stavke",
+        "empty": "Još nema stavki",
+        "justNow": "upravo sada",
+        "minsAgo": "prije {{mins}} min",
+        "hrsAgo": "prije {{hrs}} h",
+        "daysAgo": "prije {{days}} d"
+      },
+      "tagCloud": {
+        "title": "Tagovi",
+        "empty": "Još nema tagova",
+        "itemCount": "{{count}} stavki"
+      },
+      "notes": { "title": "Bilješke", "empty": "Još nema bilješki" },
+      "actionableTasks": {
+        "title": "Zadaci koji se mogu izvršiti",
+        "empty": "Nema zadataka koji se mogu izvršiti"
+      }
+    },
+    "account": {
+      "title": "Račun",
+      "signedInAs": "Prijavljeni ste kao",
+      "roles": {
+        "free": "Besplatno",
+        "gift": "Pro (poklon)",
+        "paid": "Pro",
+        "admin": "Administrator"
+      },
+      "freePlanLimit": "Ograničeno na 20 tagova u besplatnom planu.",
+      "upgrade": "Nadogradi →",
+      "proPlan": "Pro plan",
+      "manageBilling": "Upravljaj naplatom →",
+      "loadingPortal": "Učitava se…",
+      "changeEmail": "Promijeni e-poštu",
+      "newEmail": "Nova e-pošta",
+      "currentPassword": "Trenutna lozinka",
+      "emailUpdated": "E-pošta ažurirana.",
+      "updateEmail": "Ažuriraj e-poštu",
+      "saving": "Sprema se…",
+      "changePassword": "Promijeni lozinku",
+      "newPassword": "Nova lozinka",
+      "confirmPassword": "Potvrdi novu lozinku",
+      "passwordMismatch": "Lozinke se ne podudaraju",
+      "passwordUpdated": "Lozinka ažurirana.",
+      "updatePassword": "Ažuriraj lozinku",
+      "session": "Sesija",
+      "signOut": "Odjava",
+      "dangerZone": "Opasna zona",
+      "confirmPasswordPlaceholder": "Trenutna lozinka za potvrdu",
+      "deleteAccount": "Izbriši račun",
+      "deleting": "Brisanje…",
+      "deleteConfirm": "Trajno izbrisati vaš račun? Ovo se ne može poništiti.",
+      "failed": "Neuspješno",
+      "language": "Jezik",
+      "preferences": "Postavke",
+      "tooltipsToggle": "Prikaži tooltips",
+      "tooltipsDesc": "Savjeti na gumbima i ikonama"
+    }
+  }
+}

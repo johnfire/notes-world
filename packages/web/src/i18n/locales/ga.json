@@ -1,0 +1,279 @@
+{
+  "nav": {
+    "features": "Gnéithe",
+    "pricing": "Praghsáil",
+    "signIn": "Sínigh isteach",
+    "getStarted": "Tosaigh saor in aisce"
+  },
+  "hero": {
+    "badge": "Simplí agus éifeachtach",
+    "headline": "Do nótaí,",
+    "headlineAccent": "eagraithe ar deireadh",
+    "subtitle": "Tugann notes-world do chuid smaointe, cúraimí agus meabhrúcháin le chéile in aon aip amháin glan, tapa. Clibeáil gach rud, aimsigh aon rud, fan ar an eolas.",
+    "cta": "Tosaigh saor in aisce",
+    "ctaSecondary": "Féach ar phraghsanna"
+  },
+  "features": {
+    "sectionLabel": "Cad atá san áireamh",
+    "sectionTitle": "Gach rud atá uait, ní aon rud nach bhfuil",
+    "tags": {
+      "title": "Clibeanna",
+      "desc": "Eagraigh gach rud le clibeanna dathchódaithe. Scag do dheais de réir clibe le haon chliceáil amháin."
+    },
+    "types": {
+      "title": "Ceithre chineál míre",
+      "desc": "Nótaí, Cúraimí, Smaointe, agus Meabhrúcháin — gach ceann le hamharc agus sreabhadh oibre féin."
+    },
+    "capture": {
+      "title": "Gabháil thapa",
+      "desc": "Ciallaíonn barra gabháil buan gur féidir leat aon rud a scríobh gan do áit a chailleadh."
+    },
+    "import": {
+      "title": "Iompórtáil agus easpórtáil",
+      "desc": "Tabhair nótaí ó aipeanna eile nó easpórtáil gach rud mar markdown — is leatsa do chuid sonraí i gcónaí."
+    },
+    "mobile": {
+      "title": "Aip soghluaiste",
+      "desc": "Aip dúchais Android trí Expo. Gabh nótaí ar an gcoill, comhshioncronaithe go hiomlán leis an aip ghréasáin."
+    },
+    "dark": {
+      "title": "Dorcha de réir réamhshocraithe",
+      "desc": "Tógtha do sheisiúin fhada. Comhéadan dorcha glan atá éasca ar na súile."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Praghsáil",
+    "sectionTitle": "Praghsáil shimplí, thrédhearcach",
+    "free": {
+      "name": "Saor in aisce",
+      "price": "€0",
+      "period": "/ go deo",
+      "features": [
+        "Nótaí, cúraimí agus smaointe gan teorainn",
+        "Suas le 20 clib",
+        "Iompórtáil agus easpórtáil",
+        "Rochtain ghréasáin agus soghluaiste",
+        "Gabháil thapa"
+      ],
+      "cta": "Tosaigh"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ mí",
+      "alt": "nó €45 / bliain — sábháil 25%",
+      "features": [
+        "Gach rud sa phlean saor in aisce",
+        "Clibeanna gan teorainn",
+        "Tacaíocht tosaíochta"
+      ],
+      "cta": "Tosaigh triail saor in aisce"
+    }
+  },
+  "footer": {
+    "signIn": "Sínigh isteach",
+    "docs": "Doiciméid",
+    "impressum": "Impressum",
+    "privacy": "Polasaí Príobháideachais",
+    "terms": "Téarmaí Seirbhíse"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "Ríomhphost",
+    "password": "Pasfhocal",
+    "signIn": "Sínigh isteach",
+    "createAccount": "Cruthaigh cuntas",
+    "noAccount": "Gan cuntas? Cláraigh",
+    "haveAccount": "An bhfuil cuntas agat? Sínigh isteach",
+    "loading": "...",
+    "agreeStart": "Aontaím leis na ",
+    "termsLink": "Téarmaí Seirbhíse",
+    "agreeMid": " agus an ",
+    "privacyLink": "Polasaí Príobháideachais",
+    "mustAgree": "Caithfidh tú aontú leis na téarmaí chun clárú"
+  },
+  "app": {
+    "actions": {
+      "save": "Sábháil",
+      "saving": "Ag sábháil…",
+      "cancel": "Cealaigh",
+      "add": "Cuir leis",
+      "export": "Easpórtáil",
+      "import": "Iompórtáil",
+      "upgrade": "Uasghrádaigh",
+      "archive": "Cartlannigh",
+      "restore": "Athchóirigh",
+      "delete": "Scrios",
+      "deletePerma": "Scrios go buan",
+      "capture": "Gabhál",
+      "loading": "Ag luchtú…",
+      "clearSearch": "Glan an cuardach"
+    },
+    "types": {
+      "note": "Nóta",
+      "task": "Cúram",
+      "idea": "Smaoineamh",
+      "reminder": "Meabhrúchán",
+      "untyped": "Gan cineál"
+    },
+    "status": {
+      "open": "Oscailte",
+      "inProgress": "Ar siúl",
+      "blocked": "Blocáilte",
+      "done": "Déanta"
+    },
+    "maturity": {
+      "seed": "Síol",
+      "developing": "Ag forbairt",
+      "ready": "Réidh",
+      "parked": "Páirceáilte"
+    },
+    "search": {
+      "placeholder": "Cuardaigh míreanna… (brúigh / chun fócas)",
+      "loading": "Ag luchtú",
+      "results_one": "{{count}} toradh do \"{{query}}\"",
+      "results_other": "{{count}} toradh do \"{{query}}\"",
+      "noResults": "Níor mheaitseáil aon mhír le do chuardach"
+    },
+    "views": { "dashboard": "Deais", "tasks": "Cúraimí", "ideas": "Smaointe" },
+    "sidebar": {
+      "tags": "Clibeanna",
+      "allItems": "Gach Mír",
+      "trash": "Bruscar",
+      "createTag": "Cruthaigh clib",
+      "tagNamePlaceholder": "Ainm clibe…",
+      "expandSidebar": "Leathnaigh an barra taoibh",
+      "collapseSidebar": "Crap an barra taoibh",
+      "setColor": "Socraigh dath",
+      "removeColor": "Bain an dath",
+      "dragToReorder": "Tarraing chun athordú",
+      "exportUntagged": "Easpórtáil míreanna gan clib",
+      "tagNameTooLong": "Uasmhéid 100 carachtar",
+      "docs": "Doiciméid"
+    },
+    "capture": {
+      "placeholder": "Gabh rud éigin… (brúigh C)",
+      "placeholderTag": "Gabh faoi \"{{tag}}\"… (brúigh C)"
+    },
+    "drawer": {
+      "archived": "Cartlannaithe",
+      "notes": "Nótaí",
+      "addNotes": "Cuir nótaí leis…",
+      "promoteTo": "Ardaigh go…",
+      "created": "Cruthaithe",
+      "updated": "Nuashonraithe",
+      "status": "Stádas",
+      "priority": "Tosaíocht",
+      "due": "Le déanamh faoi",
+      "completed": "Críochnaithe",
+      "maturity": "Aibíocht",
+      "remindAt": "Meabhraigh ag",
+      "dismissed": "Dísheachadta",
+      "yes": "Tá",
+      "no": "Níl"
+    },
+    "tags": {
+      "label": "Clibeanna",
+      "add": "+ clib",
+      "searchOrCreate": "Cuardaigh nó cruthaigh…",
+      "create": "Cruthaigh \"{{name}}\"",
+      "noMatching": "Gan clibeanna comhoiriúnacha",
+      "allApplied": "Gach clib curtha i bhfeidhm"
+    },
+    "taskActions": {
+      "label": "Gníomhartha",
+      "start": "Tosaigh",
+      "complete": "Críochnaigh",
+      "block": "Blocáil",
+      "removeDepToUnblock": "Bain spleáchas chun dí-bhlocáil"
+    },
+    "tagView": {
+      "unsorted": "Neamhshórtáilte ({{count}})",
+      "placeAtEnd": "Cuir ag deireadh an liosta",
+      "noItems": "Gan míreanna leis an gclib seo",
+      "itemCount": "{{count}} míreanna",
+      "addDivider": "+ Deighilteoir"
+    },
+    "tasksView": {
+      "moveLeft": "Bog ar clé",
+      "moveRight": "Bog ar dheis",
+      "noTasks": "Gan cúraimí anseo"
+    },
+    "ideasView": {
+      "moveLeft": "Bog ar clé",
+      "moveRight": "Bog ar dheis",
+      "dropHere": "Tit smaointe anseo"
+    },
+    "trashView": {
+      "title": "Bruscar",
+      "empty": "Tá an bruscar folamh",
+      "daysLeft": "{{days}} lá go scriosadh buan",
+      "restoreTitle": "Athchóirigh mír"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Gabháil Thapa",
+        "placeholder": "Gabh smaoineamh…",
+        "notesPlaceholder": "Nótaí breise (roghnach)"
+      },
+      "recentItems": {
+        "title": "Míreanna le Déanaí",
+        "empty": "Gan míreanna fós",
+        "justNow": "díreach anois",
+        "minsAgo": "{{mins}}n ó shin",
+        "hrsAgo": "{{hrs}}u ó shin",
+        "daysAgo": "{{days}}l ó shin"
+      },
+      "tagCloud": {
+        "title": "Clibeanna",
+        "empty": "Gan clibeanna fós",
+        "itemCount": "{{count}} míreanna"
+      },
+      "notes": { "title": "Nótaí", "empty": "Gan nótaí fós" },
+      "actionableTasks": {
+        "title": "Cúraimí Inghníomhaithe",
+        "empty": "Gan cúraimí inghníomhaithe"
+      }
+    },
+    "account": {
+      "title": "Cuntas",
+      "signedInAs": "Sínithe isteach mar",
+      "roles": {
+        "free": "Saor in aisce",
+        "gift": "Pro (bronntanas)",
+        "paid": "Pro",
+        "admin": "Riarthóir"
+      },
+      "freePlanLimit": "Teoranta do 20 clib ar an bplean saor in aisce.",
+      "upgrade": "Uasghrádaigh →",
+      "proPlan": "Plean Pro",
+      "manageBilling": "Bainistigh billeáil →",
+      "loadingPortal": "Ag luchtú…",
+      "changeEmail": "Athraigh ríomhphost",
+      "newEmail": "Ríomhphost nua",
+      "currentPassword": "Pasfhocal reatha",
+      "emailUpdated": "Ríomhphost nuashonraithe.",
+      "updateEmail": "Nuashonraigh ríomhphost",
+      "saving": "Ag sábháil…",
+      "changePassword": "Athraigh pasfhocal",
+      "newPassword": "Pasfhocal nua",
+      "confirmPassword": "Deimhnigh pasfhocal nua",
+      "passwordMismatch": "Ní hionann na pasfhocail",
+      "passwordUpdated": "Pasfhocal nuashonraithe.",
+      "updatePassword": "Nuashonraigh pasfhocal",
+      "session": "Seisiún",
+      "signOut": "Sínigh amach",
+      "dangerZone": "Crios Contúirteach",
+      "confirmPasswordPlaceholder": "Pasfhocal reatha le deimhniú",
+      "deleteAccount": "Scrios cuntas",
+      "deleting": "Ag scriosadh…",
+      "deleteConfirm": "Scrios do chuntas go buan? Ní féidir é seo a chealú.",
+      "failed": "Theip air",
+      "language": "Teanga",
+      "preferences": "Roghanna",
+      "tooltipsToggle": "Taispeáin leideanna uirlisí",
+      "tooltipsDesc": "Leideanna ar chasadh ar chnaipí agus deilbhíní"
+    }
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "nav": {
+    "features": "Funkciók",
+    "pricing": "Árak",
+    "signIn": "Bejelentkezés",
+    "getStarted": "Kezdés ingyen"
+  },
+  "hero": {
+    "badge": "Egyszerű és hatékony",
+    "headline": "A te jegyzeteid,",
+    "headlineAccent": "végre rendszerezve",
+    "subtitle": "A Notes World egy tiszta, gyors alkalmazásban egyesíti ötleteit, feladatait és emlékeztetőit. Cimkézzen mindent, találjon meg bármit, maradjon naprakész.",
+    "cta": "Kezdés ingyen",
+    "ctaSecondary": "Árak megtekintése"
+  },
+  "features": {
+    "sectionLabel": "Mi van benne",
+    "sectionTitle": "Minden, amire szükséged van, semmi több",
+    "tags": {
+      "title": "Címkék",
+      "desc": "Rendszerezzen mindent színkódolt címkékkel. Szűrje az irányítópultot egyetlen kattintással."
+    },
+    "types": {
+      "title": "Négy elemtípus",
+      "desc": "Megjegyzések, Feladatok, Ötletek és Emlékeztetők — mindegyik saját nézettel és munkafolyamattal."
+    },
+    "capture": {
+      "title": "Gyors rögzítés",
+      "desc": "Az állandó rögzítési sáv lehetővé teszi, hogy bármit leírjon anélkül, hogy elveszítené helyét."
+    },
+    "import": {
+      "title": "Import és export",
+      "desc": "Hozzon be jegyzeteket más alkalmazásokból, vagy exportáljon mindent markdownként — az adatai mindig az Öné."
+    },
+    "mobile": {
+      "title": "Mobilalkalmazás",
+      "desc": "Natív Android alkalmazás az Expo-n keresztül. Rögzítsen jegyzetek útközben, teljes szinkronizációban a webalkalmazással."
+    },
+    "dark": {
+      "title": "Alapértelmezetten sötét",
+      "desc": "Hosszú munkamenetekre tervezve. Tiszta sötét felület, amely kíméli a szemet."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Árak",
+    "sectionTitle": "Egyszerű, átlátható árazás",
+    "free": {
+      "name": "Ingyenes",
+      "price": "€0",
+      "period": "/ örökre",
+      "features": [
+        "Korlátlan jegyzetek, feladatok és ötletek",
+        "Legfeljebb 20 címke",
+        "Import és export",
+        "Web és mobil hozzáférés",
+        "Gyors rögzítés"
+      ],
+      "cta": "Kezdés"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ hó",
+      "alt": "vagy €45 / év — spóroljon 25%-ot",
+      "features": [
+        "Minden az Ingyenesből",
+        "Korlátlan címkék",
+        "Prioritásos támogatás"
+      ],
+      "cta": "Próbaidőszak indítása"
+    }
+  },
+  "footer": {
+    "signIn": "Bejelentkezés",
+    "docs": "Dokumentáció",
+    "impressum": "Impressum",
+    "privacy": "Adatvédelmi irányelvek",
+    "terms": "Szolgáltatási feltételek"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "E-mail",
+    "password": "Jelszó",
+    "signIn": "Bejelentkezés",
+    "createAccount": "Fiók létrehozása",
+    "noAccount": "Nincs fiókja? Regisztráljon",
+    "haveAccount": "Van fiókja? Jelentkezzen be",
+    "loading": "...",
+    "agreeStart": "Elfogadom a ",
+    "termsLink": "Szolgáltatási feltételeket",
+    "agreeMid": " és az ",
+    "privacyLink": "Adatvédelmi irányelveket",
+    "mustAgree": "A regisztrációhoz el kell fogadnia a feltételeket"
+  },
+  "app": {
+    "actions": {
+      "save": "Mentés",
+      "saving": "Mentés…",
+      "cancel": "Mégse",
+      "add": "Hozzáadás",
+      "export": "Exportálás",
+      "import": "Importálás",
+      "upgrade": "Frissítés",
+      "archive": "Archiválás",
+      "restore": "Visszaállítás",
+      "delete": "Törlés",
+      "deletePerma": "Végleges törlés",
+      "capture": "Rögzítés",
+      "loading": "Betöltés…",
+      "clearSearch": "Keresés törlése"
+    },
+    "types": {
+      "note": "Megjegyzés",
+      "task": "Feladat",
+      "idea": "Ötlet",
+      "reminder": "Emlékeztető",
+      "untyped": "Típus nélkül"
+    },
+    "status": {
+      "open": "Nyitott",
+      "inProgress": "Folyamatban",
+      "blocked": "Blokkolt",
+      "done": "Kész"
+    },
+    "maturity": {
+      "seed": "Csíra",
+      "developing": "Fejlődő",
+      "ready": "Kész",
+      "parked": "Parkolt"
+    },
+    "search": {
+      "placeholder": "Elemek keresése… (nyomja meg a / billentyűt)",
+      "loading": "Betöltés",
+      "results_one": "{{count}} találat erre: \"{{query}}\"",
+      "results_other": "{{count}} találat erre: \"{{query}}\"",
+      "noResults": "Nincs a keresésnek megfelelő elem"
+    },
+    "views": {
+      "dashboard": "Irányítópult",
+      "tasks": "Feladatok",
+      "ideas": "Ötletek"
+    },
+    "sidebar": {
+      "tags": "Címkék",
+      "allItems": "Minden elem",
+      "trash": "Szemét",
+      "createTag": "Címke létrehozása",
+      "tagNamePlaceholder": "Címke neve…",
+      "expandSidebar": "Oldalsáv kinyitása",
+      "collapseSidebar": "Oldalsáv bezárása",
+      "setColor": "Szín beállítása",
+      "removeColor": "Szín eltávolítása",
+      "dragToReorder": "Húzza az átrendezéshez",
+      "exportUntagged": "Jelöletlen elemek exportálása",
+      "tagNameTooLong": "Max. 100 karakter",
+      "docs": "Dokumentáció"
+    },
+    "capture": {
+      "placeholder": "Rögzítsen valamit… (nyomja meg C-t)",
+      "placeholderTag": "\"{{tag}}\" alá rögzítés… (nyomja meg C-t)"
+    },
+    "drawer": {
+      "archived": "Archivált",
+      "notes": "Megjegyzések",
+      "addNotes": "Megjegyzések hozzáadása…",
+      "promoteTo": "Előléptetés…",
+      "created": "Létrehozva",
+      "updated": "Frissítve",
+      "status": "Állapot",
+      "priority": "Prioritás",
+      "due": "Határidő",
+      "completed": "Befejezve",
+      "maturity": "Érettség",
+      "remindAt": "Emlékeztető időpontja",
+      "dismissed": "Elutasítva",
+      "yes": "Igen",
+      "no": "Nem"
+    },
+    "tags": {
+      "label": "Címkék",
+      "add": "+ címke",
+      "searchOrCreate": "Keresés vagy létrehozás…",
+      "create": "\"{{name}}\" létrehozása",
+      "noMatching": "Nincs megfelelő címke",
+      "allApplied": "Minden címke alkalmazva"
+    },
+    "taskActions": {
+      "label": "Műveletek",
+      "start": "Indítás",
+      "complete": "Befejezés",
+      "block": "Blokkolás",
+      "removeDepToUnblock": "Távolítson el egy függőséget a feloldáshoz"
+    },
+    "tagView": {
+      "unsorted": "Rendezetlen ({{count}})",
+      "placeAtEnd": "Lista végére helyezés",
+      "noItems": "Nincs elem ezzel a címkével",
+      "itemCount": "{{count}} elem",
+      "addDivider": "+ Elválasztó"
+    },
+    "tasksView": {
+      "moveLeft": "Mozgatás balra",
+      "moveRight": "Mozgatás jobbra",
+      "noTasks": "Nincs feladat itt"
+    },
+    "ideasView": {
+      "moveLeft": "Mozgatás balra",
+      "moveRight": "Mozgatás jobbra",
+      "dropHere": "Ötletek húzása ide"
+    },
+    "trashView": {
+      "title": "Szemét",
+      "empty": "A szemét üres",
+      "daysLeft": "{{days}} nap a végleges törléséig",
+      "restoreTitle": "Elem visszaállítása"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Gyors rögzítés",
+        "placeholder": "Rögzítsen egy gondolatot…",
+        "notesPlaceholder": "További megjegyzések (opcionális)"
+      },
+      "recentItems": {
+        "title": "Legutóbbi elemek",
+        "empty": "Még nincs elem",
+        "justNow": "épp most",
+        "minsAgo": "{{mins}} perce",
+        "hrsAgo": "{{hrs}} órája",
+        "daysAgo": "{{days}} napja"
+      },
+      "tagCloud": {
+        "title": "Címkék",
+        "empty": "Még nincs címke",
+        "itemCount": "{{count}} elem"
+      },
+      "notes": {
+        "title": "Megjegyzések",
+        "empty": "Még nincs megjegyzés"
+      },
+      "actionableTasks": {
+        "title": "Elvégezhető feladatok",
+        "empty": "Nincs elvégezhető feladat"
+      }
+    },
+    "account": {
+      "title": "Fiók",
+      "signedInAs": "Bejelentkezve mint",
+      "roles": {
+        "free": "Ingyenes",
+        "gift": "Pro (ajándék)",
+        "paid": "Pro",
+        "admin": "Admin"
+      },
+      "freePlanLimit": "Az ingyenes csomagban legfeljebb 20 címke.",
+      "upgrade": "Frissítés →",
+      "proPlan": "Pro csomag",
+      "manageBilling": "Számlázás kezelése →",
+      "loadingPortal": "Betöltés…",
+      "changeEmail": "E-mail módosítása",
+      "newEmail": "Új e-mail",
+      "currentPassword": "Jelenlegi jelszó",
+      "emailUpdated": "E-mail frissítve.",
+      "updateEmail": "E-mail frissítése",
+      "saving": "Mentés…",
+      "changePassword": "Jelszó módosítása",
+      "newPassword": "Új jelszó",
+      "confirmPassword": "Új jelszó megerősítése",
+      "passwordMismatch": "A jelszavak nem egyeznek",
+      "passwordUpdated": "Jelszó frissítve.",
+      "updatePassword": "Jelszó frissítése",
+      "session": "Munkamenet",
+      "signOut": "Kijelentkezés",
+      "dangerZone": "Veszélyes zóna",
+      "confirmPasswordPlaceholder": "Jelenlegi jelszó megerősítéshez",
+      "deleteAccount": "Fiók törlése",
+      "deleting": "Törlés…",
+      "deleteConfirm": "Véglegesen törli a fiókját? Ez nem vonható vissza.",
+      "failed": "Sikertelen",
+      "language": "Nyelv",
+      "preferences": "Beállítások",
+      "tooltipsToggle": "Eszköztippek megjelenítése",
+      "tooltipsDesc": "Lebegő tippek gombokhoz és ikonokhoz"
+    }
+  }
+}

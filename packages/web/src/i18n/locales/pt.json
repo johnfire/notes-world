@@ -1,0 +1,283 @@
+{
+  "nav": {
+    "features": "Funcionalidades",
+    "pricing": "Preços",
+    "signIn": "Entrar",
+    "getStarted": "Começar gratuitamente"
+  },
+  "hero": {
+    "badge": "Simples e eficaz",
+    "headline": "As suas notas,",
+    "headlineAccent": "finalmente organizadas",
+    "subtitle": "notes-world reúne as suas ideias, tarefas e lembretes numa aplicação limpa e rápida. Marque tudo com tags, encontre qualquer coisa, mantenha tudo sob controlo.",
+    "cta": "Começar grátis",
+    "ctaSecondary": "Ver preços"
+  },
+  "features": {
+    "sectionLabel": "O que está incluído",
+    "sectionTitle": "Tudo o que precisa, nada do que não precisa",
+    "tags": {
+      "title": "Tags",
+      "desc": "Organize tudo com tags com código de cores. Filtre o seu dashboard por tag com um clique."
+    },
+    "types": {
+      "title": "Quatro tipos de itens",
+      "desc": "Notas, Tarefas, Ideias e Lembretes — cada um com a sua própria vista e fluxo de trabalho."
+    },
+    "capture": {
+      "title": "Captura rápida",
+      "desc": "Uma barra de captura persistente permite anotar qualquer coisa sem perder o seu lugar."
+    },
+    "import": {
+      "title": "Importar e exportar",
+      "desc": "Importe notas de outras aplicações ou exporte tudo como markdown — os seus dados são sempre seus."
+    },
+    "mobile": {
+      "title": "Aplicação móvel",
+      "desc": "Aplicação Android nativa via Expo. Capture notas em movimento, totalmente sincronizada com a aplicação web."
+    },
+    "dark": {
+      "title": "Escuro por defeito",
+      "desc": "Criado para sessões longas. Uma interface escura e limpa que é agradável para os olhos."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Preços",
+    "sectionTitle": "Preços simples e transparentes",
+    "free": {
+      "name": "Grátis",
+      "price": "€0",
+      "period": "/ para sempre",
+      "features": [
+        "Notas, tarefas e ideias ilimitadas",
+        "Até 20 tags",
+        "Importar e exportar",
+        "Acesso web e móvel",
+        "Captura rápida"
+      ],
+      "cta": "Começar"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ mês",
+      "alt": "ou €45 / ano — poupe 25%",
+      "features": [
+        "Tudo do plano Grátis",
+        "Tags ilimitadas",
+        "Suporte prioritário"
+      ],
+      "cta": "Iniciar período de teste gratuito"
+    }
+  },
+  "footer": {
+    "signIn": "Entrar",
+    "docs": "Documentação",
+    "impressum": "Impressum",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos de Serviço"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "E-mail",
+    "password": "Palavra-passe",
+    "signIn": "Entrar",
+    "createAccount": "Criar conta",
+    "noAccount": "Sem conta? Registar",
+    "haveAccount": "Tem uma conta? Entrar",
+    "loading": "...",
+    "agreeStart": "Concordo com os ",
+    "termsLink": "Termos de Serviço",
+    "agreeMid": " e a ",
+    "privacyLink": "Política de Privacidade",
+    "mustAgree": "Deve concordar com os termos para se registar"
+  },
+  "app": {
+    "actions": {
+      "save": "Guardar",
+      "saving": "A guardar…",
+      "cancel": "Cancelar",
+      "add": "Adicionar",
+      "export": "Exportar",
+      "import": "Importar",
+      "upgrade": "Atualizar",
+      "archive": "Arquivar",
+      "restore": "Restaurar",
+      "delete": "Eliminar",
+      "deletePerma": "Eliminar permanentemente",
+      "capture": "Capturar",
+      "loading": "A carregar…",
+      "clearSearch": "Limpar pesquisa"
+    },
+    "types": {
+      "note": "Nota",
+      "task": "Tarefa",
+      "idea": "Ideia",
+      "reminder": "Lembrete",
+      "untyped": "Sem tipo"
+    },
+    "status": {
+      "open": "Aberto",
+      "inProgress": "Em progresso",
+      "blocked": "Bloqueado",
+      "done": "Concluído"
+    },
+    "maturity": {
+      "seed": "Semente",
+      "developing": "Em desenvolvimento",
+      "ready": "Pronto",
+      "parked": "Estacionado"
+    },
+    "search": {
+      "placeholder": "Pesquisar itens… (prima / para focar)",
+      "loading": "A carregar",
+      "results_one": "{{count}} resultado para \"{{query}}\"",
+      "results_other": "{{count}} resultados para \"{{query}}\"",
+      "noResults": "Nenhum item correspondeu à sua pesquisa"
+    },
+    "views": {
+      "dashboard": "Dashboard",
+      "tasks": "Tarefas",
+      "ideas": "Ideias"
+    },
+    "sidebar": {
+      "tags": "Tags",
+      "allItems": "Todos os itens",
+      "trash": "Reciclagem",
+      "createTag": "Criar tag",
+      "tagNamePlaceholder": "Nome da tag…",
+      "expandSidebar": "Expandir painel lateral",
+      "collapseSidebar": "Recolher painel lateral",
+      "setColor": "Definir cor",
+      "removeColor": "Remover cor",
+      "dragToReorder": "Arrastar para reordenar",
+      "exportUntagged": "Exportar itens sem tag",
+      "tagNameTooLong": "Máx. 100 caracteres",
+      "docs": "Documentação"
+    },
+    "capture": {
+      "placeholder": "Capturar algo… (prima C)",
+      "placeholderTag": "Capturar em \"{{tag}}\"… (prima C)"
+    },
+    "drawer": {
+      "archived": "Arquivado",
+      "notes": "Notas",
+      "addNotes": "Adicionar notas…",
+      "promoteTo": "Promover para…",
+      "created": "Criado",
+      "updated": "Atualizado",
+      "status": "Estado",
+      "priority": "Prioridade",
+      "due": "Prazo",
+      "completed": "Concluído",
+      "maturity": "Maturidade",
+      "remindAt": "Lembrar em",
+      "dismissed": "Dispensado",
+      "yes": "Sim",
+      "no": "Não"
+    },
+    "tags": {
+      "label": "Tags",
+      "add": "+ tag",
+      "searchOrCreate": "Pesquisar ou criar…",
+      "create": "Criar \"{{name}}\"",
+      "noMatching": "Nenhuma tag correspondente",
+      "allApplied": "Todas as tags aplicadas"
+    },
+    "taskActions": {
+      "label": "Ações",
+      "start": "Iniciar",
+      "complete": "Concluir",
+      "block": "Bloquear",
+      "removeDepToUnblock": "Remova uma dependência para desbloquear"
+    },
+    "tagView": {
+      "unsorted": "Não ordenado ({{count}})",
+      "placeAtEnd": "Colocar no fim da lista",
+      "noItems": "Nenhum item com esta tag",
+      "itemCount": "{{count}} itens",
+      "addDivider": "+ Divisor"
+    },
+    "tasksView": {
+      "moveLeft": "Mover para a esquerda",
+      "moveRight": "Mover para a direita",
+      "noTasks": "Nenhuma tarefa aqui"
+    },
+    "ideasView": {
+      "moveLeft": "Mover para a esquerda",
+      "moveRight": "Mover para a direita",
+      "dropHere": "Soltar ideias aqui"
+    },
+    "trashView": {
+      "title": "Reciclagem",
+      "empty": "A reciclagem está vazia",
+      "daysLeft": "{{days}} dias até eliminação permanente",
+      "restoreTitle": "Restaurar item"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Captura Rápida",
+        "placeholder": "Capturar um pensamento…",
+        "notesPlaceholder": "Notas adicionais (opcional)"
+      },
+      "recentItems": {
+        "title": "Itens Recentes",
+        "empty": "Ainda sem itens",
+        "justNow": "agora mesmo",
+        "minsAgo": "há {{mins}}min",
+        "hrsAgo": "há {{hrs}}h",
+        "daysAgo": "há {{days}}d"
+      },
+      "tagCloud": {
+        "title": "Tags",
+        "empty": "Ainda sem tags",
+        "itemCount": "{{count}} itens"
+      },
+      "notes": { "title": "Notas", "empty": "Ainda sem notas" },
+      "actionableTasks": {
+        "title": "Tarefas Acionáveis",
+        "empty": "Sem tarefas acionáveis"
+      }
+    },
+    "account": {
+      "title": "Conta",
+      "signedInAs": "Sessão iniciada como",
+      "roles": {
+        "free": "Grátis",
+        "gift": "Pro (oferta)",
+        "paid": "Pro",
+        "admin": "Administrador"
+      },
+      "freePlanLimit": "Limitado a 20 tags no plano gratuito.",
+      "upgrade": "Atualizar →",
+      "proPlan": "Plano Pro",
+      "manageBilling": "Gerir faturação →",
+      "loadingPortal": "A carregar…",
+      "changeEmail": "Alterar e-mail",
+      "newEmail": "Novo e-mail",
+      "currentPassword": "Palavra-passe atual",
+      "emailUpdated": "E-mail atualizado.",
+      "updateEmail": "Atualizar e-mail",
+      "saving": "A guardar…",
+      "changePassword": "Alterar palavra-passe",
+      "newPassword": "Nova palavra-passe",
+      "confirmPassword": "Confirmar nova palavra-passe",
+      "passwordMismatch": "As palavras-passe não coincidem",
+      "passwordUpdated": "Palavra-passe atualizada.",
+      "updatePassword": "Atualizar palavra-passe",
+      "session": "Sessão",
+      "signOut": "Terminar sessão",
+      "dangerZone": "Zona de perigo",
+      "confirmPasswordPlaceholder": "Palavra-passe atual para confirmar",
+      "deleteAccount": "Eliminar conta",
+      "deleting": "A eliminar…",
+      "deleteConfirm": "Eliminar a sua conta permanentemente? Esta ação não pode ser desfeita.",
+      "failed": "Falhou",
+      "language": "Idioma",
+      "preferences": "Preferências",
+      "tooltipsToggle": "Mostrar dicas",
+      "tooltipsDesc": "Dicas ao passar o rato sobre botões e ícones"
+    }
+  }
+}

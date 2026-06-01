@@ -1,0 +1,286 @@
+{
+  "nav": {
+    "features": "Funkcje",
+    "pricing": "Cennik",
+    "signIn": "Zaloguj się",
+    "getStarted": "Zacznij za darmo"
+  },
+  "hero": {
+    "badge": "Prosty i skuteczny",
+    "headline": "Twoje notatki,",
+    "headlineAccent": "wreszcie uporządkowane",
+    "subtitle": "Notes World łączy pomysły, zadania i przypomnienia w jednej przejrzystej, szybkiej aplikacji. Taguj wszystko, znajdź cokolwiek, miej wszystko pod kontrolą.",
+    "cta": "Zacznij za darmo",
+    "ctaSecondary": "Zobacz cennik"
+  },
+  "features": {
+    "sectionLabel": "Co jest w zestawie",
+    "sectionTitle": "Wszystko, czego potrzebujesz, nic ponadto",
+    "tags": {
+      "title": "Tagi",
+      "desc": "Porządkuj wszystko za pomocą kolorowych tagów. Filtruj pulpit jednym kliknięciem."
+    },
+    "types": {
+      "title": "Cztery typy elementów",
+      "desc": "Notatki, Zadania, Pomysły i Przypomnienia — każdy z własnym widokiem i przepływem pracy."
+    },
+    "capture": {
+      "title": "Szybkie przechwytywanie",
+      "desc": "Stały pasek przechwytywania pozwala zapisać wszystko bez utraty miejsca."
+    },
+    "import": {
+      "title": "Import i eksport",
+      "desc": "Importuj notatki z innych aplikacji lub eksportuj wszystko jako markdown — Twoje dane zawsze należą do Ciebie."
+    },
+    "mobile": {
+      "title": "Aplikacja mobilna",
+      "desc": "Natywna aplikacja Android przez Expo. Rób notatki w podróży, w pełni zsynchronizowane z aplikacją webową."
+    },
+    "dark": {
+      "title": "Ciemny domyślnie",
+      "desc": "Stworzone do długich sesji. Przejrzysty ciemny interfejs, przyjazny dla oczu."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Cennik",
+    "sectionTitle": "Proste, przejrzyste ceny",
+    "free": {
+      "name": "Darmowy",
+      "price": "€0",
+      "period": "/ na zawsze",
+      "features": [
+        "Nieograniczone notatki, zadania i pomysły",
+        "Do 20 tagów",
+        "Import i eksport",
+        "Dostęp web i mobilny",
+        "Szybkie przechwytywanie"
+      ],
+      "cta": "Zacznij"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ miesiąc",
+      "alt": "lub €45 / rok — oszczędź 25%",
+      "features": [
+        "Wszystko z planu Darmowego",
+        "Nieograniczone tagi",
+        "Priorytetowe wsparcie"
+      ],
+      "cta": "Zacznij bezpłatny okres próbny"
+    }
+  },
+  "footer": {
+    "signIn": "Zaloguj się",
+    "docs": "Dokumentacja",
+    "impressum": "Impressum",
+    "privacy": "Polityka prywatności",
+    "terms": "Warunki korzystania"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "E-mail",
+    "password": "Hasło",
+    "signIn": "Zaloguj się",
+    "createAccount": "Utwórz konto",
+    "noAccount": "Nie masz konta? Zarejestruj się",
+    "haveAccount": "Masz konto? Zaloguj się",
+    "loading": "...",
+    "agreeStart": "Zgadzam się na ",
+    "termsLink": "Warunki korzystania",
+    "agreeMid": " i ",
+    "privacyLink": "Politykę prywatności",
+    "mustAgree": "Musisz zaakceptować warunki, aby się zarejestrować"
+  },
+  "app": {
+    "actions": {
+      "save": "Zapisz",
+      "saving": "Zapisywanie…",
+      "cancel": "Anuluj",
+      "add": "Dodaj",
+      "export": "Eksportuj",
+      "import": "Importuj",
+      "upgrade": "Ulepsz",
+      "archive": "Archiwizuj",
+      "restore": "Przywróć",
+      "delete": "Usuń",
+      "deletePerma": "Usuń trwale",
+      "capture": "Przechwyć",
+      "loading": "Ładowanie…",
+      "clearSearch": "Wyczyść wyszukiwanie"
+    },
+    "types": {
+      "note": "Notatka",
+      "task": "Zadanie",
+      "idea": "Pomysł",
+      "reminder": "Przypomnienie",
+      "untyped": "Bez typu"
+    },
+    "status": {
+      "open": "Otwarte",
+      "inProgress": "W toku",
+      "blocked": "Zablokowane",
+      "done": "Gotowe"
+    },
+    "maturity": {
+      "seed": "Ziarno",
+      "developing": "W rozwoju",
+      "ready": "Gotowe",
+      "parked": "Zaparkowane"
+    },
+    "search": {
+      "placeholder": "Szukaj elementów… (naciśnij / aby skupić)",
+      "loading": "Ładowanie",
+      "results_one": "{{count}} wynik dla \"{{query}}\"",
+      "results_other": "{{count}} wyników dla \"{{query}}\"",
+      "noResults": "Brak elementów pasujących do wyszukiwania"
+    },
+    "views": {
+      "dashboard": "Pulpit",
+      "tasks": "Zadania",
+      "ideas": "Pomysły"
+    },
+    "sidebar": {
+      "tags": "Tagi",
+      "allItems": "Wszystkie elementy",
+      "trash": "Kosz",
+      "createTag": "Utwórz tag",
+      "tagNamePlaceholder": "Nazwa tagu…",
+      "expandSidebar": "Rozwiń panel boczny",
+      "collapseSidebar": "Zwiń panel boczny",
+      "setColor": "Ustaw kolor",
+      "removeColor": "Usuń kolor",
+      "dragToReorder": "Przeciągnij, aby zmienić kolejność",
+      "exportUntagged": "Eksportuj elementy bez tagów",
+      "tagNameTooLong": "Maks. 100 znaków",
+      "docs": "Dokumentacja"
+    },
+    "capture": {
+      "placeholder": "Przechwyć coś… (naciśnij C)",
+      "placeholderTag": "Przechwyć w \"{{tag}}\"… (naciśnij C)"
+    },
+    "drawer": {
+      "archived": "Zarchiwizowane",
+      "notes": "Notatki",
+      "addNotes": "Dodaj notatki…",
+      "promoteTo": "Awansuj do…",
+      "created": "Utworzono",
+      "updated": "Zaktualizowano",
+      "status": "Status",
+      "priority": "Priorytet",
+      "due": "Termin",
+      "completed": "Ukończono",
+      "maturity": "Dojrzałość",
+      "remindAt": "Przypomnij o",
+      "dismissed": "Odrzucono",
+      "yes": "Tak",
+      "no": "Nie"
+    },
+    "tags": {
+      "label": "Tagi",
+      "add": "+ tag",
+      "searchOrCreate": "Szukaj lub utwórz…",
+      "create": "Utwórz \"{{name}}\"",
+      "noMatching": "Brak pasujących tagów",
+      "allApplied": "Wszystkie tagi zastosowane"
+    },
+    "taskActions": {
+      "label": "Akcje",
+      "start": "Rozpocznij",
+      "complete": "Zakończ",
+      "block": "Zablokuj",
+      "removeDepToUnblock": "Usuń zależność, aby odblokować"
+    },
+    "tagView": {
+      "unsorted": "Niesortowane ({{count}})",
+      "placeAtEnd": "Umieść na końcu listy",
+      "noItems": "Brak elementów z tym tagiem",
+      "itemCount": "{{count}} elementów",
+      "addDivider": "+ Separator"
+    },
+    "tasksView": {
+      "moveLeft": "Przesuń w lewo",
+      "moveRight": "Przesuń w prawo",
+      "noTasks": "Brak zadań tutaj"
+    },
+    "ideasView": {
+      "moveLeft": "Przesuń w lewo",
+      "moveRight": "Przesuń w prawo",
+      "dropHere": "Upuść pomysły tutaj"
+    },
+    "trashView": {
+      "title": "Kosz",
+      "empty": "Kosz jest pusty",
+      "daysLeft": "{{days}} dni do trwałego usunięcia",
+      "restoreTitle": "Przywróć element"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Szybkie przechwytywanie",
+        "placeholder": "Przechwyć myśl…",
+        "notesPlaceholder": "Dodatkowe notatki (opcjonalnie)"
+      },
+      "recentItems": {
+        "title": "Ostatnie elementy",
+        "empty": "Brak elementów",
+        "justNow": "przed chwilą",
+        "minsAgo": "{{mins}} min temu",
+        "hrsAgo": "{{hrs}} godz. temu",
+        "daysAgo": "{{days}} dni temu"
+      },
+      "tagCloud": {
+        "title": "Tagi",
+        "empty": "Brak tagów",
+        "itemCount": "{{count}} elementów"
+      },
+      "notes": {
+        "title": "Notatki",
+        "empty": "Brak notatek"
+      },
+      "actionableTasks": {
+        "title": "Możliwe do wykonania",
+        "empty": "Brak możliwych do wykonania"
+      }
+    },
+    "account": {
+      "title": "Konto",
+      "signedInAs": "Zalogowany jako",
+      "roles": {
+        "free": "Darmowy",
+        "gift": "Pro (prezent)",
+        "paid": "Pro",
+        "admin": "Admin"
+      },
+      "freePlanLimit": "Ograniczone do 20 tagów na planie darmowym.",
+      "upgrade": "Ulepsz →",
+      "proPlan": "Plan Pro",
+      "manageBilling": "Zarządzaj rozliczeniami →",
+      "loadingPortal": "Ładowanie…",
+      "changeEmail": "Zmień e-mail",
+      "newEmail": "Nowy e-mail",
+      "currentPassword": "Aktualne hasło",
+      "emailUpdated": "E-mail zaktualizowany.",
+      "updateEmail": "Zaktualizuj e-mail",
+      "saving": "Zapisywanie…",
+      "changePassword": "Zmień hasło",
+      "newPassword": "Nowe hasło",
+      "confirmPassword": "Potwierdź nowe hasło",
+      "passwordMismatch": "Hasła nie pasują",
+      "passwordUpdated": "Hasło zaktualizowane.",
+      "updatePassword": "Zaktualizuj hasło",
+      "session": "Sesja",
+      "signOut": "Wyloguj się",
+      "dangerZone": "Strefa niebezpieczna",
+      "confirmPasswordPlaceholder": "Aktualne hasło do potwierdzenia",
+      "deleteAccount": "Usuń konto",
+      "deleting": "Usuwanie…",
+      "deleteConfirm": "Trwale usunąć konto? Tej operacji nie można cofnąć.",
+      "failed": "Błąd",
+      "language": "Język",
+      "preferences": "Preferencje",
+      "tooltipsToggle": "Pokaż podpowiedzi",
+      "tooltipsDesc": "Wskazówki po najechaniu na przyciski i ikony"
+    }
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "nav": {
+    "features": "Funkcijos",
+    "pricing": "Kainos",
+    "signIn": "Prisijungti",
+    "getStarted": "Pradėkite nemokamai"
+  },
+  "hero": {
+    "badge": "Paprasta ir efektyvu",
+    "headline": "Jūsų užrašai,",
+    "headlineAccent": "pagaliau sutvarkyti",
+    "subtitle": "Notes World sujungia jūsų idėjas, užduotis ir priminimus į vieną švarią, greitą programėlę. Žymėkite viską, raskite bet ką, tvarkykitės.",
+    "cta": "Pradėkite nemokamai",
+    "ctaSecondary": "Peržiūrėti kainas"
+  },
+  "features": {
+    "sectionLabel": "Kas įtraukta",
+    "sectionTitle": "Viskas, ko reikia, nieko perteklinio",
+    "tags": {
+      "title": "Žymos",
+      "desc": "Tvarkykite viską su spalvomis koduotomis žymomis. Filtruokite informacinę suvestinę vienu paspaudimu."
+    },
+    "types": {
+      "title": "Keturi elementų tipai",
+      "desc": "Užrašai, Užduotys, Idėjos ir Priminimai — kiekvienas su savo rodinyje ir darbo eigoje."
+    },
+    "capture": {
+      "title": "Greitas fiksavimas",
+      "desc": "Nuolatinė fiksavimo juosta leidžia užrašyti bet ką neprarandant vietos."
+    },
+    "import": {
+      "title": "Importas ir eksportas",
+      "desc": "Importuokite užrašus iš kitų programėlių arba eksportuokite viską kaip markdown — jūsų duomenys visada jūsų."
+    },
+    "mobile": {
+      "title": "Mobilioji programėlė",
+      "desc": "Vietinė Android programėlė per Expo. Fiksuokite užrašus judėdami, visiškai sinchronizuotus su žiniatinklio programėle."
+    },
+    "dark": {
+      "title": "Tamsus pagal numatytuosius nustatymus",
+      "desc": "Sukurta ilgoms sesijoms. Švarią tamsią sąsają, maloni akims."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Kainos",
+    "sectionTitle": "Paprastos, skaidrios kainos",
+    "free": {
+      "name": "Nemokama",
+      "price": "€0",
+      "period": "/ amžinai",
+      "features": [
+        "Neriboti užrašai, užduotys ir idėjos",
+        "Iki 20 žymų",
+        "Importas ir eksportas",
+        "Žiniatinklio ir mobilioji prieiga",
+        "Greitas fiksavimas"
+      ],
+      "cta": "Pradėkite"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ mėn.",
+      "alt": "arba €45 / metus — sutaupykite 25 %",
+      "features": [
+        "Viskas iš Nemokamos",
+        "Neriboti žymos",
+        "Prioritetinė pagalba"
+      ],
+      "cta": "Pradėkite bandomąjį laikotarpį"
+    }
+  },
+  "footer": {
+    "signIn": "Prisijungti",
+    "docs": "Dokumentacija",
+    "impressum": "Impressum",
+    "privacy": "Privatumo politika",
+    "terms": "Paslaugų teikimo sąlygos"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "El. paštas",
+    "password": "Slaptažodis",
+    "signIn": "Prisijungti",
+    "createAccount": "Sukurti paskyrą",
+    "noAccount": "Neturite paskyros? Registruokitės",
+    "haveAccount": "Turite paskyrą? Prisijunkite",
+    "loading": "...",
+    "agreeStart": "Sutinku su ",
+    "termsLink": "Paslaugų teikimo sąlygomis",
+    "agreeMid": " ir ",
+    "privacyLink": "Privatumo politika",
+    "mustAgree": "Norėdami registruotis, turite sutikti su sąlygomis"
+  },
+  "app": {
+    "actions": {
+      "save": "Išsaugoti",
+      "saving": "Išsaugoma…",
+      "cancel": "Atšaukti",
+      "add": "Pridėti",
+      "export": "Eksportuoti",
+      "import": "Importuoti",
+      "upgrade": "Atnaujinti",
+      "archive": "Archyvuoti",
+      "restore": "Atkurti",
+      "delete": "Ištrinti",
+      "deletePerma": "Ištrinti visam laikui",
+      "capture": "Fiksuoti",
+      "loading": "Kraunama…",
+      "clearSearch": "Išvalyti paiešką"
+    },
+    "types": {
+      "note": "Užrašas",
+      "task": "Užduotis",
+      "idea": "Idėja",
+      "reminder": "Priminimas",
+      "untyped": "Be tipo"
+    },
+    "status": {
+      "open": "Atvira",
+      "inProgress": "Vykdoma",
+      "blocked": "Užblokuota",
+      "done": "Atlikta"
+    },
+    "maturity": {
+      "seed": "Sėkla",
+      "developing": "Vystoma",
+      "ready": "Paruošta",
+      "parked": "Sustabdyta"
+    },
+    "search": {
+      "placeholder": "Ieškoti elementų… (spauskite / fokusui)",
+      "loading": "Kraunama",
+      "results_one": "{{count}} rezultatas pagal \"{{query}}\"",
+      "results_other": "{{count}} rezultatai pagal \"{{query}}\"",
+      "noResults": "Nė vienas elementas neatitinka paieškos"
+    },
+    "views": {
+      "dashboard": "Suvestinė",
+      "tasks": "Užduotys",
+      "ideas": "Idėjos"
+    },
+    "sidebar": {
+      "tags": "Žymos",
+      "allItems": "Visi elementai",
+      "trash": "Šiukšlinė",
+      "createTag": "Sukurti žymą",
+      "tagNamePlaceholder": "Žymos pavadinimas…",
+      "expandSidebar": "Išplėsti šoninį skydelį",
+      "collapseSidebar": "Sutraukti šoninį skydelį",
+      "setColor": "Nustatyti spalvą",
+      "removeColor": "Pašalinti spalvą",
+      "dragToReorder": "Vilkite, kad pertvarkytumėte",
+      "exportUntagged": "Eksportuoti nepažymėtus elementus",
+      "tagNameTooLong": "Maks. 100 simbolių",
+      "docs": "Dokumentacija"
+    },
+    "capture": {
+      "placeholder": "Fiksuokite ką nors… (spauskite C)",
+      "placeholderTag": "Fiksuoti pagal \"{{tag}}\"… (spauskite C)"
+    },
+    "drawer": {
+      "archived": "Archyvuota",
+      "notes": "Užrašai",
+      "addNotes": "Pridėti užrašų…",
+      "promoteTo": "Pakelti į…",
+      "created": "Sukurta",
+      "updated": "Atnaujinta",
+      "status": "Būsena",
+      "priority": "Prioritetas",
+      "due": "Terminas",
+      "completed": "Atlikta",
+      "maturity": "Brandumas",
+      "remindAt": "Priminti",
+      "dismissed": "Atmesta",
+      "yes": "Taip",
+      "no": "Ne"
+    },
+    "tags": {
+      "label": "Žymos",
+      "add": "+ žyma",
+      "searchOrCreate": "Ieškoti arba kurti…",
+      "create": "Sukurti \"{{name}}\"",
+      "noMatching": "Nėra atitinkančių žymų",
+      "allApplied": "Visos žymos pritaikytos"
+    },
+    "taskActions": {
+      "label": "Veiksmai",
+      "start": "Pradėti",
+      "complete": "Užbaigti",
+      "block": "Blokuoti",
+      "removeDepToUnblock": "Pašalinkite priklausomybę, kad atblokuotumėte"
+    },
+    "tagView": {
+      "unsorted": "Nerūšiuota ({{count}})",
+      "placeAtEnd": "Padėti sąrašo pabaigoje",
+      "noItems": "Nėra elementų su šia žyma",
+      "itemCount": "{{count}} elementų",
+      "addDivider": "+ Skyriklis"
+    },
+    "tasksView": {
+      "moveLeft": "Perkelti kairėn",
+      "moveRight": "Perkelti dešinėn",
+      "noTasks": "Nėra užduočių čia"
+    },
+    "ideasView": {
+      "moveLeft": "Perkelti kairėn",
+      "moveRight": "Perkelti dešinėn",
+      "dropHere": "Įmeskite idėjas čia"
+    },
+    "trashView": {
+      "title": "Šiukšlinė",
+      "empty": "Šiukšlinė tuščia",
+      "daysLeft": "{{days}} d. iki galutinio ištrynimo",
+      "restoreTitle": "Atkurti elementą"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Greitas fiksavimas",
+        "placeholder": "Fiksuokite mintį…",
+        "notesPlaceholder": "Papildomi užrašai (neprivaloma)"
+      },
+      "recentItems": {
+        "title": "Naujausi elementai",
+        "empty": "Dar nėra elementų",
+        "justNow": "ką tik",
+        "minsAgo": "prieš {{mins}} min",
+        "hrsAgo": "prieš {{hrs}} val",
+        "daysAgo": "prieš {{days}} d."
+      },
+      "tagCloud": {
+        "title": "Žymos",
+        "empty": "Dar nėra žymų",
+        "itemCount": "{{count}} elementų"
+      },
+      "notes": {
+        "title": "Užrašai",
+        "empty": "Dar nėra užrašų"
+      },
+      "actionableTasks": {
+        "title": "Vykdytinos užduotys",
+        "empty": "Nėra vykdytinų užduočių"
+      }
+    },
+    "account": {
+      "title": "Paskyra",
+      "signedInAs": "Prisijungta kaip",
+      "roles": {
+        "free": "Nemokama",
+        "gift": "Pro (dovana)",
+        "paid": "Pro",
+        "admin": "Administratorius"
+      },
+      "freePlanLimit": "Nemokamame plane apribota iki 20 žymų.",
+      "upgrade": "Atnaujinti →",
+      "proPlan": "Pro planas",
+      "manageBilling": "Valdyti atsiskaitymą →",
+      "loadingPortal": "Kraunama…",
+      "changeEmail": "Keisti el. paštą",
+      "newEmail": "Naujas el. paštas",
+      "currentPassword": "Dabartinis slaptažodis",
+      "emailUpdated": "El. paštas atnaujintas.",
+      "updateEmail": "Atnaujinti el. paštą",
+      "saving": "Išsaugoma…",
+      "changePassword": "Keisti slaptažodį",
+      "newPassword": "Naujas slaptažodis",
+      "confirmPassword": "Patvirtinti naują slaptažodį",
+      "passwordMismatch": "Slaptažodžiai nesutampa",
+      "passwordUpdated": "Slaptažodis atnaujintas.",
+      "updatePassword": "Atnaujinti slaptažodį",
+      "session": "Sesija",
+      "signOut": "Atsijungti",
+      "dangerZone": "Pavojinga zona",
+      "confirmPasswordPlaceholder": "Dabartinis slaptažodis patvirtinimui",
+      "deleteAccount": "Ištrinti paskyrą",
+      "deleting": "Ištrinama…",
+      "deleteConfirm": "Ištrinti paskyrą visam laikui? Šio veiksmo negalima atšaukti.",
+      "failed": "Nepavyko",
+      "language": "Kalba",
+      "preferences": "Nuostatos",
+      "tooltipsToggle": "Rodyti patarimus",
+      "tooltipsDesc": "Patarimai užvedus pelę ant mygtukų ir piktogramų"
+    }
+  }
+}

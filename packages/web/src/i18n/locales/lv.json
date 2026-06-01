@@ -1,0 +1,283 @@
+{
+  "nav": {
+    "features": "Funkcijas",
+    "pricing": "Cenas",
+    "signIn": "Pierakstīties",
+    "getStarted": "Sākt bez maksas"
+  },
+  "hero": {
+    "badge": "Vienkārši un efektīvi",
+    "headline": "Tavās piezīmes,",
+    "headlineAccent": "beidzot kārtībā",
+    "subtitle": "notes-world apvieno tavas idejas, uzdevumus un atgādinājumus vienā tīrā un ātrā lietotnē. Atzīmē visu, atrod jebko, esi informēts par visu.",
+    "cta": "Sākt bez maksas",
+    "ctaSecondary": "Skatīt cenas"
+  },
+  "features": {
+    "sectionLabel": "Kas iekļauts",
+    "sectionTitle": "Viss nepieciešamais, nekas lieks",
+    "tags": {
+      "title": "Atzīmes",
+      "desc": "Sakārto visu ar krāsu kodētām atzīmēm. Filtrē informācijas paneli pēc atzīmes ar vienu klikšķi."
+    },
+    "types": {
+      "title": "Četri vienumu veidi",
+      "desc": "Piezīmes, uzdevumi, idejas un atgādinājumi — katram savs skats un darbplūsma."
+    },
+    "capture": {
+      "title": "Ātrā uztveršana",
+      "desc": "Pastāvīgā uztveršanas josla ļauj pierakstīt jebko, nezaudējot savu vietu."
+    },
+    "import": {
+      "title": "Imports un eksports",
+      "desc": "Ievadi piezīmes no citām lietotnēm vai eksportē visu kā markdown — tavi dati vienmēr ir tavi."
+    },
+    "mobile": {
+      "title": "Mobilā lietotne",
+      "desc": "Natīvā Android lietotne, izmantojot Expo. Uztveri piezīmes ceļā, pilnībā sinhronizēts ar tīmekļa lietotni."
+    },
+    "dark": {
+      "title": "Tumšs pēc noklusējuma",
+      "desc": "Veidots garajām sesijām. Tīrs tumšs interfeiss, kas nesalst acis."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Cenas",
+    "sectionTitle": "Vienkārša un pārskatāma cenu noteikšana",
+    "free": {
+      "name": "Bezmaksas",
+      "price": "€0",
+      "period": "/ uz visiem laikiem",
+      "features": [
+        "Neierobežotas piezīmes, uzdevumi un idejas",
+        "Līdz 20 atzīmēm",
+        "Imports un eksports",
+        "Tīmekļa un mobilā piekļuve",
+        "Ātrā uztveršana"
+      ],
+      "cta": "Sākt"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ mēnesī",
+      "alt": "vai €45 / gadā — ietaupi 25%",
+      "features": [
+        "Viss bezmaksas plānā",
+        "Neierobežotas atzīmes",
+        "Prioritārs atbalsts"
+      ],
+      "cta": "Sākt bezmaksas izmēģinājumu"
+    }
+  },
+  "footer": {
+    "signIn": "Pierakstīties",
+    "docs": "Dokumentācija",
+    "impressum": "Impressum",
+    "privacy": "Privātuma politika",
+    "terms": "Pakalpojumu sniegšanas noteikumi"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "E-pasts",
+    "password": "Parole",
+    "signIn": "Pierakstīties",
+    "createAccount": "Izveidot kontu",
+    "noAccount": "Nav konta? Reģistrēties",
+    "haveAccount": "Ir konts? Pierakstīties",
+    "loading": "...",
+    "agreeStart": "Es piekrītu ",
+    "termsLink": "pakalpojumu sniegšanas noteikumiem",
+    "agreeMid": " un ",
+    "privacyLink": "privātuma politikai",
+    "mustAgree": "Lai reģistrētos, jāpiekrīt noteikumiem"
+  },
+  "app": {
+    "actions": {
+      "save": "Saglabāt",
+      "saving": "Saglabā…",
+      "cancel": "Atcelt",
+      "add": "Pievienot",
+      "export": "Eksportēt",
+      "import": "Importēt",
+      "upgrade": "Jaunināt",
+      "archive": "Arhivēt",
+      "restore": "Atjaunot",
+      "delete": "Dzēst",
+      "deletePerma": "Dzēst neatgriezeniski",
+      "capture": "Uztvert",
+      "loading": "Ielādē…",
+      "clearSearch": "Notīrīt meklēšanu"
+    },
+    "types": {
+      "note": "Piezīme",
+      "task": "Uzdevums",
+      "idea": "Ideja",
+      "reminder": "Atgādinājums",
+      "untyped": "Bez tipa"
+    },
+    "status": {
+      "open": "Atvērts",
+      "inProgress": "Procesā",
+      "blocked": "Bloķēts",
+      "done": "Pabeigts"
+    },
+    "maturity": {
+      "seed": "Sēkla",
+      "developing": "Attīstās",
+      "ready": "Gatavs",
+      "parked": "Novietots"
+    },
+    "search": {
+      "placeholder": "Meklēt vienumus… (nospied / lai fokusētu)",
+      "loading": "Ielādē",
+      "results_one": "{{count}} rezultāts priekš \"{{query}}\"",
+      "results_other": "{{count}} rezultāti priekš \"{{query}}\"",
+      "noResults": "Neviens vienums neatbilst meklēšanai"
+    },
+    "views": {
+      "dashboard": "Informācijas panelis",
+      "tasks": "Uzdevumi",
+      "ideas": "Idejas"
+    },
+    "sidebar": {
+      "tags": "Atzīmes",
+      "allItems": "Visi vienumi",
+      "trash": "Miskaste",
+      "createTag": "Izveidot atzīmi",
+      "tagNamePlaceholder": "Atzīmes nosaukums…",
+      "expandSidebar": "Izvērst sānjoslu",
+      "collapseSidebar": "Sakļaut sānjoslu",
+      "setColor": "Iestatīt krāsu",
+      "removeColor": "Noņemt krāsu",
+      "dragToReorder": "Velciet, lai pārkārtotu",
+      "exportUntagged": "Eksportēt neatzīmētos vienumus",
+      "tagNameTooLong": "Maks. 100 rakstzīmes",
+      "docs": "Dokumentācija"
+    },
+    "capture": {
+      "placeholder": "Uztver kaut ko… (nospied C)",
+      "placeholderTag": "Uztver zem \"{{tag}}\"… (nospied C)"
+    },
+    "drawer": {
+      "archived": "Arhivēts",
+      "notes": "Piezīmes",
+      "addNotes": "Pievienot piezīmes…",
+      "promoteTo": "Paaugstināt uz…",
+      "created": "Izveidots",
+      "updated": "Atjaunināts",
+      "status": "Statuss",
+      "priority": "Prioritāte",
+      "due": "Termiņš",
+      "completed": "Pabeigts",
+      "maturity": "Briedums",
+      "remindAt": "Atgādināt",
+      "dismissed": "Noraidīts",
+      "yes": "Jā",
+      "no": "Nē"
+    },
+    "tags": {
+      "label": "Atzīmes",
+      "add": "+ atzīme",
+      "searchOrCreate": "Meklēt vai izveidot…",
+      "create": "Izveidot \"{{name}}\"",
+      "noMatching": "Nav atbilstošu atzīmju",
+      "allApplied": "Visas atzīmes pielietotas"
+    },
+    "taskActions": {
+      "label": "Darbības",
+      "start": "Sākt",
+      "complete": "Pabeigt",
+      "block": "Bloķēt",
+      "removeDepToUnblock": "Noņem atkarību, lai atbloķētu"
+    },
+    "tagView": {
+      "unsorted": "Nekārtots ({{count}})",
+      "placeAtEnd": "Novietot saraksta beigās",
+      "noItems": "Nav vienumu ar šo atzīmi",
+      "itemCount": "{{count}} vienumi",
+      "addDivider": "+ Dalītājs"
+    },
+    "tasksView": {
+      "moveLeft": "Pārvietot pa kreisi",
+      "moveRight": "Pārvietot pa labi",
+      "noTasks": "Šeit nav uzdevumu"
+    },
+    "ideasView": {
+      "moveLeft": "Pārvietot pa kreisi",
+      "moveRight": "Pārvietot pa labi",
+      "dropHere": "Nometiet idejas šeit"
+    },
+    "trashView": {
+      "title": "Miskaste",
+      "empty": "Miskaste ir tukša",
+      "daysLeft": "{{days}} dienas līdz neatgriezeniskai dzēšanai",
+      "restoreTitle": "Atjaunot vienumu"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Ātrā uztveršana",
+        "placeholder": "Uztver domu…",
+        "notesPlaceholder": "Papildu piezīmes (neobligāti)"
+      },
+      "recentItems": {
+        "title": "Jaunākie vienumi",
+        "empty": "Vēl nav vienumu",
+        "justNow": "tikko",
+        "minsAgo": "{{mins}} min. atpakaļ",
+        "hrsAgo": "{{hrs}} st. atpakaļ",
+        "daysAgo": "{{days}} d. atpakaļ"
+      },
+      "tagCloud": {
+        "title": "Atzīmes",
+        "empty": "Vēl nav atzīmju",
+        "itemCount": "{{count}} vienumi"
+      },
+      "notes": { "title": "Piezīmes", "empty": "Vēl nav piezīmju" },
+      "actionableTasks": {
+        "title": "Izpildāmie uzdevumi",
+        "empty": "Nav izpildāmu uzdevumu"
+      }
+    },
+    "account": {
+      "title": "Konts",
+      "signedInAs": "Pierakstījies kā",
+      "roles": {
+        "free": "Bezmaksas",
+        "gift": "Pro (dāvana)",
+        "paid": "Pro",
+        "admin": "Administrators"
+      },
+      "freePlanLimit": "Bezmaksas plānā ierobežots ar 20 atzīmēm.",
+      "upgrade": "Jaunināt →",
+      "proPlan": "Pro plāns",
+      "manageBilling": "Pārvaldīt norēķinus →",
+      "loadingPortal": "Ielādē…",
+      "changeEmail": "Mainīt e-pastu",
+      "newEmail": "Jauns e-pasts",
+      "currentPassword": "Pašreizējā parole",
+      "emailUpdated": "E-pasts atjaunināts.",
+      "updateEmail": "Atjaunināt e-pastu",
+      "saving": "Saglabā…",
+      "changePassword": "Mainīt paroli",
+      "newPassword": "Jaunā parole",
+      "confirmPassword": "Apstiprināt jauno paroli",
+      "passwordMismatch": "Paroles nesakrīt",
+      "passwordUpdated": "Parole atjaunināta.",
+      "updatePassword": "Atjaunināt paroli",
+      "session": "Sesija",
+      "signOut": "Atteikties",
+      "dangerZone": "Bīstamā zona",
+      "confirmPasswordPlaceholder": "Pašreizējā parole apstiprināšanai",
+      "deleteAccount": "Dzēst kontu",
+      "deleting": "Dzēš…",
+      "deleteConfirm": "Dzēst kontu neatgriezeniski? To nevar atsaukt.",
+      "failed": "Neizdevās",
+      "language": "Valoda",
+      "preferences": "Preferences",
+      "tooltipsToggle": "Rādīt rīkpadomes",
+      "tooltipsDesc": "Kursora norādījumi uz pogām un ikonām"
+    }
+  }
+}

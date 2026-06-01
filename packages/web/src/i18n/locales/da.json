@@ -1,0 +1,275 @@
+{
+  "nav": {
+    "features": "Funktioner",
+    "pricing": "Priser",
+    "signIn": "Log ind",
+    "getStarted": "Kom i gang gratis"
+  },
+  "hero": {
+    "badge": "Enkel og effektiv",
+    "headline": "Dine noter,",
+    "headlineAccent": "endelig organiseret",
+    "subtitle": "notes-world samler dine idéer, opgaver og påmindelser i én ren, hurtig app. Tag alt, find alt, hold styr på det hele.",
+    "cta": "Start gratis",
+    "ctaSecondary": "Se priser"
+  },
+  "features": {
+    "sectionLabel": "Hvad er inkluderet",
+    "sectionTitle": "Alt hvad du har brug for, intet du ikke har",
+    "tags": {
+      "title": "Tags",
+      "desc": "Organiser alt med farvekodede tags. Filtrer dit dashboard efter tag med ét klik."
+    },
+    "types": {
+      "title": "Fire elementtyper",
+      "desc": "Noter, Opgaver, Idéer og Påmindelser — hver med sin egen visning og arbejdsgang."
+    },
+    "capture": {
+      "title": "Hurtig registrering",
+      "desc": "En fast registreringslinje betyder, at du kan notere noget ned uden at miste dit sted."
+    },
+    "import": {
+      "title": "Import og eksport",
+      "desc": "Hent noter fra andre apps eller eksporter alt som markdown — dine data tilhører altid dig."
+    },
+    "mobile": {
+      "title": "Mobilapp",
+      "desc": "Indbygget Android-app via Expo. Registrer noter på farten, fuldt synkroniseret med webappen."
+    },
+    "dark": {
+      "title": "Mørk som standard",
+      "desc": "Bygget til lange sessioner. En ren mørk grænseflade, der er skånsom mod øjnene."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Priser",
+    "sectionTitle": "Enkle, transparente priser",
+    "free": {
+      "name": "Gratis",
+      "price": "€0",
+      "period": "/ for evigt",
+      "features": [
+        "Ubegrænsede noter, opgaver og idéer",
+        "Op til 20 tags",
+        "Import og eksport",
+        "Web- og mobiladgang",
+        "Hurtig registrering"
+      ],
+      "cta": "Kom i gang"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ måned",
+      "alt": "eller €45 / år — spar 25%",
+      "features": ["Alt i Gratis", "Ubegrænsede tags", "Prioritetssupport"],
+      "cta": "Start gratis prøveperiode"
+    }
+  },
+  "footer": {
+    "signIn": "Log ind",
+    "docs": "Dokumentation",
+    "impressum": "Impressum",
+    "privacy": "Privatlivspolitik",
+    "terms": "Servicevilkår"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "E-mail",
+    "password": "Adgangskode",
+    "signIn": "Log ind",
+    "createAccount": "Opret konto",
+    "noAccount": "Ingen konto? Registrer",
+    "haveAccount": "Har du en konto? Log ind",
+    "loading": "...",
+    "agreeStart": "Jeg accepterer ",
+    "termsLink": "Servicevilkårene",
+    "agreeMid": " og ",
+    "privacyLink": "Privatlivspolitikken",
+    "mustAgree": "Du skal acceptere vilkårene for at registrere dig"
+  },
+  "app": {
+    "actions": {
+      "save": "Gem",
+      "saving": "Gemmer…",
+      "cancel": "Annuller",
+      "add": "Tilføj",
+      "export": "Eksporter",
+      "import": "Importer",
+      "upgrade": "Opgrader",
+      "archive": "Arkiver",
+      "restore": "Gendan",
+      "delete": "Slet",
+      "deletePerma": "Slet permanent",
+      "capture": "Registrer",
+      "loading": "Indlæser…",
+      "clearSearch": "Ryd søgning"
+    },
+    "types": {
+      "note": "Note",
+      "task": "Opgave",
+      "idea": "Idé",
+      "reminder": "Påmindelse",
+      "untyped": "Uden type"
+    },
+    "status": {
+      "open": "Åben",
+      "inProgress": "I gang",
+      "blocked": "Blokeret",
+      "done": "Færdig"
+    },
+    "maturity": {
+      "seed": "Frø",
+      "developing": "Under udvikling",
+      "ready": "Klar",
+      "parked": "Parkeret"
+    },
+    "search": {
+      "placeholder": "Søg elementer… (tryk / for at fokusere)",
+      "loading": "Indlæser",
+      "results_one": "{{count}} resultat for \"{{query}}\"",
+      "results_other": "{{count}} resultater for \"{{query}}\"",
+      "noResults": "Ingen elementer matchede din søgning"
+    },
+    "views": { "dashboard": "Dashboard", "tasks": "Opgaver", "ideas": "Idéer" },
+    "sidebar": {
+      "tags": "Tags",
+      "allItems": "Alle elementer",
+      "trash": "Papirkurv",
+      "createTag": "Opret tag",
+      "tagNamePlaceholder": "Tagnavn…",
+      "expandSidebar": "Udvid sidepanel",
+      "collapseSidebar": "Skjul sidepanel",
+      "setColor": "Indstil farve",
+      "removeColor": "Fjern farve",
+      "dragToReorder": "Træk for at ændre rækkefølge",
+      "exportUntagged": "Eksporter elementer uden tags",
+      "tagNameTooLong": "Maks. 100 tegn",
+      "docs": "Dokumentation"
+    },
+    "capture": {
+      "placeholder": "Registrer noget… (tryk C)",
+      "placeholderTag": "Registrer under \"{{tag}}\"… (tryk C)"
+    },
+    "drawer": {
+      "archived": "Arkiveret",
+      "notes": "Noter",
+      "addNotes": "Tilføj noter…",
+      "promoteTo": "Forfrem til…",
+      "created": "Oprettet",
+      "updated": "Opdateret",
+      "status": "Status",
+      "priority": "Prioritet",
+      "due": "Forfaldsdato",
+      "completed": "Fuldført",
+      "maturity": "Modenhed",
+      "remindAt": "Påmind ved",
+      "dismissed": "Afvist",
+      "yes": "Ja",
+      "no": "Nej"
+    },
+    "tags": {
+      "label": "Tags",
+      "add": "+ tag",
+      "searchOrCreate": "Søg eller opret…",
+      "create": "Opret \"{{name}}\"",
+      "noMatching": "Ingen matchende tags",
+      "allApplied": "Alle tags anvendt"
+    },
+    "taskActions": {
+      "label": "Handlinger",
+      "start": "Start",
+      "complete": "Fuldfør",
+      "block": "Bloker",
+      "removeDepToUnblock": "Fjern en afhængighed for at fjerne blokering"
+    },
+    "tagView": {
+      "unsorted": "Usorteret ({{count}})",
+      "placeAtEnd": "Placer sidst på listen",
+      "noItems": "Ingen elementer med dette tag",
+      "itemCount": "{{count}} elementer",
+      "addDivider": "+ Separator"
+    },
+    "tasksView": {
+      "moveLeft": "Flyt til venstre",
+      "moveRight": "Flyt til højre",
+      "noTasks": "Ingen opgaver her"
+    },
+    "ideasView": {
+      "moveLeft": "Flyt til venstre",
+      "moveRight": "Flyt til højre",
+      "dropHere": "Slip idéer her"
+    },
+    "trashView": {
+      "title": "Papirkurv",
+      "empty": "Papirkurven er tom",
+      "daysLeft": "{{days}} dage til permanent sletning",
+      "restoreTitle": "Gendan element"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Hurtig registrering",
+        "placeholder": "Registrer en tanke…",
+        "notesPlaceholder": "Yderligere noter (valgfrit)"
+      },
+      "recentItems": {
+        "title": "Seneste elementer",
+        "empty": "Ingen elementer endnu",
+        "justNow": "lige nu",
+        "minsAgo": "{{mins}}min siden",
+        "hrsAgo": "{{hrs}}t siden",
+        "daysAgo": "{{days}}d siden"
+      },
+      "tagCloud": {
+        "title": "Tags",
+        "empty": "Ingen tags endnu",
+        "itemCount": "{{count}} elementer"
+      },
+      "notes": { "title": "Noter", "empty": "Ingen noter endnu" },
+      "actionableTasks": {
+        "title": "Handlingsklare opgaver",
+        "empty": "Ingen handlingsklare opgaver"
+      }
+    },
+    "account": {
+      "title": "Konto",
+      "signedInAs": "Logget ind som",
+      "roles": {
+        "free": "Gratis",
+        "gift": "Pro (gave)",
+        "paid": "Pro",
+        "admin": "Administrator"
+      },
+      "freePlanLimit": "Begrænset til 20 tags på gratisplanen.",
+      "upgrade": "Opgrader →",
+      "proPlan": "Pro-plan",
+      "manageBilling": "Administrer fakturering →",
+      "loadingPortal": "Indlæser…",
+      "changeEmail": "Skift e-mail",
+      "newEmail": "Ny e-mail",
+      "currentPassword": "Nuværende adgangskode",
+      "emailUpdated": "E-mail opdateret.",
+      "updateEmail": "Opdater e-mail",
+      "saving": "Gemmer…",
+      "changePassword": "Skift adgangskode",
+      "newPassword": "Ny adgangskode",
+      "confirmPassword": "Bekræft ny adgangskode",
+      "passwordMismatch": "Adgangskoderne stemmer ikke overens",
+      "passwordUpdated": "Adgangskode opdateret.",
+      "updatePassword": "Opdater adgangskode",
+      "session": "Session",
+      "signOut": "Log ud",
+      "dangerZone": "Farlig zone",
+      "confirmPasswordPlaceholder": "Nuværende adgangskode for at bekræfte",
+      "deleteAccount": "Slet konto",
+      "deleting": "Sletter…",
+      "deleteConfirm": "Slet din konto permanent? Dette kan ikke fortrydes.",
+      "failed": "Mislykkedes",
+      "language": "Sprog",
+      "preferences": "Præferencer",
+      "tooltipsToggle": "Vis værktøjstip",
+      "tooltipsDesc": "Svævetip på knapper og ikoner"
+    }
+  }
+}

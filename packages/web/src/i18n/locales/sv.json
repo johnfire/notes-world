@@ -1,0 +1,279 @@
+{
+  "nav": {
+    "features": "Funktioner",
+    "pricing": "Priser",
+    "signIn": "Logga in",
+    "getStarted": "Kom igång gratis"
+  },
+  "hero": {
+    "badge": "Enkelt och effektivt",
+    "headline": "Dina anteckningar,",
+    "headlineAccent": "äntligen organiserade",
+    "subtitle": "notes-world samlar dina idéer, uppgifter och påminnelser i en och samma snabba, rena app. Tagga allt, hitta vad som helst, håll koll på allt.",
+    "cta": "Börja gratis",
+    "ctaSecondary": "Se priser"
+  },
+  "features": {
+    "sectionLabel": "Vad som ingår",
+    "sectionTitle": "Allt du behöver, inget du inte behöver",
+    "tags": {
+      "title": "Taggar",
+      "desc": "Organisera allt med färgkodade taggar. Filtrera din dashboard efter tagg med ett klick."
+    },
+    "types": {
+      "title": "Fyra objekttyper",
+      "desc": "Anteckningar, Uppgifter, Idéer och Påminnelser — varje med sin egen vy och arbetsflöde."
+    },
+    "capture": {
+      "title": "Snabb infångning",
+      "desc": "En beständig infångningsrad innebär att du kan anteckna vad som helst utan att tappa platsen."
+    },
+    "import": {
+      "title": "Importera och exportera",
+      "desc": "Hämta anteckningar från andra appar eller exportera allt som markdown — din data är alltid din."
+    },
+    "mobile": {
+      "title": "Mobilapp",
+      "desc": "Inbyggd Android-app via Expo. Fånga anteckningar på språng, fullt synkroniserat med webbappen."
+    },
+    "dark": {
+      "title": "Mörkt som standard",
+      "desc": "Byggt för långa sessioner. Ett rent mörkt gränssnitt som är skonsamt mot ögonen."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Priser",
+    "sectionTitle": "Enkla, transparenta priser",
+    "free": {
+      "name": "Gratis",
+      "price": "€0",
+      "period": "/ för alltid",
+      "features": [
+        "Obegränsade anteckningar, uppgifter och idéer",
+        "Upp till 20 taggar",
+        "Importera och exportera",
+        "Webb- och mobilåtkomst",
+        "Snabb infångning"
+      ],
+      "cta": "Kom igång"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ månad",
+      "alt": "eller €45 / år — spara 25%",
+      "features": ["Allt i Gratis", "Obegränsade taggar", "Prioritetssupport"],
+      "cta": "Starta gratis provperiod"
+    }
+  },
+  "footer": {
+    "signIn": "Logga in",
+    "docs": "Dokumentation",
+    "impressum": "Impressum",
+    "privacy": "Integritetspolicy",
+    "terms": "Användarvillkor"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "E-post",
+    "password": "Lösenord",
+    "signIn": "Logga in",
+    "createAccount": "Skapa konto",
+    "noAccount": "Inget konto? Registrera",
+    "haveAccount": "Har du ett konto? Logga in",
+    "loading": "...",
+    "agreeStart": "Jag godkänner ",
+    "termsLink": "Användarvillkoren",
+    "agreeMid": " och ",
+    "privacyLink": "Integritetspolicyn",
+    "mustAgree": "Du måste godkänna villkoren för att registrera dig"
+  },
+  "app": {
+    "actions": {
+      "save": "Spara",
+      "saving": "Sparar…",
+      "cancel": "Avbryt",
+      "add": "Lägg till",
+      "export": "Exportera",
+      "import": "Importera",
+      "upgrade": "Uppgradera",
+      "archive": "Arkivera",
+      "restore": "Återställ",
+      "delete": "Ta bort",
+      "deletePerma": "Ta bort permanent",
+      "capture": "Fånga",
+      "loading": "Laddar…",
+      "clearSearch": "Rensa sökning"
+    },
+    "types": {
+      "note": "Anteckning",
+      "task": "Uppgift",
+      "idea": "Idé",
+      "reminder": "Påminnelse",
+      "untyped": "Utan typ"
+    },
+    "status": {
+      "open": "Öppen",
+      "inProgress": "Pågår",
+      "blocked": "Blockerad",
+      "done": "Klar"
+    },
+    "maturity": {
+      "seed": "Frö",
+      "developing": "Under utveckling",
+      "ready": "Redo",
+      "parked": "Parkerad"
+    },
+    "search": {
+      "placeholder": "Sök objekt… (tryck / för att fokusera)",
+      "loading": "Laddar",
+      "results_one": "{{count}} resultat för \"{{query}}\"",
+      "results_other": "{{count}} resultat för \"{{query}}\"",
+      "noResults": "Inga objekt matchade din sökning"
+    },
+    "views": {
+      "dashboard": "Dashboard",
+      "tasks": "Uppgifter",
+      "ideas": "Idéer"
+    },
+    "sidebar": {
+      "tags": "Taggar",
+      "allItems": "Alla objekt",
+      "trash": "Papperskorg",
+      "createTag": "Skapa tagg",
+      "tagNamePlaceholder": "Taggnamn…",
+      "expandSidebar": "Expandera sidopanel",
+      "collapseSidebar": "Fäll ihop sidopanel",
+      "setColor": "Ange färg",
+      "removeColor": "Ta bort färg",
+      "dragToReorder": "Dra för att ändra ordning",
+      "exportUntagged": "Exportera otaggade objekt",
+      "tagNameTooLong": "Max 100 tecken",
+      "docs": "Dokumentation"
+    },
+    "capture": {
+      "placeholder": "Fånga något… (tryck C)",
+      "placeholderTag": "Fånga under \"{{tag}}\"… (tryck C)"
+    },
+    "drawer": {
+      "archived": "Arkiverad",
+      "notes": "Anteckningar",
+      "addNotes": "Lägg till anteckningar…",
+      "promoteTo": "Befordra till…",
+      "created": "Skapad",
+      "updated": "Uppdaterad",
+      "status": "Status",
+      "priority": "Prioritet",
+      "due": "Förfaller",
+      "completed": "Slutförd",
+      "maturity": "Mognad",
+      "remindAt": "Påminn vid",
+      "dismissed": "Avvisad",
+      "yes": "Ja",
+      "no": "Nej"
+    },
+    "tags": {
+      "label": "Taggar",
+      "add": "+ tagg",
+      "searchOrCreate": "Sök eller skapa…",
+      "create": "Skapa \"{{name}}\"",
+      "noMatching": "Inga matchande taggar",
+      "allApplied": "Alla taggar tillagda"
+    },
+    "taskActions": {
+      "label": "Åtgärder",
+      "start": "Starta",
+      "complete": "Slutför",
+      "block": "Blockera",
+      "removeDepToUnblock": "Ta bort ett beroende för att avblockera"
+    },
+    "tagView": {
+      "unsorted": "Osorterade ({{count}})",
+      "placeAtEnd": "Placera i slutet av listan",
+      "noItems": "Inga objekt med den här taggen",
+      "itemCount": "{{count}} objekt",
+      "addDivider": "+ Avdelare"
+    },
+    "tasksView": {
+      "moveLeft": "Flytta vänster",
+      "moveRight": "Flytta höger",
+      "noTasks": "Inga uppgifter här"
+    },
+    "ideasView": {
+      "moveLeft": "Flytta vänster",
+      "moveRight": "Flytta höger",
+      "dropHere": "Släpp idéer här"
+    },
+    "trashView": {
+      "title": "Papperskorg",
+      "empty": "Papperskorgen är tom",
+      "daysLeft": "{{days}} dagar tills permanent borttagning",
+      "restoreTitle": "Återställ objekt"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Snabb infångning",
+        "placeholder": "Fånga en tanke…",
+        "notesPlaceholder": "Ytterligare anteckningar (valfritt)"
+      },
+      "recentItems": {
+        "title": "Senaste objekt",
+        "empty": "Inga objekt ännu",
+        "justNow": "precis nu",
+        "minsAgo": "{{mins}}min sedan",
+        "hrsAgo": "{{hrs}}h sedan",
+        "daysAgo": "{{days}}d sedan"
+      },
+      "tagCloud": {
+        "title": "Taggar",
+        "empty": "Inga taggar ännu",
+        "itemCount": "{{count}} objekt"
+      },
+      "notes": { "title": "Anteckningar", "empty": "Inga anteckningar ännu" },
+      "actionableTasks": {
+        "title": "Åtgärdbara uppgifter",
+        "empty": "Inga åtgärdbara uppgifter"
+      }
+    },
+    "account": {
+      "title": "Konto",
+      "signedInAs": "Inloggad som",
+      "roles": {
+        "free": "Gratis",
+        "gift": "Pro (gåva)",
+        "paid": "Pro",
+        "admin": "Administratör"
+      },
+      "freePlanLimit": "Begränsat till 20 taggar i gratisplanen.",
+      "upgrade": "Uppgradera →",
+      "proPlan": "Pro-plan",
+      "manageBilling": "Hantera fakturering →",
+      "loadingPortal": "Laddar…",
+      "changeEmail": "Ändra e-post",
+      "newEmail": "Ny e-post",
+      "currentPassword": "Nuvarande lösenord",
+      "emailUpdated": "E-post uppdaterad.",
+      "updateEmail": "Uppdatera e-post",
+      "saving": "Sparar…",
+      "changePassword": "Ändra lösenord",
+      "newPassword": "Nytt lösenord",
+      "confirmPassword": "Bekräfta nytt lösenord",
+      "passwordMismatch": "Lösenorden stämmer inte överens",
+      "passwordUpdated": "Lösenord uppdaterat.",
+      "updatePassword": "Uppdatera lösenord",
+      "session": "Session",
+      "signOut": "Logga ut",
+      "dangerZone": "Farlig zon",
+      "confirmPasswordPlaceholder": "Nuvarande lösenord för att bekräfta",
+      "deleteAccount": "Ta bort konto",
+      "deleting": "Tar bort…",
+      "deleteConfirm": "Ta bort ditt konto permanent? Det går inte att ångra.",
+      "failed": "Misslyckades",
+      "language": "Språk",
+      "preferences": "Inställningar",
+      "tooltipsToggle": "Visa verktygstips",
+      "tooltipsDesc": "Hoverledtrådar på knappar och ikoner"
+    }
+  }
+}

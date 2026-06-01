@@ -1,0 +1,286 @@
+{
+  "nav": {
+    "features": "Funcții",
+    "pricing": "Prețuri",
+    "signIn": "Conectare",
+    "getStarted": "Începeți gratuit"
+  },
+  "hero": {
+    "badge": "Simplu și eficient",
+    "headline": "Notele tale,",
+    "headlineAccent": "în sfârșit organizate",
+    "subtitle": "Notes World reunește ideile, sarcinile și reminderele tale într-o aplicație curată și rapidă. Etichetați orice, găsiți orice, rămâneți pe fază.",
+    "cta": "Începeți gratuit",
+    "ctaSecondary": "Vedeți prețurile"
+  },
+  "features": {
+    "sectionLabel": "Ce este inclus",
+    "sectionTitle": "Tot ce ai nevoie, nimic în plus",
+    "tags": {
+      "title": "Etichete",
+      "desc": "Organizați orice cu etichete colorate. Filtrați tabloul de bord după etichetă cu un singur clic."
+    },
+    "types": {
+      "title": "Patru tipuri de elemente",
+      "desc": "Note, Sarcini, Idei și Remindere — fiecare cu propria vedere și flux de lucru."
+    },
+    "capture": {
+      "title": "Captare rapidă",
+      "desc": "O bară de captare persistentă vă permite să notați orice fără a vă pierde locul."
+    },
+    "import": {
+      "title": "Import și export",
+      "desc": "Aduceți note din alte aplicații sau exportați totul ca markdown — datele dvs. sunt întotdeauna ale dvs."
+    },
+    "mobile": {
+      "title": "Aplicație mobilă",
+      "desc": "Aplicație nativă Android prin Expo. Captați note din mers, complet sincronizate cu aplicația web."
+    },
+    "dark": {
+      "title": "Întunecat implicit",
+      "desc": "Construit pentru sesiuni lungi. O interfață întunecată și clară, prietenoasă cu ochii."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Prețuri",
+    "sectionTitle": "Prețuri simple, transparente",
+    "free": {
+      "name": "Gratuit",
+      "price": "€0",
+      "period": "/ pentru totdeauna",
+      "features": [
+        "Note, sarcini și idei nelimitate",
+        "Până la 20 de etichete",
+        "Import și export",
+        "Acces web și mobil",
+        "Captare rapidă"
+      ],
+      "cta": "Începeți"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ lună",
+      "alt": "sau €45 / an — economisiți 25%",
+      "features": [
+        "Tot din Gratuit",
+        "Etichete nelimitate",
+        "Asistență prioritară"
+      ],
+      "cta": "Începeți perioada de probă"
+    }
+  },
+  "footer": {
+    "signIn": "Conectare",
+    "docs": "Documentație",
+    "impressum": "Impressum",
+    "privacy": "Politica de confidențialitate",
+    "terms": "Termeni de serviciu"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "E-mail",
+    "password": "Parolă",
+    "signIn": "Conectare",
+    "createAccount": "Creați un cont",
+    "noAccount": "Nu aveți cont? Înregistrați-vă",
+    "haveAccount": "Aveți cont? Conectați-vă",
+    "loading": "...",
+    "agreeStart": "Sunt de acord cu ",
+    "termsLink": "Termenii de serviciu",
+    "agreeMid": " și ",
+    "privacyLink": "Politica de confidențialitate",
+    "mustAgree": "Trebuie să acceptați termenii pentru a vă înregistra"
+  },
+  "app": {
+    "actions": {
+      "save": "Salvați",
+      "saving": "Se salvează…",
+      "cancel": "Anulați",
+      "add": "Adăugați",
+      "export": "Exportați",
+      "import": "Importați",
+      "upgrade": "Actualizați",
+      "archive": "Arhivați",
+      "restore": "Restaurați",
+      "delete": "Ștergeți",
+      "deletePerma": "Ștergeți permanent",
+      "capture": "Captați",
+      "loading": "Se încarcă…",
+      "clearSearch": "Ștergeți căutarea"
+    },
+    "types": {
+      "note": "Notă",
+      "task": "Sarcină",
+      "idea": "Idee",
+      "reminder": "Reminder",
+      "untyped": "Fără tip"
+    },
+    "status": {
+      "open": "Deschis",
+      "inProgress": "În progres",
+      "blocked": "Blocat",
+      "done": "Terminat"
+    },
+    "maturity": {
+      "seed": "Sămânță",
+      "developing": "În dezvoltare",
+      "ready": "Gata",
+      "parked": "Parcat"
+    },
+    "search": {
+      "placeholder": "Căutați elemente… (apăsați / pentru focalizare)",
+      "loading": "Se încarcă",
+      "results_one": "{{count}} rezultat pentru \"{{query}}\"",
+      "results_other": "{{count}} rezultate pentru \"{{query}}\"",
+      "noResults": "Niciun element nu corespunde căutării dvs."
+    },
+    "views": {
+      "dashboard": "Tablou de bord",
+      "tasks": "Sarcini",
+      "ideas": "Idei"
+    },
+    "sidebar": {
+      "tags": "Etichete",
+      "allItems": "Toate elementele",
+      "trash": "Coș de gunoi",
+      "createTag": "Creați o etichetă",
+      "tagNamePlaceholder": "Numele etichetei…",
+      "expandSidebar": "Extindeți bara laterală",
+      "collapseSidebar": "Restrângeți bara laterală",
+      "setColor": "Setați culoarea",
+      "removeColor": "Eliminați culoarea",
+      "dragToReorder": "Trageți pentru reordonare",
+      "exportUntagged": "Exportați elementele fără etichete",
+      "tagNameTooLong": "Max. 100 de caractere",
+      "docs": "Documentație"
+    },
+    "capture": {
+      "placeholder": "Captați ceva… (apăsați C)",
+      "placeholderTag": "Captați în \"{{tag}}\"… (apăsați C)"
+    },
+    "drawer": {
+      "archived": "Arhivat",
+      "notes": "Note",
+      "addNotes": "Adăugați note…",
+      "promoteTo": "Promovați la…",
+      "created": "Creat",
+      "updated": "Actualizat",
+      "status": "Stare",
+      "priority": "Prioritate",
+      "due": "Termen",
+      "completed": "Finalizat",
+      "maturity": "Maturitate",
+      "remindAt": "Amintire la",
+      "dismissed": "Respins",
+      "yes": "Da",
+      "no": "Nu"
+    },
+    "tags": {
+      "label": "Etichete",
+      "add": "+ etichetă",
+      "searchOrCreate": "Căutați sau creați…",
+      "create": "Creați \"{{name}}\"",
+      "noMatching": "Nicio etichetă corespunzătoare",
+      "allApplied": "Toate etichetele aplicate"
+    },
+    "taskActions": {
+      "label": "Acțiuni",
+      "start": "Porniți",
+      "complete": "Finalizați",
+      "block": "Blocați",
+      "removeDepToUnblock": "Eliminați o dependență pentru deblocare"
+    },
+    "tagView": {
+      "unsorted": "Nesortate ({{count}})",
+      "placeAtEnd": "Plasați la sfârșitul listei",
+      "noItems": "Niciun element cu această etichetă",
+      "itemCount": "{{count}} elemente",
+      "addDivider": "+ Separator"
+    },
+    "tasksView": {
+      "moveLeft": "Mutați la stânga",
+      "moveRight": "Mutați la dreapta",
+      "noTasks": "Nicio sarcină aici"
+    },
+    "ideasView": {
+      "moveLeft": "Mutați la stânga",
+      "moveRight": "Mutați la dreapta",
+      "dropHere": "Plasați ideile aici"
+    },
+    "trashView": {
+      "title": "Coș de gunoi",
+      "empty": "Coșul de gunoi este gol",
+      "daysLeft": "{{days}} zile până la ștergerea permanentă",
+      "restoreTitle": "Restaurați elementul"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Captare rapidă",
+        "placeholder": "Captați un gând…",
+        "notesPlaceholder": "Note suplimentare (opțional)"
+      },
+      "recentItems": {
+        "title": "Elemente recente",
+        "empty": "Niciun element încă",
+        "justNow": "chiar acum",
+        "minsAgo": "acum {{mins}} min",
+        "hrsAgo": "acum {{hrs}} ore",
+        "daysAgo": "acum {{days}} zile"
+      },
+      "tagCloud": {
+        "title": "Etichete",
+        "empty": "Nicio etichetă încă",
+        "itemCount": "{{count}} elemente"
+      },
+      "notes": {
+        "title": "Note",
+        "empty": "Nicio notă încă"
+      },
+      "actionableTasks": {
+        "title": "Sarcini realizabile",
+        "empty": "Nicio sarcină realizabilă"
+      }
+    },
+    "account": {
+      "title": "Cont",
+      "signedInAs": "Conectat ca",
+      "roles": {
+        "free": "Gratuit",
+        "gift": "Pro (cadou)",
+        "paid": "Pro",
+        "admin": "Admin"
+      },
+      "freePlanLimit": "Limitat la 20 de etichete în planul gratuit.",
+      "upgrade": "Actualizați →",
+      "proPlan": "Plan Pro",
+      "manageBilling": "Gestionați facturarea →",
+      "loadingPortal": "Se încarcă…",
+      "changeEmail": "Schimbați e-mailul",
+      "newEmail": "E-mail nou",
+      "currentPassword": "Parola curentă",
+      "emailUpdated": "E-mailul a fost actualizat.",
+      "updateEmail": "Actualizați e-mailul",
+      "saving": "Se salvează…",
+      "changePassword": "Schimbați parola",
+      "newPassword": "Parolă nouă",
+      "confirmPassword": "Confirmați noua parolă",
+      "passwordMismatch": "Parolele nu se potrivesc",
+      "passwordUpdated": "Parola a fost actualizată.",
+      "updatePassword": "Actualizați parola",
+      "session": "Sesiune",
+      "signOut": "Deconectare",
+      "dangerZone": "Zonă periculoasă",
+      "confirmPasswordPlaceholder": "Parola curentă pentru confirmare",
+      "deleteAccount": "Ștergeți contul",
+      "deleting": "Se șterge…",
+      "deleteConfirm": "Ștergeți contul permanent? Această acțiune nu poate fi anulată.",
+      "failed": "Eșuat",
+      "language": "Limbă",
+      "preferences": "Preferințe",
+      "tooltipsToggle": "Afișați sfaturile",
+      "tooltipsDesc": "Sfaturi la hover pe butoane și pictograme"
+    }
+  }
+}

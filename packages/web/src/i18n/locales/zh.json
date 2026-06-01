@@ -1,0 +1,272 @@
+{
+  "nav": {
+    "features": "功能",
+    "pricing": "价格",
+    "signIn": "登录",
+    "getStarted": "免费开始"
+  },
+  "hero": {
+    "badge": "简单高效",
+    "headline": "您的笔记，",
+    "headlineAccent": "终于井井有条",
+    "subtitle": "notes-world 将您的想法、任务和提醒汇聚到一个简洁、快速的应用中。为所有内容打标签，随时找到任何内容，掌控一切。",
+    "cta": "免费开始",
+    "ctaSecondary": "查看价格"
+  },
+  "features": {
+    "sectionLabel": "包含内容",
+    "sectionTitle": "所需一切，无多余功能",
+    "tags": {
+      "title": "标签",
+      "desc": "用彩色标签组织一切。一键按标签筛选仪表板。"
+    },
+    "types": {
+      "title": "四种条目类型",
+      "desc": "笔记、任务、想法和提醒——每种都有专属视图和工作流。"
+    },
+    "capture": {
+      "title": "快速记录",
+      "desc": "常驻记录栏让您随时记下任何内容，不会打断当前工作。"
+    },
+    "import": {
+      "title": "导入与导出",
+      "desc": "从其他应用导入笔记，或将所有内容导出为 Markdown——您的数据始终属于您。"
+    },
+    "mobile": {
+      "title": "移动应用",
+      "desc": "基于 Expo 的原生 Android 应用。随时随地记录笔记，与网页应用完全同步。"
+    },
+    "dark": {
+      "title": "默认深色模式",
+      "desc": "专为长时间使用而设计。简洁的深色界面，保护您的眼睛。"
+    }
+  },
+  "pricing": {
+    "sectionLabel": "价格",
+    "sectionTitle": "简单透明的定价",
+    "free": {
+      "name": "免费版",
+      "price": "€0",
+      "period": "/ 永久",
+      "features": [
+        "无限笔记、任务和想法",
+        "最多 20 个标签",
+        "导入与导出",
+        "网页和移动端访问",
+        "快速记录"
+      ],
+      "cta": "立即开始"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ 月",
+      "alt": "或 €45 / 年——节省 25%",
+      "features": ["包含免费版全部功能", "无限标签", "优先支持"],
+      "cta": "开始免费试用"
+    }
+  },
+  "footer": {
+    "signIn": "登录",
+    "docs": "文档",
+    "impressum": "Impressum",
+    "privacy": "隐私政策",
+    "terms": "服务条款"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "电子邮件",
+    "password": "密码",
+    "signIn": "登录",
+    "createAccount": "创建账户",
+    "noAccount": "没有账户？注册",
+    "haveAccount": "已有账户？登录",
+    "loading": "...",
+    "agreeStart": "我同意",
+    "termsLink": "服务条款",
+    "agreeMid": "和",
+    "privacyLink": "隐私政策",
+    "mustAgree": "注册前必须同意条款"
+  },
+  "app": {
+    "actions": {
+      "save": "保存",
+      "saving": "保存中…",
+      "cancel": "取消",
+      "add": "添加",
+      "export": "导出",
+      "import": "导入",
+      "upgrade": "升级",
+      "archive": "归档",
+      "restore": "恢复",
+      "delete": "删除",
+      "deletePerma": "永久删除",
+      "capture": "记录",
+      "loading": "加载中…",
+      "clearSearch": "清除搜索"
+    },
+    "types": {
+      "note": "笔记",
+      "task": "任务",
+      "idea": "想法",
+      "reminder": "提醒",
+      "untyped": "未分类"
+    },
+    "status": {
+      "open": "待处理",
+      "inProgress": "进行中",
+      "blocked": "已阻塞",
+      "done": "已完成"
+    },
+    "maturity": {
+      "seed": "萌芽",
+      "developing": "发展中",
+      "ready": "就绪",
+      "parked": "暂停"
+    },
+    "search": {
+      "placeholder": "搜索条目…（按 / 聚焦）",
+      "loading": "加载中",
+      "results_one": "\"{{query}}\" 有 {{count}} 个结果",
+      "results_other": "\"{{query}}\" 有 {{count}} 个结果",
+      "noResults": "没有匹配的条目"
+    },
+    "views": { "dashboard": "仪表板", "tasks": "任务", "ideas": "想法" },
+    "sidebar": {
+      "tags": "标签",
+      "allItems": "全部条目",
+      "trash": "回收站",
+      "createTag": "创建标签",
+      "tagNamePlaceholder": "标签名称…",
+      "expandSidebar": "展开侧栏",
+      "collapseSidebar": "收起侧栏",
+      "setColor": "设置颜色",
+      "removeColor": "移除颜色",
+      "dragToReorder": "拖动排序",
+      "exportUntagged": "导出未标记条目",
+      "tagNameTooLong": "最多 100 个字符",
+      "docs": "文档"
+    },
+    "capture": {
+      "placeholder": "记录内容…（按 C）",
+      "placeholderTag": "记录到「{{tag}}」…（按 C）"
+    },
+    "drawer": {
+      "archived": "已归档",
+      "notes": "笔记",
+      "addNotes": "添加笔记…",
+      "promoteTo": "提升为…",
+      "created": "创建时间",
+      "updated": "更新时间",
+      "status": "状态",
+      "priority": "优先级",
+      "due": "截止日期",
+      "completed": "完成时间",
+      "maturity": "成熟度",
+      "remindAt": "提醒时间",
+      "dismissed": "已忽略",
+      "yes": "是",
+      "no": "否"
+    },
+    "tags": {
+      "label": "标签",
+      "add": "+ 标签",
+      "searchOrCreate": "搜索或创建…",
+      "create": "创建「{{name}}」",
+      "noMatching": "无匹配标签",
+      "allApplied": "所有标签已应用"
+    },
+    "taskActions": {
+      "label": "操作",
+      "start": "开始",
+      "complete": "完成",
+      "block": "阻塞",
+      "removeDepToUnblock": "移除依赖以解除阻塞"
+    },
+    "tagView": {
+      "unsorted": "未排序（{{count}}）",
+      "placeAtEnd": "置于列表末尾",
+      "noItems": "该标签下没有条目",
+      "itemCount": "{{count}} 个条目",
+      "addDivider": "+ 分隔线"
+    },
+    "tasksView": {
+      "moveLeft": "向左移动",
+      "moveRight": "向右移动",
+      "noTasks": "没有任务"
+    },
+    "ideasView": {
+      "moveLeft": "向左移动",
+      "moveRight": "向右移动",
+      "dropHere": "将想法拖放到此处"
+    },
+    "trashView": {
+      "title": "回收站",
+      "empty": "回收站为空",
+      "daysLeft": "{{days}} 天后永久删除",
+      "restoreTitle": "恢复条目"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "快速记录",
+        "placeholder": "记录一个想法…",
+        "notesPlaceholder": "补充笔记（可选）"
+      },
+      "recentItems": {
+        "title": "最近条目",
+        "empty": "暂无条目",
+        "justNow": "刚刚",
+        "minsAgo": "{{mins}} 分钟前",
+        "hrsAgo": "{{hrs}} 小时前",
+        "daysAgo": "{{days}} 天前"
+      },
+      "tagCloud": {
+        "title": "标签",
+        "empty": "暂无标签",
+        "itemCount": "{{count}} 个条目"
+      },
+      "notes": { "title": "笔记", "empty": "暂无笔记" },
+      "actionableTasks": { "title": "可执行任务", "empty": "没有可执行任务" }
+    },
+    "account": {
+      "title": "账户",
+      "signedInAs": "已登录为",
+      "roles": {
+        "free": "免费版",
+        "gift": "Pro（赠送）",
+        "paid": "Pro",
+        "admin": "管理员"
+      },
+      "freePlanLimit": "免费计划最多支持 20 个标签。",
+      "upgrade": "升级 →",
+      "proPlan": "Pro 计划",
+      "manageBilling": "管理账单 →",
+      "loadingPortal": "加载中…",
+      "changeEmail": "更改邮箱",
+      "newEmail": "新邮箱",
+      "currentPassword": "当前密码",
+      "emailUpdated": "邮箱已更新。",
+      "updateEmail": "更新邮箱",
+      "saving": "保存中…",
+      "changePassword": "更改密码",
+      "newPassword": "新密码",
+      "confirmPassword": "确认新密码",
+      "passwordMismatch": "密码不匹配",
+      "passwordUpdated": "密码已更新。",
+      "updatePassword": "更新密码",
+      "session": "会话",
+      "signOut": "退出登录",
+      "dangerZone": "危险区域",
+      "confirmPasswordPlaceholder": "输入当前密码以确认",
+      "deleteAccount": "删除账户",
+      "deleting": "删除中…",
+      "deleteConfirm": "永久删除您的账户？此操作无法撤销。",
+      "failed": "失败",
+      "language": "语言",
+      "preferences": "偏好设置",
+      "tooltipsToggle": "显示提示",
+      "tooltipsDesc": "鼠标悬停在按钮和图标上时显示提示"
+    }
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "nav": {
+    "features": "Ominaisuudet",
+    "pricing": "Hinnoittelu",
+    "signIn": "Kirjaudu sisään",
+    "getStarted": "Aloita ilmaiseksi"
+  },
+  "hero": {
+    "badge": "Yksinkertainen & tehokas",
+    "headline": "Muistiinpanosi,",
+    "headlineAccent": "vihdoin järjestyksessä",
+    "subtitle": "notes-world kokoaa ideasi, tehtäväsi ja muistutuksesi yhteen selkeään, nopeaan sovellukseen. Merkitse tageja, löydä kaikki, pysy ajan tasalla.",
+    "cta": "Aloita ilmaiseksi",
+    "ctaSecondary": "Katso hinnat"
+  },
+  "features": {
+    "sectionLabel": "Mitä sisältyy",
+    "sectionTitle": "Kaikki tarvitsemasi, ei mitään turhaa",
+    "tags": {
+      "title": "Tagit",
+      "desc": "Järjestä kaikki värikoodeilla merkityillä tageilla. Suodata kojelautaa tagilla yhdellä napsautuksella."
+    },
+    "types": {
+      "title": "Neljä elementtityyppiä",
+      "desc": "Muistiinpanot, tehtävät, ideat ja muistutukset — kullakin oma näkymänsä ja työnkulkunsa."
+    },
+    "capture": {
+      "title": "Pikatallennus",
+      "desc": "Pysyvä tallennuspalkki tarkoittaa, että voit kirjata asioita menettämättä paikkasi."
+    },
+    "import": {
+      "title": "Tuonti & vienti",
+      "desc": "Tuo muistiinpanoja muista sovelluksista tai vie kaikki markdownina — tietosi ovat aina sinun."
+    },
+    "mobile": {
+      "title": "Mobiilisovellus",
+      "desc": "Natiivi Android-sovellus Expon kautta. Tallenna muistiinpanoja liikkeellä, täysin synkronoituna verkkosovelluksen kanssa."
+    },
+    "dark": {
+      "title": "Tumma oletusteema",
+      "desc": "Suunniteltu pitkiin istuntoihin. Selkeä tumma käyttöliittymä, joka on hellävarainen silmille."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Hinnoittelu",
+    "sectionTitle": "Yksinkertainen, läpinäkyvä hinnoittelu",
+    "free": {
+      "name": "Ilmainen",
+      "price": "€0",
+      "period": "/ ikuisesti",
+      "features": [
+        "Rajattomat muistiinpanot, tehtävät & ideat",
+        "Enintään 20 tagia",
+        "Tuonti & vienti",
+        "Verkko- & mobiilipääsy",
+        "Pikatallennus"
+      ],
+      "cta": "Aloita"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ kuukausi",
+      "alt": "tai €45 / vuosi — säästä 25 %",
+      "features": ["Kaikki ilmaisessa", "Rajattomat tagit", "Prioriteettituki"],
+      "cta": "Aloita ilmainen kokeilu"
+    }
+  },
+  "footer": {
+    "signIn": "Kirjaudu sisään",
+    "docs": "Dokumentaatio",
+    "impressum": "Impressum",
+    "privacy": "Tietosuojakäytäntö",
+    "terms": "Käyttöehdot"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "Sähköposti",
+    "password": "Salasana",
+    "signIn": "Kirjaudu sisään",
+    "createAccount": "Luo tili",
+    "noAccount": "Ei tiliä? Rekisteröidy",
+    "haveAccount": "Onko sinulla tili? Kirjaudu sisään",
+    "loading": "...",
+    "agreeStart": "Hyväksyn ",
+    "termsLink": "Käyttöehdot",
+    "agreeMid": " ja ",
+    "privacyLink": "Tietosuojakäytännön",
+    "mustAgree": "Sinun on hyväksyttävä ehdot rekisteröityäksesi"
+  },
+  "app": {
+    "actions": {
+      "save": "Tallenna",
+      "saving": "Tallennetaan…",
+      "cancel": "Peruuta",
+      "add": "Lisää",
+      "export": "Vie",
+      "import": "Tuo",
+      "upgrade": "Päivitä",
+      "archive": "Arkistoi",
+      "restore": "Palauta",
+      "delete": "Poista",
+      "deletePerma": "Poista pysyvästi",
+      "capture": "Tallenna",
+      "loading": "Ladataan…",
+      "clearSearch": "Tyhjennä haku"
+    },
+    "types": {
+      "note": "Muistiinpano",
+      "task": "Tehtävä",
+      "idea": "Idea",
+      "reminder": "Muistutus",
+      "untyped": "Tyypitön"
+    },
+    "status": {
+      "open": "Avoin",
+      "inProgress": "Kesken",
+      "blocked": "Estetty",
+      "done": "Valmis"
+    },
+    "maturity": {
+      "seed": "Siemen",
+      "developing": "Kehittymässä",
+      "ready": "Valmis",
+      "parked": "Pysäköity"
+    },
+    "search": {
+      "placeholder": "Hae elementtejä… (paina / kohdistukseen)",
+      "loading": "Ladataan",
+      "results_one": "{{count}} tulos haulle \"{{query}}\"",
+      "results_other": "{{count}} tulosta haulle \"{{query}}\"",
+      "noResults": "Hakua vastaavia elementtejä ei löydy"
+    },
+    "views": {
+      "dashboard": "Kojelauta",
+      "tasks": "Tehtävät",
+      "ideas": "Ideat"
+    },
+    "sidebar": {
+      "tags": "Tagit",
+      "allItems": "Kaikki elementit",
+      "trash": "Roskakori",
+      "createTag": "Luo tagi",
+      "tagNamePlaceholder": "Tagin nimi…",
+      "expandSidebar": "Laajenna sivupalkki",
+      "collapseSidebar": "Kutista sivupalkki",
+      "setColor": "Aseta väri",
+      "removeColor": "Poista väri",
+      "dragToReorder": "Järjestä vetämällä",
+      "exportUntagged": "Vie merkitsemättömät elementit",
+      "tagNameTooLong": "Enintään 100 merkkiä",
+      "docs": "Dokumentaatio"
+    },
+    "capture": {
+      "placeholder": "Tallenna jotain… (paina C)",
+      "placeholderTag": "Tallenna tagiin \"{{tag}}\"… (paina C)"
+    },
+    "drawer": {
+      "archived": "Arkistoitu",
+      "notes": "Muistiinpanot",
+      "addNotes": "Lisää muistiinpanoja…",
+      "promoteTo": "Ylennä kohteeksi…",
+      "created": "Luotu",
+      "updated": "Päivitetty",
+      "status": "Tila",
+      "priority": "Prioriteetti",
+      "due": "Määräaika",
+      "completed": "Valmistunut",
+      "maturity": "Kypsyys",
+      "remindAt": "Muistuta",
+      "dismissed": "Hylätty",
+      "yes": "Kyllä",
+      "no": "Ei"
+    },
+    "tags": {
+      "label": "Tagit",
+      "add": "+ tagi",
+      "searchOrCreate": "Hae tai luo…",
+      "create": "Luo \"{{name}}\"",
+      "noMatching": "Vastaavia tageja ei löydy",
+      "allApplied": "Kaikki tagit lisätty"
+    },
+    "taskActions": {
+      "label": "Toiminnot",
+      "start": "Aloita",
+      "complete": "Merkitse valmiiksi",
+      "block": "Estä",
+      "removeDepToUnblock": "Poista riippuvuus eston poistamiseksi"
+    },
+    "tagView": {
+      "unsorted": "Lajittelemattomat ({{count}})",
+      "placeAtEnd": "Sijoita listan loppuun",
+      "noItems": "Ei elementtejä tällä tagilla",
+      "itemCount": "{{count}} elementtiä",
+      "addDivider": "+ Erottimet"
+    },
+    "tasksView": {
+      "moveLeft": "Siirrä vasemmalle",
+      "moveRight": "Siirrä oikealle",
+      "noTasks": "Ei tehtäviä täällä"
+    },
+    "ideasView": {
+      "moveLeft": "Siirrä vasemmalle",
+      "moveRight": "Siirrä oikealle",
+      "dropHere": "Pudota ideat tähän"
+    },
+    "trashView": {
+      "title": "Roskakori",
+      "empty": "Roskakori on tyhjä",
+      "daysLeft": "{{days}} päivää pysyvään poistoon",
+      "restoreTitle": "Palauta elementti"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Pikatallennus",
+        "placeholder": "Tallenna ajatus…",
+        "notesPlaceholder": "Lisämuistiinpanot (valinnainen)"
+      },
+      "recentItems": {
+        "title": "Viimeisimmät elementit",
+        "empty": "Ei elementtejä vielä",
+        "justNow": "juuri nyt",
+        "minsAgo": "{{mins}} min sitten",
+        "hrsAgo": "{{hrs}} t sitten",
+        "daysAgo": "{{days}} pv sitten"
+      },
+      "tagCloud": {
+        "title": "Tagit",
+        "empty": "Ei tageja vielä",
+        "itemCount": "{{count}} elementtiä"
+      },
+      "notes": { "title": "Muistiinpanot", "empty": "Ei muistiinpanoja vielä" },
+      "actionableTasks": {
+        "title": "Toiminnalliset tehtävät",
+        "empty": "Ei toiminnallisia tehtäviä"
+      }
+    },
+    "account": {
+      "title": "Tili",
+      "signedInAs": "Kirjautunut sisään nimellä",
+      "roles": {
+        "free": "Ilmainen",
+        "gift": "Pro (lahja)",
+        "paid": "Pro",
+        "admin": "Ylläpitäjä"
+      },
+      "freePlanLimit": "Rajoitettu 20 tagiin ilmaisessa paketissa.",
+      "upgrade": "Päivitä →",
+      "proPlan": "Pro-paketti",
+      "manageBilling": "Hallinnoi laskutusta →",
+      "loadingPortal": "Ladataan…",
+      "changeEmail": "Vaihda sähköposti",
+      "newEmail": "Uusi sähköposti",
+      "currentPassword": "Nykyinen salasana",
+      "emailUpdated": "Sähköposti päivitetty.",
+      "updateEmail": "Päivitä sähköposti",
+      "saving": "Tallennetaan…",
+      "changePassword": "Vaihda salasana",
+      "newPassword": "Uusi salasana",
+      "confirmPassword": "Vahvista uusi salasana",
+      "passwordMismatch": "Salasanat eivät täsmää",
+      "passwordUpdated": "Salasana päivitetty.",
+      "updatePassword": "Päivitä salasana",
+      "session": "Istunto",
+      "signOut": "Kirjaudu ulos",
+      "dangerZone": "Vaaravyöhyke",
+      "confirmPasswordPlaceholder": "Nykyinen salasana vahvistukseksi",
+      "deleteAccount": "Poista tili",
+      "deleting": "Poistetaan…",
+      "deleteConfirm": "Poistetaanko tilisi pysyvästi? Tätä ei voi kumota.",
+      "failed": "Epäonnistui",
+      "language": "Kieli",
+      "preferences": "Asetukset",
+      "tooltipsToggle": "Näytä työkaluvihjeet",
+      "tooltipsDesc": "Vihjeet painikkeissa ja kuvakkeissa"
+    }
+  }
+}

@@ -1,0 +1,279 @@
+{
+  "nav": {
+    "features": "Functies",
+    "pricing": "Prijzen",
+    "signIn": "Inloggen",
+    "getStarted": "Gratis beginnen"
+  },
+  "hero": {
+    "badge": "Eenvoudig & effectief",
+    "headline": "Jouw notities,",
+    "headlineAccent": "eindelijk georganiseerd",
+    "subtitle": "notes-world brengt je ideeën, taken en herinneringen samen in één overzichtelijke, snelle app. Tag alles, vind alles, behoud het overzicht.",
+    "cta": "Gratis starten",
+    "ctaSecondary": "Bekijk prijzen"
+  },
+  "features": {
+    "sectionLabel": "Wat is inbegrepen",
+    "sectionTitle": "Alles wat je nodig hebt, niets wat je niet nodig hebt",
+    "tags": {
+      "title": "Tags",
+      "desc": "Organiseer alles met kleurgecodeerde tags. Filter je dashboard met één klik op tag."
+    },
+    "types": {
+      "title": "Vier itemtypes",
+      "desc": "Notities, Taken, Ideeën en Herinneringen — elk met een eigen weergave en werkstroom."
+    },
+    "capture": {
+      "title": "Snel vastleggen",
+      "desc": "Een permanente vastleggingsbalk zodat je snel iets kunt noteren zonder je plek te verliezen."
+    },
+    "import": {
+      "title": "Importeren & exporteren",
+      "desc": "Notities binnenhalen vanuit andere apps of alles exporteren als markdown — jouw data blijft altijd van jou."
+    },
+    "mobile": {
+      "title": "Mobiele app",
+      "desc": "Native Android-app via Expo. Leg notities onderweg vast, volledig gesynchroniseerd met de webapp."
+    },
+    "dark": {
+      "title": "Standaard donker",
+      "desc": "Gebouwd voor lange sessies. Een strak donker interface dat aangenaam is voor de ogen."
+    }
+  },
+  "pricing": {
+    "sectionLabel": "Prijzen",
+    "sectionTitle": "Eenvoudige, transparante prijzen",
+    "free": {
+      "name": "Gratis",
+      "price": "€0",
+      "period": "/ voor altijd",
+      "features": [
+        "Onbeperkte notities, taken & ideeën",
+        "Tot 20 tags",
+        "Importeren & exporteren",
+        "Web- & mobiele toegang",
+        "Snel vastleggen"
+      ],
+      "cta": "Aan de slag"
+    },
+    "pro": {
+      "badge": "Pro",
+      "name": "Pro",
+      "price": "€5",
+      "period": "/ maand",
+      "alt": "of €45 / jaar — bespaar 25%",
+      "features": [
+        "Alles in Gratis",
+        "Onbeperkte tags",
+        "Prioriteitsondersteuning"
+      ],
+      "cta": "Gratis proefperiode starten"
+    }
+  },
+  "footer": {
+    "signIn": "Inloggen",
+    "docs": "Documentatie",
+    "impressum": "Impressum",
+    "privacy": "Privacybeleid",
+    "terms": "Servicevoorwaarden"
+  },
+  "login": {
+    "title": "notes-world",
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "signIn": "Inloggen",
+    "createAccount": "Account aanmaken",
+    "noAccount": "Geen account? Registreer",
+    "haveAccount": "Al een account? Inloggen",
+    "loading": "...",
+    "agreeStart": "Ik ga akkoord met de ",
+    "termsLink": "Servicevoorwaarden",
+    "agreeMid": " en het ",
+    "privacyLink": "Privacybeleid",
+    "mustAgree": "Je moet akkoord gaan met de voorwaarden om te registreren"
+  },
+  "app": {
+    "actions": {
+      "save": "Opslaan",
+      "saving": "Opslaan…",
+      "cancel": "Annuleren",
+      "add": "Toevoegen",
+      "export": "Exporteren",
+      "import": "Importeren",
+      "upgrade": "Upgraden",
+      "archive": "Archiveren",
+      "restore": "Herstellen",
+      "delete": "Verwijderen",
+      "deletePerma": "Permanent verwijderen",
+      "capture": "Vastleggen",
+      "loading": "Laden…",
+      "clearSearch": "Zoekopdracht wissen"
+    },
+    "types": {
+      "note": "Notitie",
+      "task": "Taak",
+      "idea": "Idee",
+      "reminder": "Herinnering",
+      "untyped": "Zonder type"
+    },
+    "status": {
+      "open": "Open",
+      "inProgress": "In uitvoering",
+      "blocked": "Geblokkeerd",
+      "done": "Klaar"
+    },
+    "maturity": {
+      "seed": "Zaad",
+      "developing": "In ontwikkeling",
+      "ready": "Gereed",
+      "parked": "Geparkeerd"
+    },
+    "search": {
+      "placeholder": "Items zoeken… (druk op / om te focussen)",
+      "loading": "Laden",
+      "results_one": "{{count}} resultaat voor \"{{query}}\"",
+      "results_other": "{{count}} resultaten voor \"{{query}}\"",
+      "noResults": "Geen items gevonden voor jouw zoekopdracht"
+    },
+    "views": { "dashboard": "Dashboard", "tasks": "Taken", "ideas": "Ideeën" },
+    "sidebar": {
+      "tags": "Tags",
+      "allItems": "Alle items",
+      "trash": "Prullenbak",
+      "createTag": "Tag aanmaken",
+      "tagNamePlaceholder": "Tagnaam…",
+      "expandSidebar": "Zijbalk uitvouwen",
+      "collapseSidebar": "Zijbalk inklappen",
+      "setColor": "Kleur instellen",
+      "removeColor": "Kleur verwijderen",
+      "dragToReorder": "Slepen om te herordenen",
+      "exportUntagged": "Items zonder tag exporteren",
+      "tagNameTooLong": "Max. 100 tekens",
+      "docs": "Documentatie"
+    },
+    "capture": {
+      "placeholder": "Iets vastleggen… (druk op C)",
+      "placeholderTag": "Vastleggen onder \"{{tag}}\"… (druk op C)"
+    },
+    "drawer": {
+      "archived": "Gearchiveerd",
+      "notes": "Notities",
+      "addNotes": "Notities toevoegen…",
+      "promoteTo": "Promoveren naar…",
+      "created": "Aangemaakt",
+      "updated": "Bijgewerkt",
+      "status": "Status",
+      "priority": "Prioriteit",
+      "due": "Deadline",
+      "completed": "Voltooid",
+      "maturity": "Rijpheid",
+      "remindAt": "Herinner op",
+      "dismissed": "Genegeerd",
+      "yes": "Ja",
+      "no": "Nee"
+    },
+    "tags": {
+      "label": "Tags",
+      "add": "+ tag",
+      "searchOrCreate": "Zoeken of aanmaken…",
+      "create": "\"{{name}}\" aanmaken",
+      "noMatching": "Geen overeenkomende tags",
+      "allApplied": "Alle tags toegepast"
+    },
+    "taskActions": {
+      "label": "Acties",
+      "start": "Starten",
+      "complete": "Voltooien",
+      "block": "Blokkeren",
+      "removeDepToUnblock": "Verwijder een afhankelijkheid om te deblokkeren"
+    },
+    "tagView": {
+      "unsorted": "Ongesorteerd ({{count}})",
+      "placeAtEnd": "Aan het einde van de lijst plaatsen",
+      "noItems": "Geen items met deze tag",
+      "itemCount": "{{count}} items",
+      "addDivider": "+ Scheidingslijn"
+    },
+    "tasksView": {
+      "moveLeft": "Naar links verplaatsen",
+      "moveRight": "Naar rechts verplaatsen",
+      "noTasks": "Geen taken hier"
+    },
+    "ideasView": {
+      "moveLeft": "Naar links verplaatsen",
+      "moveRight": "Naar rechts verplaatsen",
+      "dropHere": "Ideeën hier neerzetten"
+    },
+    "trashView": {
+      "title": "Prullenbak",
+      "empty": "Prullenbak is leeg",
+      "daysLeft": "{{days}} dagen tot permanente verwijdering",
+      "restoreTitle": "Item herstellen"
+    },
+    "blocks": {
+      "quickCapture": {
+        "title": "Snel vastleggen",
+        "placeholder": "Een gedachte vastleggen…",
+        "notesPlaceholder": "Aanvullende notities (optioneel)"
+      },
+      "recentItems": {
+        "title": "Recente items",
+        "empty": "Nog geen items",
+        "justNow": "zojuist",
+        "minsAgo": "{{mins}}m geleden",
+        "hrsAgo": "{{hrs}}u geleden",
+        "daysAgo": "{{days}}d geleden"
+      },
+      "tagCloud": {
+        "title": "Tags",
+        "empty": "Nog geen tags",
+        "itemCount": "{{count}} items"
+      },
+      "notes": { "title": "Notities", "empty": "Nog geen notities" },
+      "actionableTasks": {
+        "title": "Uitvoerbare taken",
+        "empty": "Geen uitvoerbare taken"
+      }
+    },
+    "account": {
+      "title": "Account",
+      "signedInAs": "Ingelogd als",
+      "roles": {
+        "free": "Gratis",
+        "gift": "Pro (cadeau)",
+        "paid": "Pro",
+        "admin": "Beheerder"
+      },
+      "freePlanLimit": "Beperkt tot 20 tags in het gratis abonnement.",
+      "upgrade": "Upgraden →",
+      "proPlan": "Pro-abonnement",
+      "manageBilling": "Facturering beheren →",
+      "loadingPortal": "Laden…",
+      "changeEmail": "E-mail wijzigen",
+      "newEmail": "Nieuw e-mailadres",
+      "currentPassword": "Huidig wachtwoord",
+      "emailUpdated": "E-mail bijgewerkt.",
+      "updateEmail": "E-mail bijwerken",
+      "saving": "Opslaan…",
+      "changePassword": "Wachtwoord wijzigen",
+      "newPassword": "Nieuw wachtwoord",
+      "confirmPassword": "Nieuw wachtwoord bevestigen",
+      "passwordMismatch": "Wachtwoorden komen niet overeen",
+      "passwordUpdated": "Wachtwoord bijgewerkt.",
+      "updatePassword": "Wachtwoord bijwerken",
+      "session": "Sessie",
+      "signOut": "Uitloggen",
+      "dangerZone": "Gevarenzone",
+      "confirmPasswordPlaceholder": "Huidig wachtwoord ter bevestiging",
+      "deleteAccount": "Account verwijderen",
+      "deleting": "Verwijderen…",
+      "deleteConfirm": "Jouw account permanent verwijderen? Dit kan niet ongedaan worden gemaakt.",
+      "failed": "Mislukt",
+      "language": "Taal",
+      "preferences": "Voorkeuren",
+      "tooltipsToggle": "Tooltips weergeven",
+      "tooltipsDesc": "Zweeftips op knoppen en pictogrammen"
+    }
+  }
+}
