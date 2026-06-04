@@ -14,6 +14,9 @@ services:
       - JWT_SECRET=${JWT_SECRET}
       - CORS_ORIGIN=https://${NGINX_HOST}
       - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - LOG_DIR=/logs
+    volumes:
+      - ${NOTES_WORLD_LOG_PATH:-./logs}:/logs
     depends_on:
       db:
         condition: service_healthy

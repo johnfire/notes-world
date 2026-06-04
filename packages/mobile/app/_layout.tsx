@@ -10,6 +10,28 @@ import {
 import { AuthProvider, useAuth } from "../src/store/auth";
 import { colors } from "../src/theme";
 import { useUpdateCheck } from "../src/hooks/useUpdateCheck";
+import { ErrorBoundary } from "../src/components/ErrorBoundary";
+import { reportClientError } from "../src/api/report";
+
+// Catch JS errors that escape React's render tree (async code, event handlers).
+// Chain to the previous handler so the default crash/dev overlay still runs.
+const globalAny = global as unknown as {
+  ErrorUtils?: {
+    getGlobalHandler: () => (error: Error, isFatal?: boolean) => void;
+    setGlobalHandler: (h: (error: Error, isFatal?: boolean) => void) => void;
+  };
+};
+if (globalAny.ErrorUtils) {
+  const prev = globalAny.ErrorUtils.getGlobalHandler();
+  globalAny.ErrorUtils.setGlobalHandler((error, isFatal) => {
+    void reportClientError({
+      message: error?.message ?? String(error),
+      stack: error?.stack,
+      context: isFatal ? "global:fatal" : "global",
+    });
+    prev?.(error, isFatal);
+  });
+}
 
 function RootRedirect() {
   const { user, loading } = useAuth();
@@ -82,34 +104,36 @@ const styles = StyleSheet.create({
 
 export default function RootLayout() {
   return (
-    <AuthProvider>
-      <StatusBar style="light" />
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(auth)/welcome" />
-        <Stack.Screen name="(auth)/login" />
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen
-          name="item/[id]"
-          options={{
-            headerShown: true,
-            headerStyle: { backgroundColor: "#1a1a1a" },
-            headerTintColor: "#f0f0f0",
-            headerTitle: "",
-            presentation: "card",
-          }}
-        />
-        <Stack.Screen
-          name="tag/[id]"
-          options={{
-            headerShown: true,
-            headerStyle: { backgroundColor: "#1a1a1a" },
-            headerTintColor: "#f0f0f0",
-            presentation: "card",
-          }}
-        />
-      </Stack>
-      <RootRedirect />
-      <UpdateBanner />
-    </AuthProvider>
+    <ErrorBoundary>
+      <AuthProvider>
+        <StatusBar style="light" />
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(auth)/welcome" />
+          <Stack.Screen name="(auth)/login" />
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen
+            name="item/[id]"
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: "#1a1a1a" },
+              headerTintColor: "#f0f0f0",
+              headerTitle: "",
+              presentation: "card",
+            }}
+          />
+          <Stack.Screen
+            name="tag/[id]"
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: "#1a1a1a" },
+              headerTintColor: "#f0f0f0",
+              presentation: "card",
+            }}
+          />
+        </Stack>
+        <RootRedirect />
+        <UpdateBanner />
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }

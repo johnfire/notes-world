@@ -11,6 +11,7 @@ import {
 import { useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { listTags } from "../../src/api/tags";
+import { reportClientError } from "../../src/api/report";
 import { colors, spacing, radius, font } from "../../src/theme";
 import type { TagWithCount } from "@notes-world/shared";
 
@@ -19,11 +20,20 @@ export default function TagsScreen() {
   const [tags, setTags] = useState<TagWithCount[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   async function load() {
     try {
+      setError(null);
       const data = await listTags();
       setTags(data);
+    } catch (err) {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "TagsScreen.load",
+      });
+      setError("Couldn't load tags. Pull down to retry.");
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -70,7 +80,9 @@ export default function TagsScreen() {
               <Text style={s.count}>{item.item_count ?? 0}</Text>
             </Pressable>
           )}
-          ListEmptyComponent={<Text style={s.empty}>No tags yet</Text>}
+          ListEmptyComponent={
+            <Text style={s.empty}>{error ? error : "No tags yet"}</Text>
+          }
           contentContainerStyle={{ paddingBottom: spacing.xl }}
         />
       )}

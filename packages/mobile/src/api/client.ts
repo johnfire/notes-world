@@ -1,6 +1,6 @@
 import * as SecureStore from "expo-secure-store";
 
-const BASE_URL = "https://notes-world.christopherrehm.de/api";
+export const BASE_URL = "https://notes-world.christopherrehm.de/api";
 const TOKEN_KEY = "nw_access_token";
 
 export async function getToken(): Promise<string | null> {

@@ -11,6 +11,7 @@ import { useLocalSearchParams, useRouter, useNavigation } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getItemsByTag, listTags } from "../../src/api/tags";
 import { archiveItem } from "../../src/api/items";
+import { reportClientError } from "../../src/api/report";
 import { ItemCard } from "../../src/components/ItemCard";
 import { colors, spacing, font } from "../../src/theme";
 import type { Item } from "@notes-world/shared";
@@ -22,27 +23,48 @@ export default function TagScreen() {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    listTags().then((tags) => {
-      const tag = tags.find((t) => t.id === id);
-      if (tag) navigation.setOptions({ headerTitle: tag.name });
-    });
+    listTags()
+      .then((tags) => {
+        const tag = tags.find((t) => t.id === id);
+        if (tag) navigation.setOptions({ headerTitle: tag.name });
+      })
+      .catch((err) => {
+        void reportClientError({
+          message: (err as Error).message,
+          stack: (err as Error).stack,
+          context: "TagScreen.headerTitle",
+        });
+      });
   }, [id]);
 
   async function onDelete(id: string) {
     try {
       await archiveItem(id);
       setItems((prev) => prev.filter((i) => i.id !== id));
-    } catch {
-      // silent
+    } catch (err) {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "TagScreen.onDelete",
+      });
     }
   }
 
   async function load() {
     try {
+      setError(null);
       const res = await getItemsByTag(id);
       setItems(res);
+    } catch (err) {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "TagScreen.load",
+      });
+      setError("Couldn't load items. Pull down to retry.");
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -79,7 +101,9 @@ export default function TagScreen() {
             />
           }
           ListEmptyComponent={
-            <Text style={s.empty}>No items with this tag</Text>
+            <Text style={s.empty}>
+              {error ? error : "No items with this tag"}
+            </Text>
           }
           contentContainerStyle={{
             paddingVertical: spacing.sm,

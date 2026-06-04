@@ -16,6 +16,7 @@ import { authRouter } from "./domains/auth/auth.routes";
 import { billingRouter } from "./domains/billing/billing.routes";
 import { adminRouter } from "./domains/admin/admin.routes";
 import { bugReportsRouter } from "./domains/bug-reports/bug-reports.routes";
+import { clientErrorsRouter } from "./domains/client-errors/client-errors.routes";
 import { requireAuth } from "./middleware/auth";
 import { errorHandler } from "./middleware/errorHandler";
 
@@ -103,6 +104,10 @@ export function createApp() {
 
   // Billing webhook — no JWT required (Stripe signs its own requests)
   app.use("/api/billing", billingRouter);
+
+  // Client error reports — public so crashes are captured even when the user
+  // is logged out or their token has expired.
+  app.use("/api/client-errors", clientErrorsRouter);
 
   // All routes below this line require a valid JWT
   app.use("/api", requireAuth);

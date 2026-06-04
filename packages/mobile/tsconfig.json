@@ -3,14 +3,10 @@
   "compilerOptions": {
     "strict": true,
     "paths": {
-      "@notes-world/shared": [
-        "../shared/src/index.ts"
-      ]
+      "@notes-world/shared": ["../shared/src/index.ts"],
+      "react": ["./node_modules/@types/react"],
+      "react/*": ["./node_modules/@types/react/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.d.ts"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.d.ts"]
 }

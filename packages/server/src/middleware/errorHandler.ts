@@ -1,16 +1,17 @@
-import { Request, Response, NextFunction } from 'express';
-import { AppError } from '../utils/errors';
+import { Request, Response, NextFunction } from "express";
+import { AppError } from "../utils/errors";
+import { logger } from "../utils/logger";
 
 export function errorHandler(
   err: Error,
-  _req: Request,
+  req: Request,
   res: Response,
-  _next: NextFunction
+  _next: NextFunction,
 ): void {
   if (err instanceof AppError) {
     res.status(err.httpStatus).json({
       error: {
-        code:    err.code,
+        code: err.code,
         message: err.message,
         context: err.context,
       },
@@ -18,12 +19,19 @@ export function errorHandler(
     return;
   }
 
-  // eslint-disable-next-line no-console
-  console.error('Unhandled error:', err);
+  // Unexpected error: log the full stack with request context, return a
+  // generic 500 (no stack leaked to the client).
+  logger.error("Unhandled error", {
+    method: req.method,
+    path: req.originalUrl,
+    userId: req.userId,
+    message: err.message,
+    stack: err.stack,
+  });
   res.status(500).json({
     error: {
-      code:    'INTERNAL_ERROR',
-      message: 'An unexpected error occurred',
+      code: "INTERNAL_ERROR",
+      message: "An unexpected error occurred",
     },
   });
 }

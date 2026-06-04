@@ -363,6 +363,39 @@ export const importApi = {
     request<{ job: ImportJob; records: ImportRecord[] }>(`/import/${id}`),
 };
 
+// ── Client Error Reporting ───────────────────────────────────────────────────
+
+const APP_VERSION = "0.1.0";
+
+// Fire-and-forget crash/error reporter. Uses bare fetch (not request<T>) so a
+// failure here can never throw back into an error handler and loop. Never
+// rejects — best-effort only.
+export function reportClientError(report: {
+  message: string;
+  context?: string;
+  stack?: string;
+}): void {
+  try {
+    void fetch(`${BASE}/client-errors`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      keepalive: true,
+      body: JSON.stringify({
+        app: "web",
+        appVersion: APP_VERSION,
+        platform: "web",
+        url: typeof location !== "undefined" ? location.href : undefined,
+        userAgent:
+          typeof navigator !== "undefined" ? navigator.userAgent : undefined,
+        ...report,
+      }),
+    }).catch(() => {});
+  } catch {
+    // swallow — reporting must never crash the app
+  }
+}
+
 // ── Bug Reports ────────────────────────────────────────────────────────────────
 
 export const bugReports = {

@@ -20,6 +20,7 @@ import {
   archiveItem,
   deleteItem,
 } from "../../src/api/items";
+import { reportClientError } from "../../src/api/report";
 import { TagManager } from "../../src/components/TagManager";
 import { colors, spacing, radius, font } from "../../src/theme";
 import { ItemType } from "@notes-world/shared";
@@ -43,6 +44,7 @@ export default function ItemScreen() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [dirty, setDirty] = useState(false);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -51,6 +53,13 @@ export default function ItemScreen() {
         setItem(data);
         setTitle(data.title);
         setBody(data.body ?? "");
+      } catch (err) {
+        void reportClientError({
+          message: (err as Error).message,
+          stack: (err as Error).stack,
+          context: "ItemScreen.load",
+        });
+        setLoadError(true);
       } finally {
         setLoading(false);
       }
@@ -111,6 +120,13 @@ export default function ItemScreen() {
       });
       setItem(updated);
       setDirty(false);
+    } catch (err) {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "ItemScreen.handleSave",
+      });
+      Alert.alert("Couldn't save", "Your changes were not saved. Try again.");
     } finally {
       setSaving(false);
     }
@@ -124,9 +140,21 @@ export default function ItemScreen() {
         style: "destructive",
         onPress: async () => {
           if (!item) return;
-          await archiveItem(item.id);
-          await deleteItem(item.id);
-          router.back();
+          try {
+            await archiveItem(item.id);
+            await deleteItem(item.id);
+            router.back();
+          } catch (err) {
+            void reportClientError({
+              message: (err as Error).message,
+              stack: (err as Error).stack,
+              context: "ItemScreen.handleDelete",
+            });
+            Alert.alert(
+              "Couldn't delete",
+              "The item was not deleted. Try again.",
+            );
+          }
         },
       },
     ]);
@@ -140,8 +168,20 @@ export default function ItemScreen() {
         style: "destructive",
         onPress: async () => {
           if (!item) return;
-          await archiveItem(item.id);
-          router.back();
+          try {
+            await archiveItem(item.id);
+            router.back();
+          } catch (err) {
+            void reportClientError({
+              message: (err as Error).message,
+              stack: (err as Error).stack,
+              context: "ItemScreen.handleArchive",
+            });
+            Alert.alert(
+              "Couldn't archive",
+              "The item was not archived. Try again.",
+            );
+          }
         },
       },
     ]);
@@ -158,7 +198,11 @@ export default function ItemScreen() {
   if (!item) {
     return (
       <View style={s.center}>
-        <Text style={{ color: colors.textMuted }}>Item not found</Text>
+        <Text style={{ color: colors.textMuted }}>
+          {loadError
+            ? "Couldn't load this item. Go back and try again."
+            : "Item not found"}
+        </Text>
       </View>
     );
   }

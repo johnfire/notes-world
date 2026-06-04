@@ -13,6 +13,7 @@ import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { listItems, archiveItem } from "../../src/api/items";
+import { reportClientError } from "../../src/api/report";
 import { ItemCard } from "../../src/components/ItemCard";
 import { useAuth } from "../../src/store/auth";
 import { colors, spacing, radius, font } from "../../src/theme";
@@ -30,9 +31,11 @@ export default function ItemsScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async (p: number, q: string, append = false) => {
     try {
+      setError(null);
       const res = await listItems({
         page: p,
         page_size: PAGE_SIZE,
@@ -41,6 +44,13 @@ export default function ItemsScreen() {
       });
       setTotal(res.total);
       setItems((prev) => (append ? [...prev, ...res.items] : res.items));
+    } catch (err) {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "ItemsScreen.load",
+      });
+      setError("Couldn't load notes. Pull down to retry.");
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -64,8 +74,13 @@ export default function ItemsScreen() {
       await archiveItem(id);
       setItems((prev) => prev.filter((i) => i.id !== id));
       setTotal((t) => t - 1);
-    } catch {
-      // silent — item stays in list if delete fails
+    } catch (err) {
+      // Item stays in the list if delete fails, but still report it.
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "ItemsScreen.onDelete",
+      });
     }
   }
 
@@ -127,7 +142,7 @@ export default function ItemsScreen() {
           onEndReachedThreshold={0.3}
           ListEmptyComponent={
             <Text style={s.empty}>
-              {search ? "No results" : "No items yet"}
+              {error ? error : search ? "No results" : "No items yet"}
             </Text>
           }
           contentContainerStyle={{ paddingBottom: spacing.xl }}
