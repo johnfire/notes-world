@@ -10,6 +10,7 @@ on:
     branches: [master]
     paths:
       - "packages/mobile/**"
+      - "!packages/mobile/**.md"
       - ".github/workflows/android-release.yml"
   workflow_dispatch:
 
