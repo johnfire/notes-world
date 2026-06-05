@@ -54,6 +54,7 @@ jobs:
             --exclude='packages/web/dist' \
             --exclude='packages/*/dist' \
             --exclude='backups' \
+            --exclude='logs' \
             --exclude='.env' \
             -e "ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no" \
             ./ chris@82.165.32.162:/opt/notes-world/
