@@ -69,6 +69,8 @@ jobs:
       - name: Build release AAB
         if: steps.guard.outputs.skip != 'true'
         working-directory: packages/mobile/android
+        env:
+          NODE_ENV: production
         run: ./gradlew :app:bundleRelease --no-daemon --stacktrace
 
       - name: Write Play service-account JSON
