@@ -87,9 +87,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'de.christopherrehm.notesworld'
+    namespace 'notes.world'
     defaultConfig {
-        applicationId 'de.christopherrehm.notesworld'
+        applicationId 'notes.world'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

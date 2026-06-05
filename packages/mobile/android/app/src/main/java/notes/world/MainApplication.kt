@@ -1,4 +1,4 @@
-package de.christopherrehm.notesworld
+package notes.world
 
 import android.app.Application
 import android.content.res.Configuration

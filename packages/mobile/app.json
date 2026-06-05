@@ -16,7 +16,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0f0f0f"
       },
-      "package": "de.christopherrehm.notesworld"
+      "package": "notes.world"
     },
     "plugins": ["expo-router", "expo-secure-store"],
     "scheme": "notesworld",

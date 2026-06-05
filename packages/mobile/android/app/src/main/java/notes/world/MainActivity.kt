@@ -1,4 +1,4 @@
-package de.christopherrehm.notesworld
+package notes.world
 
 import android.os.Build
 import android.os.Bundle
