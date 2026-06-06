@@ -9,6 +9,7 @@ import {
   RefreshControl,
 } from "react-native";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { listTags } from "../../src/api/tags";
 import { reportClientError } from "../../src/api/report";
@@ -17,6 +18,7 @@ import type { TagWithCount } from "@notes-world/shared";
 
 export default function TagsScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [tags, setTags] = useState<TagWithCount[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -33,7 +35,7 @@ export default function TagsScreen() {
         stack: (err as Error).stack,
         context: "TagsScreen.load",
       });
-      setError("Couldn't load tags. Pull down to retry.");
+      setError(t("tags.loadError"));
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -51,7 +53,7 @@ export default function TagsScreen() {
 
   return (
     <SafeAreaView style={s.root} edges={["top"]}>
-      <Text style={s.heading}>Tags</Text>
+      <Text style={s.heading}>{t("tags.title")}</Text>
       {loading ? (
         <ActivityIndicator style={s.loader} color={colors.accent} />
       ) : (
@@ -81,7 +83,7 @@ export default function TagsScreen() {
             </Pressable>
           )}
           ListEmptyComponent={
-            <Text style={s.empty}>{error ? error : "No tags yet"}</Text>
+            <Text style={s.empty}>{error ? error : t("tags.empty")}</Text>
           }
           contentContainerStyle={{ paddingBottom: spacing.xl }}
         />

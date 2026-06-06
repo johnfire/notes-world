@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Gem",
+    "cancel": "Annuller",
+    "delete": "Slet",
+    "archive": "Arkivér",
+    "done": "Færdig",
+    "open": "Åbn",
+    "retry": "Prøv igen",
+    "error": "Fejl"
+  },
+  "tabs": {
+    "notes": "Noter",
+    "capture": "Opfang",
+    "tags": "Tags",
+    "account": "Konto"
+  },
+  "auth": {
+    "tagline": "Din personlige videnbase",
+    "featureCapture": "Opfang idéer, opgaver og påmindelser",
+    "featureTags": "Organisér med tags",
+    "featureOffline": "Virker offline, synkroniserer ved forbindelse",
+    "createFreeAccount": "Opret gratis konto",
+    "signIn": "Log ind",
+    "createAccount": "Opret konto",
+    "email": "E-mail",
+    "password": "Adgangskode",
+    "confirmPassword": "Bekræft adgangskode",
+    "agreePrefix": "Jeg accepterer ",
+    "termsOfService": "Servicevilkårene",
+    "and": " og ",
+    "privacyPolicy": "Privatlivspolitikken",
+    "switchToRegister": "Ingen konto endnu? Registrér dig",
+    "switchToLogin": "Har du allerede en konto? Log ind",
+    "passwordsNoMatch": "Adgangskoderne stemmer ikke overens",
+    "mustAgree": "Du skal acceptere Servicevilkårene og Privatlivspolitikken",
+    "loginFailed": "Login mislykkedes — tjek din forbindelse og dine oplysninger",
+    "registerFailed": "Registrering mislykkedes — prøv en anden e-mailadresse"
+  },
+  "home": {
+    "title": "Noter",
+    "search": "Søg…",
+    "loadError": "Kunne ikke indlæse noter. Træk ned for at prøve igen.",
+    "noResults": "Ingen resultater",
+    "empty": "Ingen elementer endnu"
+  },
+  "capture": {
+    "heading": "Hurtig opfangning",
+    "typeNote": "Note",
+    "typeTask": "Opgave",
+    "typeIdea": "Idé",
+    "typeReminder": "Påmindelse",
+    "title": "Titel…",
+    "body": "Indhold (valgfrit)…",
+    "saveFailed": "Kunne ikke gemme"
+  },
+  "tags": {
+    "title": "Tags",
+    "add": "Tilføj tag",
+    "search": "Søg tags…",
+    "noMatching": "Ingen matchende tags",
+    "noneAvailable": "Ingen tags tilgængelige",
+    "allAdded": "Alle tags er allerede tilføjet",
+    "loadError": "Kunne ikke indlæse tags. Træk ned for at prøve igen.",
+    "empty": "Ingen tags endnu",
+    "label": "Tags"
+  },
+  "tagDetail": {
+    "loadError": "Kunne ikke indlæse elementer. Træk ned for at prøve igen.",
+    "empty": "Ingen elementer med dette tag"
+  },
+  "item": {
+    "title": "Titel",
+    "body": "Indhold…",
+    "deleteNote": "Slet note",
+    "updated": "Opdateret {{date}}",
+    "notFound": "Element ikke fundet",
+    "loadError": "Kunne ikke indlæse dette element. Gå tilbage og prøv igen.",
+    "saveFailedTitle": "Kunne ikke gemme",
+    "saveFailedMsg": "Dine ændringer blev ikke gemt. Prøv igen.",
+    "deleteTitle": "Slet element?",
+    "deleteMsg": "Dette kan ikke fortrydes.",
+    "archiveTitle": "Arkivér element?",
+    "archiveMsg": "Dette flytter elementet til arkivet.",
+    "deleteFailedTitle": "Kunne ikke slette",
+    "deleteFailedMsg": "Elementet blev ikke slettet. Prøv igen.",
+    "archiveFailedTitle": "Kunne ikke arkivere",
+    "archiveFailedMsg": "Elementet blev ikke arkiveret. Prøv igen.",
+    "deleteCardTitle": "Slet note?"
+  },
+  "account": {
+    "title": "Konto",
+    "roleFree": "Free",
+    "roleGift": "Pro (gave)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Admin",
+    "freePlanBanner": "Gratis-abonnement · grænse på 20 tags · Tryk for at opgradere →",
+    "upgradeTitle": "Opgradér",
+    "upgradeMsg": "Besøg notes-world.christopherrehm.de for at opgradere din konto.",
+    "proPlanBanner": "Pro-abonnement{{status}} · Administrér fakturering →",
+    "changeEmail": "Skift e-mail",
+    "newEmail": "Ny e-mail",
+    "currentPassword": "Nuværende adgangskode",
+    "updateEmail": "Opdater e-mail",
+    "emailUpdated": "E-mail opdateret.",
+    "emailUpdateFailed": "Kunne ikke opdatere e-mail",
+    "changePassword": "Skift adgangskode",
+    "newPassword": "Ny adgangskode",
+    "confirmNewPassword": "Bekræft ny adgangskode",
+    "updatePassword": "Opdater adgangskode",
+    "passwordUpdated": "Adgangskode opdateret.",
+    "passwordUpdateFailed": "Kunne ikke opdatere adgangskode",
+    "passwordsNoMatch": "Adgangskoderne stemmer ikke overens",
+    "session": "Session",
+    "signOut": "Log ud",
+    "signOutConfirm": "Er du sikker?",
+    "dangerZone": "Farezone",
+    "deleteAccount": "Slet konto",
+    "deleteAccountMsg": "Indtast din nuværende adgangskode for at bekræfte. Dette kan ikke fortrydes.",
+    "deleteAccountFailed": "Kunne ikke slette konto",
+    "language": "Sprog",
+    "selectLanguage": "Vælg sprog"
+  },
+  "update": {
+    "available": "En ny version er tilgængelig",
+    "download": "Download"
+  },
+  "errorBoundary": {
+    "title": "Noget gik galt",
+    "subtitle": "Fejlen blev rapporteret. Prøv igen.",
+    "retry": "Prøv igen"
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Salvează",
+    "cancel": "Anulează",
+    "delete": "Șterge",
+    "archive": "Arhivează",
+    "done": "Gata",
+    "open": "Deschide",
+    "retry": "Reîncearcă",
+    "error": "Eroare"
+  },
+  "tabs": {
+    "notes": "Notițe",
+    "capture": "Captură",
+    "tags": "Etichete",
+    "account": "Cont"
+  },
+  "auth": {
+    "tagline": "Baza ta personală de cunoștințe",
+    "featureCapture": "Captează idei, sarcini și mementouri",
+    "featureTags": "Organizează cu etichete",
+    "featureOffline": "Funcționează offline, se sincronizează la conectare",
+    "createFreeAccount": "Creează un cont gratuit",
+    "signIn": "Autentificare",
+    "createAccount": "Creează cont",
+    "email": "E-mail",
+    "password": "Parolă",
+    "confirmPassword": "Confirmă parola",
+    "agreePrefix": "Sunt de acord cu ",
+    "termsOfService": "Termenii de utilizare",
+    "and": " și ",
+    "privacyPolicy": "Politica de confidențialitate",
+    "switchToRegister": "Nu ai încă un cont? Înregistrează-te",
+    "switchToLogin": "Ai deja un cont? Autentifică-te",
+    "passwordsNoMatch": "Parolele nu coincid",
+    "mustAgree": "Trebuie să accepți Termenii de utilizare și Politica de confidențialitate",
+    "loginFailed": "Autentificarea a eșuat — verifică-ți conexiunea și datele de autentificare",
+    "registerFailed": "Înregistrarea a eșuat — încearcă o altă adresă de e-mail"
+  },
+  "home": {
+    "title": "Notițe",
+    "search": "Caută…",
+    "loadError": "Notițele nu au putut fi încărcate. Trage în jos pentru a reîncerca.",
+    "noResults": "Niciun rezultat",
+    "empty": "Încă niciun element"
+  },
+  "capture": {
+    "heading": "Captură rapidă",
+    "typeNote": "Notiță",
+    "typeTask": "Sarcină",
+    "typeIdea": "Idee",
+    "typeReminder": "Memento",
+    "title": "Titlu…",
+    "body": "Conținut (opțional)…",
+    "saveFailed": "Salvarea a eșuat"
+  },
+  "tags": {
+    "title": "Etichete",
+    "add": "Adaugă etichetă",
+    "search": "Caută etichete…",
+    "noMatching": "Nicio etichetă corespunzătoare",
+    "noneAvailable": "Nicio etichetă disponibilă",
+    "allAdded": "Toate etichetele au fost deja adăugate",
+    "loadError": "Etichetele nu au putut fi încărcate. Trage în jos pentru a reîncerca.",
+    "empty": "Încă nicio etichetă",
+    "label": "Etichete"
+  },
+  "tagDetail": {
+    "loadError": "Elementele nu au putut fi încărcate. Trage în jos pentru a reîncerca.",
+    "empty": "Niciun element cu această etichetă"
+  },
+  "item": {
+    "title": "Titlu",
+    "body": "Conținut…",
+    "deleteNote": "Șterge notița",
+    "updated": "Actualizat la {{date}}",
+    "notFound": "Element negăsit",
+    "loadError": "Acest element nu a putut fi încărcat. Întoarce-te și încearcă din nou.",
+    "saveFailedTitle": "Salvarea a eșuat",
+    "saveFailedMsg": "Modificările tale nu au fost salvate. Încearcă din nou.",
+    "deleteTitle": "Ștergi elementul?",
+    "deleteMsg": "Această acțiune nu poate fi anulată.",
+    "archiveTitle": "Arhivezi elementul?",
+    "archiveMsg": "Acest lucru va muta elementul în arhivă.",
+    "deleteFailedTitle": "Ștergerea a eșuat",
+    "deleteFailedMsg": "Elementul nu a fost șters. Încearcă din nou.",
+    "archiveFailedTitle": "Arhivarea a eșuat",
+    "archiveFailedMsg": "Elementul nu a fost arhivat. Încearcă din nou.",
+    "deleteCardTitle": "Ștergi notița?"
+  },
+  "account": {
+    "title": "Cont",
+    "roleFree": "Gratuit",
+    "roleGift": "Pro (cadou)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Admin",
+    "freePlanBanner": "Plan gratuit · limită de 20 de etichete · Atinge pentru a face upgrade →",
+    "upgradeTitle": "Upgrade",
+    "upgradeMsg": "Vizitează notes-world.christopherrehm.de pentru a face upgrade la contul tău.",
+    "proPlanBanner": "Plan Pro{{status}} · Gestionează facturarea →",
+    "changeEmail": "Schimbă e-mailul",
+    "newEmail": "E-mail nou",
+    "currentPassword": "Parola actuală",
+    "updateEmail": "Actualizează e-mailul",
+    "emailUpdated": "E-mailul a fost actualizat cu succes.",
+    "emailUpdateFailed": "Actualizarea e-mailului a eșuat",
+    "changePassword": "Schimbă parola",
+    "newPassword": "Parolă nouă",
+    "confirmNewPassword": "Confirmă parola nouă",
+    "updatePassword": "Actualizează parola",
+    "passwordUpdated": "Parola a fost actualizată cu succes.",
+    "passwordUpdateFailed": "Actualizarea parolei a eșuat",
+    "passwordsNoMatch": "Parolele nu coincid",
+    "session": "Sesiune",
+    "signOut": "Deconectare",
+    "signOutConfirm": "Ești sigur?",
+    "dangerZone": "Zonă periculoasă",
+    "deleteAccount": "Șterge contul",
+    "deleteAccountMsg": "Introdu parola actuală pentru a confirma. Această acțiune nu poate fi anulată.",
+    "deleteAccountFailed": "Ștergerea contului a eșuat",
+    "language": "Limbă",
+    "selectLanguage": "Selectează limba"
+  },
+  "update": {
+    "available": "Este disponibilă o versiune nouă",
+    "download": "Descarcă"
+  },
+  "errorBoundary": {
+    "title": "Ceva nu a funcționat",
+    "subtitle": "Eroarea a fost raportată. Încearcă din nou.",
+    "retry": "Reîncearcă"
+  }
+}

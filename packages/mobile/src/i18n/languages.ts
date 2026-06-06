@@ -1,0 +1,32 @@
+// Supported UI languages — kept in sync with the web app
+// (packages/web/src/i18n/languages.ts). Native labels are shown in the picker.
+export const LANGUAGES = [
+  { code: "en", label: "English" },
+  { code: "bg", label: "Български" },
+  { code: "cs", label: "Čeština" },
+  { code: "da", label: "Dansk" },
+  { code: "de", label: "Deutsch" },
+  { code: "et", label: "Eesti" },
+  { code: "el", label: "Ελληνικά" },
+  { code: "es", label: "Español" },
+  { code: "fr", label: "Français" },
+  { code: "ga", label: "Gaeilge" },
+  { code: "hr", label: "Hrvatski" },
+  { code: "it", label: "Italiano" },
+  { code: "lv", label: "Latviešu" },
+  { code: "lt", label: "Lietuvių" },
+  { code: "hu", label: "Magyar" },
+  { code: "mt", label: "Malti" },
+  { code: "nl", label: "Nederlands" },
+  { code: "pl", label: "Polski" },
+  { code: "pt", label: "Português" },
+  { code: "ro", label: "Română" },
+  { code: "ru", label: "Русский" },
+  { code: "sk", label: "Slovenčina" },
+  { code: "sl", label: "Slovenščina" },
+  { code: "fi", label: "Suomi" },
+  { code: "sv", label: "Svenska" },
+  { code: "zh", label: "中文" },
+] as const;
+
+export const SUPPORTED_LANGUAGE_CODES = LANGUAGES.map((l) => l.code);

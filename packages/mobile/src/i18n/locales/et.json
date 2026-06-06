@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Salvesta",
+    "cancel": "Tühista",
+    "delete": "Kustuta",
+    "archive": "Arhiveeri",
+    "done": "Valmis",
+    "open": "Ava",
+    "retry": "Proovi uuesti",
+    "error": "Viga"
+  },
+  "tabs": {
+    "notes": "Märkmed",
+    "capture": "Talleta",
+    "tags": "Sildid",
+    "account": "Konto"
+  },
+  "auth": {
+    "tagline": "Sinu isiklik teadmusbaas",
+    "featureCapture": "Talleta ideid, ülesandeid ja meeldetuletusi",
+    "featureTags": "Korralda siltidega",
+    "featureOffline": "Töötab võrguühenduseta, sünkroonib ühenduse korral",
+    "createFreeAccount": "Loo tasuta konto",
+    "signIn": "Logi sisse",
+    "createAccount": "Loo konto",
+    "email": "E-post",
+    "password": "Parool",
+    "confirmPassword": "Kinnita parool",
+    "agreePrefix": "Nõustun ",
+    "termsOfService": "kasutustingimustega",
+    "and": " ja ",
+    "privacyPolicy": "privaatsuspoliitikaga",
+    "switchToRegister": "Pole veel kontot? Registreeru",
+    "switchToLogin": "Sul on juba konto? Logi sisse",
+    "passwordsNoMatch": "Paroolid ei kattu",
+    "mustAgree": "Pead nõustuma kasutustingimuste ja privaatsuspoliitikaga",
+    "loginFailed": "Sisselogimine ebaõnnestus — kontrolli ühendust ja andmeid",
+    "registerFailed": "Registreerimine ebaõnnestus — proovi teist e-posti aadressi"
+  },
+  "home": {
+    "title": "Märkmed",
+    "search": "Otsi…",
+    "loadError": "Märkmeid ei õnnestunud laadida. Tõmba alla, et uuesti proovida.",
+    "noResults": "Tulemused puuduvad",
+    "empty": "Üksusi pole veel"
+  },
+  "capture": {
+    "heading": "Kiire talletus",
+    "typeNote": "Märge",
+    "typeTask": "Ülesanne",
+    "typeIdea": "Idee",
+    "typeReminder": "Meeldetuletus",
+    "title": "Pealkiri…",
+    "body": "Sisu (valikuline)…",
+    "saveFailed": "Salvestamine ebaõnnestus"
+  },
+  "tags": {
+    "title": "Sildid",
+    "add": "Lisa silt",
+    "search": "Otsi silte…",
+    "noMatching": "Sobivaid silte pole",
+    "noneAvailable": "Silte pole saadaval",
+    "allAdded": "Kõik sildid on juba lisatud",
+    "loadError": "Silte ei õnnestunud laadida. Tõmba alla, et uuesti proovida.",
+    "empty": "Silte pole veel",
+    "label": "Sildid"
+  },
+  "tagDetail": {
+    "loadError": "Üksusi ei õnnestunud laadida. Tõmba alla, et uuesti proovida.",
+    "empty": "Selle sildiga üksusi pole"
+  },
+  "item": {
+    "title": "Pealkiri",
+    "body": "Sisu…",
+    "deleteNote": "Kustuta märge",
+    "updated": "Uuendatud {{date}}",
+    "notFound": "Üksust ei leitud",
+    "loadError": "Seda üksust ei õnnestunud laadida. Mine tagasi ja proovi uuesti.",
+    "saveFailedTitle": "Salvestamine ebaõnnestus",
+    "saveFailedMsg": "Sinu muudatusi ei salvestatud. Proovi uuesti.",
+    "deleteTitle": "Kustutada üksus?",
+    "deleteMsg": "Seda ei saa tagasi võtta.",
+    "archiveTitle": "Arhiveerida üksus?",
+    "archiveMsg": "See teisaldab üksuse arhiivi.",
+    "deleteFailedTitle": "Kustutamine ebaõnnestus",
+    "deleteFailedMsg": "Üksust ei kustutatud. Proovi uuesti.",
+    "archiveFailedTitle": "Arhiveerimine ebaõnnestus",
+    "archiveFailedMsg": "Üksust ei arhiveeritud. Proovi uuesti.",
+    "deleteCardTitle": "Kustutada märge?"
+  },
+  "account": {
+    "title": "Konto",
+    "roleFree": "Tasuta",
+    "roleGift": "Pro (kingitus)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Administraator",
+    "freePlanBanner": "Tasuta pakett · 20 sildi piirang · Puuduta uuendamiseks →",
+    "upgradeTitle": "Uuenda",
+    "upgradeMsg": "Konto uuendamiseks külasta aadressi notes-world.christopherrehm.de.",
+    "proPlanBanner": "Pro pakett{{status}} · Halda arveldust →",
+    "changeEmail": "Muuda e-posti",
+    "newEmail": "Uus e-post",
+    "currentPassword": "Praegune parool",
+    "updateEmail": "Uuenda e-posti",
+    "emailUpdated": "E-post edukalt uuendatud.",
+    "emailUpdateFailed": "E-posti uuendamine ebaõnnestus",
+    "changePassword": "Muuda parooli",
+    "newPassword": "Uus parool",
+    "confirmNewPassword": "Kinnita uus parool",
+    "updatePassword": "Uuenda parooli",
+    "passwordUpdated": "Parool edukalt uuendatud.",
+    "passwordUpdateFailed": "Parooli uuendamine ebaõnnestus",
+    "passwordsNoMatch": "Paroolid ei kattu",
+    "session": "Seanss",
+    "signOut": "Logi välja",
+    "signOutConfirm": "Kas oled kindel?",
+    "dangerZone": "Ohutsoon",
+    "deleteAccount": "Kustuta konto",
+    "deleteAccountMsg": "Kinnitamiseks sisesta praegune parool. Seda ei saa tagasi võtta.",
+    "deleteAccountFailed": "Konto kustutamine ebaõnnestus",
+    "language": "Keel",
+    "selectLanguage": "Vali keel"
+  },
+  "update": {
+    "available": "Saadaval on uus versioon",
+    "download": "Laadi alla"
+  },
+  "errorBoundary": {
+    "title": "Midagi läks valesti",
+    "subtitle": "Viga raporteeriti. Proovi uuesti.",
+    "retry": "Proovi uuesti"
+  }
+}

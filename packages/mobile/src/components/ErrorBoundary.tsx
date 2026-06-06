@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { colors } from "../theme";
 import { reportClientError } from "../api/report";
+import i18n from "../i18n";
 
 interface Props {
   children: React.ReactNode;
@@ -36,12 +37,12 @@ export class ErrorBoundary extends React.Component<Props, State> {
     if (this.state.hasError) {
       return (
         <View style={styles.container}>
-          <Text style={styles.title}>Something went wrong</Text>
+          <Text style={styles.title}>{i18n.t("errorBoundary.title")}</Text>
           <Text style={styles.subtitle}>
-            The error was reported. Try again.
+            {i18n.t("errorBoundary.subtitle")}
           </Text>
           <TouchableOpacity style={styles.btn} onPress={this.handleRetry}>
-            <Text style={styles.btnText}>Retry</Text>
+            <Text style={styles.btnText}>{i18n.t("errorBoundary.retry")}</Text>
           </TouchableOpacity>
         </View>
       );

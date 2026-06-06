@@ -8,6 +8,7 @@ import {
   RefreshControl,
 } from "react-native";
 import { useLocalSearchParams, useRouter, useNavigation } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getItemsByTag, listTags } from "../../src/api/tags";
 import { archiveItem } from "../../src/api/items";
@@ -17,6 +18,7 @@ import { colors, spacing, font } from "../../src/theme";
 import type { Item } from "@notes-world/shared";
 
 export default function TagScreen() {
+  const { t } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const navigation = useNavigation();
@@ -64,7 +66,7 @@ export default function TagScreen() {
         stack: (err as Error).stack,
         context: "TagScreen.load",
       });
-      setError("Couldn't load items. Pull down to retry.");
+      setError(t("tagDetail.loadError"));
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -101,9 +103,7 @@ export default function TagScreen() {
             />
           }
           ListEmptyComponent={
-            <Text style={s.empty}>
-              {error ? error : "No items with this tag"}
-            </Text>
+            <Text style={s.empty}>{error ? error : t("tagDetail.empty")}</Text>
           }
           contentContainerStyle={{
             paddingVertical: spacing.sm,

@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import { useTranslation } from "react-i18next";
+import "../src/i18n";
 import { AuthProvider, useAuth } from "../src/store/auth";
 import { colors } from "../src/theme";
 import { useUpdateCheck } from "../src/hooks/useUpdateCheck";
@@ -60,13 +62,14 @@ function RootRedirect() {
 }
 
 function UpdateBanner() {
+  const { t } = useTranslation();
   const { update, dismiss, openDownload } = useUpdateCheck();
   if (!update) return null;
   return (
     <View style={styles.banner}>
-      <Text style={styles.bannerText}>A new version is available</Text>
+      <Text style={styles.bannerText}>{t("update.available")}</Text>
       <TouchableOpacity onPress={openDownload} style={styles.bannerBtn}>
-        <Text style={styles.bannerBtnText}>Download</Text>
+        <Text style={styles.bannerBtnText}>{t("update.download")}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={dismiss} style={styles.bannerDismiss}>
         <Text style={styles.bannerDismissText}>✕</Text>

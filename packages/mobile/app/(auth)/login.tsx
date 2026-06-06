@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../../src/store/auth";
 import { login, register } from "../../src/api/auth";
 import { colors, spacing, radius, font } from "../../src/theme";
@@ -21,6 +22,7 @@ const WEB_BASE = "https://notes-world.christopherrehm.de";
 type Mode = "login" | "register";
 
 export default function LoginScreen() {
+  const { t } = useTranslation();
   const { setUser } = useAuth();
   const params = useLocalSearchParams<{ mode?: string }>();
   const [mode, setMode] = useState<Mode>(
@@ -37,11 +39,11 @@ export default function LoginScreen() {
   async function handleSubmit() {
     setError("");
     if (mode === "register" && password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(t("auth.passwordsNoMatch"));
       return;
     }
     if (mode === "register" && !agreed) {
-      setError("You must agree to the Terms of Service and Privacy Policy");
+      setError(t("auth.mustAgree"));
       return;
     }
     setLoading(true);
@@ -55,9 +57,7 @@ export default function LoginScreen() {
       const msg = e instanceof Error ? e.message : "";
       setError(
         msg ||
-          (mode === "login"
-            ? "Login failed — check your connection and credentials"
-            : "Registration failed — try a different email"),
+          (mode === "login" ? t("auth.loginFailed") : t("auth.registerFailed")),
       );
     } finally {
       setLoading(false);
@@ -79,12 +79,12 @@ export default function LoginScreen() {
     >
       <View style={s.inner}>
         <Text style={s.logo}>Notes World</Text>
-        <Text style={s.subtitle}>Your personal knowledge base</Text>
+        <Text style={s.subtitle}>{t("auth.tagline")}</Text>
 
         <View style={s.form}>
           <TextInput
             style={s.input}
-            placeholder="Email"
+            placeholder={t("auth.email")}
             placeholderTextColor={colors.textDim}
             value={email}
             onChangeText={setEmail}
@@ -96,7 +96,7 @@ export default function LoginScreen() {
           <View style={s.passwordRow}>
             <TextInput
               style={s.passwordInput}
-              placeholder="Password"
+              placeholder={t("auth.password")}
               placeholderTextColor={colors.textDim}
               value={password}
               onChangeText={setPassword}
@@ -120,7 +120,7 @@ export default function LoginScreen() {
           {mode === "register" && (
             <TextInput
               style={s.input}
-              placeholder="Confirm password"
+              placeholder={t("auth.confirmPassword")}
               placeholderTextColor={colors.textDim}
               value={confirmPassword}
               onChangeText={setConfirmPassword}
@@ -143,7 +143,7 @@ export default function LoginScreen() {
                 )}
               </View>
               <Text style={s.consentText}>
-                I agree to the{" "}
+                {t("auth.agreePrefix")}
                 <Text
                   style={s.consentLink}
                   onPress={(e) => {
@@ -151,9 +151,9 @@ export default function LoginScreen() {
                     void Linking.openURL(`${WEB_BASE}/terms`);
                   }}
                 >
-                  Terms of Service
+                  {t("auth.termsOfService")}
                 </Text>
-                {" and "}
+                {t("auth.and")}
                 <Text
                   style={s.consentLink}
                   onPress={(e) => {
@@ -161,7 +161,7 @@ export default function LoginScreen() {
                     void Linking.openURL(`${WEB_BASE}/privacy`);
                   }}
                 >
-                  Privacy Policy
+                  {t("auth.privacyPolicy")}
                 </Text>
               </Text>
             </Pressable>
@@ -178,7 +178,7 @@ export default function LoginScreen() {
               <ActivityIndicator color={colors.text} />
             ) : (
               <Text style={s.btnText}>
-                {mode === "login" ? "Sign in" : "Create account"}
+                {mode === "login" ? t("auth.signIn") : t("auth.createAccount")}
               </Text>
             )}
           </Pressable>
@@ -187,8 +187,8 @@ export default function LoginScreen() {
         <Pressable style={s.switchBtn} onPress={switchMode}>
           <Text style={s.switchText}>
             {mode === "login"
-              ? "No account yet? Register"
-              : "Already have an account? Sign in"}
+              ? t("auth.switchToRegister")
+              : t("auth.switchToLogin")}
           </Text>
         </Pressable>
       </View>

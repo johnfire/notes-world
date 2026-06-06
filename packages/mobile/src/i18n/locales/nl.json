@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
+    "archive": "Archiveren",
+    "done": "Klaar",
+    "open": "Openen",
+    "retry": "Opnieuw proberen",
+    "error": "Fout"
+  },
+  "tabs": {
+    "notes": "Notities",
+    "capture": "Vastleggen",
+    "tags": "Tags",
+    "account": "Account"
+  },
+  "auth": {
+    "tagline": "Je persoonlijke kennisbank",
+    "featureCapture": "Leg ideeën, taken en herinneringen vast",
+    "featureTags": "Organiseer met tags",
+    "featureOffline": "Werkt offline, synchroniseert bij verbinding",
+    "createFreeAccount": "Gratis account aanmaken",
+    "signIn": "Inloggen",
+    "createAccount": "Account aanmaken",
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "confirmPassword": "Wachtwoord bevestigen",
+    "agreePrefix": "Ik ga akkoord met de ",
+    "termsOfService": "Servicevoorwaarden",
+    "and": " en het ",
+    "privacyPolicy": "Privacybeleid",
+    "switchToRegister": "Nog geen account? Registreren",
+    "switchToLogin": "Heb je al een account? Inloggen",
+    "passwordsNoMatch": "Wachtwoorden komen niet overeen",
+    "mustAgree": "Je moet akkoord gaan met de Servicevoorwaarden en het Privacybeleid",
+    "loginFailed": "Inloggen mislukt — controleer je verbinding en inloggegevens",
+    "registerFailed": "Registratie mislukt — probeer een ander e-mailadres"
+  },
+  "home": {
+    "title": "Notities",
+    "search": "Zoeken…",
+    "loadError": "Kan notities niet laden. Trek omlaag om opnieuw te proberen.",
+    "noResults": "Geen resultaten",
+    "empty": "Nog geen items"
+  },
+  "capture": {
+    "heading": "Snel vastleggen",
+    "typeNote": "Notitie",
+    "typeTask": "Taak",
+    "typeIdea": "Idee",
+    "typeReminder": "Herinnering",
+    "title": "Titel…",
+    "body": "Inhoud (optioneel)…",
+    "saveFailed": "Opslaan mislukt"
+  },
+  "tags": {
+    "title": "Tags",
+    "add": "Tag toevoegen",
+    "search": "Tags zoeken…",
+    "noMatching": "Geen overeenkomende tags",
+    "noneAvailable": "Geen tags beschikbaar",
+    "allAdded": "Alle tags zijn al toegevoegd",
+    "loadError": "Kan tags niet laden. Trek omlaag om opnieuw te proberen.",
+    "empty": "Nog geen tags",
+    "label": "Tags"
+  },
+  "tagDetail": {
+    "loadError": "Kan items niet laden. Trek omlaag om opnieuw te proberen.",
+    "empty": "Geen items met deze tag"
+  },
+  "item": {
+    "title": "Titel",
+    "body": "Inhoud…",
+    "deleteNote": "Notitie verwijderen",
+    "updated": "Bijgewerkt {{date}}",
+    "notFound": "Item niet gevonden",
+    "loadError": "Kan dit item niet laden. Ga terug en probeer het opnieuw.",
+    "saveFailedTitle": "Opslaan mislukt",
+    "saveFailedMsg": "Je wijzigingen zijn niet opgeslagen. Probeer het opnieuw.",
+    "deleteTitle": "Item verwijderen?",
+    "deleteMsg": "Dit kan niet ongedaan worden gemaakt.",
+    "archiveTitle": "Item archiveren?",
+    "archiveMsg": "Hiermee wordt het item naar het archief verplaatst.",
+    "deleteFailedTitle": "Verwijderen mislukt",
+    "deleteFailedMsg": "Het item is niet verwijderd. Probeer het opnieuw.",
+    "archiveFailedTitle": "Archiveren mislukt",
+    "archiveFailedMsg": "Het item is niet gearchiveerd. Probeer het opnieuw.",
+    "deleteCardTitle": "Notitie verwijderen?"
+  },
+  "account": {
+    "title": "Account",
+    "roleFree": "Free",
+    "roleGift": "Pro (cadeau)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Admin",
+    "freePlanBanner": "Gratis abonnement · limiet van 20 tags · Tik om te upgraden →",
+    "upgradeTitle": "Upgraden",
+    "upgradeMsg": "Ga naar notes-world.christopherrehm.de om je account te upgraden.",
+    "proPlanBanner": "Pro-abonnement{{status}} · Facturering beheren →",
+    "changeEmail": "E-mail wijzigen",
+    "newEmail": "Nieuwe e-mail",
+    "currentPassword": "Huidig wachtwoord",
+    "updateEmail": "E-mail bijwerken",
+    "emailUpdated": "E-mail succesvol bijgewerkt.",
+    "emailUpdateFailed": "E-mail bijwerken mislukt",
+    "changePassword": "Wachtwoord wijzigen",
+    "newPassword": "Nieuw wachtwoord",
+    "confirmNewPassword": "Nieuw wachtwoord bevestigen",
+    "updatePassword": "Wachtwoord bijwerken",
+    "passwordUpdated": "Wachtwoord succesvol bijgewerkt.",
+    "passwordUpdateFailed": "Wachtwoord bijwerken mislukt",
+    "passwordsNoMatch": "Wachtwoorden komen niet overeen",
+    "session": "Sessie",
+    "signOut": "Uitloggen",
+    "signOutConfirm": "Weet je het zeker?",
+    "dangerZone": "Gevarenzone",
+    "deleteAccount": "Account verwijderen",
+    "deleteAccountMsg": "Voer je huidige wachtwoord in ter bevestiging. Dit kan niet ongedaan worden gemaakt.",
+    "deleteAccountFailed": "Account verwijderen mislukt",
+    "language": "Taal",
+    "selectLanguage": "Taal selecteren"
+  },
+  "update": {
+    "available": "Er is een nieuwe versie beschikbaar",
+    "download": "Downloaden"
+  },
+  "errorBoundary": {
+    "title": "Er is iets misgegaan",
+    "subtitle": "De fout is gerapporteerd. Probeer het opnieuw.",
+    "retry": "Opnieuw proberen"
+  }
+}

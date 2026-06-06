@@ -2,10 +2,12 @@ import React from "react";
 import { View, Text, Pressable, StyleSheet, StatusBar } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 import { colors, spacing, radius, font } from "../../src/theme";
 
 export default function WelcomeScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
 
   return (
     <View style={s.root}>
@@ -14,18 +16,15 @@ export default function WelcomeScreen() {
       <View style={s.hero}>
         <Ionicons name="document-text" size={64} color={colors.accent} />
         <Text style={s.title}>Notes World</Text>
-        <Text style={s.tagline}>Your personal knowledge base</Text>
+        <Text style={s.tagline}>{t("auth.tagline")}</Text>
       </View>
 
       <View style={s.features}>
-        <FeatureRow
-          icon="bulb-outline"
-          text="Capture ideas, tasks, and reminders"
-        />
-        <FeatureRow icon="pricetag-outline" text="Organise with tags" />
+        <FeatureRow icon="bulb-outline" text={t("auth.featureCapture")} />
+        <FeatureRow icon="pricetag-outline" text={t("auth.featureTags")} />
         <FeatureRow
           icon="phone-portrait-outline"
-          text="Works offline, syncs when connected"
+          text={t("auth.featureOffline")}
         />
       </View>
 
@@ -39,7 +38,7 @@ export default function WelcomeScreen() {
             })
           }
         >
-          <Text style={s.primaryBtnText}>Create free account</Text>
+          <Text style={s.primaryBtnText}>{t("auth.createFreeAccount")}</Text>
         </Pressable>
 
         <Pressable
@@ -51,7 +50,7 @@ export default function WelcomeScreen() {
             })
           }
         >
-          <Text style={s.secondaryBtnText}>Sign in</Text>
+          <Text style={s.secondaryBtnText}>{t("auth.signIn")}</Text>
         </Pressable>
       </View>
     </View>

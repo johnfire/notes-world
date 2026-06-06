@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 import type { Item } from "@notes-world/shared";
 import { ItemType } from "@notes-world/shared";
 import { colors, spacing, radius, font } from "../theme";
@@ -21,17 +22,18 @@ interface Props {
 }
 
 export function ItemCard({ item, onPress, onDelete }: Props) {
+  const { t, i18n } = useTranslation();
   const typeColor = TYPE_COLORS[item.item_type] ?? colors.typeUntyped;
-  const date = new Date(item.updated_at).toLocaleDateString("de-DE", {
+  const date = new Date(item.updated_at).toLocaleDateString(i18n.language, {
     day: "2-digit",
     month: "short",
   });
 
   function handleDelete() {
-    Alert.alert("Delete note?", "This cannot be undone.", [
-      { text: "Cancel", style: "cancel" },
+    Alert.alert(t("item.deleteCardTitle"), t("item.deleteMsg"), [
+      { text: t("common.cancel"), style: "cancel" },
       {
-        text: "Delete",
+        text: t("common.delete"),
         style: "destructive",
         onPress: () => onDelete?.(item.id),
       },

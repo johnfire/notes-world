@@ -10,6 +10,7 @@ import {
   TextInput,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 import type { Tag, TagWithCount } from "@notes-world/shared";
 import {
   getTagsForItem,
@@ -24,6 +25,7 @@ interface Props {
 }
 
 export function TagManager({ itemId }: Props) {
+  const { t } = useTranslation();
   const [itemTags, setItemTags] = useState<Tag[]>([]);
   const [allTags, setAllTags] = useState<TagWithCount[]>([]);
   const [pickerVisible, setPickerVisible] = useState(false);
@@ -78,7 +80,7 @@ export function TagManager({ itemId }: Props) {
 
   return (
     <View style={s.root}>
-      <Text style={s.label}>Tags</Text>
+      <Text style={s.label}>{t("tags.label")}</Text>
       <View style={s.chips}>
         {itemTags.map((tag) => (
           <View
@@ -99,7 +101,7 @@ export function TagManager({ itemId }: Props) {
         ))}
         <Pressable style={s.addBtn} onPress={() => setPickerVisible(true)}>
           <Ionicons name="add" size={14} color={colors.accent} />
-          <Text style={s.addText}>Add tag</Text>
+          <Text style={s.addText}>{t("tags.add")}</Text>
         </Pressable>
       </View>
 
@@ -111,10 +113,10 @@ export function TagManager({ itemId }: Props) {
       >
         <Pressable style={s.backdrop} onPress={() => setPickerVisible(false)} />
         <View style={s.sheet}>
-          <Text style={s.sheetTitle}>Add tag</Text>
+          <Text style={s.sheetTitle}>{t("tags.add")}</Text>
           <TextInput
             style={s.searchInput}
-            placeholder="Search tags…"
+            placeholder={t("tags.search")}
             placeholderTextColor={colors.textDim}
             value={search}
             onChangeText={setSearch}
@@ -137,7 +139,7 @@ export function TagManager({ itemId }: Props) {
             )}
             ListEmptyComponent={
               <Text style={s.empty}>
-                {search ? "No matching tags" : "All tags already added"}
+                {search ? t("tags.noMatching") : t("tags.allAdded")}
               </Text>
             }
           />

@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Tallenna",
+    "cancel": "Peruuta",
+    "delete": "Poista",
+    "archive": "Arkistoi",
+    "done": "Valmis",
+    "open": "Avaa",
+    "retry": "Yritä uudelleen",
+    "error": "Virhe"
+  },
+  "tabs": {
+    "notes": "Muistiinpanot",
+    "capture": "Kirjaa",
+    "tags": "Tunnisteet",
+    "account": "Tili"
+  },
+  "auth": {
+    "tagline": "Henkilökohtainen tietämyskantasi",
+    "featureCapture": "Kirjaa ideoita, tehtäviä ja muistutuksia",
+    "featureTags": "Järjestä tunnisteilla",
+    "featureOffline": "Toimii offline-tilassa, synkronoi yhteyden ollessa käytössä",
+    "createFreeAccount": "Luo ilmainen tili",
+    "signIn": "Kirjaudu sisään",
+    "createAccount": "Luo tili",
+    "email": "Sähköposti",
+    "password": "Salasana",
+    "confirmPassword": "Vahvista salasana",
+    "agreePrefix": "Hyväksyn ",
+    "termsOfService": "käyttöehdot",
+    "and": " ja ",
+    "privacyPolicy": "tietosuojakäytännön",
+    "switchToRegister": "Ei vielä tiliä? Rekisteröidy",
+    "switchToLogin": "Onko sinulla jo tili? Kirjaudu sisään",
+    "passwordsNoMatch": "Salasanat eivät täsmää",
+    "mustAgree": "Sinun on hyväksyttävä käyttöehdot ja tietosuojakäytäntö",
+    "loginFailed": "Kirjautuminen epäonnistui — tarkista yhteytesi ja tunnuksesi",
+    "registerFailed": "Rekisteröinti epäonnistui — kokeile toista sähköpostiosoitetta"
+  },
+  "home": {
+    "title": "Muistiinpanot",
+    "search": "Hae…",
+    "loadError": "Muistiinpanoja ei voitu ladata. Vedä alas yrittääksesi uudelleen.",
+    "noResults": "Ei tuloksia",
+    "empty": "Ei vielä kohteita"
+  },
+  "capture": {
+    "heading": "Pikakirjaus",
+    "typeNote": "Muistiinpano",
+    "typeTask": "Tehtävä",
+    "typeIdea": "Idea",
+    "typeReminder": "Muistutus",
+    "title": "Otsikko…",
+    "body": "Sisältö (valinnainen)…",
+    "saveFailed": "Tallennus epäonnistui"
+  },
+  "tags": {
+    "title": "Tunnisteet",
+    "add": "Lisää tunniste",
+    "search": "Hae tunnisteita…",
+    "noMatching": "Ei vastaavia tunnisteita",
+    "noneAvailable": "Ei tunnisteita saatavilla",
+    "allAdded": "Kaikki tunnisteet on jo lisätty",
+    "loadError": "Tunnisteita ei voitu ladata. Vedä alas yrittääksesi uudelleen.",
+    "empty": "Ei vielä tunnisteita",
+    "label": "Tunnisteet"
+  },
+  "tagDetail": {
+    "loadError": "Kohteita ei voitu ladata. Vedä alas yrittääksesi uudelleen.",
+    "empty": "Ei kohteita tällä tunnisteella"
+  },
+  "item": {
+    "title": "Otsikko",
+    "body": "Sisältö…",
+    "deleteNote": "Poista muistiinpano",
+    "updated": "Päivitetty {{date}}",
+    "notFound": "Kohdetta ei löytynyt",
+    "loadError": "Tätä kohdetta ei voitu ladata. Palaa takaisin ja yritä uudelleen.",
+    "saveFailedTitle": "Tallennus epäonnistui",
+    "saveFailedMsg": "Muutoksiasi ei tallennettu. Yritä uudelleen.",
+    "deleteTitle": "Poistetaanko kohde?",
+    "deleteMsg": "Tätä ei voi kumota.",
+    "archiveTitle": "Arkistoidaanko kohde?",
+    "archiveMsg": "Tämä siirtää kohteen arkistoon.",
+    "deleteFailedTitle": "Poisto epäonnistui",
+    "deleteFailedMsg": "Kohdetta ei poistettu. Yritä uudelleen.",
+    "archiveFailedTitle": "Arkistointi epäonnistui",
+    "archiveFailedMsg": "Kohdetta ei arkistoitu. Yritä uudelleen.",
+    "deleteCardTitle": "Poistetaanko muistiinpano?"
+  },
+  "account": {
+    "title": "Tili",
+    "roleFree": "Ilmainen",
+    "roleGift": "Pro (lahja)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Ylläpitäjä",
+    "freePlanBanner": "Ilmainen tilaus · 20 tunnisteen raja · Päivitä napauttamalla →",
+    "upgradeTitle": "Päivitä",
+    "upgradeMsg": "Päivitä tilisi osoitteessa notes-world.christopherrehm.de.",
+    "proPlanBanner": "Pro-tilaus{{status}} · Hallinnoi laskutusta →",
+    "changeEmail": "Vaihda sähköposti",
+    "newEmail": "Uusi sähköposti",
+    "currentPassword": "Nykyinen salasana",
+    "updateEmail": "Päivitä sähköposti",
+    "emailUpdated": "Sähköposti päivitetty onnistuneesti.",
+    "emailUpdateFailed": "Sähköpostin päivitys epäonnistui",
+    "changePassword": "Vaihda salasana",
+    "newPassword": "Uusi salasana",
+    "confirmNewPassword": "Vahvista uusi salasana",
+    "updatePassword": "Päivitä salasana",
+    "passwordUpdated": "Salasana päivitetty onnistuneesti.",
+    "passwordUpdateFailed": "Salasanan päivitys epäonnistui",
+    "passwordsNoMatch": "Salasanat eivät täsmää",
+    "session": "Istunto",
+    "signOut": "Kirjaudu ulos",
+    "signOutConfirm": "Oletko varma?",
+    "dangerZone": "Vaara-alue",
+    "deleteAccount": "Poista tili",
+    "deleteAccountMsg": "Vahvista syöttämällä nykyinen salasanasi. Tätä ei voi kumota.",
+    "deleteAccountFailed": "Tilin poisto epäonnistui",
+    "language": "Kieli",
+    "selectLanguage": "Valitse kieli"
+  },
+  "update": {
+    "available": "Uusi versio on saatavilla",
+    "download": "Lataa"
+  },
+  "errorBoundary": {
+    "title": "Jotain meni pieleen",
+    "subtitle": "Virhe raportoitiin. Yritä uudelleen.",
+    "retry": "Yritä uudelleen"
+  }
+}

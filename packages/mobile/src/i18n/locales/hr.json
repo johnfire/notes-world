@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Spremi",
+    "cancel": "Odustani",
+    "delete": "Izbriši",
+    "archive": "Arhiviraj",
+    "done": "Gotovo",
+    "open": "Otvori",
+    "retry": "Pokušaj ponovno",
+    "error": "Pogreška"
+  },
+  "tabs": {
+    "notes": "Bilješke",
+    "capture": "Zabilježi",
+    "tags": "Oznake",
+    "account": "Račun"
+  },
+  "auth": {
+    "tagline": "Vaša osobna baza znanja",
+    "featureCapture": "Bilježite ideje, zadatke i podsjetnike",
+    "featureTags": "Organizirajte pomoću oznaka",
+    "featureOffline": "Radi izvanmrežno, sinkronizira se kada ste povezani",
+    "createFreeAccount": "Stvori besplatni račun",
+    "signIn": "Prijava",
+    "createAccount": "Stvori račun",
+    "email": "E-pošta",
+    "password": "Lozinka",
+    "confirmPassword": "Potvrdi lozinku",
+    "agreePrefix": "Prihvaćam ",
+    "termsOfService": "Uvjete pružanja usluge",
+    "and": " i ",
+    "privacyPolicy": "Pravila privatnosti",
+    "switchToRegister": "Još nemate račun? Registrirajte se",
+    "switchToLogin": "Već imate račun? Prijavite se",
+    "passwordsNoMatch": "Lozinke se ne podudaraju",
+    "mustAgree": "Morate prihvatiti Uvjete pružanja usluge i Pravila privatnosti",
+    "loginFailed": "Prijava nije uspjela — provjerite vezu i podatke za prijavu",
+    "registerFailed": "Registracija nije uspjela — pokušajte s drugom e-poštom"
+  },
+  "home": {
+    "title": "Bilješke",
+    "search": "Pretraži…",
+    "loadError": "Bilješke nije moguće učitati. Povucite prema dolje za ponovni pokušaj.",
+    "noResults": "Nema rezultata",
+    "empty": "Još nema stavki"
+  },
+  "capture": {
+    "heading": "Brzo bilježenje",
+    "typeNote": "Bilješka",
+    "typeTask": "Zadatak",
+    "typeIdea": "Ideja",
+    "typeReminder": "Podsjetnik",
+    "title": "Naslov…",
+    "body": "Tekst (neobavezno)…",
+    "saveFailed": "Spremanje nije uspjelo"
+  },
+  "tags": {
+    "title": "Oznake",
+    "add": "Dodaj oznaku",
+    "search": "Pretraži oznake…",
+    "noMatching": "Nema odgovarajućih oznaka",
+    "noneAvailable": "Nema dostupnih oznaka",
+    "allAdded": "Sve oznake već su dodane",
+    "loadError": "Oznake nije moguće učitati. Povucite prema dolje za ponovni pokušaj.",
+    "empty": "Još nema oznaka",
+    "label": "Oznake"
+  },
+  "tagDetail": {
+    "loadError": "Stavke nije moguće učitati. Povucite prema dolje za ponovni pokušaj.",
+    "empty": "Nema stavki s ovom oznakom"
+  },
+  "item": {
+    "title": "Naslov",
+    "body": "Tekst…",
+    "deleteNote": "Izbriši bilješku",
+    "updated": "Ažurirano {{date}}",
+    "notFound": "Stavka nije pronađena",
+    "loadError": "Ovu stavku nije moguće učitati. Vratite se i pokušajte ponovno.",
+    "saveFailedTitle": "Spremanje nije uspjelo",
+    "saveFailedMsg": "Vaše promjene nisu spremljene. Pokušajte ponovno.",
+    "deleteTitle": "Izbrisati stavku?",
+    "deleteMsg": "Ovu radnju nije moguće poništiti.",
+    "archiveTitle": "Arhivirati stavku?",
+    "archiveMsg": "Ovo će premjestiti stavku u arhivu.",
+    "deleteFailedTitle": "Brisanje nije uspjelo",
+    "deleteFailedMsg": "Stavka nije izbrisana. Pokušajte ponovno.",
+    "archiveFailedTitle": "Arhiviranje nije uspjelo",
+    "archiveFailedMsg": "Stavka nije arhivirana. Pokušajte ponovno.",
+    "deleteCardTitle": "Izbrisati bilješku?"
+  },
+  "account": {
+    "title": "Račun",
+    "roleFree": "Besplatno",
+    "roleGift": "Pro (poklon)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Administrator",
+    "freePlanBanner": "Besplatni plan · ograničenje 20 oznaka · Dodirnite za nadogradnju →",
+    "upgradeTitle": "Nadogradnja",
+    "upgradeMsg": "Posjetite notes-world.christopherrehm.de za nadogradnju računa.",
+    "proPlanBanner": "Pro plan{{status}} · Upravljanje naplatom →",
+    "changeEmail": "Promijeni e-poštu",
+    "newEmail": "Nova e-pošta",
+    "currentPassword": "Trenutna lozinka",
+    "updateEmail": "Ažuriraj e-poštu",
+    "emailUpdated": "E-pošta je uspješno ažurirana.",
+    "emailUpdateFailed": "Ažuriranje e-pošte nije uspjelo",
+    "changePassword": "Promijeni lozinku",
+    "newPassword": "Nova lozinka",
+    "confirmNewPassword": "Potvrdi novu lozinku",
+    "updatePassword": "Ažuriraj lozinku",
+    "passwordUpdated": "Lozinka je uspješno ažurirana.",
+    "passwordUpdateFailed": "Ažuriranje lozinke nije uspjelo",
+    "passwordsNoMatch": "Lozinke se ne podudaraju",
+    "session": "Sesija",
+    "signOut": "Odjava",
+    "signOutConfirm": "Jeste li sigurni?",
+    "dangerZone": "Opasna zona",
+    "deleteAccount": "Izbriši račun",
+    "deleteAccountMsg": "Unesite trenutnu lozinku za potvrdu. Ovu radnju nije moguće poništiti.",
+    "deleteAccountFailed": "Brisanje računa nije uspjelo",
+    "language": "Jezik",
+    "selectLanguage": "Odaberite jezik"
+  },
+  "update": {
+    "available": "Dostupna je nova verzija",
+    "download": "Preuzmi"
+  },
+  "errorBoundary": {
+    "title": "Nešto je pošlo po zlu",
+    "subtitle": "Pogreška je prijavljena. Pokušajte ponovno.",
+    "retry": "Pokušaj ponovno"
+  }
+}

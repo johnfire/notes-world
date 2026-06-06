@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "archive": "Archivieren",
+    "done": "Fertig",
+    "open": "Öffnen",
+    "retry": "Erneut versuchen",
+    "error": "Fehler"
+  },
+  "tabs": {
+    "notes": "Notizen",
+    "capture": "Erfassen",
+    "tags": "Tags",
+    "account": "Konto"
+  },
+  "auth": {
+    "tagline": "Deine persönliche Wissensdatenbank",
+    "featureCapture": "Ideen, Aufgaben und Erinnerungen erfassen",
+    "featureTags": "Mit Tags organisieren",
+    "featureOffline": "Funktioniert offline, synchronisiert bei Verbindung",
+    "createFreeAccount": "Kostenloses Konto erstellen",
+    "signIn": "Anmelden",
+    "createAccount": "Konto erstellen",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "confirmPassword": "Passwort bestätigen",
+    "agreePrefix": "Ich stimme den ",
+    "termsOfService": "Nutzungsbedingungen",
+    "and": " und der ",
+    "privacyPolicy": "Datenschutzerklärung",
+    "switchToRegister": "Noch kein Konto? Registrieren",
+    "switchToLogin": "Bereits ein Konto? Anmelden",
+    "passwordsNoMatch": "Passwörter stimmen nicht überein",
+    "mustAgree": "Du musst den Nutzungsbedingungen und der Datenschutzerklärung zustimmen",
+    "loginFailed": "Anmeldung fehlgeschlagen — überprüfe deine Verbindung und Zugangsdaten",
+    "registerFailed": "Registrierung fehlgeschlagen — versuche eine andere E-Mail-Adresse"
+  },
+  "home": {
+    "title": "Notizen",
+    "search": "Suchen…",
+    "loadError": "Notizen konnten nicht geladen werden. Zum erneuten Versuch nach unten ziehen.",
+    "noResults": "Keine Ergebnisse",
+    "empty": "Noch keine Einträge"
+  },
+  "capture": {
+    "heading": "Schnellerfassung",
+    "typeNote": "Notiz",
+    "typeTask": "Aufgabe",
+    "typeIdea": "Idee",
+    "typeReminder": "Erinnerung",
+    "title": "Titel…",
+    "body": "Inhalt (optional)…",
+    "saveFailed": "Speichern fehlgeschlagen"
+  },
+  "tags": {
+    "title": "Tags",
+    "add": "Tag hinzufügen",
+    "search": "Tags suchen…",
+    "noMatching": "Keine passenden Tags",
+    "noneAvailable": "Keine Tags verfügbar",
+    "allAdded": "Alle Tags bereits hinzugefügt",
+    "loadError": "Tags konnten nicht geladen werden. Zum erneuten Versuch nach unten ziehen.",
+    "empty": "Noch keine Tags",
+    "label": "Tags"
+  },
+  "tagDetail": {
+    "loadError": "Einträge konnten nicht geladen werden. Zum erneuten Versuch nach unten ziehen.",
+    "empty": "Keine Einträge mit diesem Tag"
+  },
+  "item": {
+    "title": "Titel",
+    "body": "Inhalt…",
+    "deleteNote": "Notiz löschen",
+    "updated": "Aktualisiert {{date}}",
+    "notFound": "Eintrag nicht gefunden",
+    "loadError": "Dieser Eintrag konnte nicht geladen werden. Geh zurück und versuche es erneut.",
+    "saveFailedTitle": "Speichern fehlgeschlagen",
+    "saveFailedMsg": "Deine Änderungen wurden nicht gespeichert. Versuche es erneut.",
+    "deleteTitle": "Eintrag löschen?",
+    "deleteMsg": "Dies kann nicht rückgängig gemacht werden.",
+    "archiveTitle": "Eintrag archivieren?",
+    "archiveMsg": "Dadurch wird der Eintrag ins Archiv verschoben.",
+    "deleteFailedTitle": "Löschen fehlgeschlagen",
+    "deleteFailedMsg": "Der Eintrag wurde nicht gelöscht. Versuche es erneut.",
+    "archiveFailedTitle": "Archivieren fehlgeschlagen",
+    "archiveFailedMsg": "Der Eintrag wurde nicht archiviert. Versuche es erneut.",
+    "deleteCardTitle": "Notiz löschen?"
+  },
+  "account": {
+    "title": "Konto",
+    "roleFree": "Free",
+    "roleGift": "Pro (Geschenk)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Admin",
+    "freePlanBanner": "Free-Tarif · 20 Tags Limit · Zum Upgraden tippen →",
+    "upgradeTitle": "Upgrade",
+    "upgradeMsg": "Besuche notes-world.christopherrehm.de, um dein Konto zu upgraden.",
+    "proPlanBanner": "Pro-Tarif{{status}} · Abrechnung verwalten →",
+    "changeEmail": "E-Mail ändern",
+    "newEmail": "Neue E-Mail",
+    "currentPassword": "Aktuelles Passwort",
+    "updateEmail": "E-Mail aktualisieren",
+    "emailUpdated": "E-Mail erfolgreich aktualisiert.",
+    "emailUpdateFailed": "E-Mail konnte nicht aktualisiert werden",
+    "changePassword": "Passwort ändern",
+    "newPassword": "Neues Passwort",
+    "confirmNewPassword": "Neues Passwort bestätigen",
+    "updatePassword": "Passwort aktualisieren",
+    "passwordUpdated": "Passwort erfolgreich aktualisiert.",
+    "passwordUpdateFailed": "Passwort konnte nicht aktualisiert werden",
+    "passwordsNoMatch": "Passwörter stimmen nicht überein",
+    "session": "Sitzung",
+    "signOut": "Abmelden",
+    "signOutConfirm": "Bist du sicher?",
+    "dangerZone": "Gefahrenzone",
+    "deleteAccount": "Konto löschen",
+    "deleteAccountMsg": "Gib dein aktuelles Passwort zur Bestätigung ein. Dies kann nicht rückgängig gemacht werden.",
+    "deleteAccountFailed": "Konto konnte nicht gelöscht werden",
+    "language": "Sprache",
+    "selectLanguage": "Sprache auswählen"
+  },
+  "update": {
+    "available": "Eine neue Version ist verfügbar",
+    "download": "Herunterladen"
+  },
+  "errorBoundary": {
+    "title": "Etwas ist schiefgelaufen",
+    "subtitle": "Der Fehler wurde gemeldet. Versuche es erneut.",
+    "retry": "Erneut versuchen"
+  }
+}

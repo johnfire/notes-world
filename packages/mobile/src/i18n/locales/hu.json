@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Mentés",
+    "cancel": "Mégse",
+    "delete": "Törlés",
+    "archive": "Archiválás",
+    "done": "Kész",
+    "open": "Megnyitás",
+    "retry": "Újra",
+    "error": "Hiba"
+  },
+  "tabs": {
+    "notes": "Jegyzetek",
+    "capture": "Rögzítés",
+    "tags": "Címkék",
+    "account": "Fiók"
+  },
+  "auth": {
+    "tagline": "A személyes tudásbázisod",
+    "featureCapture": "Rögzíts ötleteket, feladatokat és emlékeztetőket",
+    "featureTags": "Rendszerezés címkékkel",
+    "featureOffline": "Offline is működik, kapcsolat esetén szinkronizál",
+    "createFreeAccount": "Ingyenes fiók létrehozása",
+    "signIn": "Bejelentkezés",
+    "createAccount": "Fiók létrehozása",
+    "email": "E-mail",
+    "password": "Jelszó",
+    "confirmPassword": "Jelszó megerősítése",
+    "agreePrefix": "Elfogadom a következőt: ",
+    "termsOfService": "Felhasználási feltételek",
+    "and": " és ",
+    "privacyPolicy": "Adatvédelmi szabályzat",
+    "switchToRegister": "Még nincs fiókod? Regisztrálj",
+    "switchToLogin": "Van már fiókod? Jelentkezz be",
+    "passwordsNoMatch": "A jelszavak nem egyeznek",
+    "mustAgree": "El kell fogadnod a Felhasználási feltételeket és az Adatvédelmi szabályzatot",
+    "loginFailed": "A bejelentkezés sikertelen — ellenőrizd a kapcsolatot és az adataidat",
+    "registerFailed": "A regisztráció sikertelen — próbálj másik e-mail-címet"
+  },
+  "home": {
+    "title": "Jegyzetek",
+    "search": "Keresés…",
+    "loadError": "Nem sikerült betölteni a jegyzeteket. Húzd le az újrapróbálkozáshoz.",
+    "noResults": "Nincs találat",
+    "empty": "Még nincsenek elemek"
+  },
+  "capture": {
+    "heading": "Gyors rögzítés",
+    "typeNote": "Jegyzet",
+    "typeTask": "Feladat",
+    "typeIdea": "Ötlet",
+    "typeReminder": "Emlékeztető",
+    "title": "Cím…",
+    "body": "Tartalom (opcionális)…",
+    "saveFailed": "A mentés sikertelen"
+  },
+  "tags": {
+    "title": "Címkék",
+    "add": "Címke hozzáadása",
+    "search": "Címkék keresése…",
+    "noMatching": "Nincs egyező címke",
+    "noneAvailable": "Nincs elérhető címke",
+    "allAdded": "Minden címke már hozzá van adva",
+    "loadError": "Nem sikerült betölteni a címkéket. Húzd le az újrapróbálkozáshoz.",
+    "empty": "Még nincsenek címkék",
+    "label": "Címkék"
+  },
+  "tagDetail": {
+    "loadError": "Nem sikerült betölteni az elemeket. Húzd le az újrapróbálkozáshoz.",
+    "empty": "Nincs elem ezzel a címkével"
+  },
+  "item": {
+    "title": "Cím",
+    "body": "Tartalom…",
+    "deleteNote": "Jegyzet törlése",
+    "updated": "Frissítve: {{date}}",
+    "notFound": "Az elem nem található",
+    "loadError": "Nem sikerült betölteni ezt az elemet. Lépj vissza és próbáld újra.",
+    "saveFailedTitle": "A mentés sikertelen",
+    "saveFailedMsg": "A módosításaid nem lettek mentve. Próbáld újra.",
+    "deleteTitle": "Törlöd az elemet?",
+    "deleteMsg": "Ezt nem lehet visszavonni.",
+    "archiveTitle": "Archiválod az elemet?",
+    "archiveMsg": "Ezzel az elem az archívumba kerül.",
+    "deleteFailedTitle": "A törlés sikertelen",
+    "deleteFailedMsg": "Az elem nem lett törölve. Próbáld újra.",
+    "archiveFailedTitle": "Az archiválás sikertelen",
+    "archiveFailedMsg": "Az elem nem lett archiválva. Próbáld újra.",
+    "deleteCardTitle": "Törlöd a jegyzetet?"
+  },
+  "account": {
+    "title": "Fiók",
+    "roleFree": "Ingyenes",
+    "roleGift": "Pro (ajándék)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Rendszergazda",
+    "freePlanBanner": "Ingyenes csomag · 20 címke korlát · Koppints a frissítéshez →",
+    "upgradeTitle": "Frissítés",
+    "upgradeMsg": "A fiókod frissítéséhez látogass el ide: notes-world.christopherrehm.de.",
+    "proPlanBanner": "Pro csomag{{status}} · Számlázás kezelése →",
+    "changeEmail": "E-mail módosítása",
+    "newEmail": "Új e-mail",
+    "currentPassword": "Jelenlegi jelszó",
+    "updateEmail": "E-mail frissítése",
+    "emailUpdated": "Az e-mail sikeresen frissült.",
+    "emailUpdateFailed": "Az e-mail frissítése sikertelen",
+    "changePassword": "Jelszó módosítása",
+    "newPassword": "Új jelszó",
+    "confirmNewPassword": "Új jelszó megerősítése",
+    "updatePassword": "Jelszó frissítése",
+    "passwordUpdated": "A jelszó sikeresen frissült.",
+    "passwordUpdateFailed": "A jelszó frissítése sikertelen",
+    "passwordsNoMatch": "A jelszavak nem egyeznek",
+    "session": "Munkamenet",
+    "signOut": "Kijelentkezés",
+    "signOutConfirm": "Biztos vagy benne?",
+    "dangerZone": "Veszélyzóna",
+    "deleteAccount": "Fiók törlése",
+    "deleteAccountMsg": "A megerősítéshez add meg a jelenlegi jelszavadat. Ezt nem lehet visszavonni.",
+    "deleteAccountFailed": "A fiók törlése sikertelen",
+    "language": "Nyelv",
+    "selectLanguage": "Nyelv kiválasztása"
+  },
+  "update": {
+    "available": "Új verzió érhető el",
+    "download": "Letöltés"
+  },
+  "errorBoundary": {
+    "title": "Valami hiba történt",
+    "subtitle": "A hibát jelentettük. Próbáld újra.",
+    "retry": "Újra"
+  }
+}

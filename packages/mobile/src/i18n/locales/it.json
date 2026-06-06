@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Salva",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "archive": "Archivia",
+    "done": "Fatto",
+    "open": "Apri",
+    "retry": "Riprova",
+    "error": "Errore"
+  },
+  "tabs": {
+    "notes": "Note",
+    "capture": "Cattura",
+    "tags": "Etichette",
+    "account": "Account"
+  },
+  "auth": {
+    "tagline": "La tua base di conoscenza personale",
+    "featureCapture": "Cattura idee, attività e promemoria",
+    "featureTags": "Organizza con le etichette",
+    "featureOffline": "Funziona offline, si sincronizza quando sei connesso",
+    "createFreeAccount": "Crea un account gratuito",
+    "signIn": "Accedi",
+    "createAccount": "Crea account",
+    "email": "E-mail",
+    "password": "Password",
+    "confirmPassword": "Conferma password",
+    "agreePrefix": "Accetto i ",
+    "termsOfService": "Termini di servizio",
+    "and": " e ",
+    "privacyPolicy": "Informativa sulla privacy",
+    "switchToRegister": "Non hai ancora un account? Registrati",
+    "switchToLogin": "Hai già un account? Accedi",
+    "passwordsNoMatch": "Le password non corrispondono",
+    "mustAgree": "Devi accettare i Termini di servizio e l'Informativa sulla privacy",
+    "loginFailed": "Accesso non riuscito — controlla la connessione e le credenziali",
+    "registerFailed": "Registrazione non riuscita — prova con un'altra e-mail"
+  },
+  "home": {
+    "title": "Note",
+    "search": "Cerca…",
+    "loadError": "Impossibile caricare le note. Tira verso il basso per riprovare.",
+    "noResults": "Nessun risultato",
+    "empty": "Ancora nessun elemento"
+  },
+  "capture": {
+    "heading": "Cattura rapida",
+    "typeNote": "Nota",
+    "typeTask": "Attività",
+    "typeIdea": "Idea",
+    "typeReminder": "Promemoria",
+    "title": "Titolo…",
+    "body": "Contenuto (facoltativo)…",
+    "saveFailed": "Salvataggio non riuscito"
+  },
+  "tags": {
+    "title": "Etichette",
+    "add": "Aggiungi etichetta",
+    "search": "Cerca etichette…",
+    "noMatching": "Nessuna etichetta corrispondente",
+    "noneAvailable": "Nessuna etichetta disponibile",
+    "allAdded": "Tutte le etichette sono già state aggiunte",
+    "loadError": "Impossibile caricare le etichette. Tira verso il basso per riprovare.",
+    "empty": "Ancora nessuna etichetta",
+    "label": "Etichette"
+  },
+  "tagDetail": {
+    "loadError": "Impossibile caricare gli elementi. Tira verso il basso per riprovare.",
+    "empty": "Nessun elemento con questa etichetta"
+  },
+  "item": {
+    "title": "Titolo",
+    "body": "Contenuto…",
+    "deleteNote": "Elimina nota",
+    "updated": "Aggiornato il {{date}}",
+    "notFound": "Elemento non trovato",
+    "loadError": "Impossibile caricare questo elemento. Torna indietro e riprova.",
+    "saveFailedTitle": "Impossibile salvare",
+    "saveFailedMsg": "Le modifiche non sono state salvate. Riprova.",
+    "deleteTitle": "Eliminare l'elemento?",
+    "deleteMsg": "Questa azione non può essere annullata.",
+    "archiveTitle": "Archiviare l'elemento?",
+    "archiveMsg": "Questo sposterà l'elemento nell'archivio.",
+    "deleteFailedTitle": "Impossibile eliminare",
+    "deleteFailedMsg": "L'elemento non è stato eliminato. Riprova.",
+    "archiveFailedTitle": "Impossibile archiviare",
+    "archiveFailedMsg": "L'elemento non è stato archiviato. Riprova.",
+    "deleteCardTitle": "Eliminare la nota?"
+  },
+  "account": {
+    "title": "Account",
+    "roleFree": "Gratuito",
+    "roleGift": "Pro (regalo)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Admin",
+    "freePlanBanner": "Piano gratuito · limite di 20 etichette · Tocca per passare a Pro →",
+    "upgradeTitle": "Passa a Pro",
+    "upgradeMsg": "Visita notes-world.christopherrehm.de per aggiornare il tuo account.",
+    "proPlanBanner": "Piano Pro{{status}} · Gestisci la fatturazione →",
+    "changeEmail": "Cambia e-mail",
+    "newEmail": "Nuova e-mail",
+    "currentPassword": "Password attuale",
+    "updateEmail": "Aggiorna e-mail",
+    "emailUpdated": "E-mail aggiornata con successo.",
+    "emailUpdateFailed": "Impossibile aggiornare l'e-mail",
+    "changePassword": "Cambia password",
+    "newPassword": "Nuova password",
+    "confirmNewPassword": "Conferma la nuova password",
+    "updatePassword": "Aggiorna password",
+    "passwordUpdated": "Password aggiornata con successo.",
+    "passwordUpdateFailed": "Impossibile aggiornare la password",
+    "passwordsNoMatch": "Le password non corrispondono",
+    "session": "Sessione",
+    "signOut": "Esci",
+    "signOutConfirm": "Sei sicuro?",
+    "dangerZone": "Zona pericolosa",
+    "deleteAccount": "Elimina account",
+    "deleteAccountMsg": "Inserisci la tua password attuale per confermare. Questa azione non può essere annullata.",
+    "deleteAccountFailed": "Impossibile eliminare l'account",
+    "language": "Lingua",
+    "selectLanguage": "Seleziona lingua"
+  },
+  "update": {
+    "available": "È disponibile una nuova versione",
+    "download": "Scarica"
+  },
+  "errorBoundary": {
+    "title": "Qualcosa è andato storto",
+    "subtitle": "L'errore è stato segnalato. Riprova.",
+    "retry": "Riprova"
+  }
+}

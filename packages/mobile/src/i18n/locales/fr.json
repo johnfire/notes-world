@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "archive": "Archiver",
+    "done": "Terminé",
+    "open": "Ouvrir",
+    "retry": "Réessayer",
+    "error": "Erreur"
+  },
+  "tabs": {
+    "notes": "Notes",
+    "capture": "Capture",
+    "tags": "Étiquettes",
+    "account": "Compte"
+  },
+  "auth": {
+    "tagline": "Votre base de connaissances personnelle",
+    "featureCapture": "Capturez des idées, des tâches et des rappels",
+    "featureTags": "Organisez avec des étiquettes",
+    "featureOffline": "Fonctionne hors ligne, se synchronise une fois connecté",
+    "createFreeAccount": "Créer un compte gratuit",
+    "signIn": "Se connecter",
+    "createAccount": "Créer un compte",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "agreePrefix": "J'accepte les ",
+    "termsOfService": "Conditions d'utilisation",
+    "and": " et ",
+    "privacyPolicy": "Politique de confidentialité",
+    "switchToRegister": "Pas encore de compte ? S'inscrire",
+    "switchToLogin": "Vous avez déjà un compte ? Se connecter",
+    "passwordsNoMatch": "Les mots de passe ne correspondent pas",
+    "mustAgree": "Vous devez accepter les Conditions d'utilisation et la Politique de confidentialité",
+    "loginFailed": "Échec de la connexion — vérifiez votre connexion et vos identifiants",
+    "registerFailed": "Échec de l'inscription — essayez une autre adresse e-mail"
+  },
+  "home": {
+    "title": "Notes",
+    "search": "Rechercher…",
+    "loadError": "Impossible de charger les notes. Tirez vers le bas pour réessayer.",
+    "noResults": "Aucun résultat",
+    "empty": "Aucun élément pour l'instant"
+  },
+  "capture": {
+    "heading": "Capture rapide",
+    "typeNote": "Note",
+    "typeTask": "Tâche",
+    "typeIdea": "Idée",
+    "typeReminder": "Rappel",
+    "title": "Titre…",
+    "body": "Contenu (facultatif)…",
+    "saveFailed": "Échec de l'enregistrement"
+  },
+  "tags": {
+    "title": "Étiquettes",
+    "add": "Ajouter une étiquette",
+    "search": "Rechercher des étiquettes…",
+    "noMatching": "Aucune étiquette correspondante",
+    "noneAvailable": "Aucune étiquette disponible",
+    "allAdded": "Toutes les étiquettes sont déjà ajoutées",
+    "loadError": "Impossible de charger les étiquettes. Tirez vers le bas pour réessayer.",
+    "empty": "Aucune étiquette pour l'instant",
+    "label": "Étiquettes"
+  },
+  "tagDetail": {
+    "loadError": "Impossible de charger les éléments. Tirez vers le bas pour réessayer.",
+    "empty": "Aucun élément avec cette étiquette"
+  },
+  "item": {
+    "title": "Titre",
+    "body": "Contenu…",
+    "deleteNote": "Supprimer la note",
+    "updated": "Mis à jour le {{date}}",
+    "notFound": "Élément introuvable",
+    "loadError": "Impossible de charger cet élément. Revenez en arrière et réessayez.",
+    "saveFailedTitle": "Échec de l'enregistrement",
+    "saveFailedMsg": "Vos modifications n'ont pas été enregistrées. Réessayez.",
+    "deleteTitle": "Supprimer l'élément ?",
+    "deleteMsg": "Cette action est irréversible.",
+    "archiveTitle": "Archiver l'élément ?",
+    "archiveMsg": "Cela déplacera l'élément vers les archives.",
+    "deleteFailedTitle": "Échec de la suppression",
+    "deleteFailedMsg": "L'élément n'a pas été supprimé. Réessayez.",
+    "archiveFailedTitle": "Échec de l'archivage",
+    "archiveFailedMsg": "L'élément n'a pas été archivé. Réessayez.",
+    "deleteCardTitle": "Supprimer la note ?"
+  },
+  "account": {
+    "title": "Compte",
+    "roleFree": "Gratuit",
+    "roleGift": "Pro (offert)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Admin",
+    "freePlanBanner": "Forfait gratuit · limite de 20 étiquettes · Appuyez pour passer à la version supérieure →",
+    "upgradeTitle": "Passer à la version supérieure",
+    "upgradeMsg": "Rendez-vous sur notes-world.christopherrehm.de pour mettre à niveau votre compte.",
+    "proPlanBanner": "Forfait Pro{{status}} · Gérer la facturation →",
+    "changeEmail": "Changer d'e-mail",
+    "newEmail": "Nouvel e-mail",
+    "currentPassword": "Mot de passe actuel",
+    "updateEmail": "Mettre à jour l'e-mail",
+    "emailUpdated": "E-mail mis à jour avec succès.",
+    "emailUpdateFailed": "Échec de la mise à jour de l'e-mail",
+    "changePassword": "Changer le mot de passe",
+    "newPassword": "Nouveau mot de passe",
+    "confirmNewPassword": "Confirmer le nouveau mot de passe",
+    "updatePassword": "Mettre à jour le mot de passe",
+    "passwordUpdated": "Mot de passe mis à jour avec succès.",
+    "passwordUpdateFailed": "Échec de la mise à jour du mot de passe",
+    "passwordsNoMatch": "Les mots de passe ne correspondent pas",
+    "session": "Session",
+    "signOut": "Se déconnecter",
+    "signOutConfirm": "Êtes-vous sûr ?",
+    "dangerZone": "Zone de danger",
+    "deleteAccount": "Supprimer le compte",
+    "deleteAccountMsg": "Saisissez votre mot de passe actuel pour confirmer. Cette action est irréversible.",
+    "deleteAccountFailed": "Échec de la suppression du compte",
+    "language": "Langue",
+    "selectLanguage": "Sélectionner la langue"
+  },
+  "update": {
+    "available": "Une nouvelle version est disponible",
+    "download": "Télécharger"
+  },
+  "errorBoundary": {
+    "title": "Une erreur s'est produite",
+    "subtitle": "L'erreur a été signalée. Réessayez.",
+    "retry": "Réessayer"
+  }
+}

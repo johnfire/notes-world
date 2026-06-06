@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Sábháil",
+    "cancel": "Cealaigh",
+    "delete": "Scrios",
+    "archive": "Cartlannaigh",
+    "done": "Déanta",
+    "open": "Oscail",
+    "retry": "Atriail",
+    "error": "Earráid"
+  },
+  "tabs": {
+    "notes": "Nótaí",
+    "capture": "Gabháil",
+    "tags": "Clibeanna",
+    "account": "Cuntas"
+  },
+  "auth": {
+    "tagline": "Do bhonn eolais phearsanta",
+    "featureCapture": "Gabh smaointe, tascanna agus meabhrúcháin",
+    "featureTags": "Eagraigh le clibeanna",
+    "featureOffline": "Oibríonn sé as líne, sioncronaítear nuair atá tú ceangailte",
+    "createFreeAccount": "Cruthaigh cuntas saor in aisce",
+    "signIn": "Sínigh isteach",
+    "createAccount": "Cruthaigh cuntas",
+    "email": "Ríomhphost",
+    "password": "Pasfhocal",
+    "confirmPassword": "Deimhnigh pasfhocal",
+    "agreePrefix": "Aontaím leis na ",
+    "termsOfService": "Téarmaí Seirbhíse",
+    "and": " agus an ",
+    "privacyPolicy": "Polasaí Príobháideachais",
+    "switchToRegister": "Gan cuntas fós? Cláraigh",
+    "switchToLogin": "An bhfuil cuntas agat cheana? Sínigh isteach",
+    "passwordsNoMatch": "Ní mheaitseálann na pasfhocail",
+    "mustAgree": "Caithfidh tú aontú leis na Téarmaí Seirbhíse agus leis an bPolasaí Príobháideachais",
+    "loginFailed": "Theip ar an logáil isteach — seiceáil do cheangal agus do dhintiúir",
+    "registerFailed": "Theip ar an gclárú — bain triail as ríomhphost difriúil"
+  },
+  "home": {
+    "title": "Nótaí",
+    "search": "Cuardaigh…",
+    "loadError": "Níorbh fhéidir nótaí a luchtú. Tarraing anuas chun atriail.",
+    "noResults": "Gan torthaí",
+    "empty": "Gan míreanna fós"
+  },
+  "capture": {
+    "heading": "Gabháil Tapa",
+    "typeNote": "Nóta",
+    "typeTask": "Tasc",
+    "typeIdea": "Smaoineamh",
+    "typeReminder": "Meabhrúchán",
+    "title": "Teideal…",
+    "body": "Corp (roghnach)…",
+    "saveFailed": "Theip ar an tsábháil"
+  },
+  "tags": {
+    "title": "Clibeanna",
+    "add": "Cuir clib leis",
+    "search": "Cuardaigh clibeanna…",
+    "noMatching": "Gan clibeanna meaitseála",
+    "noneAvailable": "Níl aon chlib ar fáil",
+    "allAdded": "Curtha leis gach clib cheana",
+    "loadError": "Níorbh fhéidir clibeanna a luchtú. Tarraing anuas chun atriail.",
+    "empty": "Gan clibeanna fós",
+    "label": "Clibeanna"
+  },
+  "tagDetail": {
+    "loadError": "Níorbh fhéidir míreanna a luchtú. Tarraing anuas chun atriail.",
+    "empty": "Gan míreanna leis an gclib seo"
+  },
+  "item": {
+    "title": "Teideal",
+    "body": "Corp…",
+    "deleteNote": "Scrios nóta",
+    "updated": "Nuashonraithe {{date}}",
+    "notFound": "Mír gan aimsiú",
+    "loadError": "Níorbh fhéidir an mhír seo a luchtú. Téigh ar ais agus bain triail eile as.",
+    "saveFailedTitle": "Níorbh fhéidir a shábháil",
+    "saveFailedMsg": "Níor sábháladh do chuid athruithe. Bain triail eile as.",
+    "deleteTitle": "Scrios mír?",
+    "deleteMsg": "Ní féidir é seo a chealú.",
+    "archiveTitle": "Cartlannaigh mír?",
+    "archiveMsg": "Bogfaidh sé seo an mhír chuig an gcartlann.",
+    "deleteFailedTitle": "Níorbh fhéidir a scrios",
+    "deleteFailedMsg": "Níor scriosadh an mhír. Bain triail eile as.",
+    "archiveFailedTitle": "Níorbh fhéidir a chartlannú",
+    "archiveFailedMsg": "Níor cartlannaíodh an mhír. Bain triail eile as.",
+    "deleteCardTitle": "Scrios nóta?"
+  },
+  "account": {
+    "title": "Cuntas",
+    "roleFree": "Saor in Aisce",
+    "roleGift": "Pro (bronntanas)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Riarthóir",
+    "freePlanBanner": "Plean saor in aisce · teorainn 20 clib · Tapáil chun uasghrádú →",
+    "upgradeTitle": "Uasghrádú",
+    "upgradeMsg": "Tabhair cuairt ar notes-world.christopherrehm.de chun do chuntas a uasghrádú.",
+    "proPlanBanner": "Plean Pro{{status}} · Bainistigh billeáil →",
+    "changeEmail": "Athraigh ríomhphost",
+    "newEmail": "Ríomhphost nua",
+    "currentPassword": "Pasfhocal reatha",
+    "updateEmail": "Nuashonraigh ríomhphost",
+    "emailUpdated": "Nuashonraíodh an ríomhphost go rathúil.",
+    "emailUpdateFailed": "Theip ar nuashonrú an ríomhphoist",
+    "changePassword": "Athraigh pasfhocal",
+    "newPassword": "Pasfhocal nua",
+    "confirmNewPassword": "Deimhnigh pasfhocal nua",
+    "updatePassword": "Nuashonraigh pasfhocal",
+    "passwordUpdated": "Nuashonraíodh an pasfhocal go rathúil.",
+    "passwordUpdateFailed": "Theip ar nuashonrú an phasfhocail",
+    "passwordsNoMatch": "Ní mheaitseálann na pasfhocail",
+    "session": "Seisiún",
+    "signOut": "Sínigh amach",
+    "signOutConfirm": "An bhfuil tú cinnte?",
+    "dangerZone": "Crios contúirte",
+    "deleteAccount": "Scrios cuntas",
+    "deleteAccountMsg": "Cuir isteach do phasfhocal reatha le deimhniú. Ní féidir é seo a chealú.",
+    "deleteAccountFailed": "Theip ar scriosadh an chuntais",
+    "language": "Teanga",
+    "selectLanguage": "Roghnaigh teanga"
+  },
+  "update": {
+    "available": "Tá leagan nua ar fáil",
+    "download": "Íoslódáil"
+  },
+  "errorBoundary": {
+    "title": "Chuaigh rud éigin amú",
+    "subtitle": "Tuairiscíodh an earráid. Bain triail eile as.",
+    "retry": "Atriail"
+  }
+}

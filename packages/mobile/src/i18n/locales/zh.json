@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "保存",
+    "cancel": "取消",
+    "delete": "删除",
+    "archive": "归档",
+    "done": "完成",
+    "open": "打开",
+    "retry": "重试",
+    "error": "错误"
+  },
+  "tabs": {
+    "notes": "笔记",
+    "capture": "捕捉",
+    "tags": "标签",
+    "account": "账户"
+  },
+  "auth": {
+    "tagline": "你的个人知识库",
+    "featureCapture": "捕捉想法、任务和提醒",
+    "featureTags": "用标签整理",
+    "featureOffline": "可离线使用，联网后自动同步",
+    "createFreeAccount": "创建免费账户",
+    "signIn": "登录",
+    "createAccount": "创建账户",
+    "email": "电子邮箱",
+    "password": "密码",
+    "confirmPassword": "确认密码",
+    "agreePrefix": "我同意 ",
+    "termsOfService": "服务条款",
+    "and": " 和 ",
+    "privacyPolicy": "隐私政策",
+    "switchToRegister": "还没有账户？注册",
+    "switchToLogin": "已有账户？登录",
+    "passwordsNoMatch": "两次输入的密码不一致",
+    "mustAgree": "你必须同意服务条款和隐私政策",
+    "loginFailed": "登录失败 — 请检查你的网络连接和凭据",
+    "registerFailed": "注册失败 — 请尝试其他电子邮箱"
+  },
+  "home": {
+    "title": "笔记",
+    "search": "搜索…",
+    "loadError": "无法加载笔记。下拉以重试。",
+    "noResults": "没有结果",
+    "empty": "暂无条目"
+  },
+  "capture": {
+    "heading": "快速捕捉",
+    "typeNote": "笔记",
+    "typeTask": "任务",
+    "typeIdea": "想法",
+    "typeReminder": "提醒",
+    "title": "标题…",
+    "body": "正文（可选）…",
+    "saveFailed": "保存失败"
+  },
+  "tags": {
+    "title": "标签",
+    "add": "添加标签",
+    "search": "搜索标签…",
+    "noMatching": "没有匹配的标签",
+    "noneAvailable": "没有可用的标签",
+    "allAdded": "所有标签已添加",
+    "loadError": "无法加载标签。下拉以重试。",
+    "empty": "暂无标签",
+    "label": "标签"
+  },
+  "tagDetail": {
+    "loadError": "无法加载条目。下拉以重试。",
+    "empty": "没有带此标签的条目"
+  },
+  "item": {
+    "title": "标题",
+    "body": "正文…",
+    "deleteNote": "删除笔记",
+    "updated": "更新于 {{date}}",
+    "notFound": "未找到条目",
+    "loadError": "无法加载此条目。请返回后重试。",
+    "saveFailedTitle": "无法保存",
+    "saveFailedMsg": "你的更改未保存。请重试。",
+    "deleteTitle": "删除条目？",
+    "deleteMsg": "此操作无法撤销。",
+    "archiveTitle": "归档条目？",
+    "archiveMsg": "此操作会将条目移至归档。",
+    "deleteFailedTitle": "无法删除",
+    "deleteFailedMsg": "条目未被删除。请重试。",
+    "archiveFailedTitle": "无法归档",
+    "archiveFailedMsg": "条目未被归档。请重试。",
+    "deleteCardTitle": "删除笔记？"
+  },
+  "account": {
+    "title": "账户",
+    "roleFree": "免费",
+    "roleGift": "Pro（赠送）",
+    "rolePaid": "Pro",
+    "roleAdmin": "管理员",
+    "freePlanBanner": "免费套餐 · 20 个标签上限 · 点击升级 →",
+    "upgradeTitle": "升级",
+    "upgradeMsg": "请访问 notes-world.christopherrehm.de 升级你的账户。",
+    "proPlanBanner": "Pro 套餐{{status}} · 管理账单 →",
+    "changeEmail": "更改电子邮箱",
+    "newEmail": "新电子邮箱",
+    "currentPassword": "当前密码",
+    "updateEmail": "更新电子邮箱",
+    "emailUpdated": "电子邮箱更新成功。",
+    "emailUpdateFailed": "更新电子邮箱失败",
+    "changePassword": "更改密码",
+    "newPassword": "新密码",
+    "confirmNewPassword": "确认新密码",
+    "updatePassword": "更新密码",
+    "passwordUpdated": "密码更新成功。",
+    "passwordUpdateFailed": "更新密码失败",
+    "passwordsNoMatch": "两次输入的密码不一致",
+    "session": "会话",
+    "signOut": "退出登录",
+    "signOutConfirm": "确定吗？",
+    "dangerZone": "危险区域",
+    "deleteAccount": "删除账户",
+    "deleteAccountMsg": "请输入你的当前密码以确认。此操作无法撤销。",
+    "deleteAccountFailed": "删除账户失败",
+    "language": "语言",
+    "selectLanguage": "选择语言"
+  },
+  "update": {
+    "available": "有新版本可用",
+    "download": "下载"
+  },
+  "errorBoundary": {
+    "title": "出了点问题",
+    "subtitle": "错误已上报。请重试。",
+    "retry": "重试"
+  }
+}

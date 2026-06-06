@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { useLocalSearchParams, useRouter, useNavigation } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   getItem,
@@ -35,6 +36,7 @@ const TYPE_COLORS: Record<string, string> = {
 };
 
 export default function ItemScreen() {
+  const { t, i18n } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const navigation = useNavigation();
@@ -90,7 +92,7 @@ export default function ItemScreen() {
                   fontWeight: "700",
                 }}
               >
-                Save
+                {t("common.save")}
               </Text>
             )}
           </Pressable>
@@ -108,7 +110,7 @@ export default function ItemScreen() {
           </Pressable>
         ),
     });
-  }, [dirty, saving, title, body]);
+  }, [dirty, saving, title, body, t]);
 
   async function handleSave() {
     if (!item || !dirty) return;
@@ -126,17 +128,17 @@ export default function ItemScreen() {
         stack: (err as Error).stack,
         context: "ItemScreen.handleSave",
       });
-      Alert.alert("Couldn't save", "Your changes were not saved. Try again.");
+      Alert.alert(t("item.saveFailedTitle"), t("item.saveFailedMsg"));
     } finally {
       setSaving(false);
     }
   }
 
   function handleDelete() {
-    Alert.alert("Delete item?", "This cannot be undone.", [
-      { text: "Cancel", style: "cancel" },
+    Alert.alert(t("item.deleteTitle"), t("item.deleteMsg"), [
+      { text: t("common.cancel"), style: "cancel" },
       {
-        text: "Delete",
+        text: t("common.delete"),
         style: "destructive",
         onPress: async () => {
           if (!item) return;
@@ -150,10 +152,7 @@ export default function ItemScreen() {
               stack: (err as Error).stack,
               context: "ItemScreen.handleDelete",
             });
-            Alert.alert(
-              "Couldn't delete",
-              "The item was not deleted. Try again.",
-            );
+            Alert.alert(t("item.deleteFailedTitle"), t("item.deleteFailedMsg"));
           }
         },
       },
@@ -161,10 +160,10 @@ export default function ItemScreen() {
   }
 
   function handleArchive() {
-    Alert.alert("Archive item?", "This will move the item to the archive.", [
-      { text: "Cancel", style: "cancel" },
+    Alert.alert(t("item.archiveTitle"), t("item.archiveMsg"), [
+      { text: t("common.cancel"), style: "cancel" },
       {
-        text: "Archive",
+        text: t("common.archive"),
         style: "destructive",
         onPress: async () => {
           if (!item) return;
@@ -178,8 +177,8 @@ export default function ItemScreen() {
               context: "ItemScreen.handleArchive",
             });
             Alert.alert(
-              "Couldn't archive",
-              "The item was not archived. Try again.",
+              t("item.archiveFailedTitle"),
+              t("item.archiveFailedMsg"),
             );
           }
         },
@@ -199,9 +198,7 @@ export default function ItemScreen() {
     return (
       <View style={s.center}>
         <Text style={{ color: colors.textMuted }}>
-          {loadError
-            ? "Couldn't load this item. Go back and try again."
-            : "Item not found"}
+          {loadError ? t("item.loadError") : t("item.notFound")}
         </Text>
       </View>
     );
@@ -227,7 +224,7 @@ export default function ItemScreen() {
             value={title}
             onChangeText={setTitle}
             multiline
-            placeholder="Title"
+            placeholder={t("item.title")}
             placeholderTextColor={colors.textDim}
           />
           <TextInput
@@ -236,16 +233,18 @@ export default function ItemScreen() {
             onChangeText={setBody}
             multiline
             textAlignVertical="top"
-            placeholder="Body…"
+            placeholder={t("item.body")}
             placeholderTextColor={colors.textDim}
           />
           <TagManager itemId={item.id} />
           <Pressable style={s.deleteBtn} onPress={handleDelete} hitSlop={8}>
             <Ionicons name="trash-outline" size={18} color={colors.danger} />
-            <Text style={s.deleteTxt}>Delete note</Text>
+            <Text style={s.deleteTxt}>{t("item.deleteNote")}</Text>
           </Pressable>
           <Text style={s.meta}>
-            Updated {new Date(item.updated_at).toLocaleDateString("de-DE")}
+            {t("item.updated", {
+              date: new Date(item.updated_at).toLocaleDateString(i18n.language),
+            })}
           </Text>
         </ScrollView>
       </KeyboardAvoidingView>

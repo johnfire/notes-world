@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Uložit",
+    "cancel": "Zrušit",
+    "delete": "Smazat",
+    "archive": "Archivovat",
+    "done": "Hotovo",
+    "open": "Otevřít",
+    "retry": "Zkusit znovu",
+    "error": "Chyba"
+  },
+  "tabs": {
+    "notes": "Poznámky",
+    "capture": "Zachytit",
+    "tags": "Štítky",
+    "account": "Účet"
+  },
+  "auth": {
+    "tagline": "Vaše osobní znalostní báze",
+    "featureCapture": "Zachyťte nápady, úkoly a připomínky",
+    "featureTags": "Uspořádejte pomocí štítků",
+    "featureOffline": "Funguje offline, synchronizuje se po připojení",
+    "createFreeAccount": "Vytvořit bezplatný účet",
+    "signIn": "Přihlásit se",
+    "createAccount": "Vytvořit účet",
+    "email": "E-mail",
+    "password": "Heslo",
+    "confirmPassword": "Potvrdit heslo",
+    "agreePrefix": "Souhlasím s ",
+    "termsOfService": "Podmínkami služby",
+    "and": " a ",
+    "privacyPolicy": "Zásadami ochrany osobních údajů",
+    "switchToRegister": "Ještě nemáte účet? Zaregistrujte se",
+    "switchToLogin": "Už máte účet? Přihlaste se",
+    "passwordsNoMatch": "Hesla se neshodují",
+    "mustAgree": "Musíte souhlasit s Podmínkami služby a Zásadami ochrany osobních údajů",
+    "loginFailed": "Přihlášení se nezdařilo — zkontrolujte připojení a přihlašovací údaje",
+    "registerFailed": "Registrace se nezdařila — zkuste jiný e-mail"
+  },
+  "home": {
+    "title": "Poznámky",
+    "search": "Hledat…",
+    "loadError": "Poznámky se nepodařilo načíst. Stáhněte dolů pro opakování.",
+    "noResults": "Žádné výsledky",
+    "empty": "Zatím žádné položky"
+  },
+  "capture": {
+    "heading": "Rychlé zachycení",
+    "typeNote": "Poznámka",
+    "typeTask": "Úkol",
+    "typeIdea": "Nápad",
+    "typeReminder": "Připomínka",
+    "title": "Název…",
+    "body": "Text (volitelné)…",
+    "saveFailed": "Uložení se nezdařilo"
+  },
+  "tags": {
+    "title": "Štítky",
+    "add": "Přidat štítek",
+    "search": "Hledat štítky…",
+    "noMatching": "Žádné odpovídající štítky",
+    "noneAvailable": "Žádné dostupné štítky",
+    "allAdded": "Všechny štítky již přidány",
+    "loadError": "Štítky se nepodařilo načíst. Stáhněte dolů pro opakování.",
+    "empty": "Zatím žádné štítky",
+    "label": "Štítky"
+  },
+  "tagDetail": {
+    "loadError": "Položky se nepodařilo načíst. Stáhněte dolů pro opakování.",
+    "empty": "Žádné položky s tímto štítkem"
+  },
+  "item": {
+    "title": "Název",
+    "body": "Text…",
+    "deleteNote": "Smazat poznámku",
+    "updated": "Aktualizováno {{date}}",
+    "notFound": "Položka nenalezena",
+    "loadError": "Tuto položku se nepodařilo načíst. Vraťte se a zkuste to znovu.",
+    "saveFailedTitle": "Uložení se nezdařilo",
+    "saveFailedMsg": "Vaše změny nebyly uloženy. Zkuste to znovu.",
+    "deleteTitle": "Smazat položku?",
+    "deleteMsg": "Tuto akci nelze vrátit zpět.",
+    "archiveTitle": "Archivovat položku?",
+    "archiveMsg": "Tímto se položka přesune do archivu.",
+    "deleteFailedTitle": "Smazání se nezdařilo",
+    "deleteFailedMsg": "Položka nebyla smazána. Zkuste to znovu.",
+    "archiveFailedTitle": "Archivace se nezdařila",
+    "archiveFailedMsg": "Položka nebyla archivována. Zkuste to znovu.",
+    "deleteCardTitle": "Smazat poznámku?"
+  },
+  "account": {
+    "title": "Účet",
+    "roleFree": "Zdarma",
+    "roleGift": "Pro (dárek)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Administrátor",
+    "freePlanBanner": "Bezplatný plán · limit 20 štítků · Klepnutím upgradujte →",
+    "upgradeTitle": "Upgrade",
+    "upgradeMsg": "Pro upgrade účtu navštivte notes-world.christopherrehm.de.",
+    "proPlanBanner": "Plán Pro{{status}} · Spravovat platby →",
+    "changeEmail": "Změnit e-mail",
+    "newEmail": "Nový e-mail",
+    "currentPassword": "Současné heslo",
+    "updateEmail": "Aktualizovat e-mail",
+    "emailUpdated": "E-mail byl úspěšně aktualizován.",
+    "emailUpdateFailed": "Aktualizace e-mailu se nezdařila",
+    "changePassword": "Změnit heslo",
+    "newPassword": "Nové heslo",
+    "confirmNewPassword": "Potvrdit nové heslo",
+    "updatePassword": "Aktualizovat heslo",
+    "passwordUpdated": "Heslo bylo úspěšně aktualizováno.",
+    "passwordUpdateFailed": "Aktualizace hesla se nezdařila",
+    "passwordsNoMatch": "Hesla se neshodují",
+    "session": "Relace",
+    "signOut": "Odhlásit se",
+    "signOutConfirm": "Jste si jisti?",
+    "dangerZone": "Nebezpečná zóna",
+    "deleteAccount": "Smazat účet",
+    "deleteAccountMsg": "Pro potvrzení zadejte své současné heslo. Tuto akci nelze vrátit zpět.",
+    "deleteAccountFailed": "Smazání účtu se nezdařilo",
+    "language": "Jazyk",
+    "selectLanguage": "Vybrat jazyk"
+  },
+  "update": {
+    "available": "Je dostupná nová verze",
+    "download": "Stáhnout"
+  },
+  "errorBoundary": {
+    "title": "Něco se pokazilo",
+    "subtitle": "Chyba byla nahlášena. Zkuste to znovu.",
+    "retry": "Zkusit znovu"
+  }
+}

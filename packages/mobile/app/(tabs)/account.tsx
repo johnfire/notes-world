@@ -11,21 +11,24 @@ import {
   Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../../src/store/auth";
 import { changeEmail, changePassword, deleteAccount } from "../../src/api/auth";
 import { api } from "../../src/api/client";
+import { LanguagePicker } from "../../src/components/LanguagePicker";
 import { colors, spacing, radius, font } from "../../src/theme";
 
 const WEB_APP_URL = "https://notes-world.christopherrehm.de";
 
-const ROLE_LABELS: Record<string, string> = {
-  free: "Free",
-  gift: "Pro (gift)",
-  paid: "Pro",
-  admin: "Admin",
+const ROLE_KEYS: Record<string, string> = {
+  free: "account.roleFree",
+  gift: "account.roleGift",
+  paid: "account.rolePaid",
+  admin: "account.roleAdmin",
 };
 
 export default function AccountScreen() {
+  const { t } = useTranslation();
   const { user, logout, setUser } = useAuth();
 
   const [emailForm, setEmailForm] = useState({
@@ -52,16 +55,17 @@ export default function AccountScreen() {
       );
       setUser(updated);
       setEmailForm({ email: "", password: "", loading: false, error: "" });
-      Alert.alert("Done", "Email updated successfully.");
+      Alert.alert(t("common.done"), t("account.emailUpdated"));
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : "Failed to update email";
+      const msg =
+        e instanceof Error ? e.message : t("account.emailUpdateFailed");
       setEmailForm((f) => ({ ...f, loading: false, error: msg }));
     }
   }
 
   async function handleChangePassword() {
     if (passwordForm.next !== passwordForm.confirm) {
-      setPasswordForm((f) => ({ ...f, error: "Passwords do not match" }));
+      setPasswordForm((f) => ({ ...f, error: t("account.passwordsNoMatch") }));
       return;
     }
     setPasswordForm((f) => ({ ...f, error: "", loading: true }));
@@ -74,17 +78,18 @@ export default function AccountScreen() {
         loading: false,
         error: "",
       });
-      Alert.alert("Done", "Password updated successfully.");
+      Alert.alert(t("common.done"), t("account.passwordUpdated"));
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : "Failed to update password";
+      const msg =
+        e instanceof Error ? e.message : t("account.passwordUpdateFailed");
       setPasswordForm((f) => ({ ...f, loading: false, error: msg }));
     }
   }
 
   function confirmDelete() {
     Alert.prompt(
-      "Delete account",
-      "Enter your current password to confirm. This cannot be undone.",
+      t("account.deleteAccount"),
+      t("account.deleteAccountMsg"),
       async (password) => {
         if (!password) return;
         try {
@@ -92,8 +97,8 @@ export default function AccountScreen() {
           await logout();
         } catch (e: unknown) {
           const msg =
-            e instanceof Error ? e.message : "Failed to delete account";
-          Alert.alert("Error", msg);
+            e instanceof Error ? e.message : t("account.deleteAccountFailed");
+          Alert.alert(t("common.error"), msg);
         }
       },
       "secure-text",
@@ -103,12 +108,14 @@ export default function AccountScreen() {
   return (
     <SafeAreaView style={s.root} edges={["top", "bottom"]}>
       <ScrollView contentContainerStyle={s.scroll}>
-        <Text style={s.heading}>Account</Text>
+        <Text style={s.heading}>{t("account.title")}</Text>
         <View style={s.planRow}>
           <Text style={s.currentEmail}>{user?.email}</Text>
           <View style={s.roleBadge}>
             <Text style={s.roleText}>
-              {ROLE_LABELS[user?.role ?? "free"] ?? user?.role}
+              {ROLE_KEYS[user?.role ?? "free"]
+                ? t(ROLE_KEYS[user?.role ?? "free"])
+                : user?.role}
             </Text>
           </View>
         </View>
@@ -125,12 +132,12 @@ export default function AccountScreen() {
                 await Linking.openURL(data.url);
               } catch {
                 Alert.alert(
-                  "Upgrade",
-                  "Visit notes-world.christopherrehm.de to upgrade your account.",
+                  t("account.upgradeTitle"),
+                  t("account.upgradeMsg"),
                   [
-                    { text: "Cancel", style: "cancel" },
+                    { text: t("common.cancel"), style: "cancel" },
                     {
-                      text: "Open",
+                      text: t("common.open"),
                       onPress: () => Linking.openURL(WEB_APP_URL),
                     },
                   ],
@@ -138,9 +145,7 @@ export default function AccountScreen() {
               }
             }}
           >
-            <Text style={s.upgradeText}>
-              Free plan · 20 tag limit · Tap to upgrade →
-            </Text>
+            <Text style={s.upgradeText}>{t("account.freePlanBanner")}</Text>
           </Pressable>
         )}
 
@@ -160,20 +165,20 @@ export default function AccountScreen() {
             }}
           >
             <Text style={s.paidText}>
-              Pro plan
-              {user.stripe_subscription_status
-                ? ` · ${user.stripe_subscription_status}`
-                : ""}{" "}
-              · Manage billing →
+              {t("account.proPlanBanner", {
+                status: user.stripe_subscription_status
+                  ? ` · ${user.stripe_subscription_status}`
+                  : "",
+              })}
             </Text>
           </Pressable>
         )}
 
-        <SectionHeader title="Change email" />
+        <SectionHeader title={t("account.changeEmail")} />
         <View style={s.card}>
           <TextInput
             style={s.input}
-            placeholder="New email"
+            placeholder={t("account.newEmail")}
             placeholderTextColor={colors.textDim}
             value={emailForm.email}
             onChangeText={(v) => setEmailForm((f) => ({ ...f, email: v }))}
@@ -182,7 +187,7 @@ export default function AccountScreen() {
           />
           <TextInput
             style={s.input}
-            placeholder="Current password"
+            placeholder={t("account.currentPassword")}
             placeholderTextColor={colors.textDim}
             value={emailForm.password}
             onChangeText={(v) => setEmailForm((f) => ({ ...f, password: v }))}
@@ -197,16 +202,16 @@ export default function AccountScreen() {
             {emailForm.loading ? (
               <ActivityIndicator color={colors.text} />
             ) : (
-              <Text style={s.btnText}>Update email</Text>
+              <Text style={s.btnText}>{t("account.updateEmail")}</Text>
             )}
           </Pressable>
         </View>
 
-        <SectionHeader title="Change password" />
+        <SectionHeader title={t("account.changePassword")} />
         <View style={s.card}>
           <TextInput
             style={s.input}
-            placeholder="Current password"
+            placeholder={t("account.currentPassword")}
             placeholderTextColor={colors.textDim}
             value={passwordForm.current}
             onChangeText={(v) => setPasswordForm((f) => ({ ...f, current: v }))}
@@ -214,7 +219,7 @@ export default function AccountScreen() {
           />
           <TextInput
             style={s.input}
-            placeholder="New password"
+            placeholder={t("account.newPassword")}
             placeholderTextColor={colors.textDim}
             value={passwordForm.next}
             onChangeText={(v) => setPasswordForm((f) => ({ ...f, next: v }))}
@@ -222,7 +227,7 @@ export default function AccountScreen() {
           />
           <TextInput
             style={s.input}
-            placeholder="Confirm new password"
+            placeholder={t("account.confirmNewPassword")}
             placeholderTextColor={colors.textDim}
             value={passwordForm.confirm}
             onChangeText={(v) => setPasswordForm((f) => ({ ...f, confirm: v }))}
@@ -239,33 +244,46 @@ export default function AccountScreen() {
             {passwordForm.loading ? (
               <ActivityIndicator color={colors.text} />
             ) : (
-              <Text style={s.btnText}>Update password</Text>
+              <Text style={s.btnText}>{t("account.updatePassword")}</Text>
             )}
           </Pressable>
         </View>
 
-        <SectionHeader title="Session" />
+        <SectionHeader title={t("account.language")} />
+        <View style={s.card}>
+          <LanguagePicker />
+        </View>
+
+        <SectionHeader title={t("account.session")} />
         <View style={s.card}>
           <Pressable
             style={({ pressed }) => [s.btn, s.dangerBtn, pressed && s.pressed]}
             onPress={() =>
-              Alert.alert("Sign out", "Are you sure?", [
-                { text: "Cancel", style: "cancel" },
-                { text: "Sign out", style: "destructive", onPress: logout },
+              Alert.alert(t("account.signOut"), t("account.signOutConfirm"), [
+                { text: t("common.cancel"), style: "cancel" },
+                {
+                  text: t("account.signOut"),
+                  style: "destructive",
+                  onPress: logout,
+                },
               ])
             }
           >
-            <Text style={[s.btnText, s.dangerText]}>Sign out</Text>
+            <Text style={[s.btnText, s.dangerText]}>
+              {t("account.signOut")}
+            </Text>
           </Pressable>
         </View>
 
-        <SectionHeader title="Danger zone" />
+        <SectionHeader title={t("account.dangerZone")} />
         <View style={s.card}>
           <Pressable
             style={({ pressed }) => [s.btn, s.dangerBtn, pressed && s.pressed]}
             onPress={confirmDelete}
           >
-            <Text style={[s.btnText, s.dangerText]}>Delete account</Text>
+            <Text style={[s.btnText, s.dangerText]}>
+              {t("account.deleteAccount")}
+            </Text>
           </Pressable>
         </View>
       </ScrollView>

@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "archive": "Archivar",
+    "done": "Listo",
+    "open": "Abrir",
+    "retry": "Reintentar",
+    "error": "Error"
+  },
+  "tabs": {
+    "notes": "Notas",
+    "capture": "Capturar",
+    "tags": "Etiquetas",
+    "account": "Cuenta"
+  },
+  "auth": {
+    "tagline": "Tu base de conocimiento personal",
+    "featureCapture": "Captura ideas, tareas y recordatorios",
+    "featureTags": "Organiza con etiquetas",
+    "featureOffline": "Funciona sin conexión, se sincroniza al conectarse",
+    "createFreeAccount": "Crear cuenta gratuita",
+    "signIn": "Iniciar sesión",
+    "createAccount": "Crear cuenta",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar contraseña",
+    "agreePrefix": "Acepto los ",
+    "termsOfService": "Términos del servicio",
+    "and": " y ",
+    "privacyPolicy": "Política de privacidad",
+    "switchToRegister": "¿Aún no tienes cuenta? Regístrate",
+    "switchToLogin": "¿Ya tienes una cuenta? Inicia sesión",
+    "passwordsNoMatch": "Las contraseñas no coinciden",
+    "mustAgree": "Debes aceptar los Términos del servicio y la Política de privacidad",
+    "loginFailed": "Error al iniciar sesión — comprueba tu conexión y tus credenciales",
+    "registerFailed": "Error al registrarse — prueba con otro correo electrónico"
+  },
+  "home": {
+    "title": "Notas",
+    "search": "Buscar…",
+    "loadError": "No se pudieron cargar las notas. Desliza hacia abajo para reintentar.",
+    "noResults": "Sin resultados",
+    "empty": "Aún no hay elementos"
+  },
+  "capture": {
+    "heading": "Captura rápida",
+    "typeNote": "Nota",
+    "typeTask": "Tarea",
+    "typeIdea": "Idea",
+    "typeReminder": "Recordatorio",
+    "title": "Título…",
+    "body": "Contenido (opcional)…",
+    "saveFailed": "Error al guardar"
+  },
+  "tags": {
+    "title": "Etiquetas",
+    "add": "Añadir etiqueta",
+    "search": "Buscar etiquetas…",
+    "noMatching": "No hay etiquetas coincidentes",
+    "noneAvailable": "No hay etiquetas disponibles",
+    "allAdded": "Todas las etiquetas ya están añadidas",
+    "loadError": "No se pudieron cargar las etiquetas. Desliza hacia abajo para reintentar.",
+    "empty": "Aún no hay etiquetas",
+    "label": "Etiquetas"
+  },
+  "tagDetail": {
+    "loadError": "No se pudieron cargar los elementos. Desliza hacia abajo para reintentar.",
+    "empty": "No hay elementos con esta etiqueta"
+  },
+  "item": {
+    "title": "Título",
+    "body": "Contenido…",
+    "deleteNote": "Eliminar nota",
+    "updated": "Actualizado el {{date}}",
+    "notFound": "Elemento no encontrado",
+    "loadError": "No se pudo cargar este elemento. Vuelve atrás e inténtalo de nuevo.",
+    "saveFailedTitle": "No se pudo guardar",
+    "saveFailedMsg": "Tus cambios no se guardaron. Inténtalo de nuevo.",
+    "deleteTitle": "¿Eliminar el elemento?",
+    "deleteMsg": "Esta acción no se puede deshacer.",
+    "archiveTitle": "¿Archivar el elemento?",
+    "archiveMsg": "Esto moverá el elemento al archivo.",
+    "deleteFailedTitle": "No se pudo eliminar",
+    "deleteFailedMsg": "El elemento no se eliminó. Inténtalo de nuevo.",
+    "archiveFailedTitle": "No se pudo archivar",
+    "archiveFailedMsg": "El elemento no se archivó. Inténtalo de nuevo.",
+    "deleteCardTitle": "¿Eliminar la nota?"
+  },
+  "account": {
+    "title": "Cuenta",
+    "roleFree": "Gratis",
+    "roleGift": "Pro (regalo)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Admin",
+    "freePlanBanner": "Plan gratuito · límite de 20 etiquetas · Toca para mejorar →",
+    "upgradeTitle": "Mejorar",
+    "upgradeMsg": "Visita notes-world.christopherrehm.de para mejorar tu cuenta.",
+    "proPlanBanner": "Plan Pro{{status}} · Gestionar facturación →",
+    "changeEmail": "Cambiar correo electrónico",
+    "newEmail": "Nuevo correo electrónico",
+    "currentPassword": "Contraseña actual",
+    "updateEmail": "Actualizar correo electrónico",
+    "emailUpdated": "Correo electrónico actualizado correctamente.",
+    "emailUpdateFailed": "Error al actualizar el correo electrónico",
+    "changePassword": "Cambiar contraseña",
+    "newPassword": "Nueva contraseña",
+    "confirmNewPassword": "Confirmar la nueva contraseña",
+    "updatePassword": "Actualizar contraseña",
+    "passwordUpdated": "Contraseña actualizada correctamente.",
+    "passwordUpdateFailed": "Error al actualizar la contraseña",
+    "passwordsNoMatch": "Las contraseñas no coinciden",
+    "session": "Sesión",
+    "signOut": "Cerrar sesión",
+    "signOutConfirm": "¿Estás seguro?",
+    "dangerZone": "Zona de peligro",
+    "deleteAccount": "Eliminar cuenta",
+    "deleteAccountMsg": "Introduce tu contraseña actual para confirmar. Esta acción no se puede deshacer.",
+    "deleteAccountFailed": "Error al eliminar la cuenta",
+    "language": "Idioma",
+    "selectLanguage": "Seleccionar idioma"
+  },
+  "update": {
+    "available": "Hay una nueva versión disponible",
+    "download": "Descargar"
+  },
+  "errorBoundary": {
+    "title": "Algo salió mal",
+    "subtitle": "El error fue reportado. Inténtalo de nuevo.",
+    "retry": "Reintentar"
+  }
+}

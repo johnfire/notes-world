@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Išsaugoti",
+    "cancel": "Atšaukti",
+    "delete": "Ištrinti",
+    "archive": "Archyvuoti",
+    "done": "Atlikta",
+    "open": "Atidaryti",
+    "retry": "Bandyti dar kartą",
+    "error": "Klaida"
+  },
+  "tabs": {
+    "notes": "Užrašai",
+    "capture": "Fiksuoti",
+    "tags": "Žymos",
+    "account": "Paskyra"
+  },
+  "auth": {
+    "tagline": "Jūsų asmeninė žinių bazė",
+    "featureCapture": "Fiksuokite idėjas, užduotis ir priminimus",
+    "featureTags": "Tvarkykite su žymomis",
+    "featureOffline": "Veikia neprisijungus, sinchronizuoja prisijungus",
+    "createFreeAccount": "Sukurti nemokamą paskyrą",
+    "signIn": "Prisijungti",
+    "createAccount": "Sukurti paskyrą",
+    "email": "El. paštas",
+    "password": "Slaptažodis",
+    "confirmPassword": "Patvirtinkite slaptažodį",
+    "agreePrefix": "Sutinku su ",
+    "termsOfService": "paslaugų teikimo sąlygomis",
+    "and": " ir ",
+    "privacyPolicy": "privatumo politika",
+    "switchToRegister": "Dar neturite paskyros? Registruokitės",
+    "switchToLogin": "Jau turite paskyrą? Prisijunkite",
+    "passwordsNoMatch": "Slaptažodžiai nesutampa",
+    "mustAgree": "Turite sutikti su paslaugų teikimo sąlygomis ir privatumo politika",
+    "loginFailed": "Prisijungti nepavyko — patikrinkite ryšį ir prisijungimo duomenis",
+    "registerFailed": "Registracija nepavyko — pabandykite kitą el. pašto adresą"
+  },
+  "home": {
+    "title": "Užrašai",
+    "search": "Ieškoti…",
+    "loadError": "Nepavyko įkelti užrašų. Patraukite žemyn, kad bandytumėte dar kartą.",
+    "noResults": "Rezultatų nėra",
+    "empty": "Dar nėra elementų"
+  },
+  "capture": {
+    "heading": "Greitas fiksavimas",
+    "typeNote": "Užrašas",
+    "typeTask": "Užduotis",
+    "typeIdea": "Idėja",
+    "typeReminder": "Priminimas",
+    "title": "Pavadinimas…",
+    "body": "Turinys (neprivaloma)…",
+    "saveFailed": "Nepavyko išsaugoti"
+  },
+  "tags": {
+    "title": "Žymos",
+    "add": "Pridėti žymą",
+    "search": "Ieškoti žymų…",
+    "noMatching": "Atitinkančių žymų nėra",
+    "noneAvailable": "Žymų nėra",
+    "allAdded": "Visos žymos jau pridėtos",
+    "loadError": "Nepavyko įkelti žymų. Patraukite žemyn, kad bandytumėte dar kartą.",
+    "empty": "Dar nėra žymų",
+    "label": "Žymos"
+  },
+  "tagDetail": {
+    "loadError": "Nepavyko įkelti elementų. Patraukite žemyn, kad bandytumėte dar kartą.",
+    "empty": "Nėra elementų su šia žyma"
+  },
+  "item": {
+    "title": "Pavadinimas",
+    "body": "Turinys…",
+    "deleteNote": "Ištrinti užrašą",
+    "updated": "Atnaujinta {{date}}",
+    "notFound": "Elementas nerastas",
+    "loadError": "Nepavyko įkelti šio elemento. Grįžkite ir bandykite dar kartą.",
+    "saveFailedTitle": "Nepavyko išsaugoti",
+    "saveFailedMsg": "Jūsų pakeitimai nebuvo išsaugoti. Bandykite dar kartą.",
+    "deleteTitle": "Ištrinti elementą?",
+    "deleteMsg": "Šio veiksmo negalima atšaukti.",
+    "archiveTitle": "Archyvuoti elementą?",
+    "archiveMsg": "Tai perkels elementą į archyvą.",
+    "deleteFailedTitle": "Nepavyko ištrinti",
+    "deleteFailedMsg": "Elementas nebuvo ištrintas. Bandykite dar kartą.",
+    "archiveFailedTitle": "Nepavyko archyvuoti",
+    "archiveFailedMsg": "Elementas nebuvo archyvuotas. Bandykite dar kartą.",
+    "deleteCardTitle": "Ištrinti užrašą?"
+  },
+  "account": {
+    "title": "Paskyra",
+    "roleFree": "Nemokama",
+    "roleGift": "Pro (dovana)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Administratorius",
+    "freePlanBanner": "Nemokamas planas · 20 žymų riba · Bakstelėkite norėdami atnaujinti →",
+    "upgradeTitle": "Atnaujinti",
+    "upgradeMsg": "Norėdami atnaujinti paskyrą, apsilankykite notes-world.christopherrehm.de.",
+    "proPlanBanner": "Pro planas{{status}} · Tvarkyti atsiskaitymą →",
+    "changeEmail": "Keisti el. paštą",
+    "newEmail": "Naujas el. paštas",
+    "currentPassword": "Dabartinis slaptažodis",
+    "updateEmail": "Atnaujinti el. paštą",
+    "emailUpdated": "El. paštas sėkmingai atnaujintas.",
+    "emailUpdateFailed": "Nepavyko atnaujinti el. pašto",
+    "changePassword": "Keisti slaptažodį",
+    "newPassword": "Naujas slaptažodis",
+    "confirmNewPassword": "Patvirtinkite naują slaptažodį",
+    "updatePassword": "Atnaujinti slaptažodį",
+    "passwordUpdated": "Slaptažodis sėkmingai atnaujintas.",
+    "passwordUpdateFailed": "Nepavyko atnaujinti slaptažodžio",
+    "passwordsNoMatch": "Slaptažodžiai nesutampa",
+    "session": "Sesija",
+    "signOut": "Atsijungti",
+    "signOutConfirm": "Ar tikrai?",
+    "dangerZone": "Pavojinga zona",
+    "deleteAccount": "Ištrinti paskyrą",
+    "deleteAccountMsg": "Norėdami patvirtinti, įveskite dabartinį slaptažodį. Šio veiksmo negalima atšaukti.",
+    "deleteAccountFailed": "Nepavyko ištrinti paskyros",
+    "language": "Kalba",
+    "selectLanguage": "Pasirinkite kalbą"
+  },
+  "update": {
+    "available": "Yra nauja versija",
+    "download": "Atsisiųsti"
+  },
+  "errorBoundary": {
+    "title": "Kažkas nepavyko",
+    "subtitle": "Apie klaidą pranešta. Bandykite dar kartą.",
+    "retry": "Bandyti dar kartą"
+  }
+}

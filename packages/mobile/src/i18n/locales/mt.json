@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Issejvja",
+    "cancel": "Ikkanċella",
+    "delete": "Ħassar",
+    "archive": "Arkivja",
+    "done": "Lest",
+    "open": "Iftaħ",
+    "retry": "Erġa' pprova",
+    "error": "Żball"
+  },
+  "tabs": {
+    "notes": "Noti",
+    "capture": "Aqbad",
+    "tags": "Tikketti",
+    "account": "Kont"
+  },
+  "auth": {
+    "tagline": "Il-bażi tal-għarfien personali tiegħek",
+    "featureCapture": "Aqbad ideat, kompiti u tfakkiriet",
+    "featureTags": "Organizza b'tikketti",
+    "featureOffline": "Jaħdem offline, jissinkronizza meta tkun konness",
+    "createFreeAccount": "Oħloq kont bla ħlas",
+    "signIn": "Idħol",
+    "createAccount": "Oħloq kont",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Ikkonferma l-password",
+    "agreePrefix": "Naqbel mat-",
+    "termsOfService": "Termini tas-Servizz",
+    "and": " u l-",
+    "privacyPolicy": "Politika tal-Privatezza",
+    "switchToRegister": "Għad m'għandekx kont? Irreġistra",
+    "switchToLogin": "Diġà għandek kont? Idħol",
+    "passwordsNoMatch": "Il-passwords ma jaqblux",
+    "mustAgree": "Trid taqbel mat-Termini tas-Servizz u l-Politika tal-Privatezza",
+    "loginFailed": "Id-dħul falla — iċċekkja l-konnessjoni u l-kredenzjali tiegħek",
+    "registerFailed": "Ir-reġistrazzjoni falliet — ipprova email differenti"
+  },
+  "home": {
+    "title": "Noti",
+    "search": "Fittex…",
+    "loadError": "Ma stajniex intellgħu n-noti. Iġbed 'l isfel biex terġa' tipprova.",
+    "noResults": "L-ebda riżultat",
+    "empty": "L-ebda oġġett s'issa"
+  },
+  "capture": {
+    "heading": "Qbid Mgħaġġel",
+    "typeNote": "Nota",
+    "typeTask": "Kompitu",
+    "typeIdea": "Idea",
+    "typeReminder": "Tfakkira",
+    "title": "Titlu…",
+    "body": "Korp (mhux obbligatorju)…",
+    "saveFailed": "L-issejvjar falla"
+  },
+  "tags": {
+    "title": "Tikketti",
+    "add": "Żid tikketta",
+    "search": "Fittex tikketti…",
+    "noMatching": "L-ebda tikketta li taqbel",
+    "noneAvailable": "L-ebda tikketta disponibbli",
+    "allAdded": "It-tikketti kollha diġà miżjuda",
+    "loadError": "Ma stajniex intellgħu t-tikketti. Iġbed 'l isfel biex terġa' tipprova.",
+    "empty": "L-ebda tikketta s'issa",
+    "label": "Tikketti"
+  },
+  "tagDetail": {
+    "loadError": "Ma stajniex intellgħu l-oġġetti. Iġbed 'l isfel biex terġa' tipprova.",
+    "empty": "L-ebda oġġett b'din it-tikketta"
+  },
+  "item": {
+    "title": "Titlu",
+    "body": "Korp…",
+    "deleteNote": "Ħassar nota",
+    "updated": "Aġġornat {{date}}",
+    "notFound": "L-oġġett ma nstabx",
+    "loadError": "Ma stajniex intellgħu dan l-oġġett. Mur lura u erġa' pprova.",
+    "saveFailedTitle": "Ma stajniex nissejvjaw",
+    "saveFailedMsg": "It-tibdil tiegħek ma ġiex issejvjat. Erġa' pprova.",
+    "deleteTitle": "Ħassar l-oġġett?",
+    "deleteMsg": "Dan ma jistax jiġi mreġġa' lura.",
+    "archiveTitle": "Arkivja l-oġġett?",
+    "archiveMsg": "Dan se jċaqlaq l-oġġett għall-arkivju.",
+    "deleteFailedTitle": "Ma stajniex inħassru",
+    "deleteFailedMsg": "L-oġġett ma tħassarx. Erġa' pprova.",
+    "archiveFailedTitle": "Ma stajniex narkivjaw",
+    "archiveFailedMsg": "L-oġġett ma ġiex arkivjat. Erġa' pprova.",
+    "deleteCardTitle": "Ħassar nota?"
+  },
+  "account": {
+    "title": "Kont",
+    "roleFree": "Bla ħlas",
+    "roleGift": "Pro (rigal)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Amministratur",
+    "freePlanBanner": "Pjan bla ħlas · limitu ta' 20 tikketta · Tektek biex tirfina →",
+    "upgradeTitle": "Aġġornament",
+    "upgradeMsg": "Żur notes-world.christopherrehm.de biex tirfina l-kont tiegħek.",
+    "proPlanBanner": "Pjan Pro{{status}} · Immaniġġja l-billing →",
+    "changeEmail": "Ibdel l-email",
+    "newEmail": "Email ġdid",
+    "currentPassword": "Password attwali",
+    "updateEmail": "Aġġorna l-email",
+    "emailUpdated": "L-email ġie aġġornat b'suċċess.",
+    "emailUpdateFailed": "L-aġġornament tal-email falla",
+    "changePassword": "Ibdel il-password",
+    "newPassword": "Password ġdid",
+    "confirmNewPassword": "Ikkonferma l-password ġdid",
+    "updatePassword": "Aġġorna l-password",
+    "passwordUpdated": "Il-password ġie aġġornat b'suċċess.",
+    "passwordUpdateFailed": "L-aġġornament tal-password falla",
+    "passwordsNoMatch": "Il-passwords ma jaqblux",
+    "session": "Sessjoni",
+    "signOut": "Oħroġ",
+    "signOutConfirm": "Żgur?",
+    "dangerZone": "Żona ta' periklu",
+    "deleteAccount": "Ħassar il-kont",
+    "deleteAccountMsg": "Daħħal il-password attwali tiegħek biex tikkonferma. Dan ma jistax jiġi mreġġa' lura.",
+    "deleteAccountFailed": "It-tħassir tal-kont falla",
+    "language": "Lingwa",
+    "selectLanguage": "Agħżel lingwa"
+  },
+  "update": {
+    "available": "Verżjoni ġdida hija disponibbli",
+    "download": "Niżżel"
+  },
+  "errorBoundary": {
+    "title": "Xi ħaġa marret ħażin",
+    "subtitle": "L-iżball ġie rrappurtat. Erġa' pprova.",
+    "retry": "Erġa' pprova"
+  }
+}

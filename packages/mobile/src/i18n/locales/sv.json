@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "delete": "Ta bort",
+    "archive": "Arkivera",
+    "done": "Klar",
+    "open": "Öppna",
+    "retry": "Försök igen",
+    "error": "Fel"
+  },
+  "tabs": {
+    "notes": "Anteckningar",
+    "capture": "Fånga",
+    "tags": "Taggar",
+    "account": "Konto"
+  },
+  "auth": {
+    "tagline": "Din personliga kunskapsbas",
+    "featureCapture": "Fånga idéer, uppgifter och påminnelser",
+    "featureTags": "Organisera med taggar",
+    "featureOffline": "Fungerar offline, synkroniserar vid anslutning",
+    "createFreeAccount": "Skapa gratiskonto",
+    "signIn": "Logga in",
+    "createAccount": "Skapa konto",
+    "email": "E-post",
+    "password": "Lösenord",
+    "confirmPassword": "Bekräfta lösenord",
+    "agreePrefix": "Jag godkänner ",
+    "termsOfService": "Användarvillkoren",
+    "and": " och ",
+    "privacyPolicy": "Integritetspolicyn",
+    "switchToRegister": "Inget konto än? Registrera dig",
+    "switchToLogin": "Har du redan ett konto? Logga in",
+    "passwordsNoMatch": "Lösenorden matchar inte",
+    "mustAgree": "Du måste godkänna Användarvillkoren och Integritetspolicyn",
+    "loginFailed": "Inloggningen misslyckades — kontrollera din anslutning och dina uppgifter",
+    "registerFailed": "Registreringen misslyckades — prova en annan e-postadress"
+  },
+  "home": {
+    "title": "Anteckningar",
+    "search": "Sök…",
+    "loadError": "Det gick inte att läsa in anteckningar. Dra nedåt för att försöka igen.",
+    "noResults": "Inga resultat",
+    "empty": "Inga objekt än"
+  },
+  "capture": {
+    "heading": "Snabbfångst",
+    "typeNote": "Anteckning",
+    "typeTask": "Uppgift",
+    "typeIdea": "Idé",
+    "typeReminder": "Påminnelse",
+    "title": "Titel…",
+    "body": "Innehåll (valfritt)…",
+    "saveFailed": "Det gick inte att spara"
+  },
+  "tags": {
+    "title": "Taggar",
+    "add": "Lägg till tagg",
+    "search": "Sök taggar…",
+    "noMatching": "Inga matchande taggar",
+    "noneAvailable": "Inga taggar tillgängliga",
+    "allAdded": "Alla taggar är redan tillagda",
+    "loadError": "Det gick inte att läsa in taggar. Dra nedåt för att försöka igen.",
+    "empty": "Inga taggar än",
+    "label": "Taggar"
+  },
+  "tagDetail": {
+    "loadError": "Det gick inte att läsa in objekt. Dra nedåt för att försöka igen.",
+    "empty": "Inga objekt med den här taggen"
+  },
+  "item": {
+    "title": "Titel",
+    "body": "Innehåll…",
+    "deleteNote": "Ta bort anteckning",
+    "updated": "Uppdaterad {{date}}",
+    "notFound": "Objektet hittades inte",
+    "loadError": "Det gick inte att läsa in objektet. Gå tillbaka och försök igen.",
+    "saveFailedTitle": "Det gick inte att spara",
+    "saveFailedMsg": "Dina ändringar sparades inte. Försök igen.",
+    "deleteTitle": "Ta bort objekt?",
+    "deleteMsg": "Detta kan inte ångras.",
+    "archiveTitle": "Arkivera objekt?",
+    "archiveMsg": "Detta flyttar objektet till arkivet.",
+    "deleteFailedTitle": "Det gick inte att ta bort",
+    "deleteFailedMsg": "Objektet togs inte bort. Försök igen.",
+    "archiveFailedTitle": "Det gick inte att arkivera",
+    "archiveFailedMsg": "Objektet arkiverades inte. Försök igen.",
+    "deleteCardTitle": "Ta bort anteckning?"
+  },
+  "account": {
+    "title": "Konto",
+    "roleFree": "Free",
+    "roleGift": "Pro (gåva)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Admin",
+    "freePlanBanner": "Gratisplan · gräns på 20 taggar · Tryck för att uppgradera →",
+    "upgradeTitle": "Uppgradera",
+    "upgradeMsg": "Besök notes-world.christopherrehm.de för att uppgradera ditt konto.",
+    "proPlanBanner": "Pro-plan{{status}} · Hantera fakturering →",
+    "changeEmail": "Ändra e-post",
+    "newEmail": "Ny e-post",
+    "currentPassword": "Nuvarande lösenord",
+    "updateEmail": "Uppdatera e-post",
+    "emailUpdated": "E-posten uppdaterades.",
+    "emailUpdateFailed": "Det gick inte att uppdatera e-posten",
+    "changePassword": "Ändra lösenord",
+    "newPassword": "Nytt lösenord",
+    "confirmNewPassword": "Bekräfta nytt lösenord",
+    "updatePassword": "Uppdatera lösenord",
+    "passwordUpdated": "Lösenordet uppdaterades.",
+    "passwordUpdateFailed": "Det gick inte att uppdatera lösenordet",
+    "passwordsNoMatch": "Lösenorden matchar inte",
+    "session": "Session",
+    "signOut": "Logga ut",
+    "signOutConfirm": "Är du säker?",
+    "dangerZone": "Riskzon",
+    "deleteAccount": "Ta bort konto",
+    "deleteAccountMsg": "Ange ditt nuvarande lösenord för att bekräfta. Detta kan inte ångras.",
+    "deleteAccountFailed": "Det gick inte att ta bort kontot",
+    "language": "Språk",
+    "selectLanguage": "Välj språk"
+  },
+  "update": {
+    "available": "En ny version är tillgänglig",
+    "download": "Ladda ner"
+  },
+  "errorBoundary": {
+    "title": "Något gick fel",
+    "subtitle": "Felet rapporterades. Försök igen.",
+    "retry": "Försök igen"
+  }
+}

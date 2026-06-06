@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Saglabāt",
+    "cancel": "Atcelt",
+    "delete": "Dzēst",
+    "archive": "Arhivēt",
+    "done": "Gatavs",
+    "open": "Atvērt",
+    "retry": "Mēģināt vēlreiz",
+    "error": "Kļūda"
+  },
+  "tabs": {
+    "notes": "Piezīmes",
+    "capture": "Pierakstīt",
+    "tags": "Birkas",
+    "account": "Konts"
+  },
+  "auth": {
+    "tagline": "Tava personīgā zināšanu bāze",
+    "featureCapture": "Pieraksti idejas, uzdevumus un atgādinājumus",
+    "featureTags": "Sakārto ar birkām",
+    "featureOffline": "Darbojas bezsaistē, sinhronizē, kad ir savienojums",
+    "createFreeAccount": "Izveidot bezmaksas kontu",
+    "signIn": "Pieteikties",
+    "createAccount": "Izveidot kontu",
+    "email": "E-pasts",
+    "password": "Parole",
+    "confirmPassword": "Apstiprināt paroli",
+    "agreePrefix": "Es piekrītu ",
+    "termsOfService": "lietošanas noteikumiem",
+    "and": " un ",
+    "privacyPolicy": "privātuma politikai",
+    "switchToRegister": "Vēl nav konta? Reģistrējies",
+    "switchToLogin": "Jau ir konts? Pieteikties",
+    "passwordsNoMatch": "Paroles nesakrīt",
+    "mustAgree": "Tev jāpiekrīt lietošanas noteikumiem un privātuma politikai",
+    "loginFailed": "Pieteikšanās neizdevās — pārbaudi savienojumu un akreditācijas datus",
+    "registerFailed": "Reģistrācija neizdevās — izmēģini citu e-pasta adresi"
+  },
+  "home": {
+    "title": "Piezīmes",
+    "search": "Meklēt…",
+    "loadError": "Neizdevās ielādēt piezīmes. Pavelc uz leju, lai mēģinātu vēlreiz.",
+    "noResults": "Nav rezultātu",
+    "empty": "Pagaidām nav vienumu"
+  },
+  "capture": {
+    "heading": "Ātrais pieraksts",
+    "typeNote": "Piezīme",
+    "typeTask": "Uzdevums",
+    "typeIdea": "Ideja",
+    "typeReminder": "Atgādinājums",
+    "title": "Virsraksts…",
+    "body": "Saturs (neobligāts)…",
+    "saveFailed": "Neizdevās saglabāt"
+  },
+  "tags": {
+    "title": "Birkas",
+    "add": "Pievienot birku",
+    "search": "Meklēt birkas…",
+    "noMatching": "Nav atbilstošu birku",
+    "noneAvailable": "Nav pieejamu birku",
+    "allAdded": "Visas birkas jau pievienotas",
+    "loadError": "Neizdevās ielādēt birkas. Pavelc uz leju, lai mēģinātu vēlreiz.",
+    "empty": "Pagaidām nav birku",
+    "label": "Birkas"
+  },
+  "tagDetail": {
+    "loadError": "Neizdevās ielādēt vienumus. Pavelc uz leju, lai mēģinātu vēlreiz.",
+    "empty": "Nav vienumu ar šo birku"
+  },
+  "item": {
+    "title": "Virsraksts",
+    "body": "Saturs…",
+    "deleteNote": "Dzēst piezīmi",
+    "updated": "Atjaunināts {{date}}",
+    "notFound": "Vienums nav atrasts",
+    "loadError": "Neizdevās ielādēt šo vienumu. Atgriezies un mēģini vēlreiz.",
+    "saveFailedTitle": "Neizdevās saglabāt",
+    "saveFailedMsg": "Tavas izmaiņas netika saglabātas. Mēģini vēlreiz.",
+    "deleteTitle": "Dzēst vienumu?",
+    "deleteMsg": "Šo nevar atsaukt.",
+    "archiveTitle": "Arhivēt vienumu?",
+    "archiveMsg": "Tādējādi vienums tiks pārvietots uz arhīvu.",
+    "deleteFailedTitle": "Neizdevās dzēst",
+    "deleteFailedMsg": "Vienums netika dzēsts. Mēģini vēlreiz.",
+    "archiveFailedTitle": "Neizdevās arhivēt",
+    "archiveFailedMsg": "Vienums netika arhivēts. Mēģini vēlreiz.",
+    "deleteCardTitle": "Dzēst piezīmi?"
+  },
+  "account": {
+    "title": "Konts",
+    "roleFree": "Bezmaksas",
+    "roleGift": "Pro (dāvana)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Administrators",
+    "freePlanBanner": "Bezmaksas plāns · 20 birku ierobežojums · Pieskaries, lai jauninātu →",
+    "upgradeTitle": "Jaunināt",
+    "upgradeMsg": "Lai jauninātu kontu, apmeklē notes-world.christopherrehm.de.",
+    "proPlanBanner": "Pro plāns{{status}} · Pārvaldīt norēķinus →",
+    "changeEmail": "Mainīt e-pastu",
+    "newEmail": "Jauns e-pasts",
+    "currentPassword": "Pašreizējā parole",
+    "updateEmail": "Atjaunināt e-pastu",
+    "emailUpdated": "E-pasts veiksmīgi atjaunināts.",
+    "emailUpdateFailed": "Neizdevās atjaunināt e-pastu",
+    "changePassword": "Mainīt paroli",
+    "newPassword": "Jauna parole",
+    "confirmNewPassword": "Apstiprināt jauno paroli",
+    "updatePassword": "Atjaunināt paroli",
+    "passwordUpdated": "Parole veiksmīgi atjaunināta.",
+    "passwordUpdateFailed": "Neizdevās atjaunināt paroli",
+    "passwordsNoMatch": "Paroles nesakrīt",
+    "session": "Sesija",
+    "signOut": "Iziet",
+    "signOutConfirm": "Vai tiešām?",
+    "dangerZone": "Bīstamā zona",
+    "deleteAccount": "Dzēst kontu",
+    "deleteAccountMsg": "Lai apstiprinātu, ievadi savu pašreizējo paroli. Šo nevar atsaukt.",
+    "deleteAccountFailed": "Neizdevās dzēst kontu",
+    "language": "Valoda",
+    "selectLanguage": "Izvēlēties valodu"
+  },
+  "update": {
+    "available": "Ir pieejama jauna versija",
+    "download": "Lejupielādēt"
+  },
+  "errorBoundary": {
+    "title": "Kaut kas nogāja greizi",
+    "subtitle": "Kļūda tika ziņota. Mēģini vēlreiz.",
+    "retry": "Mēģināt vēlreiz"
+  }
+}

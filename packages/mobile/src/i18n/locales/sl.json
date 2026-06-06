@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Shrani",
+    "cancel": "Prekliči",
+    "delete": "Izbriši",
+    "archive": "Arhiviraj",
+    "done": "Končano",
+    "open": "Odpri",
+    "retry": "Poskusi znova",
+    "error": "Napaka"
+  },
+  "tabs": {
+    "notes": "Zapiski",
+    "capture": "Zajemi",
+    "tags": "Oznake",
+    "account": "Račun"
+  },
+  "auth": {
+    "tagline": "Vaša osebna baza znanja",
+    "featureCapture": "Zajemite ideje, opravila in opomnike",
+    "featureTags": "Organizirajte z oznakami",
+    "featureOffline": "Deluje brez povezave, sinhronizira se ob povezavi",
+    "createFreeAccount": "Ustvari brezplačen račun",
+    "signIn": "Prijava",
+    "createAccount": "Ustvari račun",
+    "email": "E-pošta",
+    "password": "Geslo",
+    "confirmPassword": "Potrdi geslo",
+    "agreePrefix": "Strinjam se s ",
+    "termsOfService": "Pogoji uporabe",
+    "and": " in ",
+    "privacyPolicy": "Pravilnik o zasebnosti",
+    "switchToRegister": "Še nimate računa? Registrirajte se",
+    "switchToLogin": "Že imate račun? Prijavite se",
+    "passwordsNoMatch": "Gesli se ne ujemata",
+    "mustAgree": "Strinjati se morate s Pogoji uporabe in Pravilnikom o zasebnosti",
+    "loginFailed": "Prijava ni uspela — preverite povezavo in poverilnice",
+    "registerFailed": "Registracija ni uspela — poskusite z drugim e-poštnim naslovom"
+  },
+  "home": {
+    "title": "Zapiski",
+    "search": "Iskanje…",
+    "loadError": "Zapiskov ni bilo mogoče naložiti. Povlecite navzdol za ponovni poskus.",
+    "noResults": "Ni rezultatov",
+    "empty": "Še ni elementov"
+  },
+  "capture": {
+    "heading": "Hitri zajem",
+    "typeNote": "Zapisek",
+    "typeTask": "Opravilo",
+    "typeIdea": "Ideja",
+    "typeReminder": "Opomnik",
+    "title": "Naslov…",
+    "body": "Besedilo (neobvezno)…",
+    "saveFailed": "Shranjevanje ni uspelo"
+  },
+  "tags": {
+    "title": "Oznake",
+    "add": "Dodaj oznako",
+    "search": "Iskanje oznak…",
+    "noMatching": "Ni ujemajočih oznak",
+    "noneAvailable": "Ni razpoložljivih oznak",
+    "allAdded": "Vse oznake so že dodane",
+    "loadError": "Oznak ni bilo mogoče naložiti. Povlecite navzdol za ponovni poskus.",
+    "empty": "Še ni oznak",
+    "label": "Oznake"
+  },
+  "tagDetail": {
+    "loadError": "Elementov ni bilo mogoče naložiti. Povlecite navzdol za ponovni poskus.",
+    "empty": "Ni elementov s to oznako"
+  },
+  "item": {
+    "title": "Naslov",
+    "body": "Besedilo…",
+    "deleteNote": "Izbriši zapisek",
+    "updated": "Posodobljeno {{date}}",
+    "notFound": "Element ni najden",
+    "loadError": "Tega elementa ni bilo mogoče naložiti. Vrnite se in poskusite znova.",
+    "saveFailedTitle": "Shranjevanje ni uspelo",
+    "saveFailedMsg": "Vaše spremembe niso bile shranjene. Poskusite znova.",
+    "deleteTitle": "Izbrisati element?",
+    "deleteMsg": "Tega dejanja ni mogoče razveljaviti.",
+    "archiveTitle": "Arhivirati element?",
+    "archiveMsg": "S tem boste element premaknili v arhiv.",
+    "deleteFailedTitle": "Brisanje ni uspelo",
+    "deleteFailedMsg": "Element ni bil izbrisan. Poskusite znova.",
+    "archiveFailedTitle": "Arhiviranje ni uspelo",
+    "archiveFailedMsg": "Element ni bil arhiviran. Poskusite znova.",
+    "deleteCardTitle": "Izbrisati zapisek?"
+  },
+  "account": {
+    "title": "Račun",
+    "roleFree": "Brezplačno",
+    "roleGift": "Pro (darilo)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Skrbnik",
+    "freePlanBanner": "Brezplačni paket · omejitev 20 oznak · Tapnite za nadgradnjo →",
+    "upgradeTitle": "Nadgradnja",
+    "upgradeMsg": "Obiščite notes-world.christopherrehm.de za nadgradnjo računa.",
+    "proPlanBanner": "Paket Pro{{status}} · Upravljanje plačil →",
+    "changeEmail": "Spremeni e-pošto",
+    "newEmail": "Nova e-pošta",
+    "currentPassword": "Trenutno geslo",
+    "updateEmail": "Posodobi e-pošto",
+    "emailUpdated": "E-pošta je bila uspešno posodobljena.",
+    "emailUpdateFailed": "Posodobitev e-pošte ni uspela",
+    "changePassword": "Spremeni geslo",
+    "newPassword": "Novo geslo",
+    "confirmNewPassword": "Potrdi novo geslo",
+    "updatePassword": "Posodobi geslo",
+    "passwordUpdated": "Geslo je bilo uspešno posodobljeno.",
+    "passwordUpdateFailed": "Posodobitev gesla ni uspela",
+    "passwordsNoMatch": "Gesli se ne ujemata",
+    "session": "Seja",
+    "signOut": "Odjava",
+    "signOutConfirm": "Ste prepričani?",
+    "dangerZone": "Nevarno območje",
+    "deleteAccount": "Izbriši račun",
+    "deleteAccountMsg": "Za potrditev vnesite trenutno geslo. Tega dejanja ni mogoče razveljaviti.",
+    "deleteAccountFailed": "Brisanje računa ni uspelo",
+    "language": "Jezik",
+    "selectLanguage": "Izberite jezik"
+  },
+  "update": {
+    "available": "Na voljo je nova različica",
+    "download": "Prenesi"
+  },
+  "errorBoundary": {
+    "title": "Nekaj je šlo narobe",
+    "subtitle": "Napaka je bila prijavljena. Poskusite znova.",
+    "retry": "Poskusi znova"
+  }
+}

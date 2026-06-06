@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Zapisz",
+    "cancel": "Anuluj",
+    "delete": "Usuń",
+    "archive": "Archiwizuj",
+    "done": "Gotowe",
+    "open": "Otwórz",
+    "retry": "Ponów",
+    "error": "Błąd"
+  },
+  "tabs": {
+    "notes": "Notatki",
+    "capture": "Zapisz",
+    "tags": "Tagi",
+    "account": "Konto"
+  },
+  "auth": {
+    "tagline": "Twoja osobista baza wiedzy",
+    "featureCapture": "Zapisuj pomysły, zadania i przypomnienia",
+    "featureTags": "Porządkuj za pomocą tagów",
+    "featureOffline": "Działa offline, synchronizuje się po połączeniu",
+    "createFreeAccount": "Utwórz darmowe konto",
+    "signIn": "Zaloguj się",
+    "createAccount": "Utwórz konto",
+    "email": "E-mail",
+    "password": "Hasło",
+    "confirmPassword": "Potwierdź hasło",
+    "agreePrefix": "Akceptuję ",
+    "termsOfService": "Warunki korzystania z usługi",
+    "and": " i ",
+    "privacyPolicy": "Politykę prywatności",
+    "switchToRegister": "Nie masz jeszcze konta? Zarejestruj się",
+    "switchToLogin": "Masz już konto? Zaloguj się",
+    "passwordsNoMatch": "Hasła nie są zgodne",
+    "mustAgree": "Musisz zaakceptować Warunki korzystania z usługi i Politykę prywatności",
+    "loginFailed": "Logowanie nie powiodło się — sprawdź połączenie i dane logowania",
+    "registerFailed": "Rejestracja nie powiodła się — spróbuj innego adresu e-mail"
+  },
+  "home": {
+    "title": "Notatki",
+    "search": "Szukaj…",
+    "loadError": "Nie udało się załadować notatek. Pociągnij w dół, aby ponowić.",
+    "noResults": "Brak wyników",
+    "empty": "Brak elementów"
+  },
+  "capture": {
+    "heading": "Szybki zapis",
+    "typeNote": "Notatka",
+    "typeTask": "Zadanie",
+    "typeIdea": "Pomysł",
+    "typeReminder": "Przypomnienie",
+    "title": "Tytuł…",
+    "body": "Treść (opcjonalnie)…",
+    "saveFailed": "Nie udało się zapisać"
+  },
+  "tags": {
+    "title": "Tagi",
+    "add": "Dodaj tag",
+    "search": "Szukaj tagów…",
+    "noMatching": "Brak pasujących tagów",
+    "noneAvailable": "Brak dostępnych tagów",
+    "allAdded": "Wszystkie tagi już dodane",
+    "loadError": "Nie udało się załadować tagów. Pociągnij w dół, aby ponowić.",
+    "empty": "Brak tagów",
+    "label": "Tagi"
+  },
+  "tagDetail": {
+    "loadError": "Nie udało się załadować elementów. Pociągnij w dół, aby ponowić.",
+    "empty": "Brak elementów z tym tagiem"
+  },
+  "item": {
+    "title": "Tytuł",
+    "body": "Treść…",
+    "deleteNote": "Usuń notatkę",
+    "updated": "Zaktualizowano {{date}}",
+    "notFound": "Nie znaleziono elementu",
+    "loadError": "Nie udało się załadować tego elementu. Wróć i spróbuj ponownie.",
+    "saveFailedTitle": "Nie udało się zapisać",
+    "saveFailedMsg": "Twoje zmiany nie zostały zapisane. Spróbuj ponownie.",
+    "deleteTitle": "Usunąć element?",
+    "deleteMsg": "Tej operacji nie można cofnąć.",
+    "archiveTitle": "Zarchiwizować element?",
+    "archiveMsg": "Spowoduje to przeniesienie elementu do archiwum.",
+    "deleteFailedTitle": "Nie udało się usunąć",
+    "deleteFailedMsg": "Element nie został usunięty. Spróbuj ponownie.",
+    "archiveFailedTitle": "Nie udało się zarchiwizować",
+    "archiveFailedMsg": "Element nie został zarchiwizowany. Spróbuj ponownie.",
+    "deleteCardTitle": "Usunąć notatkę?"
+  },
+  "account": {
+    "title": "Konto",
+    "roleFree": "Darmowe",
+    "roleGift": "Pro (prezent)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Administrator",
+    "freePlanBanner": "Plan darmowy · limit 20 tagów · Dotknij, aby ulepszyć →",
+    "upgradeTitle": "Ulepsz",
+    "upgradeMsg": "Odwiedź notes-world.christopherrehm.de, aby ulepszyć swoje konto.",
+    "proPlanBanner": "Plan Pro{{status}} · Zarządzaj płatnościami →",
+    "changeEmail": "Zmień e-mail",
+    "newEmail": "Nowy e-mail",
+    "currentPassword": "Obecne hasło",
+    "updateEmail": "Zaktualizuj e-mail",
+    "emailUpdated": "E-mail został pomyślnie zaktualizowany.",
+    "emailUpdateFailed": "Nie udało się zaktualizować adresu e-mail",
+    "changePassword": "Zmień hasło",
+    "newPassword": "Nowe hasło",
+    "confirmNewPassword": "Potwierdź nowe hasło",
+    "updatePassword": "Zaktualizuj hasło",
+    "passwordUpdated": "Hasło zostało pomyślnie zaktualizowane.",
+    "passwordUpdateFailed": "Nie udało się zaktualizować hasła",
+    "passwordsNoMatch": "Hasła nie są zgodne",
+    "session": "Sesja",
+    "signOut": "Wyloguj się",
+    "signOutConfirm": "Czy na pewno?",
+    "dangerZone": "Strefa niebezpieczna",
+    "deleteAccount": "Usuń konto",
+    "deleteAccountMsg": "Wprowadź swoje obecne hasło, aby potwierdzić. Tej operacji nie można cofnąć.",
+    "deleteAccountFailed": "Nie udało się usunąć konta",
+    "language": "Język",
+    "selectLanguage": "Wybierz język"
+  },
+  "update": {
+    "available": "Dostępna jest nowa wersja",
+    "download": "Pobierz"
+  },
+  "errorBoundary": {
+    "title": "Coś poszło nie tak",
+    "subtitle": "Błąd został zgłoszony. Spróbuj ponownie.",
+    "retry": "Ponów"
+  }
+}

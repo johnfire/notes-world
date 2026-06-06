@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { listItems, archiveItem } from "../../src/api/items";
 import { reportClientError } from "../../src/api/report";
@@ -24,6 +25,7 @@ const PAGE_SIZE = 30;
 
 export default function ItemsScreen() {
   const router = useRouter();
+  const { t } = useTranslation();
   const { logout } = useAuth();
   const [items, setItems] = useState<Item[]>([]);
   const [search, setSearch] = useState("");
@@ -33,29 +35,32 @@ export default function ItemsScreen() {
   const [total, setTotal] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
-  const load = useCallback(async (p: number, q: string, append = false) => {
-    try {
-      setError(null);
-      const res = await listItems({
-        page: p,
-        page_size: PAGE_SIZE,
-        search: q || undefined,
-        status: ItemStatus.Active,
-      });
-      setTotal(res.total);
-      setItems((prev) => (append ? [...prev, ...res.items] : res.items));
-    } catch (err) {
-      void reportClientError({
-        message: (err as Error).message,
-        stack: (err as Error).stack,
-        context: "ItemsScreen.load",
-      });
-      setError("Couldn't load notes. Pull down to retry.");
-    } finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
-  }, []);
+  const load = useCallback(
+    async (p: number, q: string, append = false) => {
+      try {
+        setError(null);
+        const res = await listItems({
+          page: p,
+          page_size: PAGE_SIZE,
+          search: q || undefined,
+          status: ItemStatus.Active,
+        });
+        setTotal(res.total);
+        setItems((prev) => (append ? [...prev, ...res.items] : res.items));
+      } catch (err) {
+        void reportClientError({
+          message: (err as Error).message,
+          stack: (err as Error).stack,
+          context: "ItemsScreen.load",
+        });
+        setError(t("home.loadError"));
+      } finally {
+        setLoading(false);
+        setRefreshing(false);
+      }
+    },
+    [t],
+  );
 
   useEffect(() => {
     setLoading(true);
@@ -94,7 +99,7 @@ export default function ItemsScreen() {
   return (
     <SafeAreaView style={s.root} edges={["top"]}>
       <View style={s.header}>
-        <Text style={s.title}>Notes</Text>
+        <Text style={s.title}>{t("home.title")}</Text>
         <Pressable onPress={logout} hitSlop={8}>
           <Ionicons name="log-out-outline" size={22} color={colors.textMuted} />
         </Pressable>
@@ -109,7 +114,7 @@ export default function ItemsScreen() {
         />
         <TextInput
           style={s.search}
-          placeholder="Search…"
+          placeholder={t("home.search")}
           placeholderTextColor={colors.textDim}
           value={search}
           onChangeText={setSearch}
@@ -142,7 +147,7 @@ export default function ItemsScreen() {
           onEndReachedThreshold={0.3}
           ListEmptyComponent={
             <Text style={s.empty}>
-              {error ? error : search ? "No results" : "No items yet"}
+              {error ? error : search ? t("home.noResults") : t("home.empty")}
             </Text>
           }
           contentContainerStyle={{ paddingBottom: spacing.xl }}

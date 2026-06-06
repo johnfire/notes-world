@@ -14,17 +14,18 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 import { createItem } from "../../src/api/items";
 import { listTags, addTagToItem } from "../../src/api/tags";
 import { colors, spacing, radius, font } from "../../src/theme";
 import { ItemType } from "@notes-world/shared";
 import type { TagWithCount } from "@notes-world/shared";
 
-const TYPES: { label: string; value: ItemType }[] = [
-  { label: "Note", value: ItemType.Note },
-  { label: "Task", value: ItemType.Task },
-  { label: "Idea", value: ItemType.Idea },
-  { label: "Reminder", value: ItemType.Reminder },
+const TYPES: { labelKey: string; value: ItemType }[] = [
+  { labelKey: "capture.typeNote", value: ItemType.Note },
+  { labelKey: "capture.typeTask", value: ItemType.Task },
+  { labelKey: "capture.typeIdea", value: ItemType.Idea },
+  { labelKey: "capture.typeReminder", value: ItemType.Reminder },
 ];
 
 const TYPE_COLORS: Record<string, string> = {
@@ -35,6 +36,7 @@ const TYPE_COLORS: Record<string, string> = {
 };
 
 export default function CaptureScreen() {
+  const { t } = useTranslation();
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [type, setType] = useState<ItemType>(ItemType.Note);
@@ -78,7 +80,7 @@ export default function CaptureScreen() {
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     } catch (e: unknown) {
-      setError(e instanceof Error ? e.message : "Failed to save");
+      setError(e instanceof Error ? e.message : t("capture.saveFailed"));
     } finally {
       setLoading(false);
     }
@@ -94,7 +96,7 @@ export default function CaptureScreen() {
           contentContainerStyle={s.scroll}
           keyboardShouldPersistTaps="handled"
         >
-          <Text style={s.heading}>Quick Capture</Text>
+          <Text style={s.heading}>{t("capture.heading")}</Text>
 
           <ScrollView
             horizontal
@@ -102,20 +104,20 @@ export default function CaptureScreen() {
             style={s.typeRow}
             contentContainerStyle={s.typeRowInner}
           >
-            {TYPES.map((t) => {
-              const active = t.value === type;
-              const col = TYPE_COLORS[t.value];
+            {TYPES.map((ty) => {
+              const active = ty.value === type;
+              const col = TYPE_COLORS[ty.value];
               return (
                 <Pressable
-                  key={t.value}
+                  key={ty.value}
                   style={[
                     s.typeChip,
                     active && { backgroundColor: col + "33", borderColor: col },
                   ]}
-                  onPress={() => setType(t.value)}
+                  onPress={() => setType(ty.value)}
                 >
                   <Text style={[s.typeLabel, active && { color: col }]}>
-                    {t.label}
+                    {t(ty.labelKey)}
                   </Text>
                 </Pressable>
               );
@@ -124,7 +126,7 @@ export default function CaptureScreen() {
 
           <TextInput
             style={s.titleInput}
-            placeholder="Title…"
+            placeholder={t("capture.title")}
             placeholderTextColor={colors.textDim}
             value={title}
             onChangeText={setTitle}
@@ -134,7 +136,7 @@ export default function CaptureScreen() {
 
           <TextInput
             style={s.bodyInput}
-            placeholder="Body (optional)…"
+            placeholder={t("capture.body")}
             placeholderTextColor={colors.textDim}
             value={body}
             onChangeText={setBody}
@@ -143,7 +145,7 @@ export default function CaptureScreen() {
           />
 
           <View style={s.tagSection}>
-            <Text style={s.tagLabel}>Tags</Text>
+            <Text style={s.tagLabel}>{t("tags.label")}</Text>
             <View style={s.chips}>
               {selectedTagIds.map((id) => {
                 const tag = allTags.find((t) => t.id === id);
@@ -178,7 +180,7 @@ export default function CaptureScreen() {
                 onPress={() => setPickerVisible(true)}
               >
                 <Ionicons name="add" size={14} color={colors.accent} />
-                <Text style={s.addTagText}>Add tag</Text>
+                <Text style={s.addTagText}>{t("tags.add")}</Text>
               </Pressable>
             </View>
           </View>
@@ -200,10 +202,10 @@ export default function CaptureScreen() {
               }}
             />
             <View style={s.sheet}>
-              <Text style={s.sheetTitle}>Add tag</Text>
+              <Text style={s.sheetTitle}>{t("tags.add")}</Text>
               <TextInput
                 style={s.searchInput}
-                placeholder="Search tags…"
+                placeholder={t("tags.search")}
                 placeholderTextColor={colors.textDim}
                 value={tagSearch}
                 onChangeText={setTagSearch}
@@ -237,7 +239,7 @@ export default function CaptureScreen() {
                 )}
                 ListEmptyComponent={
                   <Text style={s.emptyTags}>
-                    {tagSearch ? "No matching tags" : "No tags available"}
+                    {tagSearch ? t("tags.noMatching") : t("tags.noneAvailable")}
                   </Text>
                 }
               />
@@ -261,7 +263,7 @@ export default function CaptureScreen() {
             ) : saved ? (
               <Ionicons name="checkmark" size={22} color={colors.text} />
             ) : (
-              <Text style={s.saveBtnText}>Save</Text>
+              <Text style={s.saveBtnText}>{t("common.save")}</Text>
             )}
           </Pressable>
         </ScrollView>

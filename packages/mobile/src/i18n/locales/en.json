@@ -1,0 +1,133 @@
+{
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "archive": "Archive",
+    "done": "Done",
+    "open": "Open",
+    "retry": "Retry",
+    "error": "Error"
+  },
+  "tabs": {
+    "notes": "Notes",
+    "capture": "Capture",
+    "tags": "Tags",
+    "account": "Account"
+  },
+  "auth": {
+    "tagline": "Your personal knowledge base",
+    "featureCapture": "Capture ideas, tasks, and reminders",
+    "featureTags": "Organise with tags",
+    "featureOffline": "Works offline, syncs when connected",
+    "createFreeAccount": "Create free account",
+    "signIn": "Sign in",
+    "createAccount": "Create account",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "agreePrefix": "I agree to the ",
+    "termsOfService": "Terms of Service",
+    "and": " and ",
+    "privacyPolicy": "Privacy Policy",
+    "switchToRegister": "No account yet? Register",
+    "switchToLogin": "Already have an account? Sign in",
+    "passwordsNoMatch": "Passwords do not match",
+    "mustAgree": "You must agree to the Terms of Service and Privacy Policy",
+    "loginFailed": "Login failed — check your connection and credentials",
+    "registerFailed": "Registration failed — try a different email"
+  },
+  "home": {
+    "title": "Notes",
+    "search": "Search…",
+    "loadError": "Couldn't load notes. Pull down to retry.",
+    "noResults": "No results",
+    "empty": "No items yet"
+  },
+  "capture": {
+    "heading": "Quick Capture",
+    "typeNote": "Note",
+    "typeTask": "Task",
+    "typeIdea": "Idea",
+    "typeReminder": "Reminder",
+    "title": "Title…",
+    "body": "Body (optional)…",
+    "saveFailed": "Failed to save"
+  },
+  "tags": {
+    "title": "Tags",
+    "add": "Add tag",
+    "search": "Search tags…",
+    "noMatching": "No matching tags",
+    "noneAvailable": "No tags available",
+    "allAdded": "All tags already added",
+    "loadError": "Couldn't load tags. Pull down to retry.",
+    "empty": "No tags yet",
+    "label": "Tags"
+  },
+  "tagDetail": {
+    "loadError": "Couldn't load items. Pull down to retry.",
+    "empty": "No items with this tag"
+  },
+  "item": {
+    "title": "Title",
+    "body": "Body…",
+    "deleteNote": "Delete note",
+    "updated": "Updated {{date}}",
+    "notFound": "Item not found",
+    "loadError": "Couldn't load this item. Go back and try again.",
+    "saveFailedTitle": "Couldn't save",
+    "saveFailedMsg": "Your changes were not saved. Try again.",
+    "deleteTitle": "Delete item?",
+    "deleteMsg": "This cannot be undone.",
+    "archiveTitle": "Archive item?",
+    "archiveMsg": "This will move the item to the archive.",
+    "deleteFailedTitle": "Couldn't delete",
+    "deleteFailedMsg": "The item was not deleted. Try again.",
+    "archiveFailedTitle": "Couldn't archive",
+    "archiveFailedMsg": "The item was not archived. Try again.",
+    "deleteCardTitle": "Delete note?"
+  },
+  "account": {
+    "title": "Account",
+    "roleFree": "Free",
+    "roleGift": "Pro (gift)",
+    "rolePaid": "Pro",
+    "roleAdmin": "Admin",
+    "freePlanBanner": "Free plan · 20 tag limit · Tap to upgrade →",
+    "upgradeTitle": "Upgrade",
+    "upgradeMsg": "Visit notes-world.christopherrehm.de to upgrade your account.",
+    "proPlanBanner": "Pro plan{{status}} · Manage billing →",
+    "changeEmail": "Change email",
+    "newEmail": "New email",
+    "currentPassword": "Current password",
+    "updateEmail": "Update email",
+    "emailUpdated": "Email updated successfully.",
+    "emailUpdateFailed": "Failed to update email",
+    "changePassword": "Change password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "updatePassword": "Update password",
+    "passwordUpdated": "Password updated successfully.",
+    "passwordUpdateFailed": "Failed to update password",
+    "passwordsNoMatch": "Passwords do not match",
+    "session": "Session",
+    "signOut": "Sign out",
+    "signOutConfirm": "Are you sure?",
+    "dangerZone": "Danger zone",
+    "deleteAccount": "Delete account",
+    "deleteAccountMsg": "Enter your current password to confirm. This cannot be undone.",
+    "deleteAccountFailed": "Failed to delete account",
+    "language": "Language",
+    "selectLanguage": "Select language"
+  },
+  "update": {
+    "available": "A new version is available",
+    "download": "Download"
+  },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "subtitle": "The error was reported. Try again.",
+    "retry": "Retry"
+  }
+}
