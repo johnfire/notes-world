@@ -343,6 +343,12 @@ export async function importJson(
     ? (payload.items as Array<Record<string, unknown>>)
     : [];
 
+  if (itemDefs.length > LIMITS.IMPORT_BATCH_MAX) {
+    throw new ValidationError(
+      `Too many items: found ${itemDefs.length}, maximum is ${LIMITS.IMPORT_BATCH_MAX}`,
+    );
+  }
+
   const tagNameToId: Record<string, string> = {};
   let tagsCreated = 0;
 

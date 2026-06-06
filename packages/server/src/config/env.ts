@@ -43,5 +43,24 @@ export function validateEnv() {
     process.exit(1);
   }
 
+  // If billing is enabled in production (Stripe secret key present), its
+  // dependent secrets must also be configured. Otherwise webhooks can't be
+  // verified and subscription/role updates silently break (fail-closed).
+  if (env.NODE_ENV === "production" && process.env.STRIPE_SECRET_KEY) {
+    for (const key of [
+      "STRIPE_WEBHOOK_SECRET",
+      "STRIPE_PRICE_MONTHLY_ID",
+      "STRIPE_PRICE_ANNUAL_ID",
+    ]) {
+      if (!process.env[key]) {
+        // eslint-disable-next-line no-console
+        console.error(
+          `FATAL: ${key} is required when STRIPE_SECRET_KEY is set in production`,
+        );
+        process.exit(1);
+      }
+    }
+  }
+
   return env;
 }

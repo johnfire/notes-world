@@ -9,7 +9,12 @@ export const EXPORT_SCHEMA = "notes-world";
 export const EXPORT_VERSION = "1.0";
 
 function csvCell(value: unknown): string {
-  return `"${String(value ?? "").replace(/"/g, '""')}"`;
+  let s = String(value ?? "");
+  // Neutralize spreadsheet formula injection: a cell beginning with = + - @
+  // (or a leading tab/CR) is interpreted as a formula by Excel/Sheets. Prefix
+  // a single quote so it is rendered as literal text instead of executing.
+  if (/^[=+\-@\t\r]/.test(s)) s = `'${s}`;
+  return `"${s.replace(/"/g, '""')}"`;
 }
 
 export async function exportJson(userId: UserId): Promise<object> {

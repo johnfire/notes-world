@@ -186,3 +186,32 @@ describe("exportAll", () => {
     expect(Buffer.concat(chunks).length).toBeGreaterThan(0);
   });
 });
+
+// ── exportCsv (audit LOW #10: spreadsheet formula injection) ───────────────────
+
+describe("exportCsv formula injection", () => {
+  test("prefixes a leading-formula cell with a single quote", async () => {
+    mockItemRepo.findAllForExport.mockResolvedValue([
+      makeItem({ title: '=HYPERLINK("http://evil","x")' }),
+    ]);
+    mockRelRepo.findTagsForItems.mockResolvedValue({});
+
+    const csv = await service.exportCsv(TEST_USER_ID);
+
+    // Neutralized: the cell is quoted text starting with an apostrophe, so a
+    // spreadsheet renders it literally instead of executing the formula.
+    expect(csv).toContain("\"'=HYPERLINK");
+    expect(csv).not.toContain('"=HYPERLINK');
+  });
+
+  test("leaves a normal title untouched", async () => {
+    mockItemRepo.findAllForExport.mockResolvedValue([
+      makeItem({ title: "Pancakes" }),
+    ]);
+    mockRelRepo.findTagsForItems.mockResolvedValue({});
+
+    const csv = await service.exportCsv(TEST_USER_ID);
+
+    expect(csv).toContain('"Pancakes"');
+  });
+});

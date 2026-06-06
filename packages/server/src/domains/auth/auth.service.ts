@@ -18,6 +18,19 @@ import * as repo from "./auth.repository";
 const BCRYPT_ROUNDS = 12;
 const ACCESS_TOKEN_TTL_SEC = 15 * 60; // 15 minutes
 const REFRESH_TOKEN_TTL_DAYS = 30;
+const JWT_ALGORITHM = "HS256" as const;
+// bcrypt silently truncates input at 72 bytes; reject longer passwords so the
+// whole password is actually hashed (and to bound server-side hashing work).
+const PASSWORD_MAX_BYTES = 72;
+
+function assertPasswordLength(password: string): void {
+  if (password.length < 8) {
+    throw new ValidationError("Password must be at least 8 characters");
+  }
+  if (Buffer.byteLength(password, "utf8") > PASSWORD_MAX_BYTES) {
+    throw new ValidationError("Password must be at most 72 bytes");
+  }
+}
 
 // Pre-computed hash compared against when a login email doesn't exist, so the
 // not-found path does the same bcrypt work as the found path. Without this, the
@@ -36,6 +49,7 @@ function getJwtSecret(): string {
 function signAccessToken(userId: string, email: string): string {
   return jwt.sign({ sub: userId, email } satisfies JwtPayload, getJwtSecret(), {
     expiresIn: ACCESS_TOKEN_TTL_SEC,
+    algorithm: JWT_ALGORITHM,
   });
 }
 
@@ -65,9 +79,10 @@ export async function register(
   if (!input.email || !input.email.includes("@")) {
     throw new ValidationError("Invalid email address");
   }
-  if (!input.password || input.password.length < 8) {
+  if (!input.password) {
     throw new ValidationError("Password must be at least 8 characters");
   }
+  assertPasswordLength(input.password);
 
   const existing = await repo.findUserByEmail(input.email.toLowerCase());
   if (existing) throw new ConflictError("Email already registered");
@@ -135,9 +150,10 @@ export async function changePassword(
   currentPassword: string,
   newPassword: string,
 ): Promise<void> {
-  if (!newPassword || newPassword.length < 8) {
+  if (!newPassword) {
     throw new ValidationError("New password must be at least 8 characters");
   }
+  assertPasswordLength(newPassword);
   const row = await repo.findUserByIdFull(userId);
   if (!row) throw new AuthorizationError("User not found");
   const valid = await bcrypt.compare(currentPassword, row.password_hash);
@@ -180,7 +196,9 @@ export async function deleteAccount(
 
 export function verifyAccessToken(token: string): JwtPayload {
   try {
-    return jwt.verify(token, getJwtSecret()) as JwtPayload;
+    return jwt.verify(token, getJwtSecret(), {
+      algorithms: [JWT_ALGORITHM],
+    }) as JwtPayload;
   } catch {
     throw new AuthorizationError("Invalid or expired access token");
   }

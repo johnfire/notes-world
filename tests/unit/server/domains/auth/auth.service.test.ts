@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 jest.mock("../../../../../packages/server/src/domains/auth/auth.repository");
 
@@ -6,6 +7,9 @@ import * as repo from "../../../../../packages/server/src/domains/auth/auth.repo
 import * as service from "../../../../../packages/server/src/domains/auth/auth.service";
 
 const mockRepo = repo as jest.Mocked<typeof repo>;
+
+const TEST_JWT_SECRET = "test-secret-for-auth-service-tests";
+process.env.JWT_SECRET = TEST_JWT_SECRET;
 
 beforeEach(() => jest.restoreAllMocks());
 afterEach(() => jest.clearAllMocks());
@@ -66,5 +70,38 @@ describe("changePassword session invalidation", () => {
     ).rejects.toThrow("Current password is incorrect");
 
     expect(mockRepo.deleteAllRefreshTokensForUser).not.toHaveBeenCalled();
+  });
+});
+
+// ── Password max length / bcrypt truncation (audit LOW #6) ─────────────────────
+
+describe("password length bounds", () => {
+  test("register rejects a password longer than 72 bytes", async () => {
+    mockRepo.findUserByEmail.mockResolvedValue(null);
+    await expect(
+      service.register({ email: "a@b.com", password: "x".repeat(73) }),
+    ).rejects.toThrow(/72 bytes/);
+    // It rejects before ever touching the repository insert.
+    expect(mockRepo.insertUser).not.toHaveBeenCalled();
+  });
+});
+
+// ── JWT algorithm pinning (audit LOW #8) ──────────────────────────────────────
+
+describe("verifyAccessToken algorithm pinning", () => {
+  test("accepts a normally-issued HS256 token", () => {
+    const token = jwt.sign({ sub: "u1", email: "a@b.com" }, TEST_JWT_SECRET, {
+      algorithm: "HS256",
+    });
+    expect(service.verifyAccessToken(token).sub).toBe("u1");
+  });
+
+  test("rejects a token signed with a different algorithm (HS512)", () => {
+    const token = jwt.sign({ sub: "u1", email: "a@b.com" }, TEST_JWT_SECRET, {
+      algorithm: "HS512",
+    });
+    expect(() => service.verifyAccessToken(token)).toThrow(
+      "Invalid or expired access token",
+    );
   });
 });
