@@ -19,6 +19,14 @@ const BCRYPT_ROUNDS = 12;
 const ACCESS_TOKEN_TTL_SEC = 15 * 60; // 15 minutes
 const REFRESH_TOKEN_TTL_DAYS = 30;
 
+// Pre-computed hash compared against when a login email doesn't exist, so the
+// not-found path does the same bcrypt work as the found path. Without this, the
+// response-time difference lets an attacker enumerate registered accounts.
+const DUMMY_PASSWORD_HASH = bcrypt.hashSync(
+  "timing-equalizer-not-a-real-password",
+  BCRYPT_ROUNDS,
+);
+
 function getJwtSecret(): string {
   const secret = process.env.JWT_SECRET;
   if (!secret) throw new Error("JWT_SECRET environment variable is not set");
@@ -74,7 +82,11 @@ export async function login(
   input: LoginInput,
 ): Promise<{ user: User; tokens: AuthTokens; rawRefreshToken: string }> {
   const row = await repo.findUserByEmail(input.email.toLowerCase());
-  if (!row) throw new AuthorizationError("Invalid email or password");
+  if (!row) {
+    // Equalize timing with the found-user path to prevent account enumeration.
+    await bcrypt.compare(input.password, DUMMY_PASSWORD_HASH);
+    throw new AuthorizationError("Invalid email or password");
+  }
 
   const valid = await bcrypt.compare(input.password, row.password_hash);
   if (!valid) throw new AuthorizationError("Invalid email or password");
@@ -132,6 +144,9 @@ export async function changePassword(
   if (!valid) throw new AuthorizationError("Current password is incorrect");
   const hash = await bcrypt.hash(newPassword, BCRYPT_ROUNDS);
   await repo.updateUserPasswordHash(userId, hash);
+  // Invalidate all existing sessions so a stolen/leaked session cannot survive
+  // a password change (e.g. when the user changes it because of a compromise).
+  await repo.deleteAllRefreshTokensForUser(userId);
 }
 
 export async function changeEmail(
