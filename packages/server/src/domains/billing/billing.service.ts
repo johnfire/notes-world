@@ -100,12 +100,27 @@ type SubLike = {
   trial_end: number | null;
 };
 
+// Billing only governs the free <-> paid entitlement. Privileged roles
+// (admin, gift) must never be overwritten by a subscription event — otherwise
+// a past-due/cancelled webhook would silently de-admin a user.
+const BILLING_MANAGED_ROLES = ["free", "paid"];
+export function billingRole(currentRole: string, isActive: boolean): string {
+  if (!BILLING_MANAGED_ROLES.includes(currentRole)) return currentRole;
+  return isActive ? "paid" : "free";
+}
+
 export async function handleWebhook(
   payload: Buffer,
   sig: string,
 ): Promise<void> {
   const stripe = getStripe();
-  if (!stripe || !WEBHOOK_SECRET) return;
+  // Billing disabled entirely (no Stripe key) — nothing to do.
+  if (!stripe) return;
+  // Stripe IS configured but the signing secret is missing: fail loudly rather
+  // than silently accepting unverifiable webhooks.
+  if (!WEBHOOK_SECRET) {
+    throw new Error("Stripe webhook secret not configured");
+  }
 
   let event: { type: string; data: { object: unknown } };
   try {
@@ -130,7 +145,7 @@ export async function handleWebhook(
       await repo.updateUserStripe(user.id, {
         stripe_subscription_id: sub.id,
         stripe_subscription_status: sub.status,
-        role: isActive ? "paid" : "free",
+        role: billingRole(user.role, isActive),
         trial_ends_at: sub.trial_end ? new Date(sub.trial_end * 1000) : null,
       });
       break;
@@ -143,7 +158,7 @@ export async function handleWebhook(
       await repo.updateUserStripe(user.id, {
         stripe_subscription_id: null,
         stripe_subscription_status: "cancelled",
-        role: "free",
+        role: billingRole(user.role, false),
         trial_ends_at: null,
       });
       break;

@@ -46,7 +46,15 @@ export function createApp() {
       credentials: true,
     }),
   );
-  app.use(express.json({ limit: "10mb" }));
+  // Parse JSON for every route EXCEPT the Stripe webhook, which needs the raw
+  // body for signature verification (the billing router applies express.raw).
+  // If the global parser consumed the stream here, constructEvent would always
+  // fail and subscription/role updates would silently never apply.
+  const jsonParser = express.json({ limit: "10mb" });
+  app.use((req, res, next) => {
+    if (req.originalUrl === "/api/billing/webhook") return next();
+    jsonParser(req, res, next);
+  });
   app.use(cookieParser());
 
   // Rate limit API routes — 200 requests per minute per IP
