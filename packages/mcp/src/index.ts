@@ -7,10 +7,23 @@ import { registerTagTools } from "./tools/tags";
 import { registerTaskTools } from "./tools/tasks";
 import { registerSearchTools } from "./tools/search";
 import { registerExportTools } from "./tools/export";
-import { requestKeyStore } from "./api";
+import { createDiscoveryRouter } from "./oauth/discovery";
+import { createAuthorizeRouter } from "./oauth/authorize";
+import { createTokenRouter } from "./oauth/token";
+import { createMcpAuthMiddleware } from "./oauth/middleware";
 
-const MCP_API_KEY = process.env.MCP_API_KEY;
+function requireEnv(name: string): string {
+  const val = process.env[name];
+  if (!val) throw new Error(`${name} environment variable is not set`);
+  return val;
+}
+
 const PORT = parseInt(process.env.MCP_PORT ?? "3002", 10);
+const MCP_BASE_URL = requireEnv("MCP_BASE_URL");
+const MCP_OAUTH_CLIENT_ID = requireEnv("MCP_OAUTH_CLIENT_ID");
+// Validate remaining required vars at startup
+requireEnv("MCP_JWT_SECRET");
+requireEnv("NOTES_WORLD_API_KEY");
 
 function buildServer(): McpServer {
   const server = new McpServer({ name: "notes-world", version: "0.1.0" });
@@ -29,30 +42,18 @@ app.get("/health", (_req, res) => {
   res.send("ok");
 });
 
-// Auth: nw_ user keys are threaded to backend calls; MCP_API_KEY is the service-level fallback
-app.use((req, res, next) => {
-  const raw =
-    (req.headers["x-api-key"] as string | undefined) ??
-    req.headers.authorization?.replace(/^Bearer\s+/i, "") ??
-    (req.query["key"] as string | undefined);
+// OAuth 2.1 endpoints — public, no auth required
+app.use(createDiscoveryRouter(MCP_BASE_URL));
+app.use(
+  createAuthorizeRouter(
+    MCP_OAUTH_CLIENT_ID,
+    () => process.env.NOTES_WORLD_API_KEY!,
+  ),
+);
+app.use(createTokenRouter());
 
-  if (!raw) {
-    res.status(401).json({ error: "API key required" });
-    return;
-  }
-
-  if (raw.startsWith("nw_")) {
-    requestKeyStore.run(raw, next);
-    return;
-  }
-
-  if (MCP_API_KEY && raw === MCP_API_KEY) {
-    next();
-    return;
-  }
-
-  res.status(401).json({ error: "Invalid API key" });
-});
+// All routes below require a valid nw_ key or JWT Bearer token
+app.use(createMcpAuthMiddleware());
 
 // Stateless: fresh server + transport per request
 app.all("/mcp", async (req, res) => {
