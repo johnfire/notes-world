@@ -29,7 +29,9 @@ services:
     environment:
       - NOTES_WORLD_API_URL=http://app:3001
       - NOTES_WORLD_API_KEY=${NOTES_WORLD_API_KEY}
-      - MCP_API_KEY=${MCP_API_KEY}
+      - MCP_BASE_URL=https://${NGINX_HOST}
+      - MCP_OAUTH_CLIENT_ID=notes-world-mcp
+      - MCP_JWT_SECRET=${MCP_JWT_SECRET}
       - MCP_PORT=3002
     depends_on:
       - app
