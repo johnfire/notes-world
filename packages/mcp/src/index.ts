@@ -37,6 +37,8 @@ function buildServer(): McpServer {
 
 const app = express();
 app.use(express.json());
+// OAuth token endpoint requires form-encoded bodies (RFC 6749)
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/health", (_req, res) => {
   res.send("ok");

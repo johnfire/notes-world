@@ -4,7 +4,8 @@ export function createDiscoveryRouter(baseUrl: string): Router {
   const router = Router();
 
   // RFC 9728: tells MCP clients which authorization server handles this resource.
-  router.get("/.well-known/oauth-protected-resource", (_req, res) => {
+  // Clients may append the resource path (e.g. /mcp) per RFC 9728 §3 — match any subpath.
+  router.get(/^\/\.well-known\/oauth-protected-resource/, (_req, res) => {
     res.json({
       resource: `${baseUrl}/mcp`,
       authorization_servers: [baseUrl],
