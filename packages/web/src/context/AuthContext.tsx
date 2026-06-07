@@ -126,10 +126,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const register = useCallback(async (email: string, password: string) => {
-    const data = await authFetch<{ user: User }>("/register", {
-      email,
-      password,
+    const res = await fetch(`${BASE}/register`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ email, password }),
     });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      throw new Error(data?.message ?? `HTTP ${res.status}`);
+    }
+    if (!data.access_token) {
+      // Server returns 200 without tokens when the email is already registered
+      // (anti-enumeration). Surface the generic message so the UI can prompt
+      // the user to sign in instead.
+      throw new Error(
+        data.message ??
+          "If this email isn't already registered, your account is ready. Try signing in.",
+      );
+    }
     setAccessToken(data.access_token);
     setState({
       user: data.user,

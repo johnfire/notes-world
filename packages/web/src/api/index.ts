@@ -19,6 +19,27 @@ export function setAccessToken(token: string | null) {
   _accessToken = token;
 }
 
+// Coalesces concurrent refresh attempts into one in-flight request.
+let _refreshPromise: Promise<string | null> | null = null;
+
+async function tryRefreshToken(): Promise<string | null> {
+  if (_refreshPromise) return _refreshPromise;
+  _refreshPromise = fetch("/api/auth/refresh", {
+    method: "POST",
+    credentials: "include",
+  })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((data: { access_token: string } | null) => {
+      const token = data?.access_token ?? null;
+      _accessToken = token;
+      return token;
+    })
+    .finally(() => {
+      _refreshPromise = null;
+    });
+  return _refreshPromise;
+}
+
 async function request<T>(url: string, options?: RequestInit): Promise<T> {
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
@@ -32,6 +53,37 @@ async function request<T>(url: string, options?: RequestInit): Promise<T> {
     credentials: "include",
     ...options,
   });
+  if (res.status === 401 || res.status === 403) {
+    // Token likely expired — try a silent refresh and retry once.
+    const newToken = await tryRefreshToken();
+    if (newToken) {
+      const retryHeaders: Record<string, string> = {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${newToken}`,
+        ...(options?.headers as Record<string, string> | undefined),
+      };
+      const retryRes = await fetch(`${BASE}${url}`, {
+        ...options,
+        headers: retryHeaders,
+        credentials: "include",
+      });
+      if (!retryRes.ok) {
+        const body = await retryRes.json().catch(() => ({}));
+        const err = new Error(
+          body?.error?.message ?? `HTTP ${retryRes.status}`,
+        );
+        (err as Error & { code?: string }).code = body?.error?.code;
+        throw err;
+      }
+      if (retryRes.status === 204) return undefined as T;
+      return retryRes.json();
+    }
+    // Refresh failed — surface the original error so callers can handle auth loss.
+    const body = await res.json().catch(() => ({}));
+    const err = new Error(body?.error?.message ?? `HTTP ${res.status}`);
+    (err as Error & { code?: string }).code = body?.error?.code;
+    throw err;
+  }
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
     const err = new Error(body?.error?.message ?? `HTTP ${res.status}`);

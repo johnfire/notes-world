@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { randomBytes, createHash } from "crypto";
 import { wrapAsync } from "../../utils/wrapAsync";
+import { ConflictError } from "../../utils/errors";
 import * as service from "./auth.service";
 import * as authRepo from "./auth.repository";
 
@@ -31,12 +32,26 @@ const COOKIE_OPTS = {
 };
 
 export const register = wrapAsync(async (req: Request, res: Response) => {
-  const { user, tokens, rawRefreshToken } = await service.register({
-    email: req.body.email,
-    password: req.body.password,
-  });
-  res.cookie(REFRESH_COOKIE, rawRefreshToken, COOKIE_OPTS);
-  res.status(201).json({ user, ...tokens });
+  try {
+    const { user, tokens, rawRefreshToken } = await service.register({
+      email: req.body.email,
+      password: req.body.password,
+    });
+    res.cookie(REFRESH_COOKIE, rawRefreshToken, COOKIE_OPTS);
+    res.status(201).json({ user, ...tokens });
+  } catch (err) {
+    if (err instanceof ConflictError) {
+      // Return a generic response so the signup form cannot be used to enumerate
+      // registered accounts — the caller cannot distinguish a new signup from a
+      // duplicate by the HTTP response alone.
+      res.status(200).json({
+        message:
+          "If this email isn't already registered, your account is ready. Try signing in.",
+      });
+      return;
+    }
+    throw err;
+  }
 });
 
 export const login = wrapAsync(async (req: Request, res: Response) => {
