@@ -117,40 +117,45 @@ New backend domain `packages/server/src/domains/checklists/` with
 app.use("/api/checklists", checklistsRouter);
 ```
 
-(Item-level routes `/api/checklist-items/:id` are part of the same router/domain;
-mount path chosen so the controller can be a single cohesive unit.)
+Item-level operations are nested under their list (one cohesive router, no second
+top-level mount):
 
-| Method | Endpoint                    | Purpose                                                 |
-| ------ | --------------------------- | ------------------------------------------------------- |
-| GET    | `/api/checklists`           | List all checklists with `item_count` / `checked_count` |
-| POST   | `/api/checklists`           | Create a list `{ title }`                               |
-| GET    | `/api/checklists/:id`       | One list with its items (ordered by `sort_order`)       |
-| PATCH  | `/api/checklists/:id`       | Rename `{ title }`                                      |
-| DELETE | `/api/checklists/:id`       | Delete list (cascades items)                            |
-| POST   | `/api/checklists/:id/items` | Add item `{ name }` (appends)                           |
-| PATCH  | `/api/checklist-items/:id`  | Update `{ name?, checked? }` — the toggle               |
-| DELETE | `/api/checklist-items/:id`  | Remove an item                                          |
+| Method | Endpoint                            | Purpose                                                 |
+| ------ | ----------------------------------- | ------------------------------------------------------- |
+| GET    | `/api/checklists`                   | List all checklists with `item_count` / `checked_count` |
+| POST   | `/api/checklists`                   | Create a list `{ title }`                               |
+| GET    | `/api/checklists/:id`               | One list with its items (ordered by `sort_order`)       |
+| PATCH  | `/api/checklists/:id`               | Rename `{ title }`                                      |
+| DELETE | `/api/checklists/:id`               | Delete list (cascades items)                            |
+| POST   | `/api/checklists/:id/items`         | Add item `{ name }` (appends)                           |
+| PATCH  | `/api/checklists/:id/items/:itemId` | Update `{ name?, checked? }` — the toggle               |
+| DELETE | `/api/checklists/:id/items/:itemId` | Remove an item                                          |
 
 All handlers wrapped in `wrapAsync`, all queries parameterized and scoped by
-`req.userId`. A user can only read/modify their own lists and items (verified by
-joining/filtering on `user_id`).
+`req.userId`. A user can only read/modify their own lists and items (item
+operations verify the parent list belongs to the user).
 
 ## Web
 
 `packages/web/src/api/index.ts` gains a `checklists` client object mirroring the
 endpoints above.
 
-UI:
+UI — a new top-level view (the app selects main views via the `ViewBar`
+tabs in `App.tsx`, not the sidebar; the sidebar is tag-specific):
 
-- **Sidebar:** a "Checklists" section listing the user's lists (similar to the tags
-  section) with a "+ new list" action. Follows the `Sidebar.tsx` pattern.
-- **ChecklistView component** (`packages/web/src/components/ChecklistView.tsx`,
-  modeled on `TagView.tsx`): list title with a header menu (rename / delete list),
-  rows of `[checkbox] name`, and an "add item" input at the bottom.
-  - Ticking a checkbox fires `PATCH /api/checklist-items/:id { checked }` and
-    updates in place. Checked rows stay in position, shown with a checkmark.
+- **ViewBar:** add a `"checklists"` entry to `AppView` / `VIEW_IDS` so a
+  "Checklists" tab appears next to dashboard / ideas / tasks.
+- **ChecklistsView component** (`packages/web/src/components/ChecklistsView.tsx`):
+  a master-detail view. With no list selected it shows the list of checklists
+  (with item counts) and a "+ new list" input. Selecting a list shows its detail:
+  title with a header menu (rename / delete list), rows of `[checkbox] name`, and
+  an "add item" input at the bottom.
+  - Ticking a checkbox fires `PATCH /api/checklists/:id/items/:itemId { checked }`
+    and updates in place. Checked rows stay in position, shown with a checkmark
+    (name struck through / dimmed).
   - Each row has a small delete ("×") control.
-- Routing wired in `App.tsx` consistent with how tag views are selected.
+- An `app.views.checklists` i18n key is added to `en.json` (other locales fall
+  back to English).
 
 ## Mobile (Expo) — priority
 
