@@ -6,6 +6,7 @@ import rateLimit from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import path from "path";
 import { itemsRouter } from "./domains/items/items.routes";
+import { checklistsRouter } from "./domains/checklists/checklists.routes";
 import { relationshipsRouter } from "./domains/relationships/relationships.routes";
 import { dependenciesRouter } from "./domains/relationships/dependencies.routes";
 import { viewsRouter } from "./domains/views/views.routes";
@@ -121,6 +122,7 @@ export function createApp() {
   app.use("/api", requireAuth);
 
   app.use("/api/items", itemsRouter);
+  app.use("/api/checklists", checklistsRouter);
   app.use("/api/tags", relationshipsRouter);
   app.use("/api", dependenciesRouter);
   app.use("/api/dashboard", viewsRouter);
