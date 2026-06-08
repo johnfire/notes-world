@@ -287,3 +287,29 @@ export interface ApiError {
   message: string;
   status: number;
 }
+
+// ─── Checklists ──────────────────────────────────────────────────────────────
+
+export type ChecklistId = string;
+
+export interface ChecklistItem {
+  id: string;
+  checklist_id: ChecklistId;
+  name: string;
+  checked: boolean;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Checklist {
+  id: ChecklistId;
+  user_id: UserId;
+  title: string;
+  sort_order: number;
+  items?: ChecklistItem[]; // present on detail fetch (GET /:id)
+  item_count?: number; // present on list fetch (GET /)
+  checked_count?: number; // present on list fetch (GET /)
+  created_at: string;
+  updated_at: string;
+}
