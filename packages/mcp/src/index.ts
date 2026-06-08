@@ -7,6 +7,7 @@ import { registerTagTools } from "./tools/tags";
 import { registerTaskTools } from "./tools/tasks";
 import { registerSearchTools } from "./tools/search";
 import { registerExportTools } from "./tools/export";
+import { registerChecklistTools } from "./tools/checklists";
 import { createDiscoveryRouter } from "./oauth/discovery";
 import { createAuthorizeRouter } from "./oauth/authorize";
 import { createTokenRouter } from "./oauth/token";
@@ -32,6 +33,7 @@ function buildServer(): McpServer {
   registerTaskTools(server);
   registerSearchTools(server);
   registerExportTools(server);
+  registerChecklistTools(server);
   return server;
 }
 
