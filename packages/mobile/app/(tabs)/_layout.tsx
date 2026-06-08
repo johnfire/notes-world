@@ -29,6 +29,15 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
+        name="checklists"
+        options={{
+          title: t("tabs.checklists"),
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="checkbox-outline" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="capture"
         options={{
           title: t("tabs.capture"),
