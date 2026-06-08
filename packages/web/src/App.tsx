@@ -16,6 +16,7 @@ import { ItemDrawer } from "./components/ItemDrawer";
 import { TagView } from "./components/TagView";
 import { IdeasView } from "./components/IdeasView";
 import { TasksView } from "./components/TasksView";
+import { ChecklistsView } from "./components/ChecklistsView";
 import { CaptureBar } from "./components/CaptureBar";
 import { TrashView } from "./components/TrashView";
 import { BugReportButton } from "./components/BugReportButton";
@@ -51,6 +52,7 @@ function DashboardView() {
   function renderMain() {
     if (currentView === "ideas") return <IdeasView />;
     if (currentView === "tasks") return <TasksView />;
+    if (currentView === "checklists") return <ChecklistsView />;
     if (state.searchResults !== null) return <SearchResults />;
     if (showTrash) return <TrashView />;
     if (selectedTag) return <TagView tag={selectedTag} />;

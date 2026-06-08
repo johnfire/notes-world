@@ -10,6 +10,8 @@ import {
   Dependency,
   ImportJob,
   ImportRecord,
+  Checklist,
+  ChecklistItem,
 } from "../types";
 
 const BASE = "/api";
@@ -165,6 +167,48 @@ export const items = {
 
   purgeExpired: () =>
     request<{ purged: number }>("/items/purge-expired", { method: "POST" }),
+};
+
+// ── Checklists ─────────────────────────────────────────────────────────────
+
+export const checklists = {
+  list: () => request<Checklist[]>("/checklists"),
+
+  get: (id: string) => request<Checklist>(`/checklists/${id}`),
+
+  create: (title: string) =>
+    request<Checklist>("/checklists", {
+      method: "POST",
+      body: JSON.stringify({ title }),
+    }),
+
+  rename: (id: string, title: string) =>
+    request<Checklist>(`/checklists/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ title }),
+    }),
+
+  remove: (id: string) =>
+    request<void>(`/checklists/${id}`, { method: "DELETE" }),
+
+  addItem: (id: string, name: string) =>
+    request<ChecklistItem>(`/checklists/${id}/items`, {
+      method: "POST",
+      body: JSON.stringify({ name }),
+    }),
+
+  updateItem: (
+    id: string,
+    itemId: string,
+    data: { name?: string; checked?: boolean },
+  ) =>
+    request<ChecklistItem>(`/checklists/${id}/items/${itemId}`, {
+      method: "PATCH",
+      body: JSON.stringify(data),
+    }),
+
+  removeItem: (id: string, itemId: string) =>
+    request<void>(`/checklists/${id}/items/${itemId}`, { method: "DELETE" }),
 };
 
 // ── Dependencies ─────────────────────────────────────────────────────────────

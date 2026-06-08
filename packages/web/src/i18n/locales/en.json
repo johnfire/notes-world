@@ -63,11 +63,7 @@
       "price": "€3",
       "period": "/ month",
       "alt": "or €30 / year — 2 months free",
-      "features": [
-        "Everything in Free",
-        "Unlimited tags",
-        "Priority support"
-      ],
+      "features": ["Everything in Free", "Unlimited tags", "Priority support"],
       "cta": "Start free trial"
     }
   },
@@ -139,7 +135,8 @@
     "views": {
       "dashboard": "Dashboard",
       "tasks": "Tasks",
-      "ideas": "Ideas"
+      "ideas": "Ideas",
+      "checklists": "Lists"
     },
     "sidebar": {
       "tags": "Tags",
