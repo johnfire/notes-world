@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { LANGUAGES } from "../i18n/languages";
+import { Seo } from "../components/Seo";
 
 export function LandingPage() {
   const { t, i18n } = useTranslation();
@@ -14,6 +15,11 @@ export function LandingPage() {
 
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-[#f0f0f0] font-sans">
+      <Seo
+        title="Notes World — Your notes, tasks & reminders, organised"
+        description="Notes World brings your ideas, tasks, and reminders into one clean, fast app. Tag everything, find anything, stay on top of it all."
+        path="/"
+      />
       {/* NAV */}
       <nav className="flex items-center justify-between px-8 py-4 border-b border-[#2a2a2a] sticky top-0 bg-[#0f0f0f]/90 backdrop-blur z-10">
         <div className="flex items-center gap-2 font-bold text-sm tracking-wide">

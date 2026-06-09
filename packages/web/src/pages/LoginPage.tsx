@@ -2,6 +2,7 @@ import { useState, FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
+import { Seo } from "../components/Seo";
 
 export function LoginPage() {
   const { login, register } = useAuth();
@@ -39,6 +40,11 @@ export function LoginPage() {
 
   return (
     <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
+      <Seo
+        title="Sign in · Notes World"
+        description="Sign in or create your free Notes World account to organise your notes, tasks, and reminders."
+        path="/login"
+      />
       <div className="w-full max-w-sm">
         <h1 className="text-2xl font-semibold text-white mb-8 text-center">
           {t("login.title")}

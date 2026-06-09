@@ -1,8 +1,14 @@
 import { Link } from "react-router-dom";
+import { Seo } from "../components/Seo";
 
 export function TermsOfServicePage() {
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-[#f0f0f0] font-sans">
+      <Seo
+        title="Terms of Service · Notes World"
+        description="The terms governing your use of Notes World."
+        path="/terms"
+      />
       <nav className="flex items-center justify-between px-8 py-4 border-b border-[#2a2a2a] sticky top-0 bg-[#0f0f0f]/90 backdrop-blur z-10">
         <Link
           to="/"
