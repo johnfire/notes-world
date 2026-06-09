@@ -21,6 +21,14 @@ export function LandingPage() {
             N
           </div>
           notes-world
+          <a
+            href="https://christopherrehm.de"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-block ml-3 pl-3 border-l border-[#2a2a2a] font-normal text-xs text-[#888] hover:text-white transition-colors"
+          >
+            A project from Rehm Consulting
+          </a>
         </div>
         <div className="flex items-center gap-6">
           <a
