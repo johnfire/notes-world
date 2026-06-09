@@ -15,6 +15,10 @@ const TYPE_COLORS: Record<string, string> = {
   [ItemType.Divider]: colors.typeUntyped,
 };
 
+// Dividers render as a compact one-line section header. A very dark red so they
+// stand out against the near-black note cards.
+const DIVIDER_BG = "#3d1414";
+
 interface Props {
   item: Item;
   onPress: () => void;
@@ -38,6 +42,24 @@ export function ItemCard({ item, onPress, onDelete }: Props) {
         onPress: () => onDelete?.(item.id),
       },
     ]);
+  }
+
+  if (item.item_type === ItemType.Divider) {
+    return (
+      <Pressable
+        style={({ pressed }) => [s.divider, pressed && s.cardPressed]}
+        onPress={onPress}
+      >
+        <Text style={s.dividerText} numberOfLines={1}>
+          {item.title}
+        </Text>
+        {onDelete && (
+          <Pressable onPress={handleDelete} hitSlop={8} style={s.deleteBtn}>
+            <Ionicons name="close" size={18} color={colors.text} />
+          </Pressable>
+        )}
+      </Pressable>
+    );
   }
 
   return (
@@ -86,6 +108,23 @@ const s = StyleSheet.create({
   },
   cardPressed: {
     opacity: 0.75,
+  },
+  divider: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: DIVIDER_BG,
+    borderRadius: radius.md,
+    marginHorizontal: spacing.md,
+    marginVertical: spacing.xs,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+  },
+  dividerText: {
+    flex: 1,
+    color: colors.text,
+    fontSize: font.md,
+    fontWeight: "700",
   },
   typeBar: {
     width: 4,
