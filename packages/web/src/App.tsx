@@ -7,6 +7,9 @@ import { LoginPage } from "./pages/LoginPage";
 import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
 import { TermsOfServicePage } from "./pages/TermsOfServicePage";
 import { DocsPage } from "./pages/DocsPage";
+import { UseCasePage } from "./pages/UseCasePage";
+import { FaqPage } from "./pages/FaqPage";
+import { useCases } from "./content/useCases";
 
 // The authenticated app (views, drawers, dashboard) is the bulk of the bundle
 // but is useless to logged-out visitors and crawlers. Lazy-load it so the public
@@ -40,6 +43,19 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/notes-app"
+          element={<UseCasePage useCase={useCases["notes-app"]} />}
+        />
+        <Route
+          path="/task-manager"
+          element={<UseCasePage useCase={useCases["task-manager"]} />}
+        />
+        <Route
+          path="/reminders"
+          element={<UseCasePage useCase={useCases["reminders"]} />}
+        />
+        <Route path="/faq" element={<FaqPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AuthProvider>
