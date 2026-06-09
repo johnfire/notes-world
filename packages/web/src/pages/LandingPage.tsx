@@ -333,6 +333,35 @@ export function LandingPage() {
             {t("footer.impressum")}
           </a>
         </p>
+        <p className="mt-3">
+          <Link
+            to="/notes-app"
+            className="text-[#888] hover:text-white transition-colors"
+          >
+            Note-taking app
+          </Link>{" "}
+          &middot;{" "}
+          <Link
+            to="/task-manager"
+            className="text-[#888] hover:text-white transition-colors"
+          >
+            Task manager
+          </Link>{" "}
+          &middot;{" "}
+          <Link
+            to="/reminders"
+            className="text-[#888] hover:text-white transition-colors"
+          >
+            Reminders app
+          </Link>{" "}
+          &middot;{" "}
+          <Link
+            to="/faq"
+            className="text-[#888] hover:text-white transition-colors"
+          >
+            FAQ
+          </Link>
+        </p>
       </footer>
     </div>
   );
