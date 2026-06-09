@@ -1,7 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import type { User } from "@notes-world/shared";
 import { getMe, logout as apiLogout } from "../api/auth";
-import { getToken, getRefreshToken } from "../api/client";
+import {
+  getToken,
+  getRefreshToken,
+  setAuthFailureHandler,
+} from "../api/client";
 
 interface AuthState {
   user: User | null;
@@ -20,6 +24,13 @@ const AuthContext = createContext<AuthState>({
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+
+  // When the API layer detects a dead session (refresh token rejected), reset to
+  // logged-out so the app shows the login screen instead of looping on 401s.
+  useEffect(() => {
+    setAuthFailureHandler(() => setUser(null));
+    return () => setAuthFailureHandler(null);
+  }, []);
 
   useEffect(() => {
     (async () => {

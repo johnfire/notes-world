@@ -30,11 +30,28 @@ export async function clearToken(): Promise<void> {
 // pair and retry once, so the user stays logged in as long as they keep using
 // the app. A single in-flight refresh is shared so concurrent 401s don't each
 // spend (and invalidate) the rotating refresh token.
-let refreshInFlight: Promise<string | null> | null = null;
+type RefreshOutcome =
+  | { status: "refreshed"; token: string }
+  | { status: "expired" } // no refresh token, or the server rejected it
+  | { status: "error" }; // network/server blip — the session may still be valid
 
-async function doRefresh(): Promise<string | null> {
+// Invoked when the session is definitively dead (refresh token missing or
+// rejected) so the UI can drop to the login screen instead of looping on
+// failed requests and looking like the user's data vanished.
+let authFailureHandler: (() => void) | null = null;
+
+export function setAuthFailureHandler(handler: (() => void) | null): void {
+  authFailureHandler = handler;
+}
+
+let refreshInFlight: Promise<RefreshOutcome> | null = null;
+
+async function doRefresh(): Promise<RefreshOutcome> {
   const refreshToken = await getRefreshToken();
-  if (!refreshToken) return null;
+  if (!refreshToken) {
+    await clearToken();
+    return { status: "expired" };
+  }
   try {
     const res = await fetch(`${BASE_URL}/auth/refresh`, {
       method: "POST",
@@ -45,22 +62,26 @@ async function doRefresh(): Promise<string | null> {
       },
       body: JSON.stringify({ refresh_token: refreshToken }),
     });
-    if (!res.ok) {
+    if (res.ok) {
+      const data = await res.json();
+      await setToken(data.access_token);
+      if (data.refresh_token) await setRefreshToken(data.refresh_token);
+      return { status: "refreshed", token: data.access_token as string };
+    }
+    if (res.status === 401 || res.status === 403) {
       // Refresh token expired/revoked — clear everything so the app logs out.
       await clearToken();
-      return null;
+      return { status: "expired" };
     }
-    const data = await res.json();
-    await setToken(data.access_token);
-    if (data.refresh_token) await setRefreshToken(data.refresh_token);
-    return data.access_token as string;
+    // 5xx or other transient failure — keep tokens so a later request retries.
+    return { status: "error" };
   } catch {
     // Network error — keep tokens so a later request can retry.
-    return null;
+    return { status: "error" };
   }
 }
 
-function refreshAccessToken(): Promise<string | null> {
+function refreshSession(): Promise<RefreshOutcome> {
   if (!refreshInFlight) {
     refreshInFlight = doRefresh().finally(() => {
       refreshInFlight = null;
@@ -85,8 +106,15 @@ async function request<T>(
   const res = await fetch(`${BASE_URL}${path}`, { ...options, headers });
 
   if (res.status === 401 && retryOnAuthFail) {
-    const newToken = await refreshAccessToken();
-    if (newToken) return request<T>(path, options, false);
+    const outcome = await refreshSession();
+    if (outcome.status === "refreshed") {
+      return request<T>(path, options, false);
+    }
+    if (outcome.status === "expired") {
+      // Session is gone — tell the app to drop to the login screen rather than
+      // surfacing a confusing "expired token" error on every data screen.
+      authFailureHandler?.();
+    }
   }
 
   if (!res.ok) {
