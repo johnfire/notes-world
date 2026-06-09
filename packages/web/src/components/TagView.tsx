@@ -239,7 +239,6 @@ export function TagView({ tag }: Props) {
                   dragHandle={dragHandle}
                   onSave={handleSaveDivider}
                   onDelete={handleDeleteDivider}
-                  onColorChange={(c) => handleColorChange(item.id, c)}
                   collapsed={collapsedSet.has(item.id)}
                   onToggle={() => toggleCollapse(item.id)}
                   hiddenCount={hiddenCounts.get(item.id) ?? 0}
