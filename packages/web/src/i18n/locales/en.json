@@ -87,7 +87,9 @@
     "termsLink": "Terms of Service",
     "agreeMid": " and ",
     "privacyLink": "Privacy Policy",
-    "mustAgree": "You must agree to the terms to register"
+    "mustAgree": "You must agree to the terms to register",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
   },
   "app": {
     "actions": {
