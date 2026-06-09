@@ -32,8 +32,11 @@ const VERSION = process.env.npm_package_version ?? "0.1.0";
 export function createApp() {
   const app = express();
 
-  // Trust the first proxy (Apache) so express-rate-limit reads X-Forwarded-For correctly
-  app.set("trust proxy", 1);
+  // Two proxies sit in front of the app (Apache → dockerized nginx), each
+  // appending to X-Forwarded-For, so trust 2 hops to resolve the real client IP.
+  // Required for per-user rate limiting: with the wrong count every request
+  // looks like it comes from the Docker gateway and all users share one bucket.
+  app.set("trust proxy", 2);
 
   app.use(
     helmet({ contentSecurityPolicy: process.env.NODE_ENV === "production" }),
@@ -70,22 +73,24 @@ export function createApp() {
         legacyHeaders: false,
       }),
     );
-    // Tighter limit for auth endpoints — 20 attempts per 15 minutes per IP
-    app.use(
-      "/api/auth",
-      rateLimit({
-        windowMs: 15 * 60_000,
-        limit: 20,
-        standardHeaders: "draft-7",
-        legacyHeaders: false,
-        message: {
-          error: {
-            code: "RATE_LIMIT_EXCEEDED",
-            message: "Too many login attempts, please try again later",
-          },
+    // Tighter limit for password endpoints (brute-force protection) — 30
+    // attempts per 15 minutes per IP. Scoped to login/register only so normal
+    // token refresh (/auth/refresh) and session checks (/auth/me) are never
+    // throttled by the brute-force limiter.
+    const authLimiter = rateLimit({
+      windowMs: 15 * 60_000,
+      limit: 30,
+      standardHeaders: "draft-7",
+      legacyHeaders: false,
+      message: {
+        error: {
+          code: "RATE_LIMIT_EXCEEDED",
+          message: "Too many login attempts, please try again later",
         },
-      }),
-    );
+      },
+    });
+    app.use("/api/auth/login", authLimiter);
+    app.use("/api/auth/register", authLimiter);
   }
 
   // Health check — not rate-limited
