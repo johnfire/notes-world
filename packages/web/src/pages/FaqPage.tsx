@@ -20,16 +20,12 @@ export function FaqPage() {
         <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight mb-12">
           Frequently asked questions
         </h1>
-        <dl>
-          {faqs.map((f) => (
-            <div key={f.q} className="mb-8">
-              <dt className="text-lg font-bold mb-1.5">
-                <h2 className="text-lg font-bold">{f.q}</h2>
-              </dt>
-              <dd className="text-[#888] leading-relaxed">{f.a}</dd>
-            </div>
-          ))}
-        </dl>
+        {faqs.map((f) => (
+          <div key={f.q} className="mb-8">
+            <h2 className="text-lg font-bold mb-1.5">{f.q}</h2>
+            <p className="text-[#888] leading-relaxed">{f.a}</p>
+          </div>
+        ))}
       </main>
     </MarketingLayout>
   );
