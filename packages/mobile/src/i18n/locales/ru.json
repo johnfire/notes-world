@@ -13,6 +13,7 @@
     "notes": "Заметки",
     "capture": "Запись",
     "tags": "Теги",
+    "checklists": "Списки",
     "account": "Аккаунт"
   },
   "auth": {

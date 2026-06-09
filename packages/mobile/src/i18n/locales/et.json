@@ -13,6 +13,7 @@
     "notes": "Märkmed",
     "capture": "Talleta",
     "tags": "Sildid",
+    "checklists": "Loendid",
     "account": "Konto"
   },
   "auth": {

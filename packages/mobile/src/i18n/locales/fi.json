@@ -13,6 +13,7 @@
     "notes": "Muistiinpanot",
     "capture": "Kirjaa",
     "tags": "Tunnisteet",
+    "checklists": "Listat",
     "account": "Tili"
   },
   "auth": {
