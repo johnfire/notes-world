@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import type { User } from "@notes-world/shared";
 import { getMe, logout as apiLogout } from "../api/auth";
-import { getToken } from "../api/client";
+import { getToken, getRefreshToken } from "../api/client";
 
 interface AuthState {
   user: User | null;
@@ -24,13 +24,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     (async () => {
       try {
-        const token = await getToken();
-        if (token) {
+        const [token, refreshToken] = await Promise.all([
+          getToken(),
+          getRefreshToken(),
+        ]);
+        // Try to restore the session if either token is present. getMe() will
+        // transparently refresh an expired access token via the refresh token,
+        // so the user stays logged in across launches as long as it's valid.
+        if (token || refreshToken) {
           const me = await getMe();
           setUser(me);
         }
       } catch {
-        // token expired or invalid — stay logged out
+        // refresh token expired or invalid — stay logged out
       } finally {
         setLoading(false);
       }

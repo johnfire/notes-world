@@ -1,15 +1,21 @@
-import { api, setToken, clearToken } from "./client";
+import { api, setToken, setRefreshToken, clearToken } from "./client";
 import type { User, LoginInput } from "@notes-world/shared";
 
 interface AuthResponse {
   user: User;
   access_token: string;
   expires_in: number;
+  refresh_token?: string;
+}
+
+async function storeTokens(data: AuthResponse): Promise<void> {
+  await setToken(data.access_token);
+  if (data.refresh_token) await setRefreshToken(data.refresh_token);
 }
 
 export async function login(input: LoginInput): Promise<User> {
   const data = await api.post<AuthResponse>("/auth/login", input);
-  await setToken(data.access_token);
+  await storeTokens(data);
   return data.user;
 }
 
@@ -18,7 +24,7 @@ export async function register(input: {
   password: string;
 }): Promise<User> {
   const data = await api.post<AuthResponse>("/auth/register", input);
-  await setToken(data.access_token);
+  await storeTokens(data);
   return data.user;
 }
 

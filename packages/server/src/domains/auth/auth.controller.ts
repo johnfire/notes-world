@@ -31,6 +31,32 @@ const COOKIE_OPTS = {
   path: "/api/auth",
 };
 
+// Native apps (React Native) can't reliably persist the httpOnly refresh cookie,
+// so for them we also return the refresh token in the JSON body to store securely
+// on-device. Web clients keep using the cookie only — the token never touches JS.
+function isNativeClient(req: Request): boolean {
+  return detectClient(req) === "native-app";
+}
+
+function withRefreshToken<T extends object>(
+  req: Request,
+  tokens: T,
+  rawRefreshToken: string,
+): T | (T & { refresh_token: string }) {
+  return isNativeClient(req)
+    ? { ...tokens, refresh_token: rawRefreshToken }
+    : { ...tokens };
+}
+
+// Native clients send the refresh token via header/body since they have no cookie.
+function readRefreshToken(req: Request): string | undefined {
+  return (
+    req.cookies?.[REFRESH_COOKIE] ??
+    (req.headers["x-refresh-token"] as string | undefined) ??
+    req.body?.refresh_token
+  );
+}
+
 export const register = wrapAsync(async (req: Request, res: Response) => {
   try {
     const { user, tokens, rawRefreshToken } = await service.register({
@@ -38,7 +64,9 @@ export const register = wrapAsync(async (req: Request, res: Response) => {
       password: req.body.password,
     });
     res.cookie(REFRESH_COOKIE, rawRefreshToken, COOKIE_OPTS);
-    res.status(201).json({ user, ...tokens });
+    res
+      .status(201)
+      .json({ user, ...withRefreshToken(req, tokens, rawRefreshToken) });
   } catch (err) {
     if (err instanceof ConflictError) {
       // Return a generic response so the signup form cannot be used to enumerate
@@ -67,7 +95,7 @@ export const login = wrapAsync(async (req: Request, res: Response) => {
     });
     console.log(`[auth] login ok — ${emailMasked} from ${clientSource}`);
     res.cookie(REFRESH_COOKIE, rawRefreshToken, COOKIE_OPTS);
-    res.json({ user, ...tokens });
+    res.json({ user, ...withRefreshToken(req, tokens, rawRefreshToken) });
   } catch (err) {
     console.log(
       `[auth] login failed — ${emailMasked} from ${clientSource}: ${(err as Error).message}`,
@@ -77,10 +105,10 @@ export const login = wrapAsync(async (req: Request, res: Response) => {
 });
 
 export const refresh = wrapAsync(async (req: Request, res: Response) => {
-  const raw = req.cookies?.[REFRESH_COOKIE];
+  const raw = readRefreshToken(req);
   const { tokens, rawRefreshToken } = await service.refresh(raw);
   res.cookie(REFRESH_COOKIE, rawRefreshToken, COOKIE_OPTS);
-  res.json(tokens);
+  res.json(withRefreshToken(req, tokens, rawRefreshToken));
 });
 
 export const logout = wrapAsync(async (req: Request, res: Response) => {

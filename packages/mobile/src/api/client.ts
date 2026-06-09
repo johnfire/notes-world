@@ -2,6 +2,7 @@ import * as SecureStore from "expo-secure-store";
 
 export const BASE_URL = "https://notes-world.christopherrehm.de/api";
 const TOKEN_KEY = "nw_access_token";
+const REFRESH_KEY = "nw_refresh_token";
 
 export async function getToken(): Promise<string | null> {
   return SecureStore.getItemAsync(TOKEN_KEY);
@@ -11,11 +12,68 @@ export async function setToken(token: string): Promise<void> {
   await SecureStore.setItemAsync(TOKEN_KEY, token);
 }
 
-export async function clearToken(): Promise<void> {
-  await SecureStore.deleteItemAsync(TOKEN_KEY);
+export async function getRefreshToken(): Promise<string | null> {
+  return SecureStore.getItemAsync(REFRESH_KEY);
 }
 
-async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
+export async function setRefreshToken(token: string): Promise<void> {
+  await SecureStore.setItemAsync(REFRESH_KEY, token);
+}
+
+export async function clearToken(): Promise<void> {
+  await SecureStore.deleteItemAsync(TOKEN_KEY);
+  await SecureStore.deleteItemAsync(REFRESH_KEY);
+}
+
+// The access token lives ~15 min; the refresh token ~30 days (rotating). When a
+// request gets a 401 we transparently exchange the refresh token for a fresh
+// pair and retry once, so the user stays logged in as long as they keep using
+// the app. A single in-flight refresh is shared so concurrent 401s don't each
+// spend (and invalidate) the rotating refresh token.
+let refreshInFlight: Promise<string | null> | null = null;
+
+async function doRefresh(): Promise<string | null> {
+  const refreshToken = await getRefreshToken();
+  if (!refreshToken) return null;
+  try {
+    const res = await fetch(`${BASE_URL}/auth/refresh`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Client-Type": "native-app",
+        "X-Refresh-Token": refreshToken,
+      },
+      body: JSON.stringify({ refresh_token: refreshToken }),
+    });
+    if (!res.ok) {
+      // Refresh token expired/revoked — clear everything so the app logs out.
+      await clearToken();
+      return null;
+    }
+    const data = await res.json();
+    await setToken(data.access_token);
+    if (data.refresh_token) await setRefreshToken(data.refresh_token);
+    return data.access_token as string;
+  } catch {
+    // Network error — keep tokens so a later request can retry.
+    return null;
+  }
+}
+
+function refreshAccessToken(): Promise<string | null> {
+  if (!refreshInFlight) {
+    refreshInFlight = doRefresh().finally(() => {
+      refreshInFlight = null;
+    });
+  }
+  return refreshInFlight;
+}
+
+async function request<T>(
+  path: string,
+  options: RequestInit = {},
+  retryOnAuthFail = true,
+): Promise<T> {
   const token = await getToken();
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
@@ -25,6 +83,11 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   if (token) headers["Authorization"] = `Bearer ${token}`;
 
   const res = await fetch(`${BASE_URL}${path}`, { ...options, headers });
+
+  if (res.status === 401 && retryOnAuthFail) {
+    const newToken = await refreshAccessToken();
+    if (newToken) return request<T>(path, options, false);
+  }
 
   if (!res.ok) {
     const body = await res.json().catch(() => ({}));
