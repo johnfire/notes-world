@@ -62,6 +62,10 @@ i18n
       mt: { translation: mt },
     },
     fallbackLng: "en",
+    // Browsers report regional codes (e.g. "de-AT", "pt-BR", "zh-CN") but we only
+    // ship base languages. Strip the region so the detected browser language maps
+    // to its base locale (de-AT → de) instead of falling back to English.
+    load: "languageOnly",
     supportedLngs: [
       "en",
       "de",
