@@ -3,7 +3,8 @@
     "features": "Fonctionnalités",
     "pricing": "Tarifs",
     "signIn": "Se connecter",
-    "getStarted": "Commencer gratuitement"
+    "getStarted": "Commencer gratuitement",
+    "docs": "Docs"
   },
   "hero": {
     "badge": "Simple & efficace",

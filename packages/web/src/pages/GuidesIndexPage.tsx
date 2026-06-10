@@ -15,10 +15,17 @@ export function GuidesIndexPage() {
         <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight mb-5">
           Guides
         </h1>
-        <p className="text-lg text-[#888] mb-12">
+        <p className="text-lg text-[#888] mb-4">
           Short, practical guides to help you get the most out of Notes World —
           from organising with tags to letting an AI assistant work with your
           notes.
+        </p>
+        <p className="text-[#888] mb-12">
+          Looking for the complete reference? See the{" "}
+          <Link to="/docs" className="text-accent hover:underline">
+            full user guide
+          </Link>
+          .
         </p>
 
         <ul className="flex flex-col gap-8">

@@ -29,4 +29,10 @@ describe("GuidesIndexPage", () => {
       expect(hrefs).toEqual(expect.arrayContaining([`/guides/${g.slug}`]));
     }
   });
+
+  test("has a contextual link to the full user guide at /docs", () => {
+    renderIndex();
+    const userGuideLink = screen.getByRole("link", { name: /user guide/i });
+    expect(userGuideLink).toHaveAttribute("href", "/docs");
+  });
 });

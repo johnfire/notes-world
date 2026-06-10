@@ -3,7 +3,8 @@
     "features": "Funktsioonid",
     "pricing": "Hinnad",
     "signIn": "Logi sisse",
-    "getStarted": "Alusta tasuta"
+    "getStarted": "Alusta tasuta",
+    "docs": "Dokumentatsioon"
   },
   "hero": {
     "badge": "Lihtne ja tõhus",

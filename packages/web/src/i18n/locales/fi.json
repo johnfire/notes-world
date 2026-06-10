@@ -3,7 +3,8 @@
     "features": "Ominaisuudet",
     "pricing": "Hinnoittelu",
     "signIn": "Kirjaudu sisään",
-    "getStarted": "Aloita ilmaiseksi"
+    "getStarted": "Aloita ilmaiseksi",
+    "docs": "Ohjeet"
   },
   "hero": {
     "badge": "Yksinkertainen & tehokas",

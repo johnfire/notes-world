@@ -3,7 +3,8 @@
     "features": "功能",
     "pricing": "价格",
     "signIn": "登录",
-    "getStarted": "免费开始"
+    "getStarted": "免费开始",
+    "docs": "文档"
   },
   "hero": {
     "badge": "简单高效",

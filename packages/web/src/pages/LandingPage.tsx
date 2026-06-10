@@ -49,6 +49,12 @@ export function LandingPage() {
           >
             {t("nav.pricing")}
           </a>
+          <Link
+            to="/docs"
+            className="hidden sm:inline-block text-[#888] text-sm hover:text-white transition-colors"
+          >
+            {t("nav.docs")}
+          </Link>
           {/* Language switcher */}
           <select
             value={i18n.resolvedLanguage}

@@ -55,7 +55,10 @@ const TOC = [
   { id: "getting-started", label: "Getting Started" },
   { id: "items", label: "Notes, Tasks & Ideas" },
   { id: "tags", label: "Tags" },
+  { id: "dividers", label: "Dividers" },
+  { id: "checklists", label: "Checklists" },
   { id: "dashboard", label: "Dashboard" },
+  { id: "mobile-app", label: "Mobile App" },
   { id: "import", label: "Importing Data" },
   { id: "plans", label: "Free vs Pro" },
   { id: "api-keys", label: "API Keys" },
@@ -244,6 +247,64 @@ export function DocsPage() {
             </Sub>
           </Section>
 
+          {/* ── Dividers ─────────────────────────────────── */}
+          <Section id="dividers" title="Dividers">
+            <p>
+              Dividers are section headers you can place inside a tag view to
+              group the items beneath them — for example splitting a project tag
+              into <em className="text-[#aaa]">To do</em>,{" "}
+              <em className="text-[#aaa]">In review</em>, and{" "}
+              <em className="text-[#aaa]">Done</em>.
+            </p>
+
+            <Sub title="Adding and labelling a divider">
+              <p>
+                Add a divider from the tag view, then click its label to rename
+                it. Drag items above or below a divider to decide which section
+                they belong to — every item between one divider and the next
+                belongs to that section.
+              </p>
+            </Sub>
+
+            <Sub title="Collapsing a section">
+              <p>
+                Click the arrow on the left of a divider to collapse it: the
+                items beneath are hidden and the divider shows a count of how
+                many are tucked away. Click again to expand. The arrow points
+                right when collapsed and down when expanded. Collapsed state is
+                saved and stays in sync between the web app and the Android app.
+              </p>
+            </Sub>
+          </Section>
+
+          {/* ── Checklists ───────────────────────────────── */}
+          <Section id="checklists" title="Checklists">
+            <p>
+              Checklists are simple, standalone to-do lists, kept separate from
+              your notes and tasks. They are ideal for things you tick through
+              in one sitting — a shopping list, a packing list, or a repeatable
+              routine.
+            </p>
+
+            <Sub title="Creating a list">
+              <p>
+                Open the <strong className="text-white">Checklists</strong> tab,
+                type a name in the input, and press Enter. Open a list to add
+                items to it, one per line.
+              </p>
+            </Sub>
+
+            <Sub title="Checking items off">
+              <p>
+                Tap an item to mark it done, and tap again to undo. Each list
+                shows its progress as a{" "}
+                <em className="text-[#aaa]">checked / total</em> count, so you
+                can see at a glance how far through you are. Rename or delete a
+                list at any time from the list itself.
+              </p>
+            </Sub>
+          </Section>
+
           {/* ── Dashboard ─────────────────────────────────── */}
           <Section id="dashboard" title="Dashboard">
             <p>
@@ -285,6 +346,36 @@ export function DocsPage() {
                   — tasks waiting on something else.
                 </li>
               </ul>
+            </Sub>
+          </Section>
+
+          {/* ── Mobile App ────────────────────────────────── */}
+          <Section id="mobile-app" title="Mobile App">
+            <p>
+              Besides the web app there is an{" "}
+              <strong className="text-white">Android app</strong> that signs in
+              with the same account, so your notes, tags, checklists, and
+              dividers are the same on both. Capture on your phone, organise on
+              your desktop — it is all one place.
+            </p>
+
+            <Sub title="Getting the app">
+              <p>
+                Open your{" "}
+                <strong className="text-white">Account settings</strong> in the
+                web app and use the{" "}
+                <strong className="text-white">Download Android app</strong>{" "}
+                link to install the latest build. When a newer version is
+                available, the app lets you know so you can update.
+              </p>
+            </Sub>
+
+            <Sub title="What works on mobile">
+              <p>
+                Quick capture, browsing by tag, collapsing dividers, and
+                checklists all work on the phone. You stay signed in, so the app
+                is ready the moment you open it.
+              </p>
             </Sub>
           </Section>
 
@@ -526,6 +617,10 @@ export function DocsPage() {
             >
               Contact support
             </a>{" "}
+            ·{" "}
+            <Link to="/guides" className="hover:text-[#888] transition-colors">
+              Guides
+            </Link>{" "}
             ·{" "}
             <Link to="/privacy" className="hover:text-[#888] transition-colors">
               Privacy
