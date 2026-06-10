@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "无法加载条目。下拉以重试。",
-    "empty": "没有带此标签的条目"
+    "empty": "没有带此标签的条目",
+    "expandSection": "展开分区",
+    "collapseSection": "折叠分区"
   },
   "item": {
     "title": "标题",

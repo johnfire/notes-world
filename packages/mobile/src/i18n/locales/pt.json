@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Não foi possível carregar os itens. Puxe para baixo para tentar novamente.",
-    "empty": "Nenhum item com esta etiqueta"
+    "empty": "Nenhum item com esta etiqueta",
+    "expandSection": "Expandir seção",
+    "collapseSection": "Recolher seção"
   },
   "item": {
     "title": "Título",

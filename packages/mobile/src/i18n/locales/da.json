@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Kunne ikke indlæse elementer. Træk ned for at prøve igen.",
-    "empty": "Ingen elementer med dette tag"
+    "empty": "Ingen elementer med dette tag",
+    "expandSection": "Udvid sektion",
+    "collapseSection": "Skjul sektion"
   },
   "item": {
     "title": "Titel",

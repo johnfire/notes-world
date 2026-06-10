@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Couldn't load items. Pull down to retry.",
-    "empty": "No items with this tag"
+    "empty": "No items with this tag",
+    "expandSection": "Expand section",
+    "collapseSection": "Collapse section"
   },
   "item": {
     "title": "Title",

@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Elementele nu au putut fi încărcate. Trage în jos pentru a reîncerca.",
-    "empty": "Niciun element cu această etichetă"
+    "empty": "Niciun element cu această etichetă",
+    "expandSection": "Extinde secțiunea",
+    "collapseSection": "Restrânge secțiunea"
   },
   "item": {
     "title": "Titlu",

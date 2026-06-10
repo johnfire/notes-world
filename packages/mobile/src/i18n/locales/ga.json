@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Níorbh fhéidir míreanna a luchtú. Tarraing anuas chun atriail.",
-    "empty": "Gan míreanna leis an gclib seo"
+    "empty": "Gan míreanna leis an gclib seo",
+    "expandSection": "Leathnaigh an rannán",
+    "collapseSection": "Cuir an rannán i bhfolach"
   },
   "item": {
     "title": "Teideal",

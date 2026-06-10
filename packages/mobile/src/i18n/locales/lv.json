@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Neizdevās ielādēt vienumus. Pavelc uz leju, lai mēģinātu vēlreiz.",
-    "empty": "Nav vienumu ar šo birku"
+    "empty": "Nav vienumu ar šo birku",
+    "expandSection": "Izvērst sadaļu",
+    "collapseSection": "Sakļaut sadaļu"
   },
   "item": {
     "title": "Virsraksts",

@@ -23,9 +23,20 @@ interface Props {
   item: Item;
   onPress: () => void;
   onDelete?: (id: string) => void;
+  // Divider-only: collapse state, count of hidden items, and the toggle handler.
+  collapsed?: boolean;
+  hiddenCount?: number;
+  onToggle?: () => void;
 }
 
-export function ItemCard({ item, onPress, onDelete }: Props) {
+export function ItemCard({
+  item,
+  onPress,
+  onDelete,
+  collapsed,
+  hiddenCount,
+  onToggle,
+}: Props) {
   const { t, i18n } = useTranslation();
   const typeColor = TYPE_COLORS[item.item_type] ?? colors.typeUntyped;
   const date = new Date(item.updated_at).toLocaleDateString(i18n.language, {
@@ -50,9 +61,30 @@ export function ItemCard({ item, onPress, onDelete }: Props) {
         style={({ pressed }) => [s.divider, pressed && s.cardPressed]}
         onPress={onPress}
       >
+        {onToggle && (
+          <Pressable
+            onPress={onToggle}
+            hitSlop={8}
+            style={s.chevronBtn}
+            accessibilityLabel={
+              collapsed
+                ? t("tagDetail.expandSection")
+                : t("tagDetail.collapseSection")
+            }
+          >
+            <Ionicons
+              name={collapsed ? "chevron-forward" : "chevron-down"}
+              size={16}
+              color={colors.text}
+            />
+          </Pressable>
+        )}
         <Text style={s.dividerText} numberOfLines={1}>
           {item.title}
         </Text>
+        {collapsed && !!hiddenCount && (
+          <Text style={s.dividerCount}>({hiddenCount})</Text>
+        )}
         {onDelete && (
           <Pressable onPress={handleDelete} hitSlop={8} style={s.deleteBtn}>
             <Ionicons name="close" size={18} color={colors.text} />
@@ -125,6 +157,14 @@ const s = StyleSheet.create({
     color: colors.text,
     fontSize: font.md,
     fontWeight: "700",
+  },
+  chevronBtn: {
+    marginRight: spacing.sm,
+  },
+  dividerCount: {
+    color: colors.textMuted,
+    fontSize: font.sm,
+    marginRight: spacing.sm,
   },
   typeBar: {
     width: 4,

@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Impossible de charger les éléments. Tirez vers le bas pour réessayer.",
-    "empty": "Aucun élément avec cette étiquette"
+    "empty": "Aucun élément avec cette étiquette",
+    "expandSection": "Développer la section",
+    "collapseSection": "Réduire la section"
   },
   "item": {
     "title": "Titre",

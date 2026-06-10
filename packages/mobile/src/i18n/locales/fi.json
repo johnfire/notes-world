@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Kohteita ei voitu ladata. Vedä alas yrittääksesi uudelleen.",
-    "empty": "Ei kohteita tällä tunnisteella"
+    "empty": "Ei kohteita tällä tunnisteella",
+    "expandSection": "Laajenna osio",
+    "collapseSection": "Tiivistä osio"
   },
   "item": {
     "title": "Otsikko",

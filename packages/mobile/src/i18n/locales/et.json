@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Üksusi ei õnnestunud laadida. Tõmba alla, et uuesti proovida.",
-    "empty": "Selle sildiga üksusi pole"
+    "empty": "Selle sildiga üksusi pole",
+    "expandSection": "Laienda jaotis",
+    "collapseSection": "Ahenda jaotis"
   },
   "item": {
     "title": "Pealkiri",

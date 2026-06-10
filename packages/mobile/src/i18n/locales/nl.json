@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Kan items niet laden. Trek omlaag om opnieuw te proberen.",
-    "empty": "Geen items met deze tag"
+    "empty": "Geen items met deze tag",
+    "expandSection": "Sectie uitvouwen",
+    "collapseSection": "Sectie samenvouwen"
   },
   "item": {
     "title": "Titel",

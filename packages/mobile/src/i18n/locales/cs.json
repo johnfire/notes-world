@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Položky se nepodařilo načíst. Stáhněte dolů pro opakování.",
-    "empty": "Žádné položky s tímto štítkem"
+    "empty": "Žádné položky s tímto štítkem",
+    "expandSection": "Rozbalit sekci",
+    "collapseSection": "Sbalit sekci"
   },
   "item": {
     "title": "Název",

@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Nem sikerült betölteni az elemeket. Húzd le az újrapróbálkozáshoz.",
-    "empty": "Nincs elem ezzel a címkével"
+    "empty": "Nincs elem ezzel a címkével",
+    "expandSection": "Szakasz kibontása",
+    "collapseSection": "Szakasz összecsukása"
   },
   "item": {
     "title": "Cím",

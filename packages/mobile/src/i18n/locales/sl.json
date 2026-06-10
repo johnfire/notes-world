@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Elementov ni bilo mogoče naložiti. Povlecite navzdol za ponovni poskus.",
-    "empty": "Ni elementov s to oznako"
+    "empty": "Ni elementov s to oznako",
+    "expandSection": "Razširi razdelek",
+    "collapseSection": "Strni razdelek"
   },
   "item": {
     "title": "Naslov",

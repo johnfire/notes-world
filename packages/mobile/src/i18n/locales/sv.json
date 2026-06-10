@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Det gick inte att läsa in objekt. Dra nedåt för att försöka igen.",
-    "empty": "Inga objekt med den här taggen"
+    "empty": "Inga objekt med den här taggen",
+    "expandSection": "Visa avsnitt",
+    "collapseSection": "Dölj avsnitt"
   },
   "item": {
     "title": "Titel",

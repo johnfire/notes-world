@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Nepavyko įkelti elementų. Patraukite žemyn, kad bandytumėte dar kartą.",
-    "empty": "Nėra elementų su šia žyma"
+    "empty": "Nėra elementų su šia žyma",
+    "expandSection": "Išskleisti skiltį",
+    "collapseSection": "Suskleisti skiltį"
   },
   "item": {
     "title": "Pavadinimas",

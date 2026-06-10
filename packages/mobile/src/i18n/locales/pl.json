@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Nie udało się załadować elementów. Pociągnij w dół, aby ponowić.",
-    "empty": "Brak elementów z tym tagiem"
+    "empty": "Brak elementów z tym tagiem",
+    "expandSection": "Rozwiń sekcję",
+    "collapseSection": "Zwiń sekcję"
   },
   "item": {
     "title": "Tytuł",

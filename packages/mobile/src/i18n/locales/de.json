@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Einträge konnten nicht geladen werden. Zum erneuten Versuch nach unten ziehen.",
-    "empty": "Keine Einträge mit diesem Tag"
+    "empty": "Keine Einträge mit diesem Tag",
+    "expandSection": "Abschnitt einblenden",
+    "collapseSection": "Abschnitt ausblenden"
   },
   "item": {
     "title": "Titel",

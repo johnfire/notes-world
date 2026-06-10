@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Ma stajniex intellgħu l-oġġetti. Iġbed 'l isfel biex terġa' tipprova.",
-    "empty": "L-ebda oġġett b'din it-tikketta"
+    "empty": "L-ebda oġġett b'din it-tikketta",
+    "expandSection": "Espandi t-taqsima",
+    "collapseSection": "Iġbor it-taqsima"
   },
   "item": {
     "title": "Titlu",

@@ -68,7 +68,9 @@
   },
   "tagDetail": {
     "loadError": "Stavke nije moguće učitati. Povucite prema dolje za ponovni pokušaj.",
-    "empty": "Nema stavki s ovom oznakom"
+    "empty": "Nema stavki s ovom oznakom",
+    "expandSection": "Proširi odjeljak",
+    "collapseSection": "Sažmi odjeljak"
   },
   "item": {
     "title": "Naslov",
