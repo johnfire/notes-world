@@ -9,6 +9,8 @@ import { TermsOfServicePage } from "./pages/TermsOfServicePage";
 import { DocsPage } from "./pages/DocsPage";
 import { UseCasePage } from "./pages/UseCasePage";
 import { FaqPage } from "./pages/FaqPage";
+import { GuidesIndexPage } from "./pages/GuidesIndexPage";
+import { GuidePage } from "./pages/GuidePage";
 import { useCases } from "./content/useCases";
 
 // The authenticated app (views, drawers, dashboard) is the bulk of the bundle
@@ -56,6 +58,8 @@ export default function App() {
           element={<UseCasePage useCase={useCases["reminders"]} />}
         />
         <Route path="/faq" element={<FaqPage />} />
+        <Route path="/guides" element={<GuidesIndexPage />} />
+        <Route path="/guides/:slug" element={<GuidePage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AuthProvider>

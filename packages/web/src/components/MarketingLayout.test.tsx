@@ -21,7 +21,13 @@ describe("MarketingLayout", () => {
       .getAllByRole("link")
       .map((a) => a.getAttribute("href"));
     expect(hrefs).toEqual(
-      expect.arrayContaining(["/docs", "/faq", "/privacy", "/terms"]),
+      expect.arrayContaining([
+        "/docs",
+        "/guides",
+        "/faq",
+        "/privacy",
+        "/terms",
+      ]),
     );
     expect(screen.getByRole("link", { name: /sign in/i })).toHaveAttribute(
       "href",

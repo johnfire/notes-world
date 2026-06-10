@@ -56,6 +56,13 @@ export function MarketingLayout({ children }: { children: ReactNode }) {
           </Link>{" "}
           &middot;{" "}
           <Link
+            to="/guides"
+            className="text-[#888] hover:text-white transition-colors"
+          >
+            Guides
+          </Link>{" "}
+          &middot;{" "}
+          <Link
             to="/faq"
             className="text-[#888] hover:text-white transition-colors"
           >
