@@ -362,15 +362,16 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
               <div>
                 <p className="text-sm text-gray-200">Notes World for Android</p>
                 <p className="text-xs text-gray-500 mt-0.5">
-                  v0.1.0 · Sideload APK
+                  Get it on Google Play (testing)
                 </p>
               </div>
               <a
-                href="/downloads/notes-world-0.1.0.apk"
-                download
+                href="https://play.google.com/apps/testing/notes.world"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-primary text-xs px-3 py-1.5 shrink-0"
               >
-                Download APK
+                Get on Google Play
               </a>
             </div>
           </section>

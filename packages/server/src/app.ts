@@ -104,12 +104,15 @@ export function createApp() {
     next();
   });
 
-  // Mobile app version info — public, no auth
+  // Mobile app version info — public, no auth. The self-hosted sideload APK was
+  // retired in favour of Play closed-testing (CI auto-publishes there), so the
+  // download points at the Play testing track. versionCode is left at 0 so the
+  // legacy in-app update prompt never fires — the Play Store handles updates.
   app.get("/api/mobile/version", (_req, res) => {
     res.json({
       version: "0.1.0",
-      versionCode: 1,
-      downloadUrl: "/downloads/notes-world-0.1.0.apk",
+      versionCode: 0,
+      downloadUrl: "https://play.google.com/apps/testing/notes.world",
     });
   });
 

@@ -364,9 +364,9 @@ export function DocsPage() {
                 Open your{" "}
                 <strong className="text-white">Account settings</strong> in the
                 web app and use the{" "}
-                <strong className="text-white">Download Android app</strong>{" "}
-                link to install the latest build. When a newer version is
-                available, the app lets you know so you can update.
+                <strong className="text-white">Get on Google Play</strong> link
+                to install it from the Play testing track. The Play Store keeps
+                it up to date automatically.
               </p>
             </Sub>
 
