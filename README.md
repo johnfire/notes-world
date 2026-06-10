@@ -29,13 +29,13 @@ docker compose up --build
 
 ## Tech Stack
 
-| Layer    | Tech                              |
-|----------|-----------------------------------|
-| Frontend | React 18 + TypeScript + Vite      |
-| Styling  | Tailwind CSS (dark theme)         |
-| Backend  | Node 20 + Express 4 + TypeScript  |
-| Database | PostgreSQL 16 (raw SQL)           |
-| Deploy   | Docker Compose                    |
+| Layer    | Tech                             |
+| -------- | -------------------------------- |
+| Frontend | React 18 + TypeScript + Vite     |
+| Styling  | Tailwind CSS (dark theme)        |
+| Backend  | Node 20 + Express 4 + TypeScript |
+| Database | PostgreSQL 16 (raw SQL)          |
+| Deploy   | Docker Compose                   |
 
 ## Structure
 
@@ -60,6 +60,7 @@ notes-world/
 The Docker Compose stack includes automatic daily database backups via [postgres-backup-local](https://github.com/prodrigestivill/docker-postgres-backup-local).
 
 **Retention policy:**
+
 - 7 daily backups
 - 4 weekly backups
 - 3 monthly backups
@@ -147,33 +148,33 @@ Add to `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS)
 
 ### Available tools
 
-| Tool | Description |
-|------|-------------|
-| `create_item` | Create a new item |
-| `get_item` | Get item by ID |
-| `update_item` | Update title, body, or color |
-| `promote_item` | Promote untyped item to Task/Idea/Note/Reminder |
-| `archive_item` | Archive (soft delete) an item |
-| `restore_item` | Restore from archive |
-| `get_recent_items` | List recently updated items |
-| `get_trash` | List archived items |
-| `search_items` | Full-text search across items |
-| `list_tasks` | List all tasks with status/priority |
-| `start_task` | Move task to In Progress |
-| `complete_task` | Mark task as done |
-| `block_task` | Mark task as blocked |
-| `list_ideas` | List ideas by maturity |
-| `list_notes` | List all notes |
-| `list_tags` | List tags with usage counts |
-| `create_tag` | Create a new tag |
-| `tag_item` | Add a tag to an item |
-| `untag_item` | Remove a tag from an item |
-| `get_items_for_tag` | Get items with a specific tag |
-| `get_tags_for_item` | Get tags on an item |
-| `rename_tag` | Rename a tag |
-| `delete_tag` | Delete a tag |
-| `export_tag` | Export tag's items as markdown |
-| `export_untagged` | Export untagged items as markdown |
+| Tool                | Description                                     |
+| ------------------- | ----------------------------------------------- |
+| `create_item`       | Create a new item                               |
+| `get_item`          | Get item by ID                                  |
+| `update_item`       | Update title, body, or color                    |
+| `promote_item`      | Promote untyped item to Task/Idea/Note/Reminder |
+| `archive_item`      | Archive (soft delete) an item                   |
+| `restore_item`      | Restore from archive                            |
+| `get_recent_items`  | List recently updated items                     |
+| `get_trash`         | List archived items                             |
+| `search_items`      | Full-text search across items                   |
+| `list_tasks`        | List all tasks with status/priority             |
+| `start_task`        | Move task to In Progress                        |
+| `complete_task`     | Mark task as done                               |
+| `block_task`        | Mark task as blocked                            |
+| `list_ideas`        | List ideas by maturity                          |
+| `list_notes`        | List all notes                                  |
+| `list_tags`         | List tags with usage counts                     |
+| `create_tag`        | Create a new tag                                |
+| `tag_item`          | Add a tag to an item                            |
+| `untag_item`        | Remove a tag from an item                       |
+| `get_items_for_tag` | Get items with a specific tag                   |
+| `get_tags_for_item` | Get tags on an item                             |
+| `rename_tag`        | Rename a tag                                    |
+| `delete_tag`        | Delete a tag                                    |
+| `export_tag`        | Export tag's items as markdown                  |
+| `export_untagged`   | Export untagged items as markdown               |
 
 ## HTTPS / Reverse Proxy
 
@@ -216,6 +217,15 @@ npm test                 # run all tests
 npm run lint             # lint all code
 npm run migrate          # apply pending migrations
 ```
+
+## License
+
+Proprietary — copyright © 2026 Christopher Rehm, all rights reserved. The source
+is public for transparency only; it is **not** open source and may not be used,
+copied, modified, hosted, or deployed without prior written permission. See
+[LICENSE](LICENSE). The only authorized deployment is the hosted service at
+https://notes-world.christopherrehm.de. Licensing inquiries:
+christopher.rehm.63@protonmail.com
 
 ## Support
 
