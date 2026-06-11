@@ -78,6 +78,36 @@ describe("api client token refresh", () => {
     expect(onAuthFailure).not.toHaveBeenCalled();
   });
 
+  it("refreshes and retries when the server rejects the access token with 403", async () => {
+    // The API answers expired/invalid access tokens with 403 (not 401); the
+    // client must treat both as a refresh trigger — this is what broke every
+    // screen ~15 min after login ("lost the lists").
+    store[ACCESS_KEY] = "expired-access";
+    store[REFRESH_KEY] = "good-refresh";
+    const onAuthFailure = vi.fn();
+    setAuthFailureHandler(onAuthFailure);
+
+    global.fetch = vi
+      .fn()
+      .mockResolvedValueOnce(
+        res(403, { error: { message: "Invalid or expired access token" } }),
+      ) // GET → 403
+      .mockResolvedValueOnce(
+        res(200, {
+          access_token: "new-access",
+          refresh_token: "new-refresh",
+          expires_in: 900,
+        }),
+      ) // /auth/refresh
+      .mockResolvedValueOnce(res(200, [{ id: "c1" }])); // retried GET
+
+    const result = await api.get<Array<{ id: string }>>("/checklists");
+
+    expect(result).toEqual([{ id: "c1" }]);
+    expect(store[ACCESS_KEY]).toBe("new-access");
+    expect(onAuthFailure).not.toHaveBeenCalled();
+  });
+
   it("does NOT log out on a network error during refresh (keeps the session)", async () => {
     store[ACCESS_KEY] = "expired-access";
     store[REFRESH_KEY] = "good-refresh";

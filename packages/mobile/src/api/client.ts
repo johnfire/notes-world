@@ -105,7 +105,9 @@ async function request<T>(
 
   const res = await fetch(`${BASE_URL}${path}`, { ...options, headers });
 
-  if (res.status === 401 && retryOnAuthFail) {
+  // The API answers an invalid/expired access token with 403 as well as 401
+  // (the web client already treats both as a refresh trigger).
+  if ((res.status === 401 || res.status === 403) && retryOnAuthFail) {
     const outcome = await refreshSession();
     if (outcome.status === "refreshed") {
       return request<T>(path, options, false);
