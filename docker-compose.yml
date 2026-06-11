@@ -33,6 +33,9 @@ services:
       - MCP_OAUTH_CLIENT_ID=notes-world-mcp
       - MCP_JWT_SECRET=${MCP_JWT_SECRET}
       - MCP_PORT=3002
+      - MCP_STORE_PATH=/data/oauth-store.json
+    volumes:
+      - mcp_oauth_store:/data
     depends_on:
       - app
     restart: unless-stopped
@@ -89,3 +92,4 @@ services:
 
 volumes:
   postgres_data:
+  mcp_oauth_store:
