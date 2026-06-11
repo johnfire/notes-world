@@ -62,9 +62,10 @@ export async function deleteTag(id: TagId, userId: UserId): Promise<void> {
 
 export async function findAllTags(userId: UserId): Promise<TagWithCount[]> {
   return query<TagWithCount>(
-    `SELECT t.*, COUNT(it.id)::int AS item_count
+    `SELECT t.*, COUNT(i.id)::int AS item_count
      FROM tags t
      LEFT JOIN item_tags it ON it.tag_id = t.id
+     LEFT JOIN items i ON i.id = it.item_id AND i.status = 'Active' AND i.item_type != 'Divider'
      WHERE t.user_id = $1
      GROUP BY t.id
      ORDER BY t.name ASC`,
@@ -92,7 +93,7 @@ export async function findTagUsageCounts(
     `SELECT t.*, COUNT(i.id)::int AS count
      FROM tags t
      LEFT JOIN item_tags it ON it.tag_id = t.id
-     LEFT JOIN items i ON i.id = it.item_id AND i.status = 'Active'
+     LEFT JOIN items i ON i.id = it.item_id AND i.status = 'Active' AND i.item_type != 'Divider'
      WHERE t.user_id = $1
      GROUP BY t.id
      ORDER BY t.name ASC`,

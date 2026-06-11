@@ -1,7 +1,7 @@
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
-import { vi } from 'vitest';
-import { TagView } from './TagView';
-import { ItemType } from '../types';
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import { vi } from "vitest";
+import { TagView } from "./TagView";
+import { ItemType } from "../types";
 
 const mockGetItemsForTag = vi.fn();
 const mockGetCollapsed = vi.fn();
@@ -10,8 +10,9 @@ const mockCreateDivider = vi.fn();
 const mockTagItem = vi.fn();
 const mockOpenItem = vi.fn();
 const mockRemoveUnsorted = vi.fn();
+const mockLoadTags = vi.fn();
 
-vi.mock('../api', () => ({
+vi.mock("../api", () => ({
   tags: {
     getItemsForTag: (...args: unknown[]) => mockGetItemsForTag(...args),
     tagItem: (...args: unknown[]) => mockTagItem(...args),
@@ -31,20 +32,34 @@ vi.mock('../api', () => ({
   },
 }));
 
-vi.mock('../context/AppContext', () => ({
+vi.mock("../context/AppContext", () => ({
   useApp: () => ({
     openItem: mockOpenItem,
     removeUnsorted: mockRemoveUnsorted,
+    loadTags: mockLoadTags,
     state: { refreshKey: 0, unsortedItems: [] },
   }),
 }));
 
-const tag = { id: 't1', user_id: 'u1', name: 'recipes', tag_source: 'manual' as const, color: null, created_at: '', updated_at: '' };
+const tag = {
+  id: "t1",
+  user_id: "u1",
+  name: "recipes",
+  tag_source: "manual" as const,
+  color: null,
+  created_at: "",
+  updated_at: "",
+};
 
 function makeItem(id: string, title: string, type = ItemType.Untyped) {
   return {
-    id, user_id: 'u1', title, item_type: type,
-    status: 'Active', created_at: '', updated_at: '',
+    id,
+    user_id: "u1",
+    title,
+    item_type: type,
+    status: "Active",
+    created_at: "",
+    updated_at: "",
   };
 }
 
@@ -53,63 +68,90 @@ beforeEach(() => {
   mockGetCollapsed.mockResolvedValue([]);
 });
 
-describe('TagView', () => {
-  test('renders tag name and item count', async () => {
+describe("TagView", () => {
+  test("renders tag name and item count", async () => {
     mockGetItemsForTag.mockResolvedValue([
-      makeItem('1', 'Pancakes'),
-      makeItem('2', 'Waffles'),
+      makeItem("1", "Pancakes"),
+      makeItem("2", "Waffles"),
     ]);
 
     render(<TagView tag={tag} />);
 
-    await waitFor(() => expect(screen.getByText('2 items')).toBeInTheDocument());
-    expect(screen.getByText('recipes')).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByText("2 items")).toBeInTheDocument(),
+    );
+    expect(screen.getByText("recipes")).toBeInTheDocument();
   });
 
-  test('shows loading then items', async () => {
-    mockGetItemsForTag.mockResolvedValue([makeItem('1', 'Pancakes')]);
+  test("shows loading then items", async () => {
+    mockGetItemsForTag.mockResolvedValue([makeItem("1", "Pancakes")]);
 
     render(<TagView tag={tag} />);
 
-    expect(screen.getByText('Loading…')).toBeInTheDocument();
-    await waitFor(() => expect(screen.getByText('Pancakes')).toBeInTheDocument());
+    expect(screen.getByText("Loading…")).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByText("Pancakes")).toBeInTheDocument(),
+    );
   });
 
-  test('shows empty state when no items', async () => {
+  test("shows empty state when no items", async () => {
     mockGetItemsForTag.mockResolvedValue([]);
 
     render(<TagView tag={tag} />);
 
-    await waitFor(() => expect(screen.getByText('No items with this tag')).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText("No items with this tag")).toBeInTheDocument(),
+    );
   });
 
-  test('clicking item opens it', async () => {
-    mockGetItemsForTag.mockResolvedValue([makeItem('i1', 'Click me')]);
+  test("clicking item opens it", async () => {
+    mockGetItemsForTag.mockResolvedValue([makeItem("i1", "Click me")]);
 
     render(<TagView tag={tag} />);
 
-    await waitFor(() => expect(screen.getByText('Click me')).toBeInTheDocument());
-    fireEvent.click(screen.getByText('Click me'));
+    await waitFor(() =>
+      expect(screen.getByText("Click me")).toBeInTheDocument(),
+    );
+    fireEvent.click(screen.getByText("Click me"));
 
-    expect(mockOpenItem).toHaveBeenCalledWith('i1');
+    expect(mockOpenItem).toHaveBeenCalledWith("i1");
   });
 
-  test('dividers do not count toward item count', async () => {
+  test("dividers do not count toward item count", async () => {
     mockGetItemsForTag.mockResolvedValue([
-      makeItem('1', 'Item', ItemType.Untyped),
-      makeItem('2', 'Section', ItemType.Divider),
+      makeItem("1", "Item", ItemType.Untyped),
+      makeItem("2", "Section", ItemType.Divider),
     ]);
 
     render(<TagView tag={tag} />);
 
-    await waitFor(() => expect(screen.getByText('1 items')).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText("1 items")).toBeInTheDocument(),
+    );
   });
 
-  test('fetches items with limit 500', async () => {
+  test("archiving an item refreshes tag counts", async () => {
+    mockGetItemsForTag.mockResolvedValue([makeItem("i1", "Trash me")]);
+    mockArchive.mockResolvedValue({});
+
+    render(<TagView tag={tag} />);
+
+    await waitFor(() =>
+      expect(screen.getByText("Trash me")).toBeInTheDocument(),
+    );
+    fireEvent.click(screen.getByTitle("Move to trash"));
+
+    await waitFor(() => expect(mockArchive).toHaveBeenCalledWith("i1"));
+    await waitFor(() => expect(mockLoadTags).toHaveBeenCalled());
+  });
+
+  test("fetches items with limit 500", async () => {
     mockGetItemsForTag.mockResolvedValue([]);
 
     render(<TagView tag={tag} />);
 
-    await waitFor(() => expect(mockGetItemsForTag).toHaveBeenCalledWith('t1', 500));
+    await waitFor(() =>
+      expect(mockGetItemsForTag).toHaveBeenCalledWith("t1", 500),
+    );
   });
 });

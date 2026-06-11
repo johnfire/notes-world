@@ -5,6 +5,7 @@ import { TrashView } from "./TrashView";
 const mockTrash = vi.fn();
 const mockRestore = vi.fn();
 const mockPurge = vi.fn();
+const mockLoadTags = vi.fn();
 
 vi.mock("../api", () => ({
   items: {
@@ -12,6 +13,12 @@ vi.mock("../api", () => ({
     restore: (...args: unknown[]) => mockRestore(...args),
     purge: (...args: unknown[]) => mockPurge(...args),
   },
+}));
+
+vi.mock("../context/AppContext", () => ({
+  useApp: () => ({
+    loadTags: mockLoadTags,
+  }),
 }));
 
 function makeItem(id: string, title: string, archived_at?: string) {
@@ -71,6 +78,7 @@ describe("TrashView", () => {
     );
     expect(mockRestore).toHaveBeenCalledWith("1");
     expect(screen.getByText("Item B")).toBeInTheDocument();
+    expect(mockLoadTags).toHaveBeenCalled();
   });
 
   test("purge removes item from list", async () => {

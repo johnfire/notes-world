@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Item } from "../types";
 import * as api from "../api";
+import { useApp } from "../context/AppContext";
 
 export function TrashView() {
   const { t } = useTranslation();
+  const { loadTags } = useApp();
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -19,6 +21,7 @@ export function TrashView() {
   async function handleRestore(id: string) {
     await api.items.restore(id);
     setItems((prev) => prev.filter((i) => i.id !== id));
+    void loadTags();
   }
 
   async function handlePurge(id: string) {

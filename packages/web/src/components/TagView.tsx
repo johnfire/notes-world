@@ -18,6 +18,7 @@ export function TagView({ tag }: Props) {
     openItem,
     state: { refreshKey, unsortedItems },
     removeUnsorted,
+    loadTags,
   } = useApp();
   const [items, setItems] = useState<Item[]>([]);
   const [visualOrder, setVisualOrder] = useState<Item[]>([]);
@@ -105,6 +106,7 @@ export function TagView({ tag }: Props) {
   async function handleArchiveItem(id: string) {
     await api.items.archive(id);
     setItems((prev) => prev.filter((i) => i.id !== id));
+    void loadTags();
   }
 
   async function handleColorChange(id: string, color: string | null) {

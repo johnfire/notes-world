@@ -1,23 +1,24 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Item, Tag, Dependency } from '../../types';
-import { useApp } from '../../context/AppContext';
-import * as api from '../../api';
+import { useState, useEffect, useCallback } from "react";
+import { Item, Tag, Dependency } from "../../types";
+import { useApp } from "../../context/AppContext";
+import * as api from "../../api";
 
 export function useItemDrawer() {
-  const { state, closeItem, openItem, updateItemInContext, loadTags } = useApp();
+  const { state, closeItem, openItem, updateItemInContext, loadTags } =
+    useApp();
   const { selectedItemId } = state;
 
-  const [item, setItem]       = useState<Item | null>(null);
+  const [item, setItem] = useState<Item | null>(null);
   const [itemTags, setItemTags] = useState<Tag[]>([]);
   const [loading, setLoading] = useState(false);
 
   // edit state
-  const [title, setTitle]   = useState('');
-  const [body, setBody]     = useState('');
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
   const [saving, setSaving] = useState(false);
 
   // tag picker
-  const [tagSearch, setTagSearch]     = useState('');
+  const [tagSearch, setTagSearch] = useState("");
   const [tagPickerOpen, setTagPickerOpen] = useState(false);
 
   // promote
@@ -27,10 +28,10 @@ export function useItemDrawer() {
   const [actioning, setActioning] = useState(false);
 
   // dependencies
-  const [deps, setDeps]               = useState<Dependency[]>([]);
-  const [dependents, setDependents]   = useState<Dependency[]>([]);
-  const [depItems, setDepItems]       = useState<Record<string, Item>>({});
-  const [depSearch, setDepSearch]     = useState('');
+  const [deps, setDeps] = useState<Dependency[]>([]);
+  const [dependents, setDependents] = useState<Dependency[]>([]);
+  const [depItems, setDepItems] = useState<Record<string, Item>>({});
+  const [depSearch, setDepSearch] = useState("");
   const [depSearchResults, setDepSearchResults] = useState<Item[]>([]);
 
   const loadItem = useCallback(async (id: string) => {
@@ -44,7 +45,7 @@ export function useItemDrawer() {
       ]);
       setItem(fetched);
       setTitle(fetched.title);
-      setBody(fetched.body ?? '');
+      setBody(fetched.body ?? "");
       setItemTags(fetchedTags);
 
       const [fetchedDeps, fetchedDependents] = await Promise.all([
@@ -55,14 +56,18 @@ export function useItemDrawer() {
       setDependents(fetchedDependents);
 
       const idsToFetch = [
-        ...fetchedDeps.map(d => d.dependency_id),
-        ...fetchedDependents.map(d => d.dependent_id),
+        ...fetchedDeps.map((d) => d.dependency_id),
+        ...fetchedDependents.map((d) => d.dependent_id),
       ];
       const unique = [...new Set(idsToFetch)];
       if (unique.length > 0) {
-        const depItemsList = await Promise.all(unique.map(depId => api.items.getById(depId)));
+        const depItemsList = await Promise.all(
+          unique.map((depId) => api.items.getById(depId)),
+        );
         const cache: Record<string, Item> = {};
-        depItemsList.forEach(i => { cache[i.id] = i; });
+        depItemsList.forEach((i) => {
+          cache[i.id] = i;
+        });
         setDepItems(cache);
       } else {
         setDepItems({});
@@ -88,15 +93,15 @@ export function useItemDrawer() {
   useEffect(() => {
     if (!selectedItemId) return;
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeItem();
+      if (e.key === "Escape") closeItem();
     };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
   }, [selectedItemId, closeItem]);
 
   async function saveTitle() {
     if (!item || !title.trim() || title.trim() === item.title) {
-      if (!title.trim()) setTitle(item?.title ?? '');
+      if (!title.trim()) setTitle(item?.title ?? "");
       return;
     }
     setSaving(true);
@@ -111,10 +116,12 @@ export function useItemDrawer() {
   }
 
   async function saveBody() {
-    if (!item || body === (item.body ?? '')) return;
+    if (!item || body === (item.body ?? "")) return;
     setSaving(true);
     try {
-      const updated = await api.items.update(item.id, { body: body || undefined });
+      const updated = await api.items.update(item.id, {
+        body: body || undefined,
+      });
       setItem(updated);
       updateItemInContext(updated);
     } finally {
@@ -125,8 +132,8 @@ export function useItemDrawer() {
   async function handleAddTag(tag: Tag) {
     if (!item) return;
     await api.tags.tagItem(item.id, tag.id);
-    setItemTags(prev => [...prev, tag]);
-    setTagSearch('');
+    setItemTags((prev) => [...prev, tag]);
+    setTagSearch("");
     setTagPickerOpen(false);
     void loadTags();
   }
@@ -135,8 +142,8 @@ export function useItemDrawer() {
     if (!item) return;
     const newTag = await api.tags.create(name.trim());
     await api.tags.tagItem(item.id, newTag.id);
-    setItemTags(prev => [...prev, newTag]);
-    setTagSearch('');
+    setItemTags((prev) => [...prev, newTag]);
+    setTagSearch("");
     setTagPickerOpen(false);
     void loadTags();
   }
@@ -144,11 +151,11 @@ export function useItemDrawer() {
   async function handleRemoveTag(tagId: string) {
     if (!item) return;
     await api.tags.untagItem(item.id, tagId);
-    setItemTags(prev => prev.filter(t => t.id !== tagId));
+    setItemTags((prev) => prev.filter((t) => t.id !== tagId));
     void loadTags();
   }
 
-  async function handlePromote(newType: import('../../types').ItemType) {
+  async function handlePromote(newType: import("../../types").ItemType) {
     if (!item) return;
     setPromoteOpen(false);
     const updated = await api.items.promote(item.id, newType);
@@ -161,6 +168,7 @@ export function useItemDrawer() {
     const updated = await api.items.archive(item.id);
     setItem(updated);
     updateItemInContext(updated);
+    void loadTags();
   }
 
   async function handleRestore() {
@@ -168,9 +176,10 @@ export function useItemDrawer() {
     const updated = await api.items.restore(item.id);
     setItem(updated);
     updateItemInContext(updated);
+    void loadTags();
   }
 
-  async function handleTaskAction(action: 'complete' | 'start' | 'block') {
+  async function handleTaskAction(action: "complete" | "start" | "block") {
     if (!item) return;
     setActioning(true);
     try {
@@ -191,14 +200,17 @@ export function useItemDrawer() {
   async function handleAddDep(dependencyItemId: string) {
     if (!item) return;
     await api.dependencies.add(item.id, dependencyItemId);
-    setDepSearch('');
+    setDepSearch("");
     setDepSearchResults([]);
     void loadItem(item.id);
   }
 
   function handleDepSearch(q: string) {
     setDepSearch(q);
-    if (!q.trim()) { setDepSearchResults([]); return; }
+    if (!q.trim()) {
+      setDepSearchResults([]);
+      return;
+    }
     const timer = setTimeout(async () => {
       const results = await api.items.search(q);
       setDepSearchResults(results.slice(0, 8));
@@ -211,16 +223,24 @@ export function useItemDrawer() {
     selectedItemId,
     item,
     loading,
-    title, setTitle,
-    body, setBody,
+    title,
+    setTitle,
+    body,
+    setBody,
     saving,
     itemTags,
-    tagSearch, setTagSearch,
-    tagPickerOpen, setTagPickerOpen,
-    promoteOpen, setPromoteOpen,
+    tagSearch,
+    setTagSearch,
+    tagPickerOpen,
+    setTagPickerOpen,
+    promoteOpen,
+    setPromoteOpen,
     actioning,
-    deps, dependents, depItems,
-    depSearch, depSearchResults,
+    deps,
+    dependents,
+    depItems,
+    depSearch,
+    depSearchResults,
     allTags: state.tags,
 
     // actions
