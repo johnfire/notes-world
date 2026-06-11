@@ -118,6 +118,21 @@ export function Sidebar({
     [loadTags],
   );
 
+  const handleDelete = useCallback(
+    async (tag: Tag) => {
+      if (
+        !window.confirm(
+          `Delete tag "${tag.name}"? Your notes are kept — they just lose this tag.`,
+        )
+      )
+        return;
+      await api.tags.delete(tag.id);
+      if (selectedTagId === tag.id) onTagSelect(null);
+      await loadTags();
+    },
+    [loadTags, selectedTagId, onTagSelect],
+  );
+
   if (collapsed) {
     return (
       <aside className="w-10 bg-surface-900 border-r border-surface-500 flex flex-col items-center py-3 shrink-0">
@@ -160,6 +175,7 @@ export function Sidebar({
         onItemDragLeave={handleDragLeave}
         onColorChange={handleColorChange}
         onRename={handleRename}
+        onDelete={handleDelete}
       />
     ));
   }
@@ -389,6 +405,7 @@ interface SortableTagRowProps {
   onItemDragLeave: (e: React.DragEvent) => void;
   onColorChange: (tagId: string, color: string | null) => void;
   onRename: (tagId: string, newName: string) => Promise<void>;
+  onDelete: (tag: Tag) => Promise<void>;
 }
 
 function SortableTagRow({
@@ -402,6 +419,7 @@ function SortableTagRow({
   onItemDragLeave,
   onColorChange,
   onRename,
+  onDelete,
 }: SortableTagRowProps) {
   const { t } = useTranslation();
   const dragAllowed = useRef(false);
@@ -501,7 +519,7 @@ function SortableTagRow({
         }
       }}
       className={[
-        "w-full flex items-center text-sm transition-colors relative",
+        "w-full flex items-center text-sm transition-colors relative group",
         base,
         sortable.dragId === tag.id ? "opacity-40 scale-[0.98]" : "",
         sortable.dragOverId === tag.id ? "border-t-2 border-accent" : "",
@@ -617,8 +635,33 @@ function SortableTagRow({
         >
           <span className="truncate">{tag.name}</span>
           {tag.count !== undefined && (
-            <span className="text-xs opacity-50 ml-2">{tag.count}</span>
+            <span className="text-xs opacity-50 ml-2 group-hover:hidden">
+              {tag.count}
+            </span>
           )}
+        </button>
+      )}
+      {!editing && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            void onDelete(tag);
+          }}
+          className="hidden group-hover:block text-gray-600 hover:text-red-400 transition-colors pr-3 shrink-0"
+          title="Delete tag"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            className="w-3.5 h-3.5"
+          >
+            <path
+              fillRule="evenodd"
+              d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.596 19h4.807a2.75 2.75 0 0 0 2.742-2.53l.841-10.52.149.023a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 3.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.3 7.5a.75.75 0 1 0 1.5-.06l-.3-7.5Zm4.34.06a.75.75 0 1 0-1.5-.06l-.3 7.5a.75.75 0 1 0 1.5.06l.3-7.5Z"
+              clipRule="evenodd"
+            />
+          </svg>
         </button>
       )}
     </div>
