@@ -64,13 +64,16 @@
     "allAdded": "Všetky štítky už pridané",
     "loadError": "Štítky sa nepodarilo načítať. Potiahnite nadol pre opakovanie.",
     "empty": "Zatiaľ žiadne štítky",
-    "label": "Štítky"
+    "label": "Štítky",
+    "deleteTitle": "Odstrániť štítok „{{name}}“?",
+    "deleteMsg": "Vaše poznámky zostanú zachované — stratia iba tento štítok."
   },
   "tagDetail": {
     "loadError": "Položky sa nepodarilo načítať. Potiahnite nadol pre opakovanie.",
     "empty": "Žiadne položky s týmto štítkom",
     "expandSection": "Rozbaliť sekciu",
-    "collapseSection": "Zbaliť sekciu"
+    "collapseSection": "Zbaliť sekciu",
+    "reorder": "Zmeniť poradie"
   },
   "item": {
     "title": "Názov",

@@ -64,13 +64,16 @@
     "allAdded": "Sve oznake već su dodane",
     "loadError": "Oznake nije moguće učitati. Povucite prema dolje za ponovni pokušaj.",
     "empty": "Još nema oznaka",
-    "label": "Oznake"
+    "label": "Oznake",
+    "deleteTitle": "Izbrisati oznaku „{{name}}“?",
+    "deleteMsg": "Vaše bilješke ostaju — samo gube ovu oznaku."
   },
   "tagDetail": {
     "loadError": "Stavke nije moguće učitati. Povucite prema dolje za ponovni pokušaj.",
     "empty": "Nema stavki s ovom oznakom",
     "expandSection": "Proširi odjeljak",
-    "collapseSection": "Sažmi odjeljak"
+    "collapseSection": "Sažmi odjeljak",
+    "reorder": "Promijeni redoslijed"
   },
   "item": {
     "title": "Naslov",

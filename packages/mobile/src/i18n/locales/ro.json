@@ -64,13 +64,16 @@
     "allAdded": "Toate etichetele au fost deja adăugate",
     "loadError": "Etichetele nu au putut fi încărcate. Trage în jos pentru a reîncerca.",
     "empty": "Încă nicio etichetă",
-    "label": "Etichete"
+    "label": "Etichete",
+    "deleteTitle": "Ștergi eticheta „{{name}}”?",
+    "deleteMsg": "Notițele tale sunt păstrate — pierd doar această etichetă."
   },
   "tagDetail": {
     "loadError": "Elementele nu au putut fi încărcate. Trage în jos pentru a reîncerca.",
     "empty": "Niciun element cu această etichetă",
     "expandSection": "Extinde secțiunea",
-    "collapseSection": "Restrânge secțiunea"
+    "collapseSection": "Restrânge secțiunea",
+    "reorder": "Reordonează"
   },
   "item": {
     "title": "Titlu",

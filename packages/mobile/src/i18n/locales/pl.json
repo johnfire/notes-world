@@ -64,13 +64,16 @@
     "allAdded": "Wszystkie tagi już dodane",
     "loadError": "Nie udało się załadować tagów. Pociągnij w dół, aby ponowić.",
     "empty": "Brak tagów",
-    "label": "Tagi"
+    "label": "Tagi",
+    "deleteTitle": "Usunąć tag „{{name}}”?",
+    "deleteMsg": "Twoje notatki zostaną zachowane — stracą tylko ten tag."
   },
   "tagDetail": {
     "loadError": "Nie udało się załadować elementów. Pociągnij w dół, aby ponowić.",
     "empty": "Brak elementów z tym tagiem",
     "expandSection": "Rozwiń sekcję",
-    "collapseSection": "Zwiń sekcję"
+    "collapseSection": "Zwiń sekcję",
+    "reorder": "Zmień kolejność"
   },
   "item": {
     "title": "Tytuł",

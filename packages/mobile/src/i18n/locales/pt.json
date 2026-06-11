@@ -64,13 +64,16 @@
     "allAdded": "Todas as etiquetas já foram adicionadas",
     "loadError": "Não foi possível carregar as etiquetas. Puxe para baixo para tentar novamente.",
     "empty": "Ainda não há etiquetas",
-    "label": "Etiquetas"
+    "label": "Etiquetas",
+    "deleteTitle": "Eliminar a etiqueta «{{name}}»?",
+    "deleteMsg": "As suas notas são mantidas — apenas perdem esta etiqueta."
   },
   "tagDetail": {
     "loadError": "Não foi possível carregar os itens. Puxe para baixo para tentar novamente.",
     "empty": "Nenhum item com esta etiqueta",
     "expandSection": "Expandir seção",
-    "collapseSection": "Recolher seção"
+    "collapseSection": "Recolher seção",
+    "reorder": "Reordenar"
   },
   "item": {
     "title": "Título",

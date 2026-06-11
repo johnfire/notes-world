@@ -64,13 +64,16 @@
     "allAdded": "Alle tags zijn al toegevoegd",
     "loadError": "Kan tags niet laden. Trek omlaag om opnieuw te proberen.",
     "empty": "Nog geen tags",
-    "label": "Tags"
+    "label": "Tags",
+    "deleteTitle": "Tag ‘{{name}}’ verwijderen?",
+    "deleteMsg": "Je notities blijven bewaard — ze verliezen alleen deze tag."
   },
   "tagDetail": {
     "loadError": "Kan items niet laden. Trek omlaag om opnieuw te proberen.",
     "empty": "Geen items met deze tag",
     "expandSection": "Sectie uitvouwen",
-    "collapseSection": "Sectie samenvouwen"
+    "collapseSection": "Sectie samenvouwen",
+    "reorder": "Herordenen"
   },
   "item": {
     "title": "Titel",

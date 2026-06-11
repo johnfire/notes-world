@@ -64,13 +64,16 @@
     "allAdded": "Alle tags er allerede tilføjet",
     "loadError": "Kunne ikke indlæse tags. Træk ned for at prøve igen.",
     "empty": "Ingen tags endnu",
-    "label": "Tags"
+    "label": "Tags",
+    "deleteTitle": "Slet tagget \"{{name}}\"?",
+    "deleteMsg": "Dine noter bevares — de mister kun dette tag."
   },
   "tagDetail": {
     "loadError": "Kunne ikke indlæse elementer. Træk ned for at prøve igen.",
     "empty": "Ingen elementer med dette tag",
     "expandSection": "Udvid sektion",
-    "collapseSection": "Skjul sektion"
+    "collapseSection": "Skjul sektion",
+    "reorder": "Omarranger"
   },
   "item": {
     "title": "Titel",

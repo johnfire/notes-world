@@ -64,13 +64,16 @@
     "allAdded": "Tutte le etichette sono già state aggiunte",
     "loadError": "Impossibile caricare le etichette. Tira verso il basso per riprovare.",
     "empty": "Ancora nessuna etichetta",
-    "label": "Etichette"
+    "label": "Etichette",
+    "deleteTitle": "Eliminare l’etichetta «{{name}}»?",
+    "deleteMsg": "Le tue note vengono conservate — perdono solo questa etichetta."
   },
   "tagDetail": {
     "loadError": "Impossibile caricare gli elementi. Tira verso il basso per riprovare.",
     "empty": "Nessun elemento con questa etichetta",
     "expandSection": "Espandi sezione",
-    "collapseSection": "Comprimi sezione"
+    "collapseSection": "Comprimi sezione",
+    "reorder": "Riordina"
   },
   "item": {
     "title": "Titolo",

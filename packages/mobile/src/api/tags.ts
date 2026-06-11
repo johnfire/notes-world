@@ -9,6 +9,11 @@ export function getItemsByTag(tagId: string): Promise<Item[]> {
   return api.get<Item[]>(`/tags/${tagId}/items`);
 }
 
+// Deletes the tag itself; item_tags cascade server-side, items are untouched.
+export function deleteTag(tagId: string): Promise<void> {
+  return api.delete<void>(`/tags/${tagId}`);
+}
+
 export function getTagsForItem(itemId: string): Promise<Tag[]> {
   return api.get<Tag[]>(`/tags/item/${itemId}`);
 }

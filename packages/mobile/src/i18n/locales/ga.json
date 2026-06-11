@@ -64,13 +64,16 @@
     "allAdded": "Curtha leis gach clib cheana",
     "loadError": "Níorbh fhéidir clibeanna a luchtú. Tarraing anuas chun atriail.",
     "empty": "Gan clibeanna fós",
-    "label": "Clibeanna"
+    "label": "Clibeanna",
+    "deleteTitle": "Scrios an chlib “{{name}}”?",
+    "deleteMsg": "Coinnítear do nótaí — ní chailleann siad ach an chlib seo."
   },
   "tagDetail": {
     "loadError": "Níorbh fhéidir míreanna a luchtú. Tarraing anuas chun atriail.",
     "empty": "Gan míreanna leis an gclib seo",
     "expandSection": "Leathnaigh an rannán",
-    "collapseSection": "Cuir an rannán i bhfolach"
+    "collapseSection": "Cuir an rannán i bhfolach",
+    "reorder": "Athordaigh"
   },
   "item": {
     "title": "Teideal",

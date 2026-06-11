@@ -64,13 +64,16 @@
     "allAdded": "Visos žymos jau pridėtos",
     "loadError": "Nepavyko įkelti žymų. Patraukite žemyn, kad bandytumėte dar kartą.",
     "empty": "Dar nėra žymų",
-    "label": "Žymos"
+    "label": "Žymos",
+    "deleteTitle": "Ištrinti žymą „{{name}}“?",
+    "deleteMsg": "Jūsų užrašai išlieka — jie praranda tik šią žymą."
   },
   "tagDetail": {
     "loadError": "Nepavyko įkelti elementų. Patraukite žemyn, kad bandytumėte dar kartą.",
     "empty": "Nėra elementų su šia žyma",
     "expandSection": "Išskleisti skiltį",
-    "collapseSection": "Suskleisti skiltį"
+    "collapseSection": "Suskleisti skiltį",
+    "reorder": "Pertvarkyti"
   },
   "item": {
     "title": "Pavadinimas",

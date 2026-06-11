@@ -64,13 +64,16 @@
     "allAdded": "Alle Tags bereits hinzugefügt",
     "loadError": "Tags konnten nicht geladen werden. Zum erneuten Versuch nach unten ziehen.",
     "empty": "Noch keine Tags",
-    "label": "Tags"
+    "label": "Tags",
+    "deleteTitle": "Tag „{{name}}“ löschen?",
+    "deleteMsg": "Deine Notizen bleiben erhalten — sie verlieren nur dieses Tag."
   },
   "tagDetail": {
     "loadError": "Einträge konnten nicht geladen werden. Zum erneuten Versuch nach unten ziehen.",
     "empty": "Keine Einträge mit diesem Tag",
     "expandSection": "Abschnitt einblenden",
-    "collapseSection": "Abschnitt ausblenden"
+    "collapseSection": "Abschnitt ausblenden",
+    "reorder": "Neu anordnen"
   },
   "item": {
     "title": "Titel",

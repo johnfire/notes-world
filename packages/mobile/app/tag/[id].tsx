@@ -6,20 +6,26 @@ import {
   ActivityIndicator,
   StyleSheet,
   RefreshControl,
+  Pressable,
 } from "react-native";
 import { useLocalSearchParams, useRouter, useNavigation } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getItemsByTag, listTags } from "../../src/api/tags";
 import { archiveItem } from "../../src/api/items";
-import { collapsedDividers } from "../../src/api/sortOrders";
+import {
+  collapsedDividers,
+  getSortOrder,
+  saveSortOrder,
+} from "../../src/api/sortOrders";
 import { reportClientError } from "../../src/api/report";
 import { ItemCard } from "../../src/components/ItemCard";
 import {
   getParentDividerMap,
   getHiddenCounts,
 } from "../../src/lib/dividerGrouping";
-import { colors, spacing, font } from "../../src/theme";
+import { applySavedOrder, moveItem } from "../../src/lib/sortItems";
+import { colors, spacing, font, radius } from "../../src/theme";
 import { ItemType } from "@notes-world/shared";
 import type { Item } from "@notes-world/shared";
 
@@ -33,6 +39,7 @@ export default function TagScreen() {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [reordering, setReordering] = useState(false);
 
   function toggleCollapse(dividerId: string) {
     setCollapsed((prev) => {
@@ -83,12 +90,16 @@ export default function TagScreen() {
   async function load() {
     try {
       setError(null);
-      const [res, collapsedIds] = await Promise.all([
+      const [res, collapsedIds, orderRows] = await Promise.all([
         getItemsByTag(id),
         // If the collapsed-state fetch fails, fall back to nothing collapsed.
         collapsedDividers.get(id).catch(() => [] as string[]),
+        // If the saved-order fetch fails, fall back to server order.
+        getSortOrder(`tag:${id}`).catch(
+          () => [] as Array<{ item_id: string; sort_order: number }>,
+        ),
       ]);
-      setItems(res);
+      setItems(applySavedOrder(res, orderRows));
       setCollapsed(new Set(collapsedIds));
     } catch (err) {
       void reportClientError({
@@ -107,13 +118,47 @@ export default function TagScreen() {
     load();
   }, [id]);
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Pressable onPress={() => setReordering((r) => !r)} hitSlop={8}>
+          <Text style={s.headerAction}>
+            {reordering ? t("common.done") : t("tagDetail.reorder")}
+          </Text>
+        </Pressable>
+      ),
+    });
+  }, [reordering, t]);
+
+  function onMove(index: number, direction: -1 | 1) {
+    setItems((prev) => {
+      const next = moveItem(prev, index, direction);
+      if (next !== prev) {
+        saveSortOrder(
+          `tag:${id}`,
+          next.map((i) => i.id),
+        ).catch((err) => {
+          void reportClientError({
+            message: (err as Error).message,
+            stack: (err as Error).stack,
+            context: "TagScreen.onMove",
+          });
+        });
+      }
+      return next;
+    });
+  }
+
   const parentDividerMap = getParentDividerMap(items);
   const hiddenCounts = getHiddenCounts(items);
   // Hide items whose parent divider is collapsed; dividers always stay visible.
-  const visibleItems = items.filter((item) => {
-    const parent = parentDividerMap.get(item.id);
-    return !(parent && collapsed.has(parent));
-  });
+  // While reordering, show everything so positions are unambiguous.
+  const visibleItems = reordering
+    ? items
+    : items.filter((item) => {
+        const parent = parentDividerMap.get(item.id);
+        return !(parent && collapsed.has(parent));
+      });
 
   return (
     <SafeAreaView style={s.root} edges={["bottom"]}>
@@ -123,8 +168,47 @@ export default function TagScreen() {
         <FlatList
           data={visibleItems}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) =>
-            item.item_type === ItemType.Divider ? (
+          renderItem={({ item, index }) =>
+            reordering ? (
+              <View style={s.reorderRow}>
+                <Text
+                  style={[
+                    s.reorderTitle,
+                    item.item_type === ItemType.Divider && s.reorderDivider,
+                  ]}
+                  numberOfLines={1}
+                >
+                  {item.title}
+                </Text>
+                <Pressable
+                  onPress={() => onMove(index, -1)}
+                  hitSlop={8}
+                  disabled={index === 0}
+                  style={s.reorderBtn}
+                >
+                  <Text
+                    style={[s.reorderArrow, index === 0 && s.reorderDisabled]}
+                  >
+                    ↑
+                  </Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => onMove(index, 1)}
+                  hitSlop={8}
+                  disabled={index === visibleItems.length - 1}
+                  style={s.reorderBtn}
+                >
+                  <Text
+                    style={[
+                      s.reorderArrow,
+                      index === visibleItems.length - 1 && s.reorderDisabled,
+                    ]}
+                  >
+                    ↓
+                  </Text>
+                </Pressable>
+              </View>
+            ) : item.item_type === ItemType.Divider ? (
               <ItemCard
                 item={item}
                 onPress={() => router.push(`/item/${item.id}`)}
@@ -173,4 +257,25 @@ const s = StyleSheet.create({
     marginTop: spacing.xl,
     fontSize: font.md,
   },
+  headerAction: {
+    color: colors.accent,
+    fontSize: font.md,
+    paddingHorizontal: spacing.sm,
+  },
+  reorderRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    marginHorizontal: spacing.md,
+    marginVertical: 3,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    gap: spacing.sm,
+  },
+  reorderTitle: { color: colors.text, fontSize: font.md, flex: 1 },
+  reorderDivider: { color: colors.textMuted, fontStyle: "italic" },
+  reorderBtn: { paddingHorizontal: spacing.sm },
+  reorderArrow: { color: colors.accent, fontSize: font.lg },
+  reorderDisabled: { color: colors.textMuted, opacity: 0.4 },
 });

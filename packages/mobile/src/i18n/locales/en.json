@@ -64,13 +64,16 @@
     "allAdded": "All tags already added",
     "loadError": "Couldn't load tags. Pull down to retry.",
     "empty": "No tags yet",
-    "label": "Tags"
+    "label": "Tags",
+    "deleteTitle": "Delete tag \"{{name}}\"?",
+    "deleteMsg": "Your notes are kept — they only lose this tag."
   },
   "tagDetail": {
     "loadError": "Couldn't load items. Pull down to retry.",
     "empty": "No items with this tag",
     "expandSection": "Expand section",
-    "collapseSection": "Collapse section"
+    "collapseSection": "Collapse section",
+    "reorder": "Reorder"
   },
   "item": {
     "title": "Title",

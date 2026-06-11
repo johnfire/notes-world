@@ -64,13 +64,16 @@
     "allAdded": "所有标签已添加",
     "loadError": "无法加载标签。下拉以重试。",
     "empty": "暂无标签",
-    "label": "标签"
+    "label": "标签",
+    "deleteTitle": "删除标签“{{name}}”？",
+    "deleteMsg": "您的笔记会保留——只是失去这个标签。"
   },
   "tagDetail": {
     "loadError": "无法加载条目。下拉以重试。",
     "empty": "没有带此标签的条目",
     "expandSection": "展开分区",
-    "collapseSection": "折叠分区"
+    "collapseSection": "折叠分区",
+    "reorder": "调整顺序"
   },
   "item": {
     "title": "标题",

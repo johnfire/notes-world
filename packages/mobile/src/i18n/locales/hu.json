@@ -64,13 +64,16 @@
     "allAdded": "Minden címke már hozzá van adva",
     "loadError": "Nem sikerült betölteni a címkéket. Húzd le az újrapróbálkozáshoz.",
     "empty": "Még nincsenek címkék",
-    "label": "Címkék"
+    "label": "Címkék",
+    "deleteTitle": "Törlöd a(z) „{{name}}” címkét?",
+    "deleteMsg": "A jegyzeteid megmaradnak — csak ezt a címkét veszítik el."
   },
   "tagDetail": {
     "loadError": "Nem sikerült betölteni az elemeket. Húzd le az újrapróbálkozáshoz.",
     "empty": "Nincs elem ezzel a címkével",
     "expandSection": "Szakasz kibontása",
-    "collapseSection": "Szakasz összecsukása"
+    "collapseSection": "Szakasz összecsukása",
+    "reorder": "Átrendezés"
   },
   "item": {
     "title": "Cím",

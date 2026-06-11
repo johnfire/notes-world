@@ -64,13 +64,16 @@
     "allAdded": "Všechny štítky již přidány",
     "loadError": "Štítky se nepodařilo načíst. Stáhněte dolů pro opakování.",
     "empty": "Zatím žádné štítky",
-    "label": "Štítky"
+    "label": "Štítky",
+    "deleteTitle": "Smazat štítek „{{name}}“?",
+    "deleteMsg": "Vaše poznámky zůstanou zachovány — pouze ztratí tento štítek."
   },
   "tagDetail": {
     "loadError": "Položky se nepodařilo načíst. Stáhněte dolů pro opakování.",
     "empty": "Žádné položky s tímto štítkem",
     "expandSection": "Rozbalit sekci",
-    "collapseSection": "Sbalit sekci"
+    "collapseSection": "Sbalit sekci",
+    "reorder": "Změnit pořadí"
   },
   "item": {
     "title": "Název",

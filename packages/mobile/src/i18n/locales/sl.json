@@ -64,13 +64,16 @@
     "allAdded": "Vse oznake so že dodane",
     "loadError": "Oznak ni bilo mogoče naložiti. Povlecite navzdol za ponovni poskus.",
     "empty": "Še ni oznak",
-    "label": "Oznake"
+    "label": "Oznake",
+    "deleteTitle": "Izbrisati oznako »{{name}}«?",
+    "deleteMsg": "Vaši zapiski se ohranijo — izgubijo le to oznako."
   },
   "tagDetail": {
     "loadError": "Elementov ni bilo mogoče naložiti. Povlecite navzdol za ponovni poskus.",
     "empty": "Ni elementov s to oznako",
     "expandSection": "Razširi razdelek",
-    "collapseSection": "Strni razdelek"
+    "collapseSection": "Strni razdelek",
+    "reorder": "Preuredi"
   },
   "item": {
     "title": "Naslov",

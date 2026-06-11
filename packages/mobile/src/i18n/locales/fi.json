@@ -64,13 +64,16 @@
     "allAdded": "Kaikki tunnisteet on jo lisätty",
     "loadError": "Tunnisteita ei voitu ladata. Vedä alas yrittääksesi uudelleen.",
     "empty": "Ei vielä tunnisteita",
-    "label": "Tunnisteet"
+    "label": "Tunnisteet",
+    "deleteTitle": "Poistetaanko tunniste ”{{name}}”?",
+    "deleteMsg": "Muistiinpanosi säilyvät — ne menettävät vain tämän tunnisteen."
   },
   "tagDetail": {
     "loadError": "Kohteita ei voitu ladata. Vedä alas yrittääksesi uudelleen.",
     "empty": "Ei kohteita tällä tunnisteella",
     "expandSection": "Laajenna osio",
-    "collapseSection": "Tiivistä osio"
+    "collapseSection": "Tiivistä osio",
+    "reorder": "Järjestä uudelleen"
   },
   "item": {
     "title": "Otsikko",

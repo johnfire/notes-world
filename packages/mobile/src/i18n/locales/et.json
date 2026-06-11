@@ -64,13 +64,16 @@
     "allAdded": "Kõik sildid on juba lisatud",
     "loadError": "Silte ei õnnestunud laadida. Tõmba alla, et uuesti proovida.",
     "empty": "Silte pole veel",
-    "label": "Sildid"
+    "label": "Sildid",
+    "deleteTitle": "Kas kustutada silt „{{name}}“?",
+    "deleteMsg": "Sinu märkmed säilivad — nad kaotavad ainult selle sildi."
   },
   "tagDetail": {
     "loadError": "Üksusi ei õnnestunud laadida. Tõmba alla, et uuesti proovida.",
     "empty": "Selle sildiga üksusi pole",
     "expandSection": "Laienda jaotis",
-    "collapseSection": "Ahenda jaotis"
+    "collapseSection": "Ahenda jaotis",
+    "reorder": "Järjesta ümber"
   },
   "item": {
     "title": "Pealkiri",

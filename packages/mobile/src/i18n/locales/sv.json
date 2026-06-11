@@ -64,13 +64,16 @@
     "allAdded": "Alla taggar är redan tillagda",
     "loadError": "Det gick inte att läsa in taggar. Dra nedåt för att försöka igen.",
     "empty": "Inga taggar än",
-    "label": "Taggar"
+    "label": "Taggar",
+    "deleteTitle": "Ta bort taggen ”{{name}}”?",
+    "deleteMsg": "Dina anteckningar behålls — de förlorar bara den här taggen."
   },
   "tagDetail": {
     "loadError": "Det gick inte att läsa in objekt. Dra nedåt för att försöka igen.",
     "empty": "Inga objekt med den här taggen",
     "expandSection": "Visa avsnitt",
-    "collapseSection": "Dölj avsnitt"
+    "collapseSection": "Dölj avsnitt",
+    "reorder": "Ändra ordning"
   },
   "item": {
     "title": "Titel",

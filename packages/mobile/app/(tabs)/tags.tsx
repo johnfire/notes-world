@@ -7,11 +7,12 @@ import {
   StyleSheet,
   ActivityIndicator,
   RefreshControl,
+  Alert,
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { listTags } from "../../src/api/tags";
+import { listTags, deleteTag } from "../../src/api/tags";
 import { reportClientError } from "../../src/api/report";
 import { colors, spacing, radius, font } from "../../src/theme";
 import type { TagWithCount } from "@notes-world/shared";
@@ -51,6 +52,32 @@ export default function TagsScreen() {
     load();
   }
 
+  function confirmDelete(tag: TagWithCount) {
+    Alert.alert(
+      t("tags.deleteTitle", { name: tag.name }),
+      t("tags.deleteMsg"),
+      [
+        { text: t("common.cancel"), style: "cancel" },
+        {
+          text: t("common.delete"),
+          style: "destructive",
+          onPress: async () => {
+            try {
+              await deleteTag(tag.id);
+              await load();
+            } catch (err) {
+              void reportClientError({
+                message: (err as Error).message,
+                stack: (err as Error).stack,
+                context: "TagsScreen.deleteTag",
+              });
+            }
+          },
+        },
+      ],
+    );
+  }
+
   return (
     <SafeAreaView style={s.root} edges={["top"]}>
       <Text style={s.heading}>{t("tags.title")}</Text>
@@ -71,6 +98,7 @@ export default function TagsScreen() {
             <Pressable
               style={({ pressed }) => [s.row, pressed && s.rowPressed]}
               onPress={() => router.push(`/tag/${item.id}` as never)}
+              onLongPress={() => confirmDelete(item)}
             >
               <View
                 style={[

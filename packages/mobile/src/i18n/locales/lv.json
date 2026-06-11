@@ -64,13 +64,16 @@
     "allAdded": "Visas birkas jau pievienotas",
     "loadError": "Neizdevās ielādēt birkas. Pavelc uz leju, lai mēģinātu vēlreiz.",
     "empty": "Pagaidām nav birku",
-    "label": "Birkas"
+    "label": "Birkas",
+    "deleteTitle": "Dzēst tagu “{{name}}”?",
+    "deleteMsg": "Jūsu piezīmes tiek saglabātas — tās zaudē tikai šo tagu."
   },
   "tagDetail": {
     "loadError": "Neizdevās ielādēt vienumus. Pavelc uz leju, lai mēģinātu vēlreiz.",
     "empty": "Nav vienumu ar šo birku",
     "expandSection": "Izvērst sadaļu",
-    "collapseSection": "Sakļaut sadaļu"
+    "collapseSection": "Sakļaut sadaļu",
+    "reorder": "Pārkārtot"
   },
   "item": {
     "title": "Virsraksts",
