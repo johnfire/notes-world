@@ -75,7 +75,8 @@
     "collapseSection": "Recolher seção",
     "reorder": "Reordenar",
     "sortManual": "Manual",
-    "sortDue": "Data"
+    "sortDue": "Prazo",
+    "sortStart": "Início"
   },
   "item": {
     "title": "Título",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "O item não foi eliminado. Tente novamente.",
     "archiveFailedTitle": "Não foi possível arquivar",
     "archiveFailedMsg": "O item não foi arquivado. Tente novamente.",
-    "deleteCardTitle": "Eliminar nota?"
+    "deleteCardTitle": "Eliminar nota?",
+    "dueDate": "Data de vencimento",
+    "startDate": "Data de início",
+    "dateNotSet": "Não definido"
   },
   "account": {
     "title": "Conta",

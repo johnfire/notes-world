@@ -15,6 +15,7 @@ import { useLocalSearchParams, useRouter, useNavigation } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
+import DateTimePicker from "@react-native-community/datetimepicker";
 import {
   getItem,
   updateItem,
@@ -23,9 +24,24 @@ import {
 } from "../../src/api/items";
 import { reportClientError } from "../../src/api/report";
 import { TagManager } from "../../src/components/TagManager";
+import { formatDueShort, dateOf, type DateField } from "../../src/lib/dueDate";
 import { colors, spacing, radius, font } from "../../src/theme";
 import { ItemType } from "@notes-world/shared";
-import type { Item } from "@notes-world/shared";
+import type { Item, TypeData } from "@notes-world/shared";
+
+// Picked Date -> local YYYY-MM-DD (date-only; avoids a UTC off-by-one day).
+function toISODate(d: Date): string {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+function parseDateOr(value: string | undefined, fallback: Date): Date {
+  if (!value) return fallback;
+  const d = new Date(value);
+  return Number.isNaN(d.getTime()) ? fallback : d;
+}
 
 const TYPE_COLORS: Record<string, string> = {
   [ItemType.Task]: colors.typeTask,
@@ -47,6 +63,9 @@ export default function ItemScreen() {
   const [saving, setSaving] = useState(false);
   const [dirty, setDirty] = useState(false);
   const [loadError, setLoadError] = useState(false);
+  // Open date picker ("due_date" | "start_date" | null) and in-flight save flag.
+  const [picker, setPicker] = useState<DateField | null>(null);
+  const [savingDates, setSavingDates] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -132,6 +151,66 @@ export default function ItemScreen() {
     } finally {
       setSaving(false);
     }
+  }
+
+  // Dates live in the type_data JSON blob, which the server replaces wholesale,
+  // so we merge the change into the existing type_data and send the whole thing.
+  // A null value clears the field. Persists immediately (no Save button needed).
+  async function persistDate(field: DateField, value: string | null) {
+    if (!item) return;
+    const td = (item.type_data as Record<string, unknown> | null) ?? {};
+    const merged: Record<string, unknown> = { ...td };
+    if (value) merged[field] = value;
+    else delete merged[field];
+    setSavingDates(true);
+    try {
+      const updated = await updateItem(item.id, {
+        type_data: merged as TypeData,
+      });
+      setItem(updated);
+    } catch (err) {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "ItemScreen.persistDate",
+      });
+      Alert.alert(t("item.saveFailedTitle"), t("item.saveFailedMsg"));
+    } finally {
+      setSavingDates(false);
+    }
+  }
+
+  function dateRow(field: DateField, label: string, value?: string) {
+    return (
+      <View style={s.dateRow}>
+        <Text style={s.dateLabel}>{label}</Text>
+        <Pressable
+          style={s.dateValueBtn}
+          onPress={() => setPicker(field)}
+          disabled={savingDates}
+          hitSlop={6}
+        >
+          <Ionicons
+            name="calendar-outline"
+            size={15}
+            color={value ? colors.accent : colors.textDim}
+          />
+          <Text style={[s.dateValue, !value && s.dateValueEmpty]}>
+            {value ? formatDueShort(value) : t("item.dateNotSet")}
+          </Text>
+        </Pressable>
+        {!!value && (
+          <Pressable
+            onPress={() => void persistDate(field, null)}
+            hitSlop={8}
+            disabled={savingDates}
+            style={s.dateClear}
+          >
+            <Ionicons name="close-circle" size={16} color={colors.textMuted} />
+          </Pressable>
+        )}
+      </View>
+    );
   }
 
   function handleDelete() {
@@ -236,6 +315,31 @@ export default function ItemScreen() {
             placeholder={t("item.body")}
             placeholderTextColor={colors.textDim}
           />
+          {item.item_type === ItemType.Task && (
+            <View style={s.dates}>
+              {dateRow(
+                "due_date",
+                t("item.dueDate"),
+                dateOf(item, "due_date"),
+              )}
+              {dateRow(
+                "start_date",
+                t("item.startDate"),
+                dateOf(item, "start_date"),
+              )}
+            </View>
+          )}
+          {picker && (
+            <DateTimePicker
+              value={parseDateOr(dateOf(item, picker), new Date())}
+              mode="date"
+              onChange={(event, date) => {
+                setPicker(null);
+                if (event.type === "set" && date)
+                  void persistDate(picker, toISODate(date));
+              }}
+            />
+          )}
           <TagManager itemId={item.id} />
           <Pressable style={s.deleteBtn} onPress={handleDelete} hitSlop={8}>
             <Ionicons name="trash-outline" size={18} color={colors.danger} />
@@ -280,6 +384,42 @@ const s = StyleSheet.create({
     lineHeight: 22,
     minHeight: 200,
     paddingTop: spacing.sm,
+  },
+  dates: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+    marginTop: spacing.xs,
+  },
+  dateRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: spacing.sm,
+  },
+  dateLabel: {
+    flex: 1,
+    color: colors.textMuted,
+    fontSize: font.sm,
+  },
+  dateValueBtn: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.xs,
+    paddingVertical: 2,
+    paddingHorizontal: spacing.xs,
+  },
+  dateValue: {
+    color: colors.accent,
+    fontSize: font.md,
+    fontWeight: "600",
+  },
+  dateValueEmpty: {
+    color: colors.textDim,
+    fontWeight: "400",
+  },
+  dateClear: {
+    marginLeft: spacing.xs,
   },
   deleteBtn: {
     flexDirection: "row",

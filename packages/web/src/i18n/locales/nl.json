@@ -176,7 +176,9 @@
       "remindAt": "Herinner op",
       "dismissed": "Genegeerd",
       "yes": "Ja",
-      "no": "Nee"
+      "no": "Nee",
+      "dueDate": "Vervaldatum",
+      "startDate": "Startdatum"
     },
     "tags": {
       "label": "Tags",

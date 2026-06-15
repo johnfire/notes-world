@@ -176,7 +176,9 @@
       "remindAt": "Atgādināt",
       "dismissed": "Noraidīts",
       "yes": "Jā",
-      "no": "Nē"
+      "no": "Nē",
+      "dueDate": "Termiņa datums",
+      "startDate": "Sākuma datums"
     },
     "tags": {
       "label": "Atzīmes",

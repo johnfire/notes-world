@@ -75,7 +75,8 @@
     "collapseSection": "Свернуть раздел",
     "reorder": "Изменить порядок",
     "sortManual": "Вручную",
-    "sortDue": "Дата"
+    "sortDue": "Срок",
+    "sortStart": "Начало"
   },
   "item": {
     "title": "Заголовок",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Элемент не был удалён. Попробуйте снова.",
     "archiveFailedTitle": "Не удалось архивировать",
     "archiveFailedMsg": "Элемент не был архивирован. Попробуйте снова.",
-    "deleteCardTitle": "Удалить заметку?"
+    "deleteCardTitle": "Удалить заметку?",
+    "dueDate": "Дата срока",
+    "startDate": "Дата начала",
+    "dateNotSet": "Не задано"
   },
   "account": {
     "title": "Аккаунт",

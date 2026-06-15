@@ -176,7 +176,9 @@
       "remindAt": "Muistuta",
       "dismissed": "Hylätty",
       "yes": "Kyllä",
-      "no": "Ei"
+      "no": "Ei",
+      "dueDate": "Eräpäivä",
+      "startDate": "Aloituspäivä"
     },
     "tags": {
       "label": "Tagit",

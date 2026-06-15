@@ -75,7 +75,8 @@
     "collapseSection": "Comprimi sezione",
     "reorder": "Riordina",
     "sortManual": "Manuale",
-    "sortDue": "Data"
+    "sortDue": "Scadenza",
+    "sortStart": "Inizio"
   },
   "item": {
     "title": "Titolo",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "L'elemento non è stato eliminato. Riprova.",
     "archiveFailedTitle": "Impossibile archiviare",
     "archiveFailedMsg": "L'elemento non è stato archiviato. Riprova.",
-    "deleteCardTitle": "Eliminare la nota?"
+    "deleteCardTitle": "Eliminare la nota?",
+    "dueDate": "Data di scadenza",
+    "startDate": "Data di inizio",
+    "dateNotSet": "Non impostata"
   },
   "account": {
     "title": "Account",

@@ -75,7 +75,8 @@
     "collapseSection": "Iġbor it-taqsima",
     "reorder": "Irranġa mill-ġdid",
     "sortManual": "Manwali",
-    "sortDue": "Data"
+    "sortDue": "Skadenza",
+    "sortStart": "Bidu"
   },
   "item": {
     "title": "Titlu",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "L-oġġett ma tħassarx. Erġa' pprova.",
     "archiveFailedTitle": "Ma stajniex narkivjaw",
     "archiveFailedMsg": "L-oġġett ma ġiex arkivjat. Erġa' pprova.",
-    "deleteCardTitle": "Ħassar nota?"
+    "deleteCardTitle": "Ħassar nota?",
+    "dueDate": "Data tal-iskadenza",
+    "startDate": "Data tal-bidu",
+    "dateNotSet": "Mhux issettjat"
   },
   "account": {
     "title": "Kont",

@@ -129,6 +129,27 @@ export function useItemDrawer() {
     }
   }
 
+  // Dates live in the type_data JSON blob, which the server replaces wholesale,
+  // so we merge the change into the existing type_data. An empty value clears
+  // the field. Expects a date-only "YYYY-MM-DD" string (or "" to clear).
+  async function saveDate(field: "due_date" | "start_date", value: string) {
+    if (!item) return;
+    const td = (item.type_data as Record<string, unknown> | null) ?? {};
+    const merged: Record<string, unknown> = { ...td };
+    if (value) merged[field] = value;
+    else delete merged[field];
+    setSaving(true);
+    try {
+      const updated = await api.items.update(item.id, {
+        type_data: merged as Item["type_data"],
+      });
+      setItem(updated);
+      updateItemInContext(updated);
+    } finally {
+      setSaving(false);
+    }
+  }
+
   async function handleAddTag(tag: Tag) {
     if (!item) return;
     await api.tags.tagItem(item.id, tag.id);
@@ -248,6 +269,7 @@ export function useItemDrawer() {
     openItem,
     saveTitle,
     saveBody,
+    saveDate,
     handleAddTag,
     handleCreateAndAddTag,
     handleRemoveTag,

@@ -75,7 +75,8 @@
     "collapseSection": "Σύμπτυξη ενότητας",
     "reorder": "Αναδιάταξη",
     "sortManual": "Χειροκίνητα",
-    "sortDue": "Ημ/νία"
+    "sortDue": "Λήξη",
+    "sortStart": "Έναρξη"
   },
   "item": {
     "title": "Τίτλος",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Το στοιχείο δεν διαγράφηκε. Δοκιμάστε ξανά.",
     "archiveFailedTitle": "Δεν ήταν δυνατή η αρχειοθέτηση",
     "archiveFailedMsg": "Το στοιχείο δεν αρχειοθετήθηκε. Δοκιμάστε ξανά.",
-    "deleteCardTitle": "Διαγραφή σημείωσης;"
+    "deleteCardTitle": "Διαγραφή σημείωσης;",
+    "dueDate": "Ημ/νία λήξης",
+    "startDate": "Ημ/νία έναρξης",
+    "dateNotSet": "Μη ορισμένο"
   },
   "account": {
     "title": "Λογαριασμός",

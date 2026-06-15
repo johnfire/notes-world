@@ -28,8 +28,10 @@ interface Props {
   collapsed?: boolean;
   hiddenCount?: number;
   onToggle?: () => void;
-  // When set, show the item's due date in the footer (used by the Date sort view).
+  // When set, show the item's due/start dates in the footer (used by the date
+  // sort views). Each is rendered only when present and parseable.
   dueDate?: string;
+  startDate?: string;
 }
 
 export function ItemCard({
@@ -40,6 +42,7 @@ export function ItemCard({
   hiddenCount,
   onToggle,
   dueDate,
+  startDate,
 }: Props) {
   const { t, i18n } = useTranslation();
   const typeColor = TYPE_COLORS[item.item_type] ?? colors.typeUntyped;
@@ -48,6 +51,7 @@ export function ItemCard({
     month: "short",
   });
   const due = dueDate ? formatDueShort(dueDate) : "";
+  const start = startDate ? formatDueShort(startDate) : "";
 
   function handleDelete() {
     Alert.alert(t("item.deleteCardTitle"), t("item.deleteMsg"), [
@@ -117,6 +121,16 @@ export function ItemCard({
         <View style={s.footer}>
           <Text style={[s.badge, { color: typeColor }]}>{item.item_type}</Text>
           <View style={s.footerRight}>
+            {!!start && (
+              <View style={s.dueWrap}>
+                <Ionicons
+                  name="play-outline"
+                  size={12}
+                  color={colors.textMuted}
+                />
+                <Text style={s.start}>{start}</Text>
+              </View>
+            )}
             {!!due && (
               <View style={s.dueWrap}>
                 <Ionicons
@@ -227,6 +241,11 @@ const s = StyleSheet.create({
   },
   due: {
     color: colors.accent,
+    fontSize: 11,
+    fontWeight: "600",
+  },
+  start: {
+    color: colors.textMuted,
     fontSize: 11,
     fontWeight: "600",
   },

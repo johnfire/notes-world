@@ -176,7 +176,9 @@
       "remindAt": "Pripomenúť o",
       "dismissed": "Odmietnuté",
       "yes": "Áno",
-      "no": "Nie"
+      "no": "Nie",
+      "dueDate": "Dátum splatnosti",
+      "startDate": "Dátum začiatku"
     },
     "tags": {
       "label": "Štítky",

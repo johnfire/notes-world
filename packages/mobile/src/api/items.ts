@@ -4,6 +4,7 @@ import type {
   ItemType,
   ItemStatus,
   PaginatedResult,
+  TypeData,
 } from "@notes-world/shared";
 
 export interface ItemsQuery {
@@ -45,6 +46,9 @@ export interface UpdateItemInput {
   title?: string;
   body?: string;
   item_type?: ItemType;
+  // Replaces the whole type_data JSON blob server-side — callers must send the
+  // merged object (existing fields + changes), not just the changed keys.
+  type_data?: TypeData;
 }
 
 export function updateItem(id: string, input: UpdateItemInput): Promise<Item> {

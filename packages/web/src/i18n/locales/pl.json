@@ -176,7 +176,9 @@
       "remindAt": "Przypomnij o",
       "dismissed": "Odrzucono",
       "yes": "Tak",
-      "no": "Nie"
+      "no": "Nie",
+      "dueDate": "Termin",
+      "startDate": "Data rozpoczęcia"
     },
     "tags": {
       "label": "Tagi",

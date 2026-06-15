@@ -176,7 +176,9 @@
       "remindAt": "Promemoria alle",
       "dismissed": "Ignorato",
       "yes": "Sì",
-      "no": "No"
+      "no": "No",
+      "dueDate": "Data di scadenza",
+      "startDate": "Data di inizio"
     },
     "tags": {
       "label": "Tag",

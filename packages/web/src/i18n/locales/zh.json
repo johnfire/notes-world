@@ -176,7 +176,9 @@
       "remindAt": "提醒时间",
       "dismissed": "已忽略",
       "yes": "是",
-      "no": "否"
+      "no": "否",
+      "dueDate": "截止日期",
+      "startDate": "开始日期"
     },
     "tags": {
       "label": "标签",

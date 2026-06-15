@@ -75,7 +75,8 @@
     "collapseSection": "Réduire la section",
     "reorder": "Réorganiser",
     "sortManual": "Manuel",
-    "sortDue": "Date"
+    "sortDue": "Échéance",
+    "sortStart": "Début"
   },
   "item": {
     "title": "Titre",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "L'élément n'a pas été supprimé. Réessayez.",
     "archiveFailedTitle": "Échec de l'archivage",
     "archiveFailedMsg": "L'élément n'a pas été archivé. Réessayez.",
-    "deleteCardTitle": "Supprimer la note ?"
+    "deleteCardTitle": "Supprimer la note ?",
+    "dueDate": "Date d'échéance",
+    "startDate": "Date de début",
+    "dateNotSet": "Non défini"
   },
   "account": {
     "title": "Compte",

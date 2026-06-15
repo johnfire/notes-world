@@ -75,7 +75,8 @@
     "collapseSection": "折叠分区",
     "reorder": "调整顺序",
     "sortManual": "手动",
-    "sortDue": "日期"
+    "sortDue": "截止",
+    "sortStart": "开始"
   },
   "item": {
     "title": "标题",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "条目未被删除。请重试。",
     "archiveFailedTitle": "无法归档",
     "archiveFailedMsg": "条目未被归档。请重试。",
-    "deleteCardTitle": "删除笔记？"
+    "deleteCardTitle": "删除笔记？",
+    "dueDate": "截止日期",
+    "startDate": "开始日期",
+    "dateNotSet": "未设置"
   },
   "account": {
     "title": "账户",

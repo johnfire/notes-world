@@ -179,7 +179,9 @@
       "remindAt": "Remind at",
       "dismissed": "Dismissed",
       "yes": "Yes",
-      "no": "No"
+      "no": "No",
+      "dueDate": "Due date",
+      "startDate": "Start date"
     },
     "tags": {
       "label": "Tags",

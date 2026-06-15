@@ -176,7 +176,9 @@
       "remindAt": "Podsjeti u",
       "dismissed": "Odbačeno",
       "yes": "Da",
-      "no": "Ne"
+      "no": "Ne",
+      "dueDate": "Datum dospijeća",
+      "startDate": "Datum početka"
     },
     "tags": {
       "label": "Tagovi",

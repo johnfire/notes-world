@@ -75,7 +75,8 @@
     "collapseSection": "Dölj avsnitt",
     "reorder": "Ändra ordning",
     "sortManual": "Manuell",
-    "sortDue": "Datum"
+    "sortDue": "Förfaller",
+    "sortStart": "Start"
   },
   "item": {
     "title": "Titel",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Objektet togs inte bort. Försök igen.",
     "archiveFailedTitle": "Det gick inte att arkivera",
     "archiveFailedMsg": "Objektet arkiverades inte. Försök igen.",
-    "deleteCardTitle": "Ta bort anteckning?"
+    "deleteCardTitle": "Ta bort anteckning?",
+    "dueDate": "Förfallodatum",
+    "startDate": "Startdatum",
+    "dateNotSet": "Inte angivet"
   },
   "account": {
     "title": "Konto",

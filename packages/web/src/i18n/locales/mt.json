@@ -176,7 +176,9 @@
       "remindAt": "Iftakar fid",
       "dismissed": "Rifjutat",
       "yes": "Iva",
-      "no": "Le"
+      "no": "Le",
+      "dueDate": "Data tal-iskadenza",
+      "startDate": "Data tal-bidu"
     },
     "tags": {
       "label": "Tagi",

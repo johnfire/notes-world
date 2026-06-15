@@ -176,7 +176,9 @@
       "remindAt": "Lembrar em",
       "dismissed": "Dispensado",
       "yes": "Sim",
-      "no": "Não"
+      "no": "Não",
+      "dueDate": "Data de vencimento",
+      "startDate": "Data de início"
     },
     "tags": {
       "label": "Tags",

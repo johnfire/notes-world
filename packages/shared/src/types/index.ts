@@ -79,6 +79,7 @@ export interface TaskTypeData {
   task_status: TaskStatus;
   priority: Priority;
   due_date?: string;
+  start_date?: string;
   completed_at?: string;
 }
 
@@ -155,7 +156,7 @@ export interface BlockConfig {
   limit?: number;
   root_item_id?: ItemId;
   depth?: number;
-  sort_mode?: "manual" | "due_date";
+  sort_mode?: "manual" | "due_date" | "start_date";
 }
 
 export interface Dashboard {

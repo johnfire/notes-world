@@ -75,7 +75,8 @@
     "collapseSection": "Restrânge secțiunea",
     "reorder": "Reordonează",
     "sortManual": "Manual",
-    "sortDue": "Dată"
+    "sortDue": "Scadență",
+    "sortStart": "Început"
   },
   "item": {
     "title": "Titlu",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Elementul nu a fost șters. Încearcă din nou.",
     "archiveFailedTitle": "Arhivarea a eșuat",
     "archiveFailedMsg": "Elementul nu a fost arhivat. Încearcă din nou.",
-    "deleteCardTitle": "Ștergi notița?"
+    "deleteCardTitle": "Ștergi notița?",
+    "dueDate": "Data scadenței",
+    "startDate": "Data începerii",
+    "dateNotSet": "Nesetat"
   },
   "account": {
     "title": "Cont",

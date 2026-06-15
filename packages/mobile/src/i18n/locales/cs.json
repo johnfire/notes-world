@@ -75,7 +75,8 @@
     "collapseSection": "Sbalit sekci",
     "reorder": "Změnit pořadí",
     "sortManual": "Ručně",
-    "sortDue": "Datum"
+    "sortDue": "Termín",
+    "sortStart": "Začátek"
   },
   "item": {
     "title": "Název",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Položka nebyla smazána. Zkuste to znovu.",
     "archiveFailedTitle": "Archivace se nezdařila",
     "archiveFailedMsg": "Položka nebyla archivována. Zkuste to znovu.",
-    "deleteCardTitle": "Smazat poznámku?"
+    "deleteCardTitle": "Smazat poznámku?",
+    "dueDate": "Datum splatnosti",
+    "startDate": "Datum zahájení",
+    "dateNotSet": "Nenastaveno"
   },
   "account": {
     "title": "Účet",

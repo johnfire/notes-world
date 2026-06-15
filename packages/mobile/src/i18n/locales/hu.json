@@ -75,7 +75,8 @@
     "collapseSection": "Szakasz összecsukása",
     "reorder": "Átrendezés",
     "sortManual": "Kézi",
-    "sortDue": "Dátum"
+    "sortDue": "Határidő",
+    "sortStart": "Kezdés"
   },
   "item": {
     "title": "Cím",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Az elem nem lett törölve. Próbáld újra.",
     "archiveFailedTitle": "Az archiválás sikertelen",
     "archiveFailedMsg": "Az elem nem lett archiválva. Próbáld újra.",
-    "deleteCardTitle": "Törlöd a jegyzetet?"
+    "deleteCardTitle": "Törlöd a jegyzetet?",
+    "dueDate": "Határidő dátuma",
+    "startDate": "Kezdés dátuma",
+    "dateNotSet": "Nincs beállítva"
   },
   "account": {
     "title": "Fiók",

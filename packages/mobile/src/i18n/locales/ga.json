@@ -75,7 +75,8 @@
     "collapseSection": "Cuir an rannán i bhfolach",
     "reorder": "Athordaigh",
     "sortManual": "De láimh",
-    "sortDue": "Dáta"
+    "sortDue": "Spriocdháta",
+    "sortStart": "Tús"
   },
   "item": {
     "title": "Teideal",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Níor scriosadh an mhír. Bain triail eile as.",
     "archiveFailedTitle": "Níorbh fhéidir a chartlannú",
     "archiveFailedMsg": "Níor cartlannaíodh an mhír. Bain triail eile as.",
-    "deleteCardTitle": "Scrios nóta?"
+    "deleteCardTitle": "Scrios nóta?",
+    "dueDate": "Spriocdháta",
+    "startDate": "Dáta tosaigh",
+    "dateNotSet": "Gan socrú"
   },
   "account": {
     "title": "Cuntas",

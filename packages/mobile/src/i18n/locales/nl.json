@@ -75,7 +75,8 @@
     "collapseSection": "Sectie samenvouwen",
     "reorder": "Herordenen",
     "sortManual": "Handmatig",
-    "sortDue": "Datum"
+    "sortDue": "Deadline",
+    "sortStart": "Start"
   },
   "item": {
     "title": "Titel",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Het item is niet verwijderd. Probeer het opnieuw.",
     "archiveFailedTitle": "Archiveren mislukt",
     "archiveFailedMsg": "Het item is niet gearchiveerd. Probeer het opnieuw.",
-    "deleteCardTitle": "Notitie verwijderen?"
+    "deleteCardTitle": "Notitie verwijderen?",
+    "dueDate": "Vervaldatum",
+    "startDate": "Startdatum",
+    "dateNotSet": "Niet ingesteld"
   },
   "account": {
     "title": "Account",

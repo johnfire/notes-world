@@ -176,7 +176,9 @@
       "remindAt": "Opomni ob",
       "dismissed": "Zavrnjeno",
       "yes": "Da",
-      "no": "Ne"
+      "no": "Ne",
+      "dueDate": "Datum zapadlosti",
+      "startDate": "Datum začetka"
     },
     "tags": {
       "label": "Oznake",

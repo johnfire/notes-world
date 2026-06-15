@@ -176,7 +176,9 @@
       "remindAt": "Meenuta",
       "dismissed": "Hüljatud",
       "yes": "Jah",
-      "no": "Ei"
+      "no": "Ei",
+      "dueDate": "Tähtaja kuupäev",
+      "startDate": "Alguskuupäev"
     },
     "tags": {
       "label": "Sildid",

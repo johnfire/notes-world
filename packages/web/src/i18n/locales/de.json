@@ -176,7 +176,9 @@
       "remindAt": "Erinnern am",
       "dismissed": "Verworfen",
       "yes": "Ja",
-      "no": "Nein"
+      "no": "Nein",
+      "dueDate": "Fälligkeitsdatum",
+      "startDate": "Startdatum"
     },
     "tags": {
       "label": "Tags",

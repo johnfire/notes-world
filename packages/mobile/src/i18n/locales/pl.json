@@ -75,7 +75,8 @@
     "collapseSection": "Zwiń sekcję",
     "reorder": "Zmień kolejność",
     "sortManual": "Ręcznie",
-    "sortDue": "Data"
+    "sortDue": "Termin",
+    "sortStart": "Start"
   },
   "item": {
     "title": "Tytuł",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Element nie został usunięty. Spróbuj ponownie.",
     "archiveFailedTitle": "Nie udało się zarchiwizować",
     "archiveFailedMsg": "Element nie został zarchiwizowany. Spróbuj ponownie.",
-    "deleteCardTitle": "Usunąć notatkę?"
+    "deleteCardTitle": "Usunąć notatkę?",
+    "dueDate": "Termin",
+    "startDate": "Data rozpoczęcia",
+    "dateNotSet": "Nie ustawiono"
   },
   "account": {
     "title": "Konto",

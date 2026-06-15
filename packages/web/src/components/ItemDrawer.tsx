@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { ItemType, ItemStatus, TaskStatus } from "../types";
+import { ItemType, ItemStatus, TaskStatus, type Item } from "../types";
 import { linkify } from "../utils/linkify";
 import { useItemDrawer } from "./drawer/useItemDrawer";
 import { TagPicker } from "./drawer/TagPicker";
@@ -102,6 +102,15 @@ export function ItemDrawer() {
                 </p>
               )}
             </div>
+
+            {/* Due / start dates (editable) */}
+            {item.item_type === ItemType.Task && (
+              <TaskDates
+                item={item}
+                isArchived={!!isArchived}
+                onSaveDate={d.saveDate}
+              />
+            )}
 
             {/* Type data */}
             {item.type_data && <TypeDataPanel item={item} />}
@@ -239,6 +248,53 @@ function TypeBadge({ type }: { type: ItemType }) {
   return <span className={cls[type]}>{t(typeKey[type])}</span>;
 }
 
+function TaskDates({
+  item,
+  isArchived,
+  onSaveDate,
+}: {
+  item: Item;
+  isArchived: boolean;
+  onSaveDate: (field: "due_date" | "start_date", value: string) => Promise<void>;
+}) {
+  const { t } = useTranslation();
+  const td = item.type_data as Record<string, string | undefined> | null;
+  // <input type="date"> needs YYYY-MM-DD; tolerate stored full-ISO values.
+  const due = (td?.due_date ?? "").slice(0, 10);
+  const start = (td?.start_date ?? "").slice(0, 10);
+  const inputCls =
+    "bg-surface-700 border border-surface-500 rounded-md px-2 py-1.5 text-sm text-gray-200 [color-scheme:dark] focus:outline-none focus:border-accent disabled:opacity-60";
+
+  return (
+    <div className="grid grid-cols-2 gap-3">
+      <label className="flex flex-col gap-1">
+        <span className="text-xs text-gray-500 uppercase tracking-wider">
+          {t("app.drawer.dueDate")}
+        </span>
+        <input
+          type="date"
+          value={due}
+          disabled={isArchived}
+          onChange={(e) => void onSaveDate("due_date", e.target.value)}
+          className={inputCls}
+        />
+      </label>
+      <label className="flex flex-col gap-1">
+        <span className="text-xs text-gray-500 uppercase tracking-wider">
+          {t("app.drawer.startDate")}
+        </span>
+        <input
+          type="date"
+          value={start}
+          disabled={isArchived}
+          onChange={(e) => void onSaveDate("start_date", e.target.value)}
+          className={inputCls}
+        />
+      </label>
+    </div>
+  );
+}
+
 function TypeDataPanel({ item }: { item: import("../types").Item }) {
   const { t } = useTranslation();
   const td = item.type_data as Record<string, string | undefined> | null;
@@ -249,11 +305,6 @@ function TypeDataPanel({ item }: { item: import("../types").Item }) {
   if (item.item_type === ItemType.Task) {
     rows.push([t("app.drawer.status"), td.task_status]);
     rows.push([t("app.drawer.priority"), td.priority]);
-    if (td.due_date)
-      rows.push([
-        t("app.drawer.due"),
-        new Date(td.due_date).toLocaleDateString(),
-      ]);
     if (td.completed_at)
       rows.push([
         t("app.drawer.completed"),

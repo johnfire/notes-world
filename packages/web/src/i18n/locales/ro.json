@@ -176,7 +176,9 @@
       "remindAt": "Amintire la",
       "dismissed": "Respins",
       "yes": "Da",
-      "no": "Nu"
+      "no": "Nu",
+      "dueDate": "Data scadenței",
+      "startDate": "Data începerii"
     },
     "tags": {
       "label": "Etichete",

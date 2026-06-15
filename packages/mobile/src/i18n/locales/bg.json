@@ -75,7 +75,8 @@
     "collapseSection": "Свиване на секцията",
     "reorder": "Пренареждане",
     "sortManual": "Ръчно",
-    "sortDue": "Дата"
+    "sortDue": "Срок",
+    "sortStart": "Начало"
   },
   "item": {
     "title": "Заглавие",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Елементът не беше изтрит. Опитайте отново.",
     "archiveFailedTitle": "Архивирането е неуспешно",
     "archiveFailedMsg": "Елементът не беше архивиран. Опитайте отново.",
-    "deleteCardTitle": "Изтриване на бележката?"
+    "deleteCardTitle": "Изтриване на бележката?",
+    "dueDate": "Дата на падеж",
+    "startDate": "Начална дата",
+    "dateNotSet": "Не е зададено"
   },
   "account": {
     "title": "Акаунт",

@@ -75,7 +75,8 @@
     "collapseSection": "Ahenda jaotis",
     "reorder": "Järjesta ümber",
     "sortManual": "Käsitsi",
-    "sortDue": "Kuupäev"
+    "sortDue": "Tähtaeg",
+    "sortStart": "Algus"
   },
   "item": {
     "title": "Pealkiri",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Üksust ei kustutatud. Proovi uuesti.",
     "archiveFailedTitle": "Arhiveerimine ebaõnnestus",
     "archiveFailedMsg": "Üksust ei arhiveeritud. Proovi uuesti.",
-    "deleteCardTitle": "Kustutada märge?"
+    "deleteCardTitle": "Kustutada märge?",
+    "dueDate": "Tähtaja kuupäev",
+    "startDate": "Alguskuupäev",
+    "dateNotSet": "Määramata"
   },
   "account": {
     "title": "Konto",

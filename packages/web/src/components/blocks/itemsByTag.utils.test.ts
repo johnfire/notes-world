@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import { ItemType, ItemStatus, type Item } from '../../types';
-import { formatDueShort, sortItemsByDue } from './itemsByTag.utils';
+import { formatDueShort, sortItemsByDate, dateOf } from './itemsByTag.utils';
 
-function task(id: string, title: string, due?: string): Item {
+function task(id: string, title: string, dates?: { due_date?: string; start_date?: string }): Item {
   return {
     id,
     user_id: 'u1',
     title,
     item_type: ItemType.Task,
     status: ItemStatus.Active,
-    type_data: due ? { due_date: due } : undefined,
+    type_data: dates ? { ...dates } : undefined,
     created_at: '',
     updated_at: '',
   } as Item;
@@ -33,36 +33,56 @@ describe('formatDueShort', () => {
   });
 });
 
-describe('sortItemsByDue', () => {
-  it('orders dated tasks ascending, undated last', () => {
+describe('dateOf', () => {
+  it('reads the requested field, treating empty as absent', () => {
+    const item = task('a', 'A', { due_date: '2026-01-01', start_date: '' });
+    expect(dateOf(item, 'due_date')).toBe('2026-01-01');
+    expect(dateOf(item, 'start_date')).toBeUndefined();
+  });
+});
+
+describe('sortItemsByDate', () => {
+  it('orders dated tasks ascending, undated last (due_date)', () => {
     const items = [
-      task('a', 'Alpha'),                         // undated
-      task('c', 'Charlie', '2026-03-01T00:00:00Z'),
-      task('b', 'Bravo',   '2026-01-01T00:00:00Z'),
+      task('a', 'Alpha'),                                   // undated
+      task('c', 'Charlie', { due_date: '2026-03-01T00:00:00Z' }),
+      task('b', 'Bravo',   { due_date: '2026-01-01T00:00:00Z' }),
     ];
-    expect(sortItemsByDue(items).map(i => i.id)).toEqual(['b', 'c', 'a']);
+    expect(sortItemsByDate(items, 'due_date').map(i => i.id)).toEqual(['b', 'c', 'a']);
+  });
+
+  it('sorts by start_date independently of due_date', () => {
+    const items = [
+      task('late', 'Late', { start_date: '2026-05-01T00:00:00Z' }),
+      task('early', 'Early', { start_date: '2026-02-01T00:00:00Z' }),
+      task('nostart', 'NoStart', { due_date: '2026-01-01T00:00:00Z' }),
+    ];
+    expect(sortItemsByDate(items, 'start_date').map(i => i.id)).toEqual(['early', 'late', 'nostart']);
   });
 
   it('tie-breaks equal dates by title', () => {
     const items = [
-      task('z', 'Zebra', '2026-01-01T00:00:00Z'),
-      task('m', 'Mango', '2026-01-01T00:00:00Z'),
+      task('z', 'Zebra', { due_date: '2026-01-01T00:00:00Z' }),
+      task('m', 'Mango', { due_date: '2026-01-01T00:00:00Z' }),
     ];
-    expect(sortItemsByDue(items).map(i => i.id)).toEqual(['m', 'z']);
+    expect(sortItemsByDate(items, 'due_date').map(i => i.id)).toEqual(['m', 'z']);
   });
 
-  it('treats an invalid due_date as undated', () => {
+  it('treats an invalid date as undated', () => {
     const items = [
-      task('bad', 'Bad', 'not-a-date'),
-      task('good', 'Good', '2026-01-01T00:00:00Z'),
+      task('bad', 'Bad', { due_date: 'not-a-date' }),
+      task('good', 'Good', { due_date: '2026-01-01T00:00:00Z' }),
     ];
-    expect(sortItemsByDue(items).map(i => i.id)).toEqual(['good', 'bad']);
+    expect(sortItemsByDate(items, 'due_date').map(i => i.id)).toEqual(['good', 'bad']);
   });
 
   it('does not mutate the input array', () => {
-    const items = [task('a', 'A', '2026-02-01T00:00:00Z'), task('b', 'B', '2026-01-01T00:00:00Z')];
+    const items = [
+      task('a', 'A', { due_date: '2026-02-01T00:00:00Z' }),
+      task('b', 'B', { due_date: '2026-01-01T00:00:00Z' }),
+    ];
     const before = items.map(i => i.id);
-    sortItemsByDue(items);
+    sortItemsByDate(items, 'due_date');
     expect(items.map(i => i.id)).toEqual(before);
   });
 });

@@ -176,7 +176,9 @@
       "remindAt": "Priminti",
       "dismissed": "Atmesta",
       "yes": "Taip",
-      "no": "Ne"
+      "no": "Ne",
+      "dueDate": "Termino data",
+      "startDate": "Pradžios data"
     },
     "tags": {
       "label": "Žymos",

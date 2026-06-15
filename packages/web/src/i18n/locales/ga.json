@@ -176,7 +176,9 @@
       "remindAt": "Meabhraigh ag",
       "dismissed": "Dísheachadta",
       "yes": "Tá",
-      "no": "Níl"
+      "no": "Níl",
+      "dueDate": "Spriocdháta",
+      "startDate": "Dáta tosaigh"
     },
     "tags": {
       "label": "Clibeanna",

@@ -26,18 +26,13 @@ import {
   getHiddenCounts,
 } from "../../src/lib/dividerGrouping";
 import { applySavedOrder, moveItem } from "../../src/lib/sortItems";
-import { sortItemsByDue } from "../../src/lib/dueDate";
+import { sortItemsByDate, dateOf } from "../../src/lib/dueDate";
 import { colors, spacing, font, radius } from "../../src/theme";
 import { ItemType } from "@notes-world/shared";
 import type { Item } from "@notes-world/shared";
 
-type SortMode = "manual" | "due_date";
+type SortMode = "manual" | "due_date" | "start_date";
 const sortModeKey = (tagId: string) => `nw_tag_sort:${tagId}`;
-
-function dueOf(item: Item): string | undefined {
-  const td = item.type_data as { due_date?: string } | null | undefined;
-  return td?.due_date || undefined;
-}
 
 export default function TagScreen() {
   const { t } = useTranslation();
@@ -57,7 +52,8 @@ export default function TagScreen() {
   useEffect(() => {
     AsyncStorage.getItem(sortModeKey(id))
       .then((v) => {
-        if (v === "due_date" || v === "manual") setSortMode(v);
+        if (v === "due_date" || v === "start_date" || v === "manual")
+          setSortMode(v);
       })
       .catch(() => {});
   }, [id]);
@@ -66,7 +62,7 @@ export default function TagScreen() {
     if (mode === sortMode) return;
     setSortMode(mode);
     // Reordering is meaningless in date order — leave it on switch.
-    if (mode === "due_date") setReordering(false);
+    if (mode !== "manual") setReordering(false);
     // Fire-and-forget: keep the choice the user just made even if the save
     // fails (matches the collapsed-divider behaviour above).
     AsyncStorage.setItem(sortModeKey(id), mode).catch((err) => {
@@ -159,7 +155,7 @@ export default function TagScreen() {
     navigation.setOptions({
       // Reordering only applies to manual order; hide it in date mode.
       headerRight:
-        sortMode === "due_date"
+        sortMode !== "manual"
           ? undefined
           : () => (
               <Pressable onPress={() => setReordering((r) => !r)} hitSlop={8}>
@@ -203,12 +199,15 @@ export default function TagScreen() {
 
   // Date mode is a flat chronological view: dividers are structural (and
   // undated) so they're dropped here.
-  const dueItems = useMemo(
-    () => sortItemsByDue(items.filter((i) => i.item_type !== ItemType.Divider)),
-    [items],
-  );
+  const dateSorted = useMemo(() => {
+    if (sortMode === "manual") return [];
+    return sortItemsByDate(
+      items.filter((i) => i.item_type !== ItemType.Divider),
+      sortMode,
+    );
+  }, [items, sortMode]);
 
-  const visibleItems = sortMode === "due_date" ? dueItems : manualItems;
+  const visibleItems = sortMode === "manual" ? manualItems : dateSorted;
 
   return (
     <SafeAreaView style={s.root} edges={["bottom"]}>
@@ -218,38 +217,28 @@ export default function TagScreen() {
         <>
         <View style={s.sortBar}>
           <View style={s.sortToggle}>
-            <Pressable
-              onPress={() => changeSort("manual")}
-              style={[
-                s.sortBtn,
-                sortMode === "manual" && s.sortBtnActive,
-              ]}
-            >
-              <Text
-                style={[
-                  s.sortBtnText,
-                  sortMode === "manual" && s.sortBtnTextActive,
-                ]}
+            {(
+              [
+                ["manual", "tagDetail.sortManual"],
+                ["due_date", "tagDetail.sortDue"],
+                ["start_date", "tagDetail.sortStart"],
+              ] as Array<[SortMode, string]>
+            ).map(([mode, label]) => (
+              <Pressable
+                key={mode}
+                onPress={() => changeSort(mode)}
+                style={[s.sortBtn, sortMode === mode && s.sortBtnActive]}
               >
-                {t("tagDetail.sortManual")}
-              </Text>
-            </Pressable>
-            <Pressable
-              onPress={() => changeSort("due_date")}
-              style={[
-                s.sortBtn,
-                sortMode === "due_date" && s.sortBtnActive,
-              ]}
-            >
-              <Text
-                style={[
-                  s.sortBtnText,
-                  sortMode === "due_date" && s.sortBtnTextActive,
-                ]}
-              >
-                {t("tagDetail.sortDue")}
-              </Text>
-            </Pressable>
+                <Text
+                  style={[
+                    s.sortBtnText,
+                    sortMode === mode && s.sortBtnTextActive,
+                  ]}
+                >
+                  {t(label)}
+                </Text>
+              </Pressable>
+            ))}
           </View>
         </View>
         <FlatList
@@ -309,7 +298,8 @@ export default function TagScreen() {
                 item={item}
                 onPress={() => router.push(`/item/${item.id}`)}
                 onDelete={onDelete}
-                dueDate={dueOf(item)}
+                dueDate={dateOf(item, "due_date")}
+                startDate={dateOf(item, "start_date")}
               />
             )
           }

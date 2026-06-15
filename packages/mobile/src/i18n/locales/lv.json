@@ -75,7 +75,8 @@
     "collapseSection": "Sakļaut sadaļu",
     "reorder": "Pārkārtot",
     "sortManual": "Manuāli",
-    "sortDue": "Datums"
+    "sortDue": "Termiņš",
+    "sortStart": "Sākums"
   },
   "item": {
     "title": "Virsraksts",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Vienums netika dzēsts. Mēģini vēlreiz.",
     "archiveFailedTitle": "Neizdevās arhivēt",
     "archiveFailedMsg": "Vienums netika arhivēts. Mēģini vēlreiz.",
-    "deleteCardTitle": "Dzēst piezīmi?"
+    "deleteCardTitle": "Dzēst piezīmi?",
+    "dueDate": "Termiņa datums",
+    "startDate": "Sākuma datums",
+    "dateNotSet": "Nav iestatīts"
   },
   "account": {
     "title": "Konts",

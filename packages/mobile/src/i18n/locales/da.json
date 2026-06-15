@@ -75,7 +75,8 @@
     "collapseSection": "Skjul sektion",
     "reorder": "Omarranger",
     "sortManual": "Manuel",
-    "sortDue": "Dato"
+    "sortDue": "Forfald",
+    "sortStart": "Start"
   },
   "item": {
     "title": "Titel",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Elementet blev ikke slettet. Prøv igen.",
     "archiveFailedTitle": "Kunne ikke arkivere",
     "archiveFailedMsg": "Elementet blev ikke arkiveret. Prøv igen.",
-    "deleteCardTitle": "Slet note?"
+    "deleteCardTitle": "Slet note?",
+    "dueDate": "Forfaldsdato",
+    "startDate": "Startdato",
+    "dateNotSet": "Ikke angivet"
   },
   "account": {
     "title": "Konto",

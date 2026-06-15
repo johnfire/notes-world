@@ -75,7 +75,8 @@
     "collapseSection": "Abschnitt ausblenden",
     "reorder": "Neu anordnen",
     "sortManual": "Manuell",
-    "sortDue": "Datum"
+    "sortDue": "Fällig",
+    "sortStart": "Start"
   },
   "item": {
     "title": "Titel",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Der Eintrag wurde nicht gelöscht. Versuche es erneut.",
     "archiveFailedTitle": "Archivieren fehlgeschlagen",
     "archiveFailedMsg": "Der Eintrag wurde nicht archiviert. Versuche es erneut.",
-    "deleteCardTitle": "Notiz löschen?"
+    "deleteCardTitle": "Notiz löschen?",
+    "dueDate": "Fälligkeitsdatum",
+    "startDate": "Startdatum",
+    "dateNotSet": "Nicht gesetzt"
   },
   "account": {
     "title": "Konto",

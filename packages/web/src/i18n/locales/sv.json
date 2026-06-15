@@ -176,7 +176,9 @@
       "remindAt": "Påminn vid",
       "dismissed": "Avvisad",
       "yes": "Ja",
-      "no": "Nej"
+      "no": "Nej",
+      "dueDate": "Förfallodatum",
+      "startDate": "Startdatum"
     },
     "tags": {
       "label": "Taggar",

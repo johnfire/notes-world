@@ -75,7 +75,8 @@
     "collapseSection": "Collapse section",
     "reorder": "Reorder",
     "sortManual": "Manual",
-    "sortDue": "Date"
+    "sortDue": "Due",
+    "sortStart": "Start"
   },
   "item": {
     "title": "Title",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "The item was not deleted. Try again.",
     "archiveFailedTitle": "Couldn't archive",
     "archiveFailedMsg": "The item was not archived. Try again.",
-    "deleteCardTitle": "Delete note?"
+    "deleteCardTitle": "Delete note?",
+    "dueDate": "Due date",
+    "startDate": "Start date",
+    "dateNotSet": "Not set"
   },
   "account": {
     "title": "Account",

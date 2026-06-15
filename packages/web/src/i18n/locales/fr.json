@@ -176,7 +176,9 @@
       "remindAt": "Me rappeler le",
       "dismissed": "Ignoré",
       "yes": "Oui",
-      "no": "Non"
+      "no": "Non",
+      "dueDate": "Date d'échéance",
+      "startDate": "Date de début"
     },
     "tags": {
       "label": "Tags",

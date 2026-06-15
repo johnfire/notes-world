@@ -75,7 +75,8 @@
     "collapseSection": "Tiivistä osio",
     "reorder": "Järjestä uudelleen",
     "sortManual": "Manuaalinen",
-    "sortDue": "Päivä"
+    "sortDue": "Eräpäivä",
+    "sortStart": "Aloitus"
   },
   "item": {
     "title": "Otsikko",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Kohdetta ei poistettu. Yritä uudelleen.",
     "archiveFailedTitle": "Arkistointi epäonnistui",
     "archiveFailedMsg": "Kohdetta ei arkistoitu. Yritä uudelleen.",
-    "deleteCardTitle": "Poistetaanko muistiinpano?"
+    "deleteCardTitle": "Poistetaanko muistiinpano?",
+    "dueDate": "Eräpäivä",
+    "startDate": "Aloituspäivä",
+    "dateNotSet": "Ei asetettu"
   },
   "account": {
     "title": "Tili",

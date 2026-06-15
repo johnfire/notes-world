@@ -75,7 +75,8 @@
     "collapseSection": "Sažmi odjeljak",
     "reorder": "Promijeni redoslijed",
     "sortManual": "Ručno",
-    "sortDue": "Datum"
+    "sortDue": "Rok",
+    "sortStart": "Početak"
   },
   "item": {
     "title": "Naslov",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Stavka nije izbrisana. Pokušajte ponovno.",
     "archiveFailedTitle": "Arhiviranje nije uspjelo",
     "archiveFailedMsg": "Stavka nije arhivirana. Pokušajte ponovno.",
-    "deleteCardTitle": "Izbrisati bilješku?"
+    "deleteCardTitle": "Izbrisati bilješku?",
+    "dueDate": "Datum dospijeća",
+    "startDate": "Datum početka",
+    "dateNotSet": "Nije postavljeno"
   },
   "account": {
     "title": "Račun",

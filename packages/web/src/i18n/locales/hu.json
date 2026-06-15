@@ -176,7 +176,9 @@
       "remindAt": "Emlékeztető időpontja",
       "dismissed": "Elutasítva",
       "yes": "Igen",
-      "no": "Nem"
+      "no": "Nem",
+      "dueDate": "Határidő dátuma",
+      "startDate": "Kezdés dátuma"
     },
     "tags": {
       "label": "Címkék",

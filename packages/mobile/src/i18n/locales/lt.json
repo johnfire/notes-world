@@ -75,7 +75,8 @@
     "collapseSection": "Suskleisti skiltį",
     "reorder": "Pertvarkyti",
     "sortManual": "Rankiniu",
-    "sortDue": "Data"
+    "sortDue": "Terminas",
+    "sortStart": "Pradžia"
   },
   "item": {
     "title": "Pavadinimas",
@@ -94,7 +95,10 @@
     "deleteFailedMsg": "Elementas nebuvo ištrintas. Bandykite dar kartą.",
     "archiveFailedTitle": "Nepavyko archyvuoti",
     "archiveFailedMsg": "Elementas nebuvo archyvuotas. Bandykite dar kartą.",
-    "deleteCardTitle": "Ištrinti užrašą?"
+    "deleteCardTitle": "Ištrinti užrašą?",
+    "dueDate": "Termino data",
+    "startDate": "Pradžios data",
+    "dateNotSet": "Nenustatyta"
   },
   "account": {
     "title": "Paskyra",
