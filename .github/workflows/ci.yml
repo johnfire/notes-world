@@ -32,6 +32,9 @@ jobs:
       - name: Run web tests
         run: npm test --workspace=packages/web
 
+      - name: Run mobile tests
+        run: npm test --workspace=packages/mobile
+
       - name: Generate changelog
         run: node scripts/generate-changelog.mjs
 
