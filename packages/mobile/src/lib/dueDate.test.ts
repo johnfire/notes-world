@@ -1,7 +1,12 @@
 import { describe, it, expect } from "vitest";
 import { ItemType, ItemStatus } from "@notes-world/shared";
 import type { Item } from "@notes-world/shared";
-import { formatDueShort, sortItemsByDate, dateOf } from "./dueDate";
+import {
+  formatDueShort,
+  sortItemsByDate,
+  dateOf,
+  mergeTypeData,
+} from "./dueDate";
 
 function task(
   id: string,
@@ -37,6 +42,53 @@ describe("formatDueShort", () => {
 
   it("returns empty string for an invalid date", () => {
     expect(formatDueShort("not-a-date")).toBe("");
+  });
+
+  it("parses a date-only string in local time (no UTC off-by-one)", () => {
+    // In a negative-UTC zone, new Date('2026-06-18') is the 17th locally.
+    // The helper must still render the calendar day the user picked.
+    const orig = process.env.TZ;
+    process.env.TZ = "America/New_York";
+    try {
+      expect(formatDueShort("2026-06-18")).toBe("Jun 18");
+    } finally {
+      process.env.TZ = orig;
+    }
+  });
+});
+
+describe("mergeTypeData", () => {
+  it("preserves sibling keys (task_status, priority) when setting a date", () => {
+    const existing = { task_status: "Open", priority: "High" };
+    expect(mergeTypeData(existing, "due_date", "2026-06-18")).toEqual({
+      task_status: "Open",
+      priority: "High",
+      due_date: "2026-06-18",
+    });
+  });
+
+  it("clears the field on a null value, keeping the rest", () => {
+    const existing = {
+      task_status: "Open",
+      priority: "High",
+      due_date: "2026-06-18",
+    };
+    expect(mergeTypeData(existing, "due_date", null)).toEqual({
+      task_status: "Open",
+      priority: "High",
+    });
+  });
+
+  it("tolerates null/undefined existing type_data", () => {
+    expect(mergeTypeData(null, "start_date", "2026-01-01")).toEqual({
+      start_date: "2026-01-01",
+    });
+  });
+
+  it("does not mutate the input object", () => {
+    const existing = { task_status: "Open", due_date: "2026-01-01" };
+    mergeTypeData(existing, "due_date", null);
+    expect(existing).toEqual({ task_status: "Open", due_date: "2026-01-01" });
   });
 });
 

@@ -170,7 +170,6 @@
       "updated": "Päivitetty",
       "status": "Tila",
       "priority": "Prioriteetti",
-      "due": "Määräaika",
       "completed": "Valmistunut",
       "maturity": "Kypsyys",
       "remindAt": "Muistuta",

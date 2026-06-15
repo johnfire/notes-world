@@ -24,7 +24,12 @@ import {
 } from "../../src/api/items";
 import { reportClientError } from "../../src/api/report";
 import { TagManager } from "../../src/components/TagManager";
-import { formatDueShort, dateOf, type DateField } from "../../src/lib/dueDate";
+import {
+  formatDueShort,
+  dateOf,
+  mergeTypeData,
+  type DateField,
+} from "../../src/lib/dueDate";
 import { colors, spacing, radius, font } from "../../src/theme";
 import { ItemType } from "@notes-world/shared";
 import type { Item, TypeData } from "@notes-world/shared";
@@ -158,10 +163,7 @@ export default function ItemScreen() {
   // A null value clears the field. Persists immediately (no Save button needed).
   async function persistDate(field: DateField, value: string | null) {
     if (!item) return;
-    const td = (item.type_data as Record<string, unknown> | null) ?? {};
-    const merged: Record<string, unknown> = { ...td };
-    if (value) merged[field] = value;
-    else delete merged[field];
+    const merged = mergeTypeData(item.type_data, field, value);
     setSavingDates(true);
     try {
       const updated = await updateItem(item.id, {

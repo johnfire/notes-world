@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { Item, Tag, Dependency } from "../../types";
+import { mergeTypeData } from "@notes-world/shared";
 import { useApp } from "../../context/AppContext";
 import * as api from "../../api";
 
@@ -134,10 +135,7 @@ export function useItemDrawer() {
   // the field. Expects a date-only "YYYY-MM-DD" string (or "" to clear).
   async function saveDate(field: "due_date" | "start_date", value: string) {
     if (!item) return;
-    const td = (item.type_data as Record<string, unknown> | null) ?? {};
-    const merged: Record<string, unknown> = { ...td };
-    if (value) merged[field] = value;
-    else delete merged[field];
+    const merged = mergeTypeData(item.type_data, field, value);
     setSaving(true);
     try {
       const updated = await api.items.update(item.id, {
@@ -145,6 +143,12 @@ export function useItemDrawer() {
       });
       setItem(updated);
       updateItemInContext(updated);
+    } catch (err) {
+      api.reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "useItemDrawer.saveDate",
+      });
     } finally {
       setSaving(false);
     }

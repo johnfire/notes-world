@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ItemType, ItemStatus, type Item } from '../../types';
-import { formatDueShort, sortItemsByDate, dateOf } from './itemsByTag.utils';
+import { formatDueShort, sortItemsByDate, dateOf, mergeTypeData } from './itemsByTag.utils';
 
 function task(id: string, title: string, dates?: { due_date?: string; start_date?: string }): Item {
   return {
@@ -30,6 +30,38 @@ describe('formatDueShort', () => {
 
   it('returns empty string for an invalid date', () => {
     expect(formatDueShort('not-a-date')).toBe('');
+  });
+
+  it('parses a date-only string in local time (no UTC off-by-one)', () => {
+    const orig = process.env.TZ;
+    process.env.TZ = 'America/New_York';
+    try {
+      expect(formatDueShort('2026-06-18')).toBe('Jun 18');
+    } finally {
+      process.env.TZ = orig;
+    }
+  });
+});
+
+describe('mergeTypeData', () => {
+  it('preserves sibling keys when setting a date', () => {
+    const existing = { task_status: 'Open', priority: 'High' };
+    expect(mergeTypeData(existing, 'due_date', '2026-06-18')).toEqual({
+      task_status: 'Open',
+      priority: 'High',
+      due_date: '2026-06-18',
+    });
+  });
+
+  it('clears the field on a null value, keeping the rest', () => {
+    const existing = { task_status: 'Open', due_date: '2026-06-18' };
+    expect(mergeTypeData(existing, 'due_date', null)).toEqual({ task_status: 'Open' });
+  });
+
+  it('does not mutate the input object', () => {
+    const existing = { task_status: 'Open', due_date: '2026-01-01' };
+    mergeTypeData(existing, 'due_date', null);
+    expect(existing).toEqual({ task_status: 'Open', due_date: '2026-01-01' });
   });
 });
 
