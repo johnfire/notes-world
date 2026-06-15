@@ -73,7 +73,9 @@
     "empty": "Nav vienumu ar šo birku",
     "expandSection": "Izvērst sadaļu",
     "collapseSection": "Sakļaut sadaļu",
-    "reorder": "Pārkārtot"
+    "reorder": "Pārkārtot",
+    "sortManual": "Manuāli",
+    "sortDue": "Datums"
   },
   "item": {
     "title": "Virsraksts",

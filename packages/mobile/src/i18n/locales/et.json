@@ -73,7 +73,9 @@
     "empty": "Selle sildiga üksusi pole",
     "expandSection": "Laienda jaotis",
     "collapseSection": "Ahenda jaotis",
-    "reorder": "Järjesta ümber"
+    "reorder": "Järjesta ümber",
+    "sortManual": "Käsitsi",
+    "sortDue": "Kuupäev"
   },
   "item": {
     "title": "Pealkiri",

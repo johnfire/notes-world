@@ -73,7 +73,9 @@
     "empty": "Nessun elemento con questa etichetta",
     "expandSection": "Espandi sezione",
     "collapseSection": "Comprimi sezione",
-    "reorder": "Riordina"
+    "reorder": "Riordina",
+    "sortManual": "Manuale",
+    "sortDue": "Data"
   },
   "item": {
     "title": "Titolo",

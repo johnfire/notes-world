@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import type { Item } from "@notes-world/shared";
 import { ItemType } from "@notes-world/shared";
 import { colors, spacing, radius, font } from "../theme";
+import { formatDueShort } from "../lib/dueDate";
 
 const TYPE_COLORS: Record<string, string> = {
   [ItemType.Task]: colors.typeTask,
@@ -27,6 +28,8 @@ interface Props {
   collapsed?: boolean;
   hiddenCount?: number;
   onToggle?: () => void;
+  // When set, show the item's due date in the footer (used by the Date sort view).
+  dueDate?: string;
 }
 
 export function ItemCard({
@@ -36,6 +39,7 @@ export function ItemCard({
   collapsed,
   hiddenCount,
   onToggle,
+  dueDate,
 }: Props) {
   const { t, i18n } = useTranslation();
   const typeColor = TYPE_COLORS[item.item_type] ?? colors.typeUntyped;
@@ -43,6 +47,7 @@ export function ItemCard({
     day: "2-digit",
     month: "short",
   });
+  const due = dueDate ? formatDueShort(dueDate) : "";
 
   function handleDelete() {
     Alert.alert(t("item.deleteCardTitle"), t("item.deleteMsg"), [
@@ -112,6 +117,16 @@ export function ItemCard({
         <View style={s.footer}>
           <Text style={[s.badge, { color: typeColor }]}>{item.item_type}</Text>
           <View style={s.footerRight}>
+            {!!due && (
+              <View style={s.dueWrap}>
+                <Ionicons
+                  name="calendar-outline"
+                  size={12}
+                  color={colors.accent}
+                />
+                <Text style={s.due}>{due}</Text>
+              </View>
+            )}
             <Text style={s.date}>{date}</Text>
             {onDelete && (
               <Pressable onPress={handleDelete} hitSlop={8} style={s.deleteBtn}>
@@ -204,6 +219,16 @@ const s = StyleSheet.create({
   date: {
     color: colors.textDim,
     fontSize: 11,
+  },
+  dueWrap: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 3,
+  },
+  due: {
+    color: colors.accent,
+    fontSize: 11,
+    fontWeight: "600",
   },
   deleteBtn: {
     padding: 2,

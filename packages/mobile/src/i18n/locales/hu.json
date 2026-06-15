@@ -73,7 +73,9 @@
     "empty": "Nincs elem ezzel a címkével",
     "expandSection": "Szakasz kibontása",
     "collapseSection": "Szakasz összecsukása",
-    "reorder": "Átrendezés"
+    "reorder": "Átrendezés",
+    "sortManual": "Kézi",
+    "sortDue": "Dátum"
   },
   "item": {
     "title": "Cím",

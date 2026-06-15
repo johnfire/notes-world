@@ -73,7 +73,9 @@
     "empty": "Nėra elementų su šia žyma",
     "expandSection": "Išskleisti skiltį",
     "collapseSection": "Suskleisti skiltį",
-    "reorder": "Pertvarkyti"
+    "reorder": "Pertvarkyti",
+    "sortManual": "Rankiniu",
+    "sortDue": "Data"
   },
   "item": {
     "title": "Pavadinimas",

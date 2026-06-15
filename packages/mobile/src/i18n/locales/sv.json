@@ -73,7 +73,9 @@
     "empty": "Inga objekt med den här taggen",
     "expandSection": "Visa avsnitt",
     "collapseSection": "Dölj avsnitt",
-    "reorder": "Ändra ordning"
+    "reorder": "Ändra ordning",
+    "sortManual": "Manuell",
+    "sortDue": "Datum"
   },
   "item": {
     "title": "Titel",

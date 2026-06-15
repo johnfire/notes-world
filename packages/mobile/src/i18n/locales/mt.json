@@ -73,7 +73,9 @@
     "empty": "L-ebda oġġett b'din it-tikketta",
     "expandSection": "Espandi t-taqsima",
     "collapseSection": "Iġbor it-taqsima",
-    "reorder": "Irranġa mill-ġdid"
+    "reorder": "Irranġa mill-ġdid",
+    "sortManual": "Manwali",
+    "sortDue": "Data"
   },
   "item": {
     "title": "Titlu",

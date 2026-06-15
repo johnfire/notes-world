@@ -73,7 +73,9 @@
     "empty": "Gan míreanna leis an gclib seo",
     "expandSection": "Leathnaigh an rannán",
     "collapseSection": "Cuir an rannán i bhfolach",
-    "reorder": "Athordaigh"
+    "reorder": "Athordaigh",
+    "sortManual": "De láimh",
+    "sortDue": "Dáta"
   },
   "item": {
     "title": "Teideal",

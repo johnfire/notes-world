@@ -73,7 +73,9 @@
     "empty": "没有带此标签的条目",
     "expandSection": "展开分区",
     "collapseSection": "折叠分区",
-    "reorder": "调整顺序"
+    "reorder": "调整顺序",
+    "sortManual": "手动",
+    "sortDue": "日期"
   },
   "item": {
     "title": "标题",

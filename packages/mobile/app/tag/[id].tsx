@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -8,6 +8,7 @@ import {
   RefreshControl,
   Pressable,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams, useRouter, useNavigation } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -25,9 +26,18 @@ import {
   getHiddenCounts,
 } from "../../src/lib/dividerGrouping";
 import { applySavedOrder, moveItem } from "../../src/lib/sortItems";
+import { sortItemsByDue } from "../../src/lib/dueDate";
 import { colors, spacing, font, radius } from "../../src/theme";
 import { ItemType } from "@notes-world/shared";
 import type { Item } from "@notes-world/shared";
+
+type SortMode = "manual" | "due_date";
+const sortModeKey = (tagId: string) => `nw_tag_sort:${tagId}`;
+
+function dueOf(item: Item): string | undefined {
+  const td = item.type_data as { due_date?: string } | null | undefined;
+  return td?.due_date || undefined;
+}
 
 export default function TagScreen() {
   const { t } = useTranslation();
@@ -40,6 +50,33 @@ export default function TagScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [reordering, setReordering] = useState(false);
+  const [sortMode, setSortMode] = useState<SortMode>("manual");
+
+  // Restore the per-tag sort preference (local-only; the tag screen is a
+  // different surface from the web dashboard block, which keeps its own).
+  useEffect(() => {
+    AsyncStorage.getItem(sortModeKey(id))
+      .then((v) => {
+        if (v === "due_date" || v === "manual") setSortMode(v);
+      })
+      .catch(() => {});
+  }, [id]);
+
+  function changeSort(mode: SortMode) {
+    if (mode === sortMode) return;
+    setSortMode(mode);
+    // Reordering is meaningless in date order — leave it on switch.
+    if (mode === "due_date") setReordering(false);
+    // Fire-and-forget: keep the choice the user just made even if the save
+    // fails (matches the collapsed-divider behaviour above).
+    AsyncStorage.setItem(sortModeKey(id), mode).catch((err) => {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "TagScreen.changeSort",
+      });
+    });
+  }
 
   function toggleCollapse(dividerId: string) {
     setCollapsed((prev) => {
@@ -120,15 +157,19 @@ export default function TagScreen() {
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => (
-        <Pressable onPress={() => setReordering((r) => !r)} hitSlop={8}>
-          <Text style={s.headerAction}>
-            {reordering ? t("common.done") : t("tagDetail.reorder")}
-          </Text>
-        </Pressable>
-      ),
+      // Reordering only applies to manual order; hide it in date mode.
+      headerRight:
+        sortMode === "due_date"
+          ? undefined
+          : () => (
+              <Pressable onPress={() => setReordering((r) => !r)} hitSlop={8}>
+                <Text style={s.headerAction}>
+                  {reordering ? t("common.done") : t("tagDetail.reorder")}
+                </Text>
+              </Pressable>
+            ),
     });
-  }, [reordering, t]);
+  }, [reordering, sortMode, t]);
 
   function onMove(index: number, direction: -1 | 1) {
     setItems((prev) => {
@@ -153,18 +194,64 @@ export default function TagScreen() {
   const hiddenCounts = getHiddenCounts(items);
   // Hide items whose parent divider is collapsed; dividers always stay visible.
   // While reordering, show everything so positions are unambiguous.
-  const visibleItems = reordering
+  const manualItems = reordering
     ? items
     : items.filter((item) => {
         const parent = parentDividerMap.get(item.id);
         return !(parent && collapsed.has(parent));
       });
 
+  // Date mode is a flat chronological view: dividers are structural (and
+  // undated) so they're dropped here.
+  const dueItems = useMemo(
+    () => sortItemsByDue(items.filter((i) => i.item_type !== ItemType.Divider)),
+    [items],
+  );
+
+  const visibleItems = sortMode === "due_date" ? dueItems : manualItems;
+
   return (
     <SafeAreaView style={s.root} edges={["bottom"]}>
       {loading ? (
         <ActivityIndicator style={s.loader} color={colors.accent} />
       ) : (
+        <>
+        <View style={s.sortBar}>
+          <View style={s.sortToggle}>
+            <Pressable
+              onPress={() => changeSort("manual")}
+              style={[
+                s.sortBtn,
+                sortMode === "manual" && s.sortBtnActive,
+              ]}
+            >
+              <Text
+                style={[
+                  s.sortBtnText,
+                  sortMode === "manual" && s.sortBtnTextActive,
+                ]}
+              >
+                {t("tagDetail.sortManual")}
+              </Text>
+            </Pressable>
+            <Pressable
+              onPress={() => changeSort("due_date")}
+              style={[
+                s.sortBtn,
+                sortMode === "due_date" && s.sortBtnActive,
+              ]}
+            >
+              <Text
+                style={[
+                  s.sortBtnText,
+                  sortMode === "due_date" && s.sortBtnTextActive,
+                ]}
+              >
+                {t("tagDetail.sortDue")}
+              </Text>
+            </Pressable>
+          </View>
+        </View>
         <FlatList
           data={visibleItems}
           keyExtractor={(item) => item.id}
@@ -222,6 +309,7 @@ export default function TagScreen() {
                 item={item}
                 onPress={() => router.push(`/item/${item.id}`)}
                 onDelete={onDelete}
+                dueDate={dueOf(item)}
               />
             )
           }
@@ -243,6 +331,7 @@ export default function TagScreen() {
             paddingBottom: spacing.xl,
           }}
         />
+        </>
       )}
     </SafeAreaView>
   );
@@ -261,6 +350,34 @@ const s = StyleSheet.create({
     color: colors.accent,
     fontSize: font.md,
     paddingHorizontal: spacing.sm,
+  },
+  sortBar: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    paddingHorizontal: spacing.md,
+    paddingTop: spacing.sm,
+  },
+  sortToggle: {
+    flexDirection: "row",
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.sm,
+    overflow: "hidden",
+  },
+  sortBtn: {
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+  },
+  sortBtnActive: {
+    backgroundColor: colors.surfaceHigh,
+  },
+  sortBtnText: {
+    color: colors.textMuted,
+    fontSize: font.sm,
+  },
+  sortBtnTextActive: {
+    color: colors.text,
+    fontWeight: "600",
   },
   reorderRow: {
     flexDirection: "row",

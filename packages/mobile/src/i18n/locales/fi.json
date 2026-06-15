@@ -73,7 +73,9 @@
     "empty": "Ei kohteita tällä tunnisteella",
     "expandSection": "Laajenna osio",
     "collapseSection": "Tiivistä osio",
-    "reorder": "Järjestä uudelleen"
+    "reorder": "Järjestä uudelleen",
+    "sortManual": "Manuaalinen",
+    "sortDue": "Päivä"
   },
   "item": {
     "title": "Otsikko",

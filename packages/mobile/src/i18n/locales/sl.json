@@ -73,7 +73,9 @@
     "empty": "Ni elementov s to oznako",
     "expandSection": "Razširi razdelek",
     "collapseSection": "Strni razdelek",
-    "reorder": "Preuredi"
+    "reorder": "Preuredi",
+    "sortManual": "Ročno",
+    "sortDue": "Datum"
   },
   "item": {
     "title": "Naslov",

@@ -73,7 +73,9 @@
     "empty": "No items with this tag",
     "expandSection": "Expand section",
     "collapseSection": "Collapse section",
-    "reorder": "Reorder"
+    "reorder": "Reorder",
+    "sortManual": "Manual",
+    "sortDue": "Date"
   },
   "item": {
     "title": "Title",

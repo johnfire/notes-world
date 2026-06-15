@@ -73,7 +73,9 @@
     "empty": "Niciun element cu această etichetă",
     "expandSection": "Extinde secțiunea",
     "collapseSection": "Restrânge secțiunea",
-    "reorder": "Reordonează"
+    "reorder": "Reordonează",
+    "sortManual": "Manual",
+    "sortDue": "Dată"
   },
   "item": {
     "title": "Titlu",

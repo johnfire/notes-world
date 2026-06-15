@@ -73,7 +73,9 @@
     "empty": "Keine Einträge mit diesem Tag",
     "expandSection": "Abschnitt einblenden",
     "collapseSection": "Abschnitt ausblenden",
-    "reorder": "Neu anordnen"
+    "reorder": "Neu anordnen",
+    "sortManual": "Manuell",
+    "sortDue": "Datum"
   },
   "item": {
     "title": "Titel",

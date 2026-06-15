@@ -73,7 +73,9 @@
     "empty": "No hay elementos con esta etiqueta",
     "expandSection": "Expandir sección",
     "collapseSection": "Contraer sección",
-    "reorder": "Reordenar"
+    "reorder": "Reordenar",
+    "sortManual": "Manual",
+    "sortDue": "Fecha"
   },
   "item": {
     "title": "Título",

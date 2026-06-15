@@ -73,7 +73,9 @@
     "empty": "Geen items met deze tag",
     "expandSection": "Sectie uitvouwen",
     "collapseSection": "Sectie samenvouwen",
-    "reorder": "Herordenen"
+    "reorder": "Herordenen",
+    "sortManual": "Handmatig",
+    "sortDue": "Datum"
   },
   "item": {
     "title": "Titel",

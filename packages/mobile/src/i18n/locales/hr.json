@@ -73,7 +73,9 @@
     "empty": "Nema stavki s ovom oznakom",
     "expandSection": "Proširi odjeljak",
     "collapseSection": "Sažmi odjeljak",
-    "reorder": "Promijeni redoslijed"
+    "reorder": "Promijeni redoslijed",
+    "sortManual": "Ručno",
+    "sortDue": "Datum"
   },
   "item": {
     "title": "Naslov",

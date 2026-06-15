@@ -73,7 +73,9 @@
     "empty": "Žádné položky s tímto štítkem",
     "expandSection": "Rozbalit sekci",
     "collapseSection": "Sbalit sekci",
-    "reorder": "Změnit pořadí"
+    "reorder": "Změnit pořadí",
+    "sortManual": "Ručně",
+    "sortDue": "Datum"
   },
   "item": {
     "title": "Název",

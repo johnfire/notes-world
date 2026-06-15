@@ -73,7 +73,9 @@
     "empty": "Ingen elementer med dette tag",
     "expandSection": "Udvid sektion",
     "collapseSection": "Skjul sektion",
-    "reorder": "Omarranger"
+    "reorder": "Omarranger",
+    "sortManual": "Manuel",
+    "sortDue": "Dato"
   },
   "item": {
     "title": "Titel",
