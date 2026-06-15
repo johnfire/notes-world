@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { Fragment, ReactNode, useEffect, useMemo, useState } from 'react';
 import { Block, Item } from '../../types';
 import * as api from '../../api';
 import { useApp } from '../../context/AppContext';
@@ -33,10 +33,11 @@ export function ItemsByTag({ block }: Props) {
 
   function changeSort(mode: SortMode) {
     if (mode === sortMode) return;
+    const prev = sortMode;
     setSortMode(mode);
     api.dashboard
       .updateBlock(block.id, { config: { ...block.config, sort_mode: mode } })
-      .catch(() => {});
+      .catch(() => setSortMode(prev));
   }
 
   function dueOf(item: Item): string | undefined {
@@ -96,11 +97,7 @@ export function ItemsByTag({ block }: Props) {
         ) : displayItems.length === 0 ? (
           <p className="text-sm text-gray-600 py-4 text-center">No items with this tag</p>
         ) : sortMode === 'due_date' ? (
-          <div>
-            {displayItems.map(item => (
-              <div key={item.id}>{row(item)}</div>
-            ))}
-          </div>
+          displayItems.map(item => <Fragment key={item.id}>{row(item)}</Fragment>)
         ) : (
           <SortableList
             items={displayItems}
