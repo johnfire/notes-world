@@ -30,6 +30,7 @@ export function Sidebar({
   const [saving, setSaving] = useState(false);
   const [createError, setCreateError] = useState<string | null>(null);
   const [changelogOpen, setChangelogOpen] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<Tag | null>(null);
   const createInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -118,25 +119,21 @@ export function Sidebar({
     [loadTags],
   );
 
-  const handleDelete = useCallback(
-    async (tag: Tag) => {
-      if (!window.confirm(`Delete tag "${tag.name}"?`)) return;
-      // Offer the cascade only when there are notes to act on. Notes go to
-      // Trash (recoverable), they are not purged.
-      let deleteItems = false;
-      const count = tag.count ?? 0;
-      if (count > 0) {
-        deleteItems = window.confirm(
-          `Also move ${count} note${count === 1 ? "" : "s"} tagged "${tag.name}" to Trash?\n\n` +
-            `OK = delete the tag AND its notes.\n` +
-            `Cancel = delete the tag only (notes are kept).`,
-        );
-      }
+  // Open the delete dialog; the user then picks tag-only vs tag + notes.
+  const handleDelete = useCallback(async (tag: Tag) => {
+    setDeleteTarget(tag);
+  }, []);
+
+  const confirmDelete = useCallback(
+    async (deleteItems: boolean) => {
+      const tag = deleteTarget;
+      if (!tag) return;
+      setDeleteTarget(null);
       await api.tags.delete(tag.id, deleteItems);
       if (selectedTagId === tag.id) onTagSelect(null);
       await loadTags();
     },
-    [loadTags, selectedTagId, onTagSelect],
+    [deleteTarget, loadTags, selectedTagId, onTagSelect],
   );
 
   if (collapsed) {
@@ -396,7 +393,89 @@ export function Sidebar({
         </svg>
         {t("app.sidebar.trash")}
       </button>
+
+      {deleteTarget && (
+        <DeleteTagDialog
+          tag={deleteTarget}
+          onCancel={() => setDeleteTarget(null)}
+          onConfirm={confirmDelete}
+        />
+      )}
     </aside>
+  );
+}
+
+// Two distinct deletes, user's choice: drop the tag only (notes keep living,
+// just untagged) or drop the tag and send its notes to Trash (recoverable).
+function DeleteTagDialog({
+  tag,
+  onCancel,
+  onConfirm,
+}: {
+  tag: Tag;
+  onCancel: () => void;
+  onConfirm: (deleteItems: boolean) => Promise<void>;
+}) {
+  const count = tag.count ?? 0;
+  const noteWord = count === 1 ? "note" : "notes";
+
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onCancel();
+      }}
+    >
+      <div className="bg-surface-800 border border-surface-500 rounded-lg shadow-2xl w-full max-w-sm">
+        <div className="px-5 py-4 border-b border-surface-500">
+          <h2 className="text-sm font-semibold text-white">
+            Delete tag “{tag.name}”
+          </h2>
+        </div>
+
+        <div className="p-5 space-y-3">
+          <p className="text-xs text-gray-500">
+            {count > 0
+              ? `This tag is on ${count} ${noteWord}. Choose what to delete.`
+              : "This tag has no notes."}
+          </p>
+
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => void onConfirm(false)}
+              className="w-full text-left px-3 py-2 rounded bg-surface-700 border border-surface-500 hover:bg-surface-600 transition-colors"
+            >
+              <span className="block text-xs font-semibold text-gray-200">
+                Delete tag only
+              </span>
+              <span className="block text-xs text-gray-500">
+                Your notes are kept — they just lose this tag.
+              </span>
+            </button>
+
+            {count > 0 && (
+              <button
+                onClick={() => void onConfirm(true)}
+                className="w-full text-left px-3 py-2 rounded bg-danger/15 border border-danger/40 hover:bg-danger/25 transition-colors"
+              >
+                <span className="block text-xs font-semibold text-danger">
+                  Delete tag and its {count} {noteWord}
+                </span>
+                <span className="block text-xs text-danger/80">
+                  Notes move to Trash (recoverable).
+                </span>
+              </button>
+            )}
+          </div>
+
+          <div className="flex justify-end">
+            <button onClick={onCancel} className="btn-ghost text-xs">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
