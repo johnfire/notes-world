@@ -71,7 +71,10 @@
     "deleteWithNotes": "Label + notities",
     "new": "Nieuw label",
     "namePlaceholder": "Labelnaam",
-    "create": "“{{name}}” maken"
+    "create": "“{{name}}” maken",
+    "rename": "Naam wijzigen",
+    "color": "Kleur",
+    "removeColor": "Kleur verwijderen"
   },
   "tagDetail": {
     "loadError": "Kan items niet laden. Trek omlaag om opnieuw te proberen.",

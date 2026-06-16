@@ -71,7 +71,10 @@
     "deleteWithNotes": "Tagg + anteckningar",
     "new": "Ny tagg",
     "namePlaceholder": "Taggnamn",
-    "create": "Skapa ”{{name}}”"
+    "create": "Skapa ”{{name}}”",
+    "rename": "Byt namn",
+    "color": "Färg",
+    "removeColor": "Ta bort färg"
   },
   "tagDetail": {
     "loadError": "Det gick inte att läsa in objekt. Dra nedåt för att försöka igen.",

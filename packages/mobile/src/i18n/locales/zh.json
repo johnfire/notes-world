@@ -71,7 +71,10 @@
     "deleteWithNotes": "标签 + 笔记",
     "new": "新标签",
     "namePlaceholder": "标签名称",
-    "create": "创建“{{name}}”"
+    "create": "创建“{{name}}”",
+    "rename": "重命名",
+    "color": "颜色",
+    "removeColor": "移除颜色"
   },
   "tagDetail": {
     "loadError": "无法加载条目。下拉以重试。",

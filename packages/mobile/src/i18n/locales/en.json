@@ -71,7 +71,10 @@
     "deleteWithNotes": "Tag + notes",
     "new": "New tag",
     "namePlaceholder": "Tag name",
-    "create": "Create “{{name}}”"
+    "create": "Create “{{name}}”",
+    "rename": "Rename",
+    "color": "Color",
+    "removeColor": "Remove color"
   },
   "tagDetail": {
     "loadError": "Couldn't load items. Pull down to retry.",

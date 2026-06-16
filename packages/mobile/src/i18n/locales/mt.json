@@ -71,7 +71,10 @@
     "deleteWithNotes": "Tikketta + noti",
     "new": "Tikketta ġdida",
     "namePlaceholder": "Isem tat-tikketta",
-    "create": "Oħloq “{{name}}”"
+    "create": "Oħloq “{{name}}”",
+    "rename": "Ibdel l-isem",
+    "color": "Kulur",
+    "removeColor": "Neħħi l-kulur"
   },
   "tagDetail": {
     "loadError": "Ma stajniex intellgħu l-oġġetti. Iġbed 'l isfel biex terġa' tipprova.",

@@ -71,7 +71,10 @@
     "deleteWithNotes": "Тег + заметки",
     "new": "Новый тег",
     "namePlaceholder": "Название тега",
-    "create": "Создать «{{name}}»"
+    "create": "Создать «{{name}}»",
+    "rename": "Переименовать",
+    "color": "Цвет",
+    "removeColor": "Убрать цвет"
   },
   "tagDetail": {
     "loadError": "Не удалось загрузить элементы. Потяните вниз для повтора.",

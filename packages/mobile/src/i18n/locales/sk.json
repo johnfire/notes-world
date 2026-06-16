@@ -71,7 +71,10 @@
     "deleteWithNotes": "Štítok + poznámky",
     "new": "Nový štítok",
     "namePlaceholder": "Názov štítku",
-    "create": "Vytvoriť „{{name}}”"
+    "create": "Vytvoriť „{{name}}”",
+    "rename": "Premenovať",
+    "color": "Farba",
+    "removeColor": "Odstrániť farbu"
   },
   "tagDetail": {
     "loadError": "Položky sa nepodarilo načítať. Potiahnite nadol pre opakovanie.",

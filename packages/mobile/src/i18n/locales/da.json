@@ -71,7 +71,10 @@
     "deleteWithNotes": "Tag + noter",
     "new": "Nyt tag",
     "namePlaceholder": "Tagnavn",
-    "create": "Opret “{{name}}”"
+    "create": "Opret “{{name}}”",
+    "rename": "Omdøb",
+    "color": "Farve",
+    "removeColor": "Fjern farve"
   },
   "tagDetail": {
     "loadError": "Kunne ikke indlæse elementer. Træk ned for at prøve igen.",

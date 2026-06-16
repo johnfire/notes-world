@@ -71,7 +71,10 @@
     "deleteWithNotes": "Etiqueta + notas",
     "new": "Nova etiqueta",
     "namePlaceholder": "Nome da etiqueta",
-    "create": "Criar “{{name}}”"
+    "create": "Criar “{{name}}”",
+    "rename": "Renomear",
+    "color": "Cor",
+    "removeColor": "Remover cor"
   },
   "tagDetail": {
     "loadError": "Não foi possível carregar os itens. Puxe para baixo para tentar novamente.",

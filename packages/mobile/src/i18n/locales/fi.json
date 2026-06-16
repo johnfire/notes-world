@@ -71,7 +71,10 @@
     "deleteWithNotes": "Tunniste + muistiinpanot",
     "new": "Uusi tunniste",
     "namePlaceholder": "Tunnisteen nimi",
-    "create": "Luo “{{name}}”"
+    "create": "Luo “{{name}}”",
+    "rename": "Nimeä uudelleen",
+    "color": "Väri",
+    "removeColor": "Poista väri"
   },
   "tagDetail": {
     "loadError": "Kohteita ei voitu ladata. Vedä alas yrittääksesi uudelleen.",

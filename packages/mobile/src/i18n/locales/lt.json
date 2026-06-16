@@ -71,7 +71,10 @@
     "deleteWithNotes": "Žyma + užrašai",
     "new": "Nauja žyma",
     "namePlaceholder": "Žymos pavadinimas",
-    "create": "Sukurti „{{name}}”"
+    "create": "Sukurti „{{name}}”",
+    "rename": "Pervadinti",
+    "color": "Spalva",
+    "removeColor": "Pašalinti spalvą"
   },
   "tagDetail": {
     "loadError": "Nepavyko įkelti elementų. Patraukite žemyn, kad bandytumėte dar kartą.",

@@ -71,7 +71,10 @@
     "deleteWithNotes": "Étiquette + notes",
     "new": "Nouvelle étiquette",
     "namePlaceholder": "Nom de l’étiquette",
-    "create": "Créer « {{name}} »"
+    "create": "Créer « {{name}} »",
+    "rename": "Renommer",
+    "color": "Couleur",
+    "removeColor": "Retirer la couleur"
   },
   "tagDetail": {
     "loadError": "Impossible de charger les éléments. Tirez vers le bas pour réessayer.",

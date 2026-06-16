@@ -5,6 +5,7 @@ import {
   TextInput,
   FlatList,
   Pressable,
+  Modal,
   StyleSheet,
   ActivityIndicator,
   RefreshControl,
@@ -14,10 +15,24 @@ import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { listTags, deleteTag, createTag } from "../../src/api/tags";
+import {
+  listTags,
+  deleteTag,
+  createTag,
+  renameTag,
+  setTagColor,
+} from "../../src/api/tags";
 import { reportClientError } from "../../src/api/report";
 import { colors, spacing, radius, font } from "../../src/theme";
 import type { TagWithCount } from "@notes-world/shared";
+
+// Mirror of the web palette (packages/web/src/utils/colors.ts) so tag colors
+// match across platforms.
+const PALETTE = [
+  "#ffffff", "#ef4444", "#f97316", "#f59e0b", "#eab308", "#84cc16",
+  "#22c55e", "#10b981", "#14b8a6", "#06b6d4", "#0ea5e9", "#3b82f6",
+  "#6366f1", "#8b5cf6", "#ec4899", "#f43f5e",
+];
 
 export default function TagsScreen() {
   const router = useRouter();
@@ -29,6 +44,10 @@ export default function TagsScreen() {
   const [adding, setAdding] = useState(false);
   const [newName, setNewName] = useState("");
   const [creating, setCreating] = useState(false);
+  // Tag-actions sheet (rename / color / delete), opened by long-press.
+  const [actionTag, setActionTag] = useState<TagWithCount | null>(null);
+  const [renameValue, setRenameValue] = useState("");
+  const [savingAction, setSavingAction] = useState(false);
 
   async function load() {
     try {
@@ -83,6 +102,40 @@ export default function TagsScreen() {
         stack: (err as Error).stack,
         context: "TagsScreen.deleteTag",
       });
+    }
+  }
+
+  function openActions(tag: TagWithCount) {
+    setActionTag(tag);
+    setRenameValue(tag.name);
+  }
+
+  async function handleRename() {
+    const name = renameValue.trim();
+    if (!actionTag || !name || name === actionTag.name) return;
+    setSavingAction(true);
+    try {
+      await renameTag(actionTag.id, name);
+      setActionTag(null);
+      await load();
+    } catch (err) {
+      Alert.alert(t("common.error"), (err as Error).message);
+    } finally {
+      setSavingAction(false);
+    }
+  }
+
+  async function handleColor(color: string | null) {
+    if (!actionTag) return;
+    setSavingAction(true);
+    try {
+      await setTagColor(actionTag.id, color);
+      setActionTag(null);
+      await load();
+    } catch (err) {
+      Alert.alert(t("common.error"), (err as Error).message);
+    } finally {
+      setSavingAction(false);
     }
   }
 
@@ -160,7 +213,7 @@ export default function TagsScreen() {
             <Pressable
               style={({ pressed }) => [s.row, pressed && s.rowPressed]}
               onPress={() => router.push(`/tag/${item.id}` as never)}
-              onLongPress={() => confirmDelete(item)}
+              onLongPress={() => openActions(item)}
             >
               <View
                 style={[
@@ -178,6 +231,73 @@ export default function TagsScreen() {
           contentContainerStyle={{ paddingBottom: spacing.xl }}
         />
       )}
+
+      <Modal
+        visible={!!actionTag}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setActionTag(null)}
+      >
+        <Pressable style={s.backdrop} onPress={() => setActionTag(null)} />
+        <View style={s.sheet}>
+          <Text style={s.sheetTitle} numberOfLines={1}>
+            {actionTag?.name}
+          </Text>
+
+          <Text style={s.sheetLabel}>{t("tags.rename")}</Text>
+          <View style={s.renameRow}>
+            <TextInput
+              style={s.addInput}
+              value={renameValue}
+              onChangeText={setRenameValue}
+              placeholder={t("tags.namePlaceholder")}
+              placeholderTextColor={colors.textDim}
+              returnKeyType="done"
+              onSubmitEditing={handleRename}
+            />
+            <Pressable
+              style={s.addSubmit}
+              onPress={handleRename}
+              disabled={savingAction || !renameValue.trim()}
+            >
+              <Text style={s.addSubmitText}>{t("common.save")}</Text>
+            </Pressable>
+          </View>
+
+          <Text style={s.sheetLabel}>{t("tags.color")}</Text>
+          <View style={s.swatches}>
+            {PALETTE.map((c) => (
+              <Pressable
+                key={c}
+                onPress={() => handleColor(c)}
+                disabled={savingAction}
+                style={[
+                  s.swatch,
+                  { backgroundColor: c },
+                  actionTag?.color === c && s.swatchActive,
+                ]}
+              />
+            ))}
+          </View>
+          {!!actionTag?.color && (
+            <Pressable onPress={() => handleColor(null)} disabled={savingAction}>
+              <Text style={s.removeColor}>{t("tags.removeColor")}</Text>
+            </Pressable>
+          )}
+
+          <Pressable
+            style={s.deleteAction}
+            onPress={() => {
+              const tag = actionTag;
+              setActionTag(null);
+              if (tag) confirmDelete(tag);
+            }}
+          >
+            <Ionicons name="trash-outline" size={16} color={colors.danger} />
+            <Text style={s.deleteActionText}>{t("common.delete")}</Text>
+          </Pressable>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -224,6 +344,53 @@ const s = StyleSheet.create({
     paddingVertical: spacing.sm,
   },
   addSubmitText: { color: colors.text, fontSize: font.sm, fontWeight: "700" },
+  backdrop: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)" },
+  sheet: {
+    backgroundColor: colors.surface,
+    borderTopLeftRadius: radius.lg,
+    borderTopRightRadius: radius.lg,
+    padding: spacing.md,
+    gap: spacing.sm,
+  },
+  sheetTitle: {
+    color: colors.text,
+    fontSize: font.lg,
+    fontWeight: "700",
+    marginBottom: spacing.xs,
+  },
+  sheetLabel: {
+    color: colors.textMuted,
+    fontSize: font.sm,
+    fontWeight: "600",
+    marginTop: spacing.xs,
+  },
+  renameRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
+  swatches: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
+  swatch: {
+    width: 28,
+    height: 28,
+    borderRadius: radius.full,
+    borderWidth: 2,
+    borderColor: "transparent",
+  },
+  swatchActive: { borderColor: colors.text },
+  removeColor: {
+    color: colors.textMuted,
+    fontSize: font.sm,
+    paddingVertical: spacing.xs,
+  },
+  deleteAction: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: spacing.xs,
+    marginTop: spacing.sm,
+    paddingVertical: spacing.sm,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  deleteActionText: { color: colors.danger, fontSize: font.md, fontWeight: "600" },
   loader: { marginTop: spacing.xl },
   row: {
     flexDirection: "row",

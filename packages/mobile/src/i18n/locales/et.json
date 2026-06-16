@@ -71,7 +71,10 @@
     "deleteWithNotes": "Silt + märkmed",
     "new": "Uus silt",
     "namePlaceholder": "Sildi nimi",
-    "create": "Loo „{{name}}”"
+    "create": "Loo „{{name}}”",
+    "rename": "Nimeta ümber",
+    "color": "Värv",
+    "removeColor": "Eemalda värv"
   },
   "tagDetail": {
     "loadError": "Üksusi ei õnnestunud laadida. Tõmba alla, et uuesti proovida.",

@@ -71,7 +71,10 @@
     "deleteWithNotes": "Tag + Notizen",
     "new": "Neuer Tag",
     "namePlaceholder": "Tag-Name",
-    "create": "„{{name}}“ erstellen"
+    "create": "„{{name}}“ erstellen",
+    "rename": "Umbenennen",
+    "color": "Farbe",
+    "removeColor": "Farbe entfernen"
   },
   "tagDetail": {
     "loadError": "Einträge konnten nicht geladen werden. Zum erneuten Versuch nach unten ziehen.",

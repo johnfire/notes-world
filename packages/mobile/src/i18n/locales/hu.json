@@ -71,7 +71,10 @@
     "deleteWithNotes": "Címke + jegyzetek",
     "new": "Új címke",
     "namePlaceholder": "Címke neve",
-    "create": "„{{name}}” létrehozása"
+    "create": "„{{name}}” létrehozása",
+    "rename": "Átnevezés",
+    "color": "Szín",
+    "removeColor": "Szín eltávolítása"
   },
   "tagDetail": {
     "loadError": "Nem sikerült betölteni az elemeket. Húzd le az újrapróbálkozáshoz.",

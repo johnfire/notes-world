@@ -71,7 +71,10 @@
     "deleteWithNotes": "Tag + notatki",
     "new": "Nowy tag",
     "namePlaceholder": "Nazwa tagu",
-    "create": "Utwórz „{{name}}”"
+    "create": "Utwórz „{{name}}”",
+    "rename": "Zmień nazwę",
+    "color": "Kolor",
+    "removeColor": "Usuń kolor"
   },
   "tagDetail": {
     "loadError": "Nie udało się załadować elementów. Pociągnij w dół, aby ponowić.",

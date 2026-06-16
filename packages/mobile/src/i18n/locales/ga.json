@@ -71,7 +71,10 @@
     "deleteWithNotes": "Clib + nótaí",
     "new": "Clib nua",
     "namePlaceholder": "Ainm na clibe",
-    "create": "Cruthaigh “{{name}}”"
+    "create": "Cruthaigh “{{name}}”",
+    "rename": "Athainmnigh",
+    "color": "Dath",
+    "removeColor": "Bain dath"
   },
   "tagDetail": {
     "loadError": "Níorbh fhéidir míreanna a luchtú. Tarraing anuas chun atriail.",

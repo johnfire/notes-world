@@ -71,7 +71,10 @@
     "deleteWithNotes": "Oznaka + bilješke",
     "new": "Nova oznaka",
     "namePlaceholder": "Naziv oznake",
-    "create": "Stvori „{{name}}”"
+    "create": "Stvori „{{name}}”",
+    "rename": "Preimenuj",
+    "color": "Boja",
+    "removeColor": "Ukloni boju"
   },
   "tagDetail": {
     "loadError": "Stavke nije moguće učitati. Povucite prema dolje za ponovni pokušaj.",

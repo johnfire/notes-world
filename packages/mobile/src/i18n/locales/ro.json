@@ -71,7 +71,10 @@
     "deleteWithNotes": "Etichetă + note",
     "new": "Etichetă nouă",
     "namePlaceholder": "Nume etichetă",
-    "create": "Creează „{{name}}”"
+    "create": "Creează „{{name}}”",
+    "rename": "Redenumește",
+    "color": "Culoare",
+    "removeColor": "Elimină culoarea"
   },
   "tagDetail": {
     "loadError": "Elementele nu au putut fi încărcate. Trage în jos pentru a reîncerca.",

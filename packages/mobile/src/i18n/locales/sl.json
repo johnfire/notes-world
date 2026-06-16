@@ -71,7 +71,10 @@
     "deleteWithNotes": "Oznaka + zapiski",
     "new": "Nova oznaka",
     "namePlaceholder": "Ime oznake",
-    "create": "Ustvari „{{name}}”"
+    "create": "Ustvari „{{name}}”",
+    "rename": "Preimenuj",
+    "color": "Barva",
+    "removeColor": "Odstrani barvo"
   },
   "tagDetail": {
     "loadError": "Elementov ni bilo mogoče naložiti. Povlecite navzdol za ponovni poskus.",

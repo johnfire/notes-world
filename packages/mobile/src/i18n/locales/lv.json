@@ -71,7 +71,10 @@
     "deleteWithNotes": "Birka + piezīmes",
     "new": "Jauna birka",
     "namePlaceholder": "Birkas nosaukums",
-    "create": "Izveidot “{{name}}”"
+    "create": "Izveidot “{{name}}”",
+    "rename": "Pārdēvēt",
+    "color": "Krāsa",
+    "removeColor": "Noņemt krāsu"
   },
   "tagDetail": {
     "loadError": "Neizdevās ielādēt vienumus. Pavelc uz leju, lai mēģinātu vēlreiz.",

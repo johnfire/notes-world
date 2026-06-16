@@ -9,6 +9,14 @@ export function createTag(name: string): Promise<Tag> {
   return api.post<Tag>("/tags", { name });
 }
 
+export function renameTag(tagId: string, newName: string): Promise<Tag> {
+  return api.patch<Tag>(`/tags/${tagId}`, { new_name: newName });
+}
+
+export function setTagColor(tagId: string, color: string | null): Promise<Tag> {
+  return api.patch<Tag>(`/tags/${tagId}/color`, { color });
+}
+
 export function getItemsByTag(tagId: string): Promise<Item[]> {
   return api.get<Item[]>(`/tags/${tagId}/items`);
 }
