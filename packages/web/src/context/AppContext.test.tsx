@@ -1,4 +1,5 @@
 import { render, screen, act, waitFor } from '@testing-library/react';
+import { useEffect } from 'react';
 import { vi, type Mock } from 'vitest';
 import { AppProvider, useApp } from './AppContext';
 import { ItemType, ItemStatus, type Item } from '../types';
@@ -50,6 +51,22 @@ describe('AppProvider state', () => {
     render(<AppProvider><StateInspector /></AppProvider>);
     expect(screen.getByTestId('search-query').textContent).toBe('');
     expect(screen.getByTestId('search-results').textContent).toBe('null');
+  });
+
+  // Regression: the "Loading…" indicator was stuck on forever because nothing
+  // ever cleared state.loading. loadDashboard must flip it false when done.
+  test('loadDashboard clears the loading flag', async () => {
+    function LoaderUI() {
+      const { state, loadDashboard } = useApp();
+      useEffect(() => {
+        void loadDashboard();
+      }, [loadDashboard]);
+      return <div data-testid="loading">{String(state.loading)}</div>;
+    }
+    render(<AppProvider><LoaderUI /></AppProvider>);
+    await waitFor(() =>
+      expect(screen.getByTestId('loading').textContent).toBe('false'),
+    );
   });
 });
 

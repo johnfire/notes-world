@@ -148,11 +148,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const loadDashboard = useCallback(async () => {
+    dispatch({ type: "SET_LOADING", payload: true });
     try {
       const data = await api.dashboard.get();
       dispatch({ type: "SET_DASHBOARD", payload: data });
     } catch (err) {
       dispatch({ type: "SET_ERROR", payload: (err as Error).message });
+    } finally {
+      dispatch({ type: "SET_LOADING", payload: false });
     }
   }, []);
 
