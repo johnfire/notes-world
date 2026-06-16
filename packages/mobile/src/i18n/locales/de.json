@@ -151,7 +151,10 @@
     "viewTrash": "Gelöschte Notizen",
     "reportBug": "Fehler melden",
     "data": "Daten",
-    "exportData": "Daten exportieren"
+    "exportData": "Daten exportieren",
+    "about": "Info",
+    "whatsNew": "Neuigkeiten",
+    "helpDocs": "Hilfe & Doku"
   },
   "update": {
     "available": "Eine neue Version ist verfügbar",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Listenname",
     "deleteTitle": "Diese Liste löschen?",
     "deleteMsg": "Dadurch werden die Liste und ihre Einträge dauerhaft gelöscht."
+  },
+  "changelog": {
+    "loadError": "Änderungsprotokoll konnte nicht geladen werden.",
+    "empty": "Noch nichts."
   }
 }

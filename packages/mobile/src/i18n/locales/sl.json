@@ -151,7 +151,10 @@
     "viewTrash": "Izbrisani zapiski",
     "reportBug": "Prijavi napako",
     "data": "Podatki",
-    "exportData": "Izvozi podatke"
+    "exportData": "Izvozi podatke",
+    "about": "O aplikaciji",
+    "whatsNew": "Kaj je novega",
+    "helpDocs": "Pomoč in dokumentacija"
   },
   "update": {
     "available": "Na voljo je nova različica",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Ime seznama",
     "deleteTitle": "Izbrišem ta seznam?",
     "deleteMsg": "S tem trajno izbrišete seznam in njegove elemente."
+  },
+  "changelog": {
+    "loadError": "Dnevnika sprememb ni bilo mogoče naložiti.",
+    "empty": "Še nič."
   }
 }

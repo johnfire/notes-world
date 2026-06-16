@@ -151,7 +151,10 @@
     "viewTrash": "Smazané poznámky",
     "reportBug": "Nahlásit chybu",
     "data": "Data",
-    "exportData": "Exportovat data"
+    "exportData": "Exportovat data",
+    "about": "O aplikaci",
+    "whatsNew": "Novinky",
+    "helpDocs": "Nápověda a dokumentace"
   },
   "update": {
     "available": "Je dostupná nová verze",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Název seznamu",
     "deleteTitle": "Smazat tento seznam?",
     "deleteMsg": "Tímto se trvale smaže seznam i jeho položky."
+  },
+  "changelog": {
+    "loadError": "Nepodařilo se načíst seznam změn.",
+    "empty": "Zatím nic."
   }
 }

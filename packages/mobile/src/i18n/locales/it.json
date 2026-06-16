@@ -151,7 +151,10 @@
     "viewTrash": "Note eliminate",
     "reportBug": "Segnala un bug",
     "data": "Dati",
-    "exportData": "Esporta dati"
+    "exportData": "Esporta dati",
+    "about": "Informazioni",
+    "whatsNew": "Novità",
+    "helpDocs": "Aiuto e documentazione"
   },
   "update": {
     "available": "È disponibile una nuova versione",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Nome elenco",
     "deleteTitle": "Eliminare questo elenco?",
     "deleteMsg": "Questo elimina definitivamente l’elenco e i suoi elementi."
+  },
+  "changelog": {
+    "loadError": "Impossibile caricare il changelog.",
+    "empty": "Ancora niente."
   }
 }

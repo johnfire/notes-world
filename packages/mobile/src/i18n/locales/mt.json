@@ -151,7 +151,10 @@
     "viewTrash": "Noti mħassra",
     "reportBug": "Irrapporta bug",
     "data": "Dejta",
-    "exportData": "Esporta d-dejta"
+    "exportData": "Esporta d-dejta",
+    "about": "Dwar",
+    "whatsNew": "X’hemm ġdid",
+    "helpDocs": "Għajnuna u dokumenti"
   },
   "update": {
     "available": "Verżjoni ġdida hija disponibbli",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Isem tal-lista",
     "deleteTitle": "Ħassar din il-lista?",
     "deleteMsg": "Dan iħassar il-lista u l-elementi tagħha għal dejjem."
+  },
+  "changelog": {
+    "loadError": "Ma setax jitgħabba l-changelog.",
+    "empty": "Xejn s’issa."
   }
 }

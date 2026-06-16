@@ -151,7 +151,10 @@
     "viewTrash": "Note șterse",
     "reportBug": "Raportează o eroare",
     "data": "Date",
-    "exportData": "Exportă datele"
+    "exportData": "Exportă datele",
+    "about": "Despre",
+    "whatsNew": "Noutăți",
+    "helpDocs": "Ajutor și documentație"
   },
   "update": {
     "available": "Este disponibilă o versiune nouă",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Numele listei",
     "deleteTitle": "Ștergi această listă?",
     "deleteMsg": "Aceasta șterge definitiv lista și elementele sale."
+  },
+  "changelog": {
+    "loadError": "Nu s-a putut încărca jurnalul de modificări.",
+    "empty": "Încă nimic."
   }
 }

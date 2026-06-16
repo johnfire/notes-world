@@ -151,7 +151,10 @@
     "viewTrash": "Slettede noter",
     "reportBug": "Rapportér en fejl",
     "data": "Data",
-    "exportData": "Eksportér data"
+    "exportData": "Eksportér data",
+    "about": "Om",
+    "whatsNew": "Nyheder",
+    "helpDocs": "Hjælp & dokumentation"
   },
   "update": {
     "available": "En ny version er tilgængelig",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Listenavn",
     "deleteTitle": "Slet denne liste?",
     "deleteMsg": "Dette sletter listen og dens elementer permanent."
+  },
+  "changelog": {
+    "loadError": "Kunne ikke indlæse ændringsloggen.",
+    "empty": "Ikke noget endnu."
   }
 }

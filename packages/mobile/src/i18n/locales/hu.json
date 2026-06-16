@@ -151,7 +151,10 @@
     "viewTrash": "Törölt jegyzetek",
     "reportBug": "Hiba jelentése",
     "data": "Adatok",
-    "exportData": "Adatok exportálása"
+    "exportData": "Adatok exportálása",
+    "about": "Névjegy",
+    "whatsNew": "Újdonságok",
+    "helpDocs": "Súgó és dokumentáció"
   },
   "update": {
     "available": "Új verzió érhető el",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Lista neve",
     "deleteTitle": "Törli ezt a listát?",
     "deleteMsg": "Ezzel véglegesen törli a listát és elemeit."
+  },
+  "changelog": {
+    "loadError": "Nem sikerült betölteni a változásnaplót.",
+    "empty": "Még semmi."
   }
 }

@@ -151,7 +151,10 @@
     "viewTrash": "Ištrintos pastabos",
     "reportBug": "Pranešti apie klaidą",
     "data": "Duomenys",
-    "exportData": "Eksportuoti duomenis"
+    "exportData": "Eksportuoti duomenis",
+    "about": "Apie",
+    "whatsNew": "Kas naujo",
+    "helpDocs": "Pagalba ir dokumentacija"
   },
   "update": {
     "available": "Yra nauja versija",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Sąrašo pavadinimas",
     "deleteTitle": "Ištrinti šį sąrašą?",
     "deleteMsg": "Tai negrįžtamai ištrins sąrašą ir jo elementus."
+  },
+  "changelog": {
+    "loadError": "Nepavyko įkelti keitimų žurnalo.",
+    "empty": "Kol kas nieko."
   }
 }

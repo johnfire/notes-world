@@ -151,7 +151,10 @@
     "viewTrash": "Nótaí scriosta",
     "reportBug": "Tuairiscigh fabht",
     "data": "Sonraí",
-    "exportData": "Easpórtáil sonraí"
+    "exportData": "Easpórtáil sonraí",
+    "about": "Maidir le",
+    "whatsNew": "Cad atá nua",
+    "helpDocs": "Cabhair & doiciméid"
   },
   "update": {
     "available": "Tá leagan nua ar fáil",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Ainm an liosta",
     "deleteTitle": "Scrios an liosta seo?",
     "deleteMsg": "Scriosfaidh sé seo an liosta agus a mhíreanna go buan."
+  },
+  "changelog": {
+    "loadError": "Níorbh fhéidir an logleabhar a lódáil.",
+    "empty": "Faic go fóill."
   }
 }

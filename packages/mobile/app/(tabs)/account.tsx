@@ -316,6 +316,22 @@ export default function AccountScreen() {
           </Pressable>
         </View>
 
+        <SectionHeader title={t("account.about")} />
+        <View style={s.card}>
+          <Pressable
+            style={({ pressed }) => [s.btn, pressed && s.pressed]}
+            onPress={() => router.push("/changelog" as never)}
+          >
+            <Text style={s.btnText}>{t("account.whatsNew")}</Text>
+          </Pressable>
+          <Pressable
+            style={({ pressed }) => [s.btn, pressed && s.pressed]}
+            onPress={() => Linking.openURL(`${WEB_APP_URL}/docs`)}
+          >
+            <Text style={s.btnText}>{t("account.helpDocs")}</Text>
+          </Pressable>
+        </View>
+
         <SectionHeader title={t("account.reportBug")} />
         <View style={s.card}>
           <Pressable

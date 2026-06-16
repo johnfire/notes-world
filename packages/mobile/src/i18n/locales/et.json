@@ -151,7 +151,10 @@
     "viewTrash": "Kustutatud märkmed",
     "reportBug": "Teata veast",
     "data": "Andmed",
-    "exportData": "Ekspordi andmed"
+    "exportData": "Ekspordi andmed",
+    "about": "Teave",
+    "whatsNew": "Mis on uut",
+    "helpDocs": "Abi ja dokumentatsioon"
   },
   "update": {
     "available": "Saadaval on uus versioon",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Loendi nimi",
     "deleteTitle": "Kustutada see loend?",
     "deleteMsg": "See kustutab jäädavalt loendi ja selle üksused."
+  },
+  "changelog": {
+    "loadError": "Muudatuste logi laadimine ebaõnnestus.",
+    "empty": "Veel midagi pole."
   }
 }

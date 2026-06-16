@@ -151,7 +151,10 @@
     "viewTrash": "Usunięte notatki",
     "reportBug": "Zgłoś błąd",
     "data": "Dane",
-    "exportData": "Eksportuj dane"
+    "exportData": "Eksportuj dane",
+    "about": "O aplikacji",
+    "whatsNew": "Nowości",
+    "helpDocs": "Pomoc i dokumentacja"
   },
   "update": {
     "available": "Dostępna jest nowa wersja",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Nazwa listy",
     "deleteTitle": "Usunąć tę listę?",
     "deleteMsg": "Spowoduje to trwałe usunięcie listy i jej elementów."
+  },
+  "changelog": {
+    "loadError": "Nie można załadować listy zmian.",
+    "empty": "Jeszcze nic."
   }
 }

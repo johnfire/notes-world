@@ -151,7 +151,10 @@
     "viewTrash": "Notas eliminadas",
     "reportBug": "Reportar um erro",
     "data": "Dados",
-    "exportData": "Exportar dados"
+    "exportData": "Exportar dados",
+    "about": "Sobre",
+    "whatsNew": "Novidades",
+    "helpDocs": "Ajuda e documentação"
   },
   "update": {
     "available": "Está disponível uma nova versão",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Nome da lista",
     "deleteTitle": "Eliminar esta lista?",
     "deleteMsg": "Isto elimina permanentemente a lista e os seus itens."
+  },
+  "changelog": {
+    "loadError": "Não foi possível carregar o registo de alterações.",
+    "empty": "Ainda nada."
   }
 }

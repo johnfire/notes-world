@@ -151,7 +151,10 @@
     "viewTrash": "Verwijderde notities",
     "reportBug": "Bug melden",
     "data": "Gegevens",
-    "exportData": "Gegevens exporteren"
+    "exportData": "Gegevens exporteren",
+    "about": "Over",
+    "whatsNew": "Wat is nieuw",
+    "helpDocs": "Help & docs"
   },
   "update": {
     "available": "Er is een nieuwe versie beschikbaar",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Lijstnaam",
     "deleteTitle": "Deze lijst verwijderen?",
     "deleteMsg": "Hiermee worden de lijst en items permanent verwijderd."
+  },
+  "changelog": {
+    "loadError": "Kon de changelog niet laden.",
+    "empty": "Nog niets."
   }
 }

@@ -151,7 +151,10 @@
     "viewTrash": "Dzēstās piezīmes",
     "reportBug": "Ziņot par kļūdu",
     "data": "Dati",
-    "exportData": "Eksportēt datus"
+    "exportData": "Eksportēt datus",
+    "about": "Par",
+    "whatsNew": "Jaunumi",
+    "helpDocs": "Palīdzība un dokumentācija"
   },
   "update": {
     "available": "Ir pieejama jauna versija",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Saraksta nosaukums",
     "deleteTitle": "Dzēst šo sarakstu?",
     "deleteMsg": "Tādējādi saraksts un tā vienumi tiks neatgriezeniski dzēsti."
+  },
+  "changelog": {
+    "loadError": "Neizdevās ielādēt izmaiņu žurnālu.",
+    "empty": "Vēl nekā."
   }
 }

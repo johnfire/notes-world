@@ -151,7 +151,10 @@
     "viewTrash": "Poistetut muistiinpanot",
     "reportBug": "Ilmoita virheestä",
     "data": "Tiedot",
-    "exportData": "Vie tiedot"
+    "exportData": "Vie tiedot",
+    "about": "Tietoja",
+    "whatsNew": "Uutta",
+    "helpDocs": "Ohje ja dokumentaatio"
   },
   "update": {
     "available": "Uusi versio on saatavilla",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Listan nimi",
     "deleteTitle": "Poistetaanko tämä lista?",
     "deleteMsg": "Tämä poistaa listan ja sen kohteet pysyvästi."
+  },
+  "changelog": {
+    "loadError": "Muutoslokin lataus epäonnistui.",
+    "empty": "Ei vielä mitään."
   }
 }

@@ -151,7 +151,10 @@
     "viewTrash": "已删除的笔记",
     "reportBug": "报告问题",
     "data": "数据",
-    "exportData": "导出数据"
+    "exportData": "导出数据",
+    "about": "关于",
+    "whatsNew": "新功能",
+    "helpDocs": "帮助与文档"
   },
   "update": {
     "available": "有新版本可用",
@@ -195,5 +198,9 @@
     "namePlaceholder": "列表名称",
     "deleteTitle": "删除此列表？",
     "deleteMsg": "这将永久删除列表及其条目。"
+  },
+  "changelog": {
+    "loadError": "无法加载更新日志。",
+    "empty": "暂无内容。"
   }
 }

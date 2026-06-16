@@ -151,7 +151,10 @@
     "viewTrash": "Notes supprimées",
     "reportBug": "Signaler un bug",
     "data": "Données",
-    "exportData": "Exporter les données"
+    "exportData": "Exporter les données",
+    "about": "À propos",
+    "whatsNew": "Nouveautés",
+    "helpDocs": "Aide & docs"
   },
   "update": {
     "available": "Une nouvelle version est disponible",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Nom de la liste",
     "deleteTitle": "Supprimer cette liste ?",
     "deleteMsg": "Cela supprime définitivement la liste et ses éléments."
+  },
+  "changelog": {
+    "loadError": "Échec du chargement du journal des modifications.",
+    "empty": "Rien pour l’instant."
   }
 }

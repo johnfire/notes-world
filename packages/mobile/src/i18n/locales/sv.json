@@ -151,7 +151,10 @@
     "viewTrash": "Borttagna anteckningar",
     "reportBug": "Rapportera ett fel",
     "data": "Data",
-    "exportData": "Exportera data"
+    "exportData": "Exportera data",
+    "about": "Om",
+    "whatsNew": "Nyheter",
+    "helpDocs": "Hjälp & dokumentation"
   },
   "update": {
     "available": "En ny version är tillgänglig",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Listnamn",
     "deleteTitle": "Ta bort listan?",
     "deleteMsg": "Detta tar bort listan och dess objekt permanent."
+  },
+  "changelog": {
+    "loadError": "Kunde inte ladda ändringsloggen.",
+    "empty": "Inget än."
   }
 }

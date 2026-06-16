@@ -151,7 +151,10 @@
     "viewTrash": "Deleted notes",
     "reportBug": "Report a bug",
     "data": "Data",
-    "exportData": "Export data"
+    "exportData": "Export data",
+    "about": "About",
+    "whatsNew": "What’s new",
+    "helpDocs": "Help & docs"
   },
   "update": {
     "available": "A new version is available",
@@ -195,5 +198,9 @@
     "namePlaceholder": "List name",
     "deleteTitle": "Delete this list?",
     "deleteMsg": "This permanently deletes the list and its items."
+  },
+  "changelog": {
+    "loadError": "Couldn’t load the changelog.",
+    "empty": "Nothing yet."
   }
 }

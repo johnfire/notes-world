@@ -151,7 +151,10 @@
     "viewTrash": "Izbrisane bilješke",
     "reportBug": "Prijavi grešku",
     "data": "Podaci",
-    "exportData": "Izvezi podatke"
+    "exportData": "Izvezi podatke",
+    "about": "O aplikaciji",
+    "whatsNew": "Novosti",
+    "helpDocs": "Pomoć i dokumentacija"
   },
   "update": {
     "available": "Dostupna je nova verzija",
@@ -195,5 +198,9 @@
     "namePlaceholder": "Naziv popisa",
     "deleteTitle": "Izbrisati ovaj popis?",
     "deleteMsg": "Ovo trajno briše popis i njegove stavke."
+  },
+  "changelog": {
+    "loadError": "Nije moguće učitati popis promjena.",
+    "empty": "Još ništa."
   }
 }
