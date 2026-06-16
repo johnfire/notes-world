@@ -74,9 +74,9 @@
     "expandSection": "Ανάπτυξη ενότητας",
     "collapseSection": "Σύμπτυξη ενότητας",
     "reorder": "Αναδιάταξη",
-    "sortManual": "Χειροκίνητα",
     "sortDue": "Λήξη",
-    "sortStart": "Έναρξη"
+    "sortStart": "Έναρξη",
+    "sortBy": "Ταξινόμηση"
   },
   "item": {
     "title": "Τίτλος",

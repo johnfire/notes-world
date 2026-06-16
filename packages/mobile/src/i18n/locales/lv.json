@@ -74,9 +74,9 @@
     "expandSection": "Izvērst sadaļu",
     "collapseSection": "Sakļaut sadaļu",
     "reorder": "Pārkārtot",
-    "sortManual": "Manuāli",
     "sortDue": "Termiņš",
-    "sortStart": "Sākums"
+    "sortStart": "Sākums",
+    "sortBy": "Kārtot pēc"
   },
   "item": {
     "title": "Virsraksts",

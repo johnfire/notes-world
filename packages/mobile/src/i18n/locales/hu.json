@@ -74,9 +74,9 @@
     "expandSection": "Szakasz kibontása",
     "collapseSection": "Szakasz összecsukása",
     "reorder": "Átrendezés",
-    "sortManual": "Kézi",
     "sortDue": "Határidő",
-    "sortStart": "Kezdés"
+    "sortStart": "Kezdés",
+    "sortBy": "Rendezés"
   },
   "item": {
     "title": "Cím",

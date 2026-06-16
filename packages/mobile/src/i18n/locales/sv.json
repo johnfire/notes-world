@@ -74,9 +74,9 @@
     "expandSection": "Visa avsnitt",
     "collapseSection": "Dölj avsnitt",
     "reorder": "Ändra ordning",
-    "sortManual": "Manuell",
     "sortDue": "Förfaller",
-    "sortStart": "Start"
+    "sortStart": "Start",
+    "sortBy": "Sortera efter"
   },
   "item": {
     "title": "Titel",

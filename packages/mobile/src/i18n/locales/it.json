@@ -74,9 +74,9 @@
     "expandSection": "Espandi sezione",
     "collapseSection": "Comprimi sezione",
     "reorder": "Riordina",
-    "sortManual": "Manuale",
     "sortDue": "Scadenza",
-    "sortStart": "Inizio"
+    "sortStart": "Inizio",
+    "sortBy": "Ordina per"
   },
   "item": {
     "title": "Titolo",

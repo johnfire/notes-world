@@ -74,9 +74,9 @@
     "expandSection": "Rozbaliť sekciu",
     "collapseSection": "Zbaliť sekciu",
     "reorder": "Zmeniť poradie",
-    "sortManual": "Ručne",
     "sortDue": "Termín",
-    "sortStart": "Štart"
+    "sortStart": "Štart",
+    "sortBy": "Zoradiť podľa"
   },
   "item": {
     "title": "Názov",

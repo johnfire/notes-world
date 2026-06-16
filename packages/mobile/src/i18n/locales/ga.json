@@ -74,9 +74,9 @@
     "expandSection": "Leathnaigh an rannán",
     "collapseSection": "Cuir an rannán i bhfolach",
     "reorder": "Athordaigh",
-    "sortManual": "De láimh",
     "sortDue": "Spriocdháta",
-    "sortStart": "Tús"
+    "sortStart": "Tús",
+    "sortBy": "Sórtáil de réir"
   },
   "item": {
     "title": "Teideal",

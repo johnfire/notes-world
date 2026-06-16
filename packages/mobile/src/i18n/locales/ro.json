@@ -74,9 +74,9 @@
     "expandSection": "Extinde secțiunea",
     "collapseSection": "Restrânge secțiunea",
     "reorder": "Reordonează",
-    "sortManual": "Manual",
     "sortDue": "Scadență",
-    "sortStart": "Început"
+    "sortStart": "Început",
+    "sortBy": "Sortează după"
   },
   "item": {
     "title": "Titlu",

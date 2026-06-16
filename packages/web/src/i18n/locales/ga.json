@@ -199,7 +199,8 @@
       "placeAtEnd": "Cuir ag deireadh an liosta",
       "noItems": "Gan míreanna leis an gclib seo",
       "itemCount": "{{count}} míreanna",
-      "addDivider": "+ Deighilteoir"
+      "addDivider": "+ Deighilteoir",
+      "sortBy": "Sórtáil de réir"
     },
     "tasksView": {
       "moveLeft": "Bog ar clé",

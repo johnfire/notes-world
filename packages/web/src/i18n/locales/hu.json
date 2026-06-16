@@ -199,7 +199,8 @@
       "placeAtEnd": "Lista végére helyezés",
       "noItems": "Nincs elem ezzel a címkével",
       "itemCount": "{{count}} elem",
-      "addDivider": "+ Elválasztó"
+      "addDivider": "+ Elválasztó",
+      "sortBy": "Rendezés"
     },
     "tasksView": {
       "moveLeft": "Mozgatás balra",

@@ -199,7 +199,8 @@
       "placeAtEnd": "Aan het einde van de lijst plaatsen",
       "noItems": "Geen items met deze tag",
       "itemCount": "{{count}} items",
-      "addDivider": "+ Scheidingslijn"
+      "addDivider": "+ Scheidingslijn",
+      "sortBy": "Sorteer op"
     },
     "tasksView": {
       "moveLeft": "Naar links verplaatsen",

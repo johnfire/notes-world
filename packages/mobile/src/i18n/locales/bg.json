@@ -74,9 +74,9 @@
     "expandSection": "Разгъване на секцията",
     "collapseSection": "Свиване на секцията",
     "reorder": "Пренареждане",
-    "sortManual": "Ръчно",
     "sortDue": "Срок",
-    "sortStart": "Начало"
+    "sortStart": "Начало",
+    "sortBy": "Сортирай"
   },
   "item": {
     "title": "Заглавие",

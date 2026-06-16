@@ -199,7 +199,8 @@
       "placeAtEnd": "Placer en fin de liste",
       "noItems": "Aucun élément avec ce tag",
       "itemCount": "{{count}} éléments",
-      "addDivider": "+ Séparateur"
+      "addDivider": "+ Séparateur",
+      "sortBy": "Trier par"
     },
     "tasksView": {
       "moveLeft": "Déplacer à gauche",

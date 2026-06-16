@@ -199,7 +199,8 @@
       "placeAtEnd": "Umieść na końcu listy",
       "noItems": "Brak elementów z tym tagiem",
       "itemCount": "{{count}} elementów",
-      "addDivider": "+ Separator"
+      "addDivider": "+ Separator",
+      "sortBy": "Sortuj wg"
     },
     "tasksView": {
       "moveLeft": "Przesuń w lewo",

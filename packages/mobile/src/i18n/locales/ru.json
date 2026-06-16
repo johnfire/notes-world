@@ -74,9 +74,9 @@
     "expandSection": "Развернуть раздел",
     "collapseSection": "Свернуть раздел",
     "reorder": "Изменить порядок",
-    "sortManual": "Вручную",
     "sortDue": "Срок",
-    "sortStart": "Начало"
+    "sortStart": "Начало",
+    "sortBy": "Сортировать"
   },
   "item": {
     "title": "Заголовок",

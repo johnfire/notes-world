@@ -74,9 +74,9 @@
     "expandSection": "展开分区",
     "collapseSection": "折叠分区",
     "reorder": "调整顺序",
-    "sortManual": "手动",
     "sortDue": "截止",
-    "sortStart": "开始"
+    "sortStart": "开始",
+    "sortBy": "排序"
   },
   "item": {
     "title": "标题",

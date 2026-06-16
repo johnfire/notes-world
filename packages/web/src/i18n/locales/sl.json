@@ -199,7 +199,8 @@
       "placeAtEnd": "Postavi na konec seznama",
       "noItems": "Ni elementov s to oznako",
       "itemCount": "{{count}} elementov",
-      "addDivider": "+ Ločilo"
+      "addDivider": "+ Ločilo",
+      "sortBy": "Razvrsti"
     },
     "tasksView": {
       "moveLeft": "Premakni levo",

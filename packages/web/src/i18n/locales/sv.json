@@ -199,7 +199,8 @@
       "placeAtEnd": "Placera i slutet av listan",
       "noItems": "Inga objekt med den här taggen",
       "itemCount": "{{count}} objekt",
-      "addDivider": "+ Avdelare"
+      "addDivider": "+ Avdelare",
+      "sortBy": "Sortera efter"
     },
     "tasksView": {
       "moveLeft": "Flytta vänster",

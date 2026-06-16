@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,7 +8,6 @@ import {
   RefreshControl,
   Pressable,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams, useRouter, useNavigation } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -26,13 +25,10 @@ import {
   getHiddenCounts,
 } from "../../src/lib/dividerGrouping";
 import { applySavedOrder, moveItem } from "../../src/lib/sortItems";
-import { sortItemsByDate, dateOf } from "../../src/lib/dueDate";
+import { sortItemsByDate, dateOf, type DateField } from "../../src/lib/dueDate";
 import { colors, spacing, font, radius } from "../../src/theme";
 import { ItemType } from "@notes-world/shared";
 import type { Item } from "@notes-world/shared";
-
-type SortMode = "manual" | "due_date" | "start_date";
-const sortModeKey = (tagId: string) => `nw_tag_sort:${tagId}`;
 
 export default function TagScreen() {
   const { t } = useTranslation();
@@ -45,31 +41,21 @@ export default function TagScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [reordering, setReordering] = useState(false);
-  const [sortMode, setSortMode] = useState<SortMode>("manual");
 
-  // Restore the per-tag sort preference (local-only; the tag screen is a
-  // different surface from the web dashboard block, which keeps its own).
-  useEffect(() => {
-    AsyncStorage.getItem(sortModeKey(id))
-      .then((v) => {
-        if (v === "due_date" || v === "start_date" || v === "manual")
-          setSortMode(v);
-      })
-      .catch(() => {});
-  }, [id]);
-
-  function changeSort(mode: SortMode) {
-    if (mode === sortMode) return;
-    setSortMode(mode);
-    // Reordering is meaningless in date order — leave it on switch.
-    if (mode !== "manual") setReordering(false);
-    // Fire-and-forget: keep the choice the user just made even if the save
-    // fails (matches the collapsed-divider behaviour above).
-    AsyncStorage.setItem(sortModeKey(id), mode).catch((err) => {
+  // One-shot reorder: rearrange by a date field once (soonest first, undated
+  // last) and persist it as the normal manual order. Manual drag stays fully
+  // available afterwards — this just gives the list a quick starting order.
+  function sortByDate(field: DateField) {
+    const ordered = sortItemsByDate(items, field);
+    setItems(ordered);
+    saveSortOrder(
+      `tag:${id}`,
+      ordered.map((i) => i.id),
+    ).catch((err) => {
       void reportClientError({
         message: (err as Error).message,
         stack: (err as Error).stack,
-        context: "TagScreen.changeSort",
+        context: "TagScreen.sortByDate",
       });
     });
   }
@@ -153,19 +139,15 @@ export default function TagScreen() {
 
   useEffect(() => {
     navigation.setOptions({
-      // Reordering only applies to manual order; hide it in date mode.
-      headerRight:
-        sortMode !== "manual"
-          ? undefined
-          : () => (
-              <Pressable onPress={() => setReordering((r) => !r)} hitSlop={8}>
-                <Text style={s.headerAction}>
-                  {reordering ? t("common.done") : t("tagDetail.reorder")}
-                </Text>
-              </Pressable>
-            ),
+      headerRight: () => (
+        <Pressable onPress={() => setReordering((r) => !r)} hitSlop={8}>
+          <Text style={s.headerAction}>
+            {reordering ? t("common.done") : t("tagDetail.reorder")}
+          </Text>
+        </Pressable>
+      ),
     });
-  }, [reordering, sortMode, t]);
+  }, [reordering, t]);
 
   function onMove(index: number, direction: -1 | 1) {
     setItems((prev) => {
@@ -190,24 +172,12 @@ export default function TagScreen() {
   const hiddenCounts = getHiddenCounts(items);
   // Hide items whose parent divider is collapsed; dividers always stay visible.
   // While reordering, show everything so positions are unambiguous.
-  const manualItems = reordering
+  const visibleItems = reordering
     ? items
     : items.filter((item) => {
         const parent = parentDividerMap.get(item.id);
         return !(parent && collapsed.has(parent));
       });
-
-  // Date mode is a flat chronological view: dividers are structural (and
-  // undated) so they're dropped here.
-  const dateSorted = useMemo(() => {
-    if (sortMode === "manual") return [];
-    return sortItemsByDate(
-      items.filter((i) => i.item_type !== ItemType.Divider),
-      sortMode,
-    );
-  }, [items, sortMode]);
-
-  const visibleItems = sortMode === "manual" ? manualItems : dateSorted;
 
   return (
     <SafeAreaView style={s.root} edges={["bottom"]}>
@@ -216,30 +186,22 @@ export default function TagScreen() {
       ) : (
         <>
         <View style={s.sortBar}>
-          <View style={s.sortToggle}>
-            {(
-              [
-                ["manual", "tagDetail.sortManual"],
-                ["due_date", "tagDetail.sortDue"],
-                ["start_date", "tagDetail.sortStart"],
-              ] as Array<[SortMode, string]>
-            ).map(([mode, label]) => (
-              <Pressable
-                key={mode}
-                onPress={() => changeSort(mode)}
-                style={[s.sortBtn, sortMode === mode && s.sortBtnActive]}
-              >
-                <Text
-                  style={[
-                    s.sortBtnText,
-                    sortMode === mode && s.sortBtnTextActive,
-                  ]}
-                >
-                  {t(label)}
-                </Text>
-              </Pressable>
-            ))}
-          </View>
+          <Text style={s.sortByLabel}>{t("tagDetail.sortBy")}</Text>
+          {(
+            [
+              ["due_date", "tagDetail.sortDue"],
+              ["start_date", "tagDetail.sortStart"],
+            ] as Array<[DateField, string]>
+          ).map(([field, label]) => (
+            <Pressable
+              key={field}
+              onPress={() => sortByDate(field)}
+              style={s.sortBtn}
+              hitSlop={6}
+            >
+              <Text style={s.sortBtnText}>{t(label)}</Text>
+            </Pressable>
+          ))}
         </View>
         <FlatList
           data={visibleItems}
@@ -343,30 +305,28 @@ const s = StyleSheet.create({
   },
   sortBar: {
     flexDirection: "row",
+    alignItems: "center",
     justifyContent: "flex-end",
+    gap: spacing.sm,
     paddingHorizontal: spacing.md,
     paddingTop: spacing.sm,
   },
-  sortToggle: {
-    flexDirection: "row",
+  sortByLabel: {
+    color: colors.textMuted,
+    fontSize: font.sm,
+    marginRight: "auto",
+  },
+  sortBtn: {
     borderWidth: 1,
     borderColor: colors.border,
     borderRadius: radius.sm,
-    overflow: "hidden",
-  },
-  sortBtn: {
+    backgroundColor: colors.surfaceHigh,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.xs,
   },
-  sortBtnActive: {
-    backgroundColor: colors.surfaceHigh,
-  },
   sortBtnText: {
-    color: colors.textMuted,
+    color: colors.accent,
     fontSize: font.sm,
-  },
-  sortBtnTextActive: {
-    color: colors.text,
     fontWeight: "600",
   },
   reorderRow: {

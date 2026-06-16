@@ -199,7 +199,8 @@
       "placeAtEnd": "Umiestniť na koniec zoznamu",
       "noItems": "Žiadne položky s týmto štítkom",
       "itemCount": "{{count}} položiek",
-      "addDivider": "+ Oddeľovač"
+      "addDivider": "+ Oddeľovač",
+      "sortBy": "Zoradiť podľa"
     },
     "tasksView": {
       "moveLeft": "Presunúť vľavo",

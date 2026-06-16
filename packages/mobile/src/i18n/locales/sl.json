@@ -74,9 +74,9 @@
     "expandSection": "Razširi razdelek",
     "collapseSection": "Strni razdelek",
     "reorder": "Preuredi",
-    "sortManual": "Ročno",
     "sortDue": "Rok",
-    "sortStart": "Začetek"
+    "sortStart": "Začetek",
+    "sortBy": "Razvrsti"
   },
   "item": {
     "title": "Naslov",

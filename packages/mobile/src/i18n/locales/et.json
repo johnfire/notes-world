@@ -74,9 +74,9 @@
     "expandSection": "Laienda jaotis",
     "collapseSection": "Ahenda jaotis",
     "reorder": "Järjesta ümber",
-    "sortManual": "Käsitsi",
     "sortDue": "Tähtaeg",
-    "sortStart": "Algus"
+    "sortStart": "Algus",
+    "sortBy": "Sorteeri"
   },
   "item": {
     "title": "Pealkiri",

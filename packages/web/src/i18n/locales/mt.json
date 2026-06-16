@@ -199,7 +199,8 @@
       "placeAtEnd": "Poġġi fi tmiem il-lista",
       "noItems": "L-ebda element b'dan it-tag",
       "itemCount": "{{count}} elementi",
-      "addDivider": "+ Diviżur"
+      "addDivider": "+ Diviżur",
+      "sortBy": "Issortja skont"
     },
     "tasksView": {
       "moveLeft": "Mexxi x-xellug",

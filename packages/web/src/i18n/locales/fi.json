@@ -199,7 +199,8 @@
       "placeAtEnd": "Sijoita listan loppuun",
       "noItems": "Ei elementtejä tällä tagilla",
       "itemCount": "{{count}} elementtiä",
-      "addDivider": "+ Erottimet"
+      "addDivider": "+ Erottimet",
+      "sortBy": "Lajittele"
     },
     "tasksView": {
       "moveLeft": "Siirrä vasemmalle",

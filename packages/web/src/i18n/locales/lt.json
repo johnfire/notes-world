@@ -199,7 +199,8 @@
       "placeAtEnd": "Padėti sąrašo pabaigoje",
       "noItems": "Nėra elementų su šia žyma",
       "itemCount": "{{count}} elementų",
-      "addDivider": "+ Skyriklis"
+      "addDivider": "+ Skyriklis",
+      "sortBy": "Rūšiuoti"
     },
     "tasksView": {
       "moveLeft": "Perkelti kairėn",

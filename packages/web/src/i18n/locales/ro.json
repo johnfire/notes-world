@@ -199,7 +199,8 @@
       "placeAtEnd": "Plasați la sfârșitul listei",
       "noItems": "Niciun element cu această etichetă",
       "itemCount": "{{count}} elemente",
-      "addDivider": "+ Separator"
+      "addDivider": "+ Separator",
+      "sortBy": "Sortează după"
     },
     "tasksView": {
       "moveLeft": "Mutați la stânga",

@@ -199,7 +199,8 @@
       "placeAtEnd": "Aseta loendi lõppu",
       "noItems": "Selle sildiga elemente pole",
       "itemCount": "{{count}} elementi",
-      "addDivider": "+ Eraldaja"
+      "addDivider": "+ Eraldaja",
+      "sortBy": "Sorteeri"
     },
     "tasksView": {
       "moveLeft": "Liiguta vasakule",

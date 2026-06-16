@@ -199,7 +199,8 @@
       "placeAtEnd": "Colocar al final de la lista",
       "noItems": "No hay elementos con esta etiqueta",
       "itemCount": "{{count}} elementos",
-      "addDivider": "+ Separador"
+      "addDivider": "+ Separador",
+      "sortBy": "Ordenar por"
     },
     "tasksView": {
       "moveLeft": "Mover a la izquierda",

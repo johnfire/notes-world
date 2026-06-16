@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ItemType, ItemStatus, type Item } from '../../types';
-import { formatDueShort, sortItemsByDate, dateOf, mergeTypeData } from './itemsByTag.utils';
+import { formatDueShort, sortItemsByDate, dateOf, mergeTypeData } from '@notes-world/shared';
 
 function task(id: string, title: string, dates?: { due_date?: string; start_date?: string }): Item {
   return {

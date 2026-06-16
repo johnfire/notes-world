@@ -199,7 +199,8 @@
       "placeAtEnd": "置于列表末尾",
       "noItems": "该标签下没有条目",
       "itemCount": "{{count}} 个条目",
-      "addDivider": "+ 分隔线"
+      "addDivider": "+ 分隔线",
+      "sortBy": "排序"
     },
     "tasksView": {
       "moveLeft": "向左移动",

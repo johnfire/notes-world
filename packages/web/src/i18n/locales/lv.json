@@ -199,7 +199,8 @@
       "placeAtEnd": "Novietot saraksta beigās",
       "noItems": "Nav vienumu ar šo atzīmi",
       "itemCount": "{{count}} vienumi",
-      "addDivider": "+ Dalītājs"
+      "addDivider": "+ Dalītājs",
+      "sortBy": "Kārtot pēc"
     },
     "tasksView": {
       "moveLeft": "Pārvietot pa kreisi",

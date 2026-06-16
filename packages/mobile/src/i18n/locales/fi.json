@@ -74,9 +74,9 @@
     "expandSection": "Laajenna osio",
     "collapseSection": "Tiivistä osio",
     "reorder": "Järjestä uudelleen",
-    "sortManual": "Manuaalinen",
     "sortDue": "Eräpäivä",
-    "sortStart": "Aloitus"
+    "sortStart": "Aloitus",
+    "sortBy": "Lajittele"
   },
   "item": {
     "title": "Otsikko",

@@ -199,7 +199,8 @@
       "placeAtEnd": "Postavi na kraj popisa",
       "noItems": "Nema stavki s ovim tagom",
       "itemCount": "{{count}} stavki",
-      "addDivider": "+ Razdjelnik"
+      "addDivider": "+ Razdjelnik",
+      "sortBy": "Razvrstaj"
     },
     "tasksView": {
       "moveLeft": "Premjesti lijevo",

@@ -199,7 +199,8 @@
       "placeAtEnd": "Am Ende der Liste einfügen",
       "noItems": "Keine Einträge mit diesem Tag",
       "itemCount": "{{count}} Einträge",
-      "addDivider": "+ Trennlinie"
+      "addDivider": "+ Trennlinie",
+      "sortBy": "Sortieren nach"
     },
     "tasksView": {
       "moveLeft": "Nach links verschieben",

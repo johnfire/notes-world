@@ -199,7 +199,8 @@
       "placeAtEnd": "Posiziona in fondo alla lista",
       "noItems": "Nessun elemento con questo tag",
       "itemCount": "{{count}} elementi",
-      "addDivider": "+ Divisore"
+      "addDivider": "+ Divisore",
+      "sortBy": "Ordina per"
     },
     "tasksView": {
       "moveLeft": "Sposta a sinistra",

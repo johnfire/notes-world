@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Tag, Item, ItemType } from "../types";
+import { sortItemsByDate, type DateField } from "@notes-world/shared";
 import * as api from "../api";
 import { useApp } from "../context/AppContext";
 import { SortableList } from "./SortableList";
@@ -24,6 +25,9 @@ export function TagView({ tag }: Props) {
   const [visualOrder, setVisualOrder] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
   const [collapsedSet, setCollapsedSet] = useState<Set<string>>(new Set());
+  // Bumped after a one-shot date sort to remount SortableList so it reloads the
+  // freshly-saved order. Manual drag remains fully available afterwards.
+  const [sortNonce, setSortNonce] = useState(0);
 
   const prevTagId = useRef(tag.id);
 
@@ -118,6 +122,26 @@ export function TagView({ tag }: Props) {
   const stagedItems = items.filter((i) => unsortedIds.has(i.id));
   const sortedItems = items.filter((i) => !unsortedIds.has(i.id));
 
+  // One-shot: rearrange the list by a date field once (soonest first, undated
+  // last) and persist it as the normal saved order. Drag stays available after.
+  async function sortByDate(field: DateField) {
+    const ordered = sortItemsByDate(sortedItems, field);
+    setVisualOrder(ordered);
+    try {
+      await api.sortOrders.save(
+        `tag:${tag.id}`,
+        ordered.map((i) => i.id),
+      );
+    } catch (err) {
+      api.reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "TagView.sortByDate",
+      });
+    }
+    setSortNonce((n) => n + 1);
+  }
+
   const handleExternalDrop = useCallback(
     (itemId: string) => {
       removeUnsorted(itemId);
@@ -149,6 +173,22 @@ export function TagView({ tag }: Props) {
           )}
         </h2>
         <div className="flex items-center gap-2">
+          <span className="text-xs text-gray-600">{t("app.tagView.sortBy")}</span>
+          <button
+            onClick={() => void sortByDate("due_date")}
+            className="text-xs text-accent/80 hover:text-accent transition-colors px-2 py-1 rounded hover:bg-surface-600"
+            title={`${t("app.tagView.sortBy")} ${t("app.drawer.dueDate")}`}
+          >
+            {t("app.drawer.dueDate")}
+          </button>
+          <button
+            onClick={() => void sortByDate("start_date")}
+            className="text-xs text-accent/80 hover:text-accent transition-colors px-2 py-1 rounded hover:bg-surface-600"
+            title={`${t("app.tagView.sortBy")} ${t("app.drawer.startDate")}`}
+          >
+            {t("app.drawer.startDate")}
+          </button>
+          <span className="text-surface-500">|</span>
           <button
             onClick={() => (window.location.href = `/api/export/tag/${tag.id}`)}
             className="text-xs text-gray-500 hover:text-gray-300 transition-colors px-2 py-1 rounded hover:bg-surface-600"
@@ -220,6 +260,7 @@ export function TagView({ tag }: Props) {
         </p>
       ) : (
         <SortableList
+          key={`${tag.id}:${sortNonce}`}
           items={sortedItems}
           contextKey={`tag:${tag.id}`}
           onReorder={handleReorder}

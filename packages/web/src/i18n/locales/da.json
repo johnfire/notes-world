@@ -199,7 +199,8 @@
       "placeAtEnd": "Placer sidst på listen",
       "noItems": "Ingen elementer med dette tag",
       "itemCount": "{{count}} elementer",
-      "addDivider": "+ Separator"
+      "addDivider": "+ Separator",
+      "sortBy": "Sortér efter"
     },
     "tasksView": {
       "moveLeft": "Flyt til venstre",

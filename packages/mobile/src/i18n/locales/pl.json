@@ -74,9 +74,9 @@
     "expandSection": "Rozwiń sekcję",
     "collapseSection": "Zwiń sekcję",
     "reorder": "Zmień kolejność",
-    "sortManual": "Ręcznie",
     "sortDue": "Termin",
-    "sortStart": "Start"
+    "sortStart": "Start",
+    "sortBy": "Sortuj wg"
   },
   "item": {
     "title": "Tytuł",

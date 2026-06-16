@@ -74,9 +74,9 @@
     "expandSection": "Udvid sektion",
     "collapseSection": "Skjul sektion",
     "reorder": "Omarranger",
-    "sortManual": "Manuel",
     "sortDue": "Forfald",
-    "sortStart": "Start"
+    "sortStart": "Start",
+    "sortBy": "Sortér efter"
   },
   "item": {
     "title": "Titel",

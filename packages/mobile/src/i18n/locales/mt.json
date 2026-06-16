@@ -74,9 +74,9 @@
     "expandSection": "Espandi t-taqsima",
     "collapseSection": "Iġbor it-taqsima",
     "reorder": "Irranġa mill-ġdid",
-    "sortManual": "Manwali",
     "sortDue": "Skadenza",
-    "sortStart": "Bidu"
+    "sortStart": "Bidu",
+    "sortBy": "Issortja skont"
   },
   "item": {
     "title": "Titlu",

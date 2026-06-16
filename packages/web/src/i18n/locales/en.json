@@ -202,7 +202,8 @@
       "placeAtEnd": "Place at end of list",
       "noItems": "No items with this tag",
       "itemCount": "{{count}} items",
-      "addDivider": "+ Divider"
+      "addDivider": "+ Divider",
+      "sortBy": "Sort by"
     },
     "tasksView": {
       "moveLeft": "Move left",

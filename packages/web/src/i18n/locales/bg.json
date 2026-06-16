@@ -199,7 +199,8 @@
       "placeAtEnd": "Постави в края на списъка",
       "noItems": "Няма елементи с този таг",
       "itemCount": "{{count}} елемента",
-      "addDivider": "+ Разделител"
+      "addDivider": "+ Разделител",
+      "sortBy": "Сортирай"
     },
     "tasksView": {
       "moveLeft": "Премести вляво",

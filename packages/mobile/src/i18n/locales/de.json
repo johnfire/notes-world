@@ -74,9 +74,9 @@
     "expandSection": "Abschnitt einblenden",
     "collapseSection": "Abschnitt ausblenden",
     "reorder": "Neu anordnen",
-    "sortManual": "Manuell",
     "sortDue": "Fällig",
-    "sortStart": "Start"
+    "sortStart": "Start",
+    "sortBy": "Sortieren nach"
   },
   "item": {
     "title": "Titel",

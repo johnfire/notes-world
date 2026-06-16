@@ -74,9 +74,9 @@
     "expandSection": "Išskleisti skiltį",
     "collapseSection": "Suskleisti skiltį",
     "reorder": "Pertvarkyti",
-    "sortManual": "Rankiniu",
     "sortDue": "Terminas",
-    "sortStart": "Pradžia"
+    "sortStart": "Pradžia",
+    "sortBy": "Rūšiuoti"
   },
   "item": {
     "title": "Pavadinimas",

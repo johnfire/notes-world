@@ -74,9 +74,9 @@
     "expandSection": "Sectie uitvouwen",
     "collapseSection": "Sectie samenvouwen",
     "reorder": "Herordenen",
-    "sortManual": "Handmatig",
     "sortDue": "Deadline",
-    "sortStart": "Start"
+    "sortStart": "Start",
+    "sortBy": "Sorteer op"
   },
   "item": {
     "title": "Titel",
