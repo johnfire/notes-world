@@ -48,15 +48,29 @@ export function registerItemTools(server: McpServer) {
 
   server.tool(
     'update_item',
-    'Update an item\'s title, body, type_data, or color.',
+    'Update an item\'s title, body, color, and/or its due/start dates (YYYY-MM-DD).',
     {
       id: z.string().describe('Item UUID'),
       title: z.string().optional(),
       body: z.string().optional(),
       color: z.string().nullable().optional(),
+      due_date: isoDate.optional().describe('Set the due date, YYYY-MM-DD'),
+      start_date: isoDate.optional().describe('Set the start date, YYYY-MM-DD'),
     },
-    async ({ id, ...updates }) => {
-      const item = await patch(`/api/items/${id}`, updates);
+    async ({ id, due_date, start_date, ...updates }) => {
+      const body: Record<string, unknown> = { ...updates };
+      // The update endpoint replaces type_data wholesale, so merge the dates
+      // into the item's existing type_data to preserve task_status/priority/etc.
+      if (due_date || start_date) {
+        const current = await get<{
+          type_data?: Record<string, unknown> | null;
+        }>(`/api/items/${id}`);
+        const type_data: Record<string, unknown> = { ...(current.type_data ?? {}) };
+        if (due_date) type_data.due_date = due_date;
+        if (start_date) type_data.start_date = start_date;
+        body.type_data = type_data;
+      }
+      const item = await patch(`/api/items/${id}`, body);
       return { content: [{ type: 'text', text: JSON.stringify(item, null, 2) }] };
     }
   );
