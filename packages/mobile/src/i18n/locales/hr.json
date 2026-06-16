@@ -43,7 +43,8 @@
     "search": "Pretraži…",
     "loadError": "Bilješke nije moguće učitati. Povucite prema dolje za ponovni pokušaj.",
     "noResults": "Nema rezultata",
-    "empty": "Još nema stavki"
+    "empty": "Još nema stavki",
+    "filterAll": "Sve"
   },
   "capture": {
     "heading": "Brzo bilježenje",

@@ -43,7 +43,8 @@
     "search": "Zoeken…",
     "loadError": "Kan notities niet laden. Trek omlaag om opnieuw te proberen.",
     "noResults": "Geen resultaten",
-    "empty": "Nog geen items"
+    "empty": "Nog geen items",
+    "filterAll": "Alle"
   },
   "capture": {
     "heading": "Snel vastleggen",

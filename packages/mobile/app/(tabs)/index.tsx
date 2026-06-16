@@ -19,9 +19,18 @@ import { ItemCard } from "../../src/components/ItemCard";
 import { useAuth } from "../../src/store/auth";
 import { colors, spacing, radius, font } from "../../src/theme";
 import type { Item } from "@notes-world/shared";
-import { ItemStatus } from "@notes-world/shared";
+import { ItemStatus, ItemType } from "@notes-world/shared";
 
 const PAGE_SIZE = 30;
+
+// Home type filter — the mobile analogue of the web view tabs.
+const FILTERS: Array<{ value: ItemType | null; labelKey: string }> = [
+  { value: null, labelKey: "home.filterAll" },
+  { value: ItemType.Task, labelKey: "capture.typeTask" },
+  { value: ItemType.Idea, labelKey: "capture.typeIdea" },
+  { value: ItemType.Note, labelKey: "capture.typeNote" },
+  { value: ItemType.Reminder, labelKey: "capture.typeReminder" },
+];
 
 export default function ItemsScreen() {
   const router = useRouter();
@@ -34,6 +43,7 @@ export default function ItemsScreen() {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [filter, setFilter] = useState<ItemType | null>(null);
 
   const load = useCallback(
     async (p: number, q: string, append = false) => {
@@ -44,6 +54,7 @@ export default function ItemsScreen() {
           page_size: PAGE_SIZE,
           search: q || undefined,
           status: ItemStatus.Active,
+          item_type: filter ?? undefined,
         });
         setTotal(res.total);
         setItems((prev) => (append ? [...prev, ...res.items] : res.items));
@@ -59,14 +70,14 @@ export default function ItemsScreen() {
         setRefreshing(false);
       }
     },
-    [t],
+    [t, filter],
   );
 
   useEffect(() => {
     setLoading(true);
     setPage(1);
     load(1, search);
-  }, [search]);
+  }, [search, filter]);
 
   function onRefresh() {
     setRefreshing(true);
@@ -121,6 +132,26 @@ export default function ItemsScreen() {
           returnKeyType="search"
           clearButtonMode="while-editing"
         />
+      </View>
+
+      <View style={s.filterRow}>
+        {FILTERS.map((f) => {
+          const active = filter === f.value;
+          return (
+            <Pressable
+              key={f.labelKey}
+              onPress={() => setFilter(f.value)}
+              style={[s.filterChip, active && s.filterChipActive]}
+              hitSlop={4}
+            >
+              <Text
+                style={[s.filterText, active && s.filterTextActive]}
+              >
+                {t(f.labelKey)}
+              </Text>
+            </Pressable>
+          );
+        })}
       </View>
 
       {loading ? (
@@ -189,6 +220,27 @@ const s = StyleSheet.create({
     fontSize: font.md,
     paddingVertical: spacing.sm,
   },
+  filterRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: spacing.xs,
+    paddingHorizontal: spacing.md,
+    marginBottom: spacing.sm,
+  },
+  filterChip: {
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.full,
+    backgroundColor: colors.surface,
+    paddingHorizontal: spacing.md,
+    paddingVertical: 4,
+  },
+  filterChipActive: {
+    backgroundColor: colors.accent,
+    borderColor: colors.accent,
+  },
+  filterText: { color: colors.textMuted, fontSize: font.sm, fontWeight: "600" },
+  filterTextActive: { color: colors.text },
   loader: { marginTop: spacing.xl },
   empty: {
     color: colors.textMuted,

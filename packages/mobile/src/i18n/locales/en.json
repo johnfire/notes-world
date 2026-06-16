@@ -43,7 +43,8 @@
     "search": "Search…",
     "loadError": "Couldn't load notes. Pull down to retry.",
     "noResults": "No results",
-    "empty": "No items yet"
+    "empty": "No items yet",
+    "filterAll": "All"
   },
   "capture": {
     "heading": "Quick Capture",

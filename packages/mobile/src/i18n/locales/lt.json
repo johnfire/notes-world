@@ -43,7 +43,8 @@
     "search": "Ieškoti…",
     "loadError": "Nepavyko įkelti užrašų. Patraukite žemyn, kad bandytumėte dar kartą.",
     "noResults": "Rezultatų nėra",
-    "empty": "Dar nėra elementų"
+    "empty": "Dar nėra elementų",
+    "filterAll": "Visi"
   },
   "capture": {
     "heading": "Greitas fiksavimas",

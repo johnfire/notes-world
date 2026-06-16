@@ -43,7 +43,8 @@
     "search": "Iskanje…",
     "loadError": "Zapiskov ni bilo mogoče naložiti. Povlecite navzdol za ponovni poskus.",
     "noResults": "Ni rezultatov",
-    "empty": "Še ni elementov"
+    "empty": "Še ni elementov",
+    "filterAll": "Vse"
   },
   "capture": {
     "heading": "Hitri zajem",

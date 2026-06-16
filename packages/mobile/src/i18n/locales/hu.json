@@ -43,7 +43,8 @@
     "search": "Keresés…",
     "loadError": "Nem sikerült betölteni a jegyzeteket. Húzd le az újrapróbálkozáshoz.",
     "noResults": "Nincs találat",
-    "empty": "Még nincsenek elemek"
+    "empty": "Még nincsenek elemek",
+    "filterAll": "Összes"
   },
   "capture": {
     "heading": "Gyors rögzítés",

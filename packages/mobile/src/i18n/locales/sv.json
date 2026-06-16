@@ -43,7 +43,8 @@
     "search": "Sök…",
     "loadError": "Det gick inte att läsa in anteckningar. Dra nedåt för att försöka igen.",
     "noResults": "Inga resultat",
-    "empty": "Inga objekt än"
+    "empty": "Inga objekt än",
+    "filterAll": "Alla"
   },
   "capture": {
     "heading": "Snabbfångst",

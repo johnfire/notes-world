@@ -43,7 +43,8 @@
     "search": "Meklēt…",
     "loadError": "Neizdevās ielādēt piezīmes. Pavelc uz leju, lai mēģinātu vēlreiz.",
     "noResults": "Nav rezultātu",
-    "empty": "Pagaidām nav vienumu"
+    "empty": "Pagaidām nav vienumu",
+    "filterAll": "Visi"
   },
   "capture": {
     "heading": "Ātrais pieraksts",

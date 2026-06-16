@@ -43,7 +43,8 @@
     "search": "Hae…",
     "loadError": "Muistiinpanoja ei voitu ladata. Vedä alas yrittääksesi uudelleen.",
     "noResults": "Ei tuloksia",
-    "empty": "Ei vielä kohteita"
+    "empty": "Ei vielä kohteita",
+    "filterAll": "Kaikki"
   },
   "capture": {
     "heading": "Pikakirjaus",

@@ -43,7 +43,8 @@
     "search": "Cuardaigh…",
     "loadError": "Níorbh fhéidir nótaí a luchtú. Tarraing anuas chun atriail.",
     "noResults": "Gan torthaí",
-    "empty": "Gan míreanna fós"
+    "empty": "Gan míreanna fós",
+    "filterAll": "Uile"
   },
   "capture": {
     "heading": "Gabháil Tapa",

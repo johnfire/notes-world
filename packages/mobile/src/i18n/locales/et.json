@@ -43,7 +43,8 @@
     "search": "Otsi…",
     "loadError": "Märkmeid ei õnnestunud laadida. Tõmba alla, et uuesti proovida.",
     "noResults": "Tulemused puuduvad",
-    "empty": "Üksusi pole veel"
+    "empty": "Üksusi pole veel",
+    "filterAll": "Kõik"
   },
   "capture": {
     "heading": "Kiire talletus",

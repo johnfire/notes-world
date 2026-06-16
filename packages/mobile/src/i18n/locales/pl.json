@@ -43,7 +43,8 @@
     "search": "Szukaj…",
     "loadError": "Nie udało się załadować notatek. Pociągnij w dół, aby ponowić.",
     "noResults": "Brak wyników",
-    "empty": "Brak elementów"
+    "empty": "Brak elementów",
+    "filterAll": "Wszystkie"
   },
   "capture": {
     "heading": "Szybki zapis",

@@ -43,7 +43,8 @@
     "search": "搜索…",
     "loadError": "无法加载笔记。下拉以重试。",
     "noResults": "没有结果",
-    "empty": "暂无条目"
+    "empty": "暂无条目",
+    "filterAll": "全部"
   },
   "capture": {
     "heading": "快速捕捉",

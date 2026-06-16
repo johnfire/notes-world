@@ -43,7 +43,8 @@
     "search": "Pesquisar…",
     "loadError": "Não foi possível carregar as notas. Puxe para baixo para tentar novamente.",
     "noResults": "Sem resultados",
-    "empty": "Ainda não há itens"
+    "empty": "Ainda não há itens",
+    "filterAll": "Todos"
   },
   "capture": {
     "heading": "Captura rápida",

@@ -43,7 +43,8 @@
     "search": "Fittex…",
     "loadError": "Ma stajniex intellgħu n-noti. Iġbed 'l isfel biex terġa' tipprova.",
     "noResults": "L-ebda riżultat",
-    "empty": "L-ebda oġġett s'issa"
+    "empty": "L-ebda oġġett s'issa",
+    "filterAll": "Kollha"
   },
   "capture": {
     "heading": "Qbid Mgħaġġel",

@@ -43,7 +43,8 @@
     "search": "Caută…",
     "loadError": "Notițele nu au putut fi încărcate. Trage în jos pentru a reîncerca.",
     "noResults": "Niciun rezultat",
-    "empty": "Încă niciun element"
+    "empty": "Încă niciun element",
+    "filterAll": "Toate"
   },
   "capture": {
     "heading": "Captură rapidă",

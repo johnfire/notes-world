@@ -43,7 +43,8 @@
     "search": "Suchen…",
     "loadError": "Notizen konnten nicht geladen werden. Zum erneuten Versuch nach unten ziehen.",
     "noResults": "Keine Ergebnisse",
-    "empty": "Noch keine Einträge"
+    "empty": "Noch keine Einträge",
+    "filterAll": "Alle"
   },
   "capture": {
     "heading": "Schnellerfassung",

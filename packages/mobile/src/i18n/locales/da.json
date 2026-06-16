@@ -43,7 +43,8 @@
     "search": "Søg…",
     "loadError": "Kunne ikke indlæse noter. Træk ned for at prøve igen.",
     "noResults": "Ingen resultater",
-    "empty": "Ingen elementer endnu"
+    "empty": "Ingen elementer endnu",
+    "filterAll": "Alle"
   },
   "capture": {
     "heading": "Hurtig opfangning",

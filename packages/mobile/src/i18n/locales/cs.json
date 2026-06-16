@@ -43,7 +43,8 @@
     "search": "Hledat…",
     "loadError": "Poznámky se nepodařilo načíst. Stáhněte dolů pro opakování.",
     "noResults": "Žádné výsledky",
-    "empty": "Zatím žádné položky"
+    "empty": "Zatím žádné položky",
+    "filterAll": "Vše"
   },
   "capture": {
     "heading": "Rychlé zachycení",

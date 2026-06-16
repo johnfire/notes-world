@@ -43,7 +43,8 @@
     "search": "Hľadať…",
     "loadError": "Poznámky sa nepodarilo načítať. Potiahnite nadol pre opakovanie.",
     "noResults": "Žiadne výsledky",
-    "empty": "Zatiaľ žiadne položky"
+    "empty": "Zatiaľ žiadne položky",
+    "filterAll": "Všetko"
   },
   "capture": {
     "heading": "Rýchle zachytenie",
