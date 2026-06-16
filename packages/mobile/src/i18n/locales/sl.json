@@ -111,7 +111,8 @@
     "status": "Stanje",
     "priority": "Prednost",
     "promoteTo": "Pretvori v",
-    "maturity": "Zrelost"
+    "maturity": "Zrelost",
+    "color": "Barva"
   },
   "account": {
     "title": "Račun",

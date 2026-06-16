@@ -111,7 +111,8 @@
     "status": "Stat",
     "priority": "Prijorità",
     "promoteTo": "Ibdel għal",
-    "maturity": "Maturità"
+    "maturity": "Maturità",
+    "color": "Kulur"
   },
   "account": {
     "title": "Kont",

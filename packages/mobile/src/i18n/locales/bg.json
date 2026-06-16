@@ -111,7 +111,8 @@
     "status": "Статус",
     "priority": "Приоритет",
     "promoteTo": "Преобразуване в",
-    "maturity": "Зрялост"
+    "maturity": "Зрялост",
+    "color": "Цвят"
   },
   "account": {
     "title": "Акаунт",

@@ -111,7 +111,8 @@
     "status": "Status",
     "priority": "Prioriteit",
     "promoteTo": "Omzetten naar",
-    "maturity": "Rijpheid"
+    "maturity": "Rijpheid",
+    "color": "Kleur"
   },
   "account": {
     "title": "Account",

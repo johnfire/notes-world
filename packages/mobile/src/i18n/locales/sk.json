@@ -111,7 +111,8 @@
     "status": "Stav",
     "priority": "Priorita",
     "promoteTo": "Zmeniť na",
-    "maturity": "Zrelosť"
+    "maturity": "Zrelosť",
+    "color": "Farba"
   },
   "account": {
     "title": "Účet",

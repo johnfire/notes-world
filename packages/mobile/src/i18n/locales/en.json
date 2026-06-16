@@ -111,7 +111,8 @@
     "status": "Status",
     "priority": "Priority",
     "promoteTo": "Promote to",
-    "maturity": "Maturity"
+    "maturity": "Maturity",
+    "color": "Color"
   },
   "account": {
     "title": "Account",

@@ -46,6 +46,8 @@ export interface UpdateItemInput {
   title?: string;
   body?: string;
   item_type?: ItemType;
+  // Hex color (e.g. "#ef4444") or null to clear.
+  color?: string | null;
   // Replaces the whole type_data JSON blob server-side — callers must send the
   // merged object (existing fields + changes), not just the changed keys.
   type_data?: TypeData;

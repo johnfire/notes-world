@@ -66,6 +66,13 @@ const PROMOTE_TYPES: Array<[ItemType, string]> = [
   [ItemType.Reminder, "capture.typeReminder"],
 ];
 
+// Shared color palette (packages/web/src/utils/colors.ts).
+const PALETTE = [
+  "#ffffff", "#ef4444", "#f97316", "#f59e0b", "#eab308", "#84cc16",
+  "#22c55e", "#10b981", "#14b8a6", "#06b6d4", "#0ea5e9", "#3b82f6",
+  "#6366f1", "#8b5cf6", "#ec4899", "#f43f5e",
+];
+
 export default function ItemScreen() {
   const { t, i18n } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -215,6 +222,24 @@ export default function ItemScreen() {
         message: (err as Error).message,
         stack: (err as Error).stack,
         context: "ItemScreen.persistTaskField",
+      });
+      Alert.alert(t("item.saveFailedTitle"), t("item.saveFailedMsg"));
+    } finally {
+      setSavingTask(false);
+    }
+  }
+
+  async function persistColor(color: string | null) {
+    if (!item) return;
+    setSavingTask(true);
+    try {
+      const updated = await updateItem(item.id, { color });
+      setItem(updated);
+    } catch (err) {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "ItemScreen.persistColor",
       });
       Alert.alert(t("item.saveFailedTitle"), t("item.saveFailedMsg"));
     } finally {
@@ -396,6 +421,36 @@ export default function ItemScreen() {
                 t("item.startDate"),
                 dateOf(item, "start_date"),
               )}
+            </View>
+          )}
+          {item.item_type !== ItemType.Divider && (
+            <View style={s.fieldGroup}>
+              <Text style={s.fieldLabel}>{t("item.color")}</Text>
+              <View style={s.chipRow}>
+                {PALETTE.map((c) => (
+                  <Pressable
+                    key={c}
+                    disabled={savingTask}
+                    onPress={() => void persistColor(c)}
+                    style={[
+                      s.colorSwatch,
+                      { backgroundColor: c },
+                      item.color === c && s.colorSwatchActive,
+                    ]}
+                    hitSlop={2}
+                  />
+                ))}
+                {!!item.color && (
+                  <Pressable
+                    onPress={() => void persistColor(null)}
+                    disabled={savingTask}
+                    style={s.colorClear}
+                    hitSlop={2}
+                  >
+                    <Ionicons name="close" size={16} color={colors.textMuted} />
+                  </Pressable>
+                )}
+              </View>
             </View>
           )}
           {item.item_type === ItemType.Untyped && (
@@ -624,6 +679,23 @@ const s = StyleSheet.create({
   chipTxtActive: {
     color: colors.text,
     fontWeight: "700",
+  },
+  colorSwatch: {
+    width: 28,
+    height: 28,
+    borderRadius: radius.full,
+    borderWidth: 2,
+    borderColor: "transparent",
+  },
+  colorSwatchActive: { borderColor: colors.text },
+  colorClear: {
+    width: 28,
+    height: 28,
+    borderRadius: radius.full,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignItems: "center",
+    justifyContent: "center",
   },
   deleteBtn: {
     flexDirection: "row",

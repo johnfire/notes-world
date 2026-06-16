@@ -111,7 +111,8 @@
     "status": "Állapot",
     "priority": "Prioritás",
     "promoteTo": "Átalakítás erre",
-    "maturity": "Érettség"
+    "maturity": "Érettség",
+    "color": "Szín"
   },
   "account": {
     "title": "Fiók",

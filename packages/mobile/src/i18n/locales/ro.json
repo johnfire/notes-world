@@ -111,7 +111,8 @@
     "status": "Stare",
     "priority": "Prioritate",
     "promoteTo": "Transformă în",
-    "maturity": "Maturitate"
+    "maturity": "Maturitate",
+    "color": "Culoare"
   },
   "account": {
     "title": "Cont",

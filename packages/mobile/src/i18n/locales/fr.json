@@ -111,7 +111,8 @@
     "status": "Statut",
     "priority": "Priorité",
     "promoteTo": "Convertir en",
-    "maturity": "Maturité"
+    "maturity": "Maturité",
+    "color": "Couleur"
   },
   "account": {
     "title": "Compte",

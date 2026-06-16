@@ -111,7 +111,8 @@
     "status": "Tila",
     "priority": "Prioriteetti",
     "promoteTo": "Muunna tyypiksi",
-    "maturity": "Kypsyys"
+    "maturity": "Kypsyys",
+    "color": "Väri"
   },
   "account": {
     "title": "Tili",

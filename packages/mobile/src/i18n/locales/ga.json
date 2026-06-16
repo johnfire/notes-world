@@ -111,7 +111,8 @@
     "status": "Stádas",
     "priority": "Tosaíocht",
     "promoteTo": "Cuir chun cinn go",
-    "maturity": "Aibíocht"
+    "maturity": "Aibíocht",
+    "color": "Dath"
   },
   "account": {
     "title": "Cuntas",

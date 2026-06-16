@@ -111,7 +111,8 @@
     "status": "Estado",
     "priority": "Prioridad",
     "promoteTo": "Convertir en",
-    "maturity": "Madurez"
+    "maturity": "Madurez",
+    "color": "Color"
   },
   "account": {
     "title": "Cuenta",

@@ -111,7 +111,8 @@
     "status": "Status",
     "priority": "Priorität",
     "promoteTo": "Umwandeln in",
-    "maturity": "Reifegrad"
+    "maturity": "Reifegrad",
+    "color": "Farbe"
   },
   "account": {
     "title": "Konto",

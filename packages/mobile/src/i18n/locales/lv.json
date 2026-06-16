@@ -111,7 +111,8 @@
     "status": "Statuss",
     "priority": "Prioritāte",
     "promoteTo": "Pārveidot par",
-    "maturity": "Briedums"
+    "maturity": "Briedums",
+    "color": "Krāsa"
   },
   "account": {
     "title": "Konts",

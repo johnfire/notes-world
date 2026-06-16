@@ -111,7 +111,8 @@
     "status": "Būsena",
     "priority": "Prioritetas",
     "promoteTo": "Paversti į",
-    "maturity": "Branda"
+    "maturity": "Branda",
+    "color": "Spalva"
   },
   "account": {
     "title": "Paskyra",

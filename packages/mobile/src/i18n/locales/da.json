@@ -111,7 +111,8 @@
     "status": "Status",
     "priority": "Prioritet",
     "promoteTo": "Konvertér til",
-    "maturity": "Modenhed"
+    "maturity": "Modenhed",
+    "color": "Farve"
   },
   "account": {
     "title": "Konto",

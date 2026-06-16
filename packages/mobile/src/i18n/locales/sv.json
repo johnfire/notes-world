@@ -111,7 +111,8 @@
     "status": "Status",
     "priority": "Prioritet",
     "promoteTo": "Gör om till",
-    "maturity": "Mognad"
+    "maturity": "Mognad",
+    "color": "Färg"
   },
   "account": {
     "title": "Konto",

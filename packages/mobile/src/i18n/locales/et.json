@@ -111,7 +111,8 @@
     "status": "Olek",
     "priority": "Prioriteet",
     "promoteTo": "Teisenda tüübiks",
-    "maturity": "Küpsus"
+    "maturity": "Küpsus",
+    "color": "Värv"
   },
   "account": {
     "title": "Konto",
