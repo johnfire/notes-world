@@ -180,5 +180,10 @@
     "send": "Rapport verzenden",
     "thanks": "Bedankt! Geregistreerd als issue #{{number}}.",
     "failed": "Kon rapport niet verzenden"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "empty": "Nog geen blokken. Voeg ze toe in de web-app.",
+    "emptyBlock": "Niets hier"
   }
 }

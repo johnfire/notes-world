@@ -180,5 +180,10 @@
     "send": "Ibgħat rapport",
     "thanks": "Grazzi! Irreġistrat bħala #{{number}}.",
     "failed": "Ma setax jintbagħat ir-rapport"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "empty": "Għad m’hemm l-ebda blokk. Żidhom fl-app tal-web.",
+    "emptyBlock": "Xejn hawn"
   }
 }

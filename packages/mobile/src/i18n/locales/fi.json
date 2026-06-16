@@ -180,5 +180,10 @@
     "send": "Lähetä raportti",
     "thanks": "Kiitos! Kirjattu numerolla #{{number}}.",
     "failed": "Raportin lähetys epäonnistui"
+  },
+  "dashboard": {
+    "title": "Kojelauta",
+    "empty": "Ei vielä lohkoja. Lisää ne verkkosovelluksessa.",
+    "emptyBlock": "Ei mitään täällä"
   }
 }

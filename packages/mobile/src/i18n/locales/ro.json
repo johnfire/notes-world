@@ -180,5 +180,10 @@
     "send": "Trimite raportul",
     "thanks": "Mulțumim! Înregistrat ca #{{number}}.",
     "failed": "Raportul nu a putut fi trimis"
+  },
+  "dashboard": {
+    "title": "Tablou de bord",
+    "empty": "Încă niciun bloc. Adaugă-le în aplicația web.",
+    "emptyBlock": "Nimic aici"
   }
 }

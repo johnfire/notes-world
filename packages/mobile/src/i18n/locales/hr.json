@@ -180,5 +180,10 @@
     "send": "Pošalji prijavu",
     "thanks": "Hvala! Zabilježeno kao #{{number}}.",
     "failed": "Prijavu nije moguće poslati"
+  },
+  "dashboard": {
+    "title": "Nadzorna ploča",
+    "empty": "Još nema blokova. Dodajte ih u web aplikaciji.",
+    "emptyBlock": "Ovdje nema ničega"
   }
 }

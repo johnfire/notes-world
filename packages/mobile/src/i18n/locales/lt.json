@@ -180,5 +180,10 @@
     "send": "Siųsti pranešimą",
     "thanks": "Ačiū! Užregistruota kaip #{{number}}.",
     "failed": "Nepavyko išsiųsti pranešimo"
+  },
+  "dashboard": {
+    "title": "Skydelis",
+    "empty": "Dar nėra blokų. Pridėkite juos žiniatinklio programoje.",
+    "emptyBlock": "Čia nieko nėra"
   }
 }

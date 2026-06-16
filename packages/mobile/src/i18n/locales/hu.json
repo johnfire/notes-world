@@ -180,5 +180,10 @@
     "send": "Jelentés küldése",
     "thanks": "Köszönjük! Rögzítve #{{number}} számon.",
     "failed": "A jelentést nem sikerült elküldeni"
+  },
+  "dashboard": {
+    "title": "Irányítópult",
+    "empty": "Még nincsenek blokkok. Add hozzá a webes appban.",
+    "emptyBlock": "Itt nincs semmi"
   }
 }

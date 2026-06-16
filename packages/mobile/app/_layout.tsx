@@ -142,6 +142,15 @@ export default function RootLayout() {
               presentation: "card",
             }}
           />
+          <Stack.Screen
+            name="dashboard"
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: "#1a1a1a" },
+              headerTintColor: "#f0f0f0",
+              presentation: "card",
+            }}
+          />
         </Stack>
         <RootRedirect />
         <UpdateBanner />

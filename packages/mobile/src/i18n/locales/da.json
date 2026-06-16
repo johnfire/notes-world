@@ -180,5 +180,10 @@
     "send": "Send rapport",
     "thanks": "Tak! Oprettet som issue #{{number}}.",
     "failed": "Kunne ikke sende rapporten"
+  },
+  "dashboard": {
+    "title": "Oversigt",
+    "empty": "Ingen blokke endnu. Tilføj dem i web-appen.",
+    "emptyBlock": "Intet her"
   }
 }

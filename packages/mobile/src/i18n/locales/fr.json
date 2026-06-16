@@ -180,5 +180,10 @@
     "send": "Envoyer le rapport",
     "thanks": "Merci ! Enregistré comme ticket #{{number}}.",
     "failed": "Échec de l’envoi du rapport"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "empty": "Aucun bloc. Ajoutez-en dans l’app web.",
+    "emptyBlock": "Rien ici"
   }
 }

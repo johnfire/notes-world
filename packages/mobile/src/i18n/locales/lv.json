@@ -180,5 +180,10 @@
     "send": "Nosūtīt ziņojumu",
     "thanks": "Paldies! Reģistrēts kā #{{number}}.",
     "failed": "Neizdevās nosūtīt ziņojumu"
+  },
+  "dashboard": {
+    "title": "Panelis",
+    "empty": "Vēl nav bloku. Pievienojiet tos tīmekļa lietotnē.",
+    "emptyBlock": "Šeit nekā nav"
   }
 }

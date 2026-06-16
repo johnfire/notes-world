@@ -180,5 +180,10 @@
     "send": "Enviar informe",
     "thanks": "¡Gracias! Registrado como incidencia #{{number}}.",
     "failed": "No se pudo enviar el informe"
+  },
+  "dashboard": {
+    "title": "Panel",
+    "empty": "Aún no hay bloques. Añádelos en la app web.",
+    "emptyBlock": "Nada aquí"
   }
 }

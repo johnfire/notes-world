@@ -180,5 +180,10 @@
     "send": "Saada raport",
     "thanks": "Aitäh! Registreeritud kui #{{number}}.",
     "failed": "Raporti saatmine ebaõnnestus"
+  },
+  "dashboard": {
+    "title": "Töölaud",
+    "empty": "Plokke veel pole. Lisa need veebirakenduses.",
+    "emptyBlock": "Siin pole midagi"
   }
 }

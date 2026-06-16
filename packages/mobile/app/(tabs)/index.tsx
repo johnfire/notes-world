@@ -111,9 +111,21 @@ export default function ItemsScreen() {
     <SafeAreaView style={s.root} edges={["top"]}>
       <View style={s.header}>
         <Text style={s.title}>{t("home.title")}</Text>
-        <Pressable onPress={logout} hitSlop={8}>
-          <Ionicons name="log-out-outline" size={22} color={colors.textMuted} />
-        </Pressable>
+        <View style={s.headerActions}>
+          <Pressable
+            onPress={() => router.push("/dashboard" as never)}
+            hitSlop={8}
+          >
+            <Ionicons name="grid-outline" size={20} color={colors.textMuted} />
+          </Pressable>
+          <Pressable onPress={logout} hitSlop={8}>
+            <Ionicons
+              name="log-out-outline"
+              size={22}
+              color={colors.textMuted}
+            />
+          </Pressable>
+        </View>
       </View>
 
       <View style={s.searchRow}>
@@ -202,6 +214,7 @@ const s = StyleSheet.create({
     fontSize: font.xxl,
     fontWeight: "700",
   },
+  headerActions: { flexDirection: "row", alignItems: "center", gap: spacing.md },
   searchRow: {
     flexDirection: "row",
     alignItems: "center",

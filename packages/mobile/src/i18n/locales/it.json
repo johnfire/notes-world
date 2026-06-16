@@ -180,5 +180,10 @@
     "send": "Invia segnalazione",
     "thanks": "Grazie! Registrato come problema #{{number}}.",
     "failed": "Impossibile inviare la segnalazione"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "empty": "Ancora nessun blocco. Aggiungili nell’app web.",
+    "emptyBlock": "Niente qui"
   }
 }

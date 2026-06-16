@@ -180,5 +180,10 @@
     "send": "Seol tuairisc",
     "thanks": "Go raibh maith agat! Cláraithe mar #{{number}}.",
     "failed": "Níorbh fhéidir an tuairisc a sheoladh"
+  },
+  "dashboard": {
+    "title": "Deais",
+    "empty": "Gan bloic go fóill. Cuir leo san aip ghréasáin iad.",
+    "emptyBlock": "Faic anseo"
   }
 }

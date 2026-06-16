@@ -180,5 +180,10 @@
     "send": "发送报告",
     "thanks": "谢谢！已记录为问题 #{{number}}。",
     "failed": "无法发送报告"
+  },
+  "dashboard": {
+    "title": "仪表板",
+    "empty": "还没有区块。请在网页应用中添加。",
+    "emptyBlock": "暂无内容"
   }
 }

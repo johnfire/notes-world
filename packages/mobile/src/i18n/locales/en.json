@@ -180,5 +180,10 @@
     "send": "Send report",
     "thanks": "Thanks! Filed as issue #{{number}}.",
     "failed": "Couldn’t send report"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "empty": "No blocks yet. Add them on the web app.",
+    "emptyBlock": "Nothing here"
   }
 }

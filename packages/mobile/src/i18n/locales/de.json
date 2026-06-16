@@ -180,5 +180,10 @@
     "send": "Bericht senden",
     "thanks": "Danke! Erfasst als Issue #{{number}}.",
     "failed": "Bericht konnte nicht gesendet werden"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "empty": "Noch keine Blöcke. Füge sie in der Web-App hinzu.",
+    "emptyBlock": "Nichts vorhanden"
   }
 }

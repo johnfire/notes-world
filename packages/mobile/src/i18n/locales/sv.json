@@ -180,5 +180,10 @@
     "send": "Skicka rapport",
     "thanks": "Tack! Registrerat som ärende #{{number}}.",
     "failed": "Kunde inte skicka rapporten"
+  },
+  "dashboard": {
+    "title": "Översikt",
+    "empty": "Inga block än. Lägg till dem i webbappen.",
+    "emptyBlock": "Inget här"
   }
 }

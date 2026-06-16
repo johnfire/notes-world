@@ -180,5 +180,10 @@
     "send": "Wyślij zgłoszenie",
     "thanks": "Dzięki! Zapisano jako zgłoszenie #{{number}}.",
     "failed": "Nie udało się wysłać zgłoszenia"
+  },
+  "dashboard": {
+    "title": "Panel",
+    "empty": "Brak bloków. Dodaj je w aplikacji web.",
+    "emptyBlock": "Nic tutaj"
   }
 }

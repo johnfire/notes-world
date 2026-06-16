@@ -180,5 +180,10 @@
     "send": "Odeslat hlášení",
     "thanks": "Děkujeme! Zapsáno jako #{{number}}.",
     "failed": "Hlášení se nepodařilo odeslat"
+  },
+  "dashboard": {
+    "title": "Přehled",
+    "empty": "Zatím žádné bloky. Přidejte je ve webové aplikaci.",
+    "emptyBlock": "Nic tu není"
   }
 }
