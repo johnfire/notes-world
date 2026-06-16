@@ -144,7 +144,8 @@
     "language": "Kalba",
     "selectLanguage": "Pasirinkite kalbą",
     "trash": "Šiukšlinė",
-    "viewTrash": "Ištrintos pastabos"
+    "viewTrash": "Ištrintos pastabos",
+    "reportBug": "Pranešti apie klaidą"
   },
   "update": {
     "available": "Yra nauja versija",
@@ -171,5 +172,11 @@
     "add": "Pridėti priklausomybę",
     "searchPlaceholder": "Ieškoti pastabų…",
     "noResults": "Nėra rezultatų"
+  },
+  "bug": {
+    "placeholder": "Kas nutiko? Ko tikėjotės?",
+    "send": "Siųsti pranešimą",
+    "thanks": "Ačiū! Užregistruota kaip #{{number}}.",
+    "failed": "Nepavyko išsiųsti pranešimo"
   }
 }

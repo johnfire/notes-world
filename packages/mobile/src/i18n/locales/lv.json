@@ -144,7 +144,8 @@
     "language": "Valoda",
     "selectLanguage": "Izvēlēties valodu",
     "trash": "Miskaste",
-    "viewTrash": "Dzēstās piezīmes"
+    "viewTrash": "Dzēstās piezīmes",
+    "reportBug": "Ziņot par kļūdu"
   },
   "update": {
     "available": "Ir pieejama jauna versija",
@@ -171,5 +172,11 @@
     "add": "Pievienot atkarību",
     "searchPlaceholder": "Meklēt piezīmes…",
     "noResults": "Nav rezultātu"
+  },
+  "bug": {
+    "placeholder": "Kas notika? Ko gaidījāt?",
+    "send": "Nosūtīt ziņojumu",
+    "thanks": "Paldies! Reģistrēts kā #{{number}}.",
+    "failed": "Neizdevās nosūtīt ziņojumu"
   }
 }

@@ -144,7 +144,8 @@
     "language": "Nyelv",
     "selectLanguage": "Nyelv kiválasztása",
     "trash": "Kuka",
-    "viewTrash": "Törölt jegyzetek"
+    "viewTrash": "Törölt jegyzetek",
+    "reportBug": "Hiba jelentése"
   },
   "update": {
     "available": "Új verzió érhető el",
@@ -171,5 +172,11 @@
     "add": "Függőség hozzáadása",
     "searchPlaceholder": "Jegyzetek keresése…",
     "noResults": "Nincs találat"
+  },
+  "bug": {
+    "placeholder": "Mi történt? Mire számítottál?",
+    "send": "Jelentés küldése",
+    "thanks": "Köszönjük! Rögzítve #{{number}} számon.",
+    "failed": "A jelentést nem sikerült elküldeni"
   }
 }

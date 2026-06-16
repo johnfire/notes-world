@@ -144,7 +144,8 @@
     "language": "Språk",
     "selectLanguage": "Välj språk",
     "trash": "Papperskorg",
-    "viewTrash": "Borttagna anteckningar"
+    "viewTrash": "Borttagna anteckningar",
+    "reportBug": "Rapportera ett fel"
   },
   "update": {
     "available": "En ny version är tillgänglig",
@@ -171,5 +172,11 @@
     "add": "Lägg till beroende",
     "searchPlaceholder": "Sök anteckningar…",
     "noResults": "Inga träffar"
+  },
+  "bug": {
+    "placeholder": "Vad gick fel? Vad förväntade du dig?",
+    "send": "Skicka rapport",
+    "thanks": "Tack! Registrerat som ärende #{{number}}.",
+    "failed": "Kunde inte skicka rapporten"
   }
 }

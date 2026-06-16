@@ -144,7 +144,8 @@
     "language": "语言",
     "selectLanguage": "选择语言",
     "trash": "回收站",
-    "viewTrash": "已删除的笔记"
+    "viewTrash": "已删除的笔记",
+    "reportBug": "报告问题"
   },
   "update": {
     "available": "有新版本可用",
@@ -171,5 +172,11 @@
     "add": "添加依赖项",
     "searchPlaceholder": "搜索笔记…",
     "noResults": "无匹配项"
+  },
+  "bug": {
+    "placeholder": "出了什么问题？你期望什么？",
+    "send": "发送报告",
+    "thanks": "谢谢！已记录为问题 #{{number}}。",
+    "failed": "无法发送报告"
   }
 }

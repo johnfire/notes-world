@@ -9,12 +9,16 @@ import {
   ActivityIndicator,
   Alert,
   Linking,
+  Modal,
+  Platform,
 } from "react-native";
+import Constants from "expo-constants";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../src/store/auth";
 import { changeEmail, changePassword, deleteAccount } from "../../src/api/auth";
+import { submitBugReport } from "../../src/api/bugReports";
 import { api } from "../../src/api/client";
 import { LanguagePicker } from "../../src/components/LanguagePicker";
 import { colors, spacing, radius, font } from "../../src/theme";
@@ -32,6 +36,30 @@ export default function AccountScreen() {
   const { t } = useTranslation();
   const router = useRouter();
   const { user, logout, setUser } = useAuth();
+
+  const [bugOpen, setBugOpen] = useState(false);
+  const [bugText, setBugText] = useState("");
+  const [bugSubmitting, setBugSubmitting] = useState(false);
+
+  async function handleSubmitBug() {
+    const description = bugText.trim();
+    if (!description || bugSubmitting) return;
+    setBugSubmitting(true);
+    try {
+      const res = await submitBugReport({
+        description,
+        page: "mobile-app",
+        userAgent: `${Platform.OS} app ${Constants.expoConfig?.version ?? "unknown"}`,
+      });
+      setBugOpen(false);
+      setBugText("");
+      Alert.alert(t("bug.thanks", { number: res.number }));
+    } catch (err) {
+      Alert.alert(t("bug.failed"), (err as Error).message);
+    } finally {
+      setBugSubmitting(false);
+    }
+  }
 
   const [emailForm, setEmailForm] = useState({
     email: "",
@@ -261,6 +289,16 @@ export default function AccountScreen() {
           </Pressable>
         </View>
 
+        <SectionHeader title={t("account.reportBug")} />
+        <View style={s.card}>
+          <Pressable
+            style={({ pressed }) => [s.btn, pressed && s.pressed]}
+            onPress={() => setBugOpen(true)}
+          >
+            <Text style={s.btnText}>{t("account.reportBug")}</Text>
+          </Pressable>
+        </View>
+
         <SectionHeader title={t("account.language")} />
         <View style={s.card}>
           <LanguagePicker />
@@ -299,6 +337,39 @@ export default function AccountScreen() {
           </Pressable>
         </View>
       </ScrollView>
+
+      <Modal
+        visible={bugOpen}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setBugOpen(false)}
+      >
+        <Pressable style={s.bugBackdrop} onPress={() => setBugOpen(false)} />
+        <View style={s.bugSheet}>
+          <Text style={s.bugTitle}>{t("account.reportBug")}</Text>
+          <TextInput
+            style={s.bugInput}
+            placeholder={t("bug.placeholder")}
+            placeholderTextColor={colors.textDim}
+            value={bugText}
+            onChangeText={setBugText}
+            multiline
+            textAlignVertical="top"
+            autoFocus
+          />
+          <Pressable
+            style={({ pressed }) => [s.btn, pressed && s.pressed]}
+            onPress={handleSubmitBug}
+            disabled={bugSubmitting || !bugText.trim()}
+          >
+            {bugSubmitting ? (
+              <ActivityIndicator color={colors.text} />
+            ) : (
+              <Text style={s.btnText}>{t("bug.send")}</Text>
+            )}
+          </Pressable>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -412,4 +483,23 @@ const s = StyleSheet.create({
   pressed: { opacity: 0.75 },
   btnText: { color: colors.text, fontSize: font.md, fontWeight: "600" },
   dangerText: { color: colors.danger },
+  bugBackdrop: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)" },
+  bugSheet: {
+    backgroundColor: colors.surface,
+    borderTopLeftRadius: radius.lg,
+    borderTopRightRadius: radius.lg,
+    padding: spacing.md,
+    gap: spacing.sm,
+  },
+  bugTitle: { color: colors.text, fontSize: font.lg, fontWeight: "700" },
+  bugInput: {
+    backgroundColor: colors.surfaceHigh,
+    color: colors.text,
+    borderRadius: radius.sm,
+    borderWidth: 1,
+    borderColor: colors.border,
+    padding: spacing.sm,
+    fontSize: font.md,
+    minHeight: 120,
+  },
 });

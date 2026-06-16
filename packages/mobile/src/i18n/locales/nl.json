@@ -144,7 +144,8 @@
     "language": "Taal",
     "selectLanguage": "Taal selecteren",
     "trash": "Prullenbak",
-    "viewTrash": "Verwijderde notities"
+    "viewTrash": "Verwijderde notities",
+    "reportBug": "Bug melden"
   },
   "update": {
     "available": "Er is een nieuwe versie beschikbaar",
@@ -171,5 +172,11 @@
     "add": "Afhankelijkheid toevoegen",
     "searchPlaceholder": "Notities zoeken…",
     "noResults": "Geen resultaten"
+  },
+  "bug": {
+    "placeholder": "Wat ging er mis? Wat verwachtte je?",
+    "send": "Rapport verzenden",
+    "thanks": "Bedankt! Geregistreerd als issue #{{number}}.",
+    "failed": "Kon rapport niet verzenden"
   }
 }

@@ -144,7 +144,8 @@
     "language": "Limbă",
     "selectLanguage": "Selectează limba",
     "trash": "Coș de gunoi",
-    "viewTrash": "Note șterse"
+    "viewTrash": "Note șterse",
+    "reportBug": "Raportează o eroare"
   },
   "update": {
     "available": "Este disponibilă o versiune nouă",
@@ -171,5 +172,11 @@
     "add": "Adaugă dependență",
     "searchPlaceholder": "Caută note…",
     "noResults": "Niciun rezultat"
+  },
+  "bug": {
+    "placeholder": "Ce nu a mers? Ce te așteptai?",
+    "send": "Trimite raportul",
+    "thanks": "Mulțumim! Înregistrat ca #{{number}}.",
+    "failed": "Raportul nu a putut fi trimis"
   }
 }

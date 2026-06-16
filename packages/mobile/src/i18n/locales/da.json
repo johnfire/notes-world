@@ -144,7 +144,8 @@
     "language": "Sprog",
     "selectLanguage": "Vælg sprog",
     "trash": "Papirkurv",
-    "viewTrash": "Slettede noter"
+    "viewTrash": "Slettede noter",
+    "reportBug": "Rapportér en fejl"
   },
   "update": {
     "available": "En ny version er tilgængelig",
@@ -171,5 +172,11 @@
     "add": "Tilføj afhængighed",
     "searchPlaceholder": "Søg noter…",
     "noResults": "Ingen resultater"
+  },
+  "bug": {
+    "placeholder": "Hvad gik galt? Hvad forventede du?",
+    "send": "Send rapport",
+    "thanks": "Tak! Oprettet som issue #{{number}}.",
+    "failed": "Kunne ikke sende rapporten"
   }
 }

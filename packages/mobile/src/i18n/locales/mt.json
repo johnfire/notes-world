@@ -144,7 +144,8 @@
     "language": "Lingwa",
     "selectLanguage": "Agħżel lingwa",
     "trash": "Skart",
-    "viewTrash": "Noti mħassra"
+    "viewTrash": "Noti mħassra",
+    "reportBug": "Irrapporta bug"
   },
   "update": {
     "available": "Verżjoni ġdida hija disponibbli",
@@ -171,5 +172,11 @@
     "add": "Żid dipendenza",
     "searchPlaceholder": "Fittex noti…",
     "noResults": "L-ebda riżultat"
+  },
+  "bug": {
+    "placeholder": "X’mar sew? X’kont tistenna?",
+    "send": "Ibgħat rapport",
+    "thanks": "Grazzi! Irreġistrat bħala #{{number}}.",
+    "failed": "Ma setax jintbagħat ir-rapport"
   }
 }

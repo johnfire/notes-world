@@ -144,7 +144,8 @@
     "language": "Kieli",
     "selectLanguage": "Valitse kieli",
     "trash": "Roskakori",
-    "viewTrash": "Poistetut muistiinpanot"
+    "viewTrash": "Poistetut muistiinpanot",
+    "reportBug": "Ilmoita virheestä"
   },
   "update": {
     "available": "Uusi versio on saatavilla",
@@ -171,5 +172,11 @@
     "add": "Lisää riippuvuus",
     "searchPlaceholder": "Hae muistiinpanoja…",
     "noResults": "Ei tuloksia"
+  },
+  "bug": {
+    "placeholder": "Mikä meni pieleen? Mitä odotit?",
+    "send": "Lähetä raportti",
+    "thanks": "Kiitos! Kirjattu numerolla #{{number}}.",
+    "failed": "Raportin lähetys epäonnistui"
   }
 }

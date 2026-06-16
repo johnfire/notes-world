@@ -144,7 +144,8 @@
     "language": "Jazyk",
     "selectLanguage": "Vybrať jazyk",
     "trash": "Kôš",
-    "viewTrash": "Odstránené poznámky"
+    "viewTrash": "Odstránené poznámky",
+    "reportBug": "Nahlásiť chybu"
   },
   "update": {
     "available": "Je dostupná nová verzia",
@@ -171,5 +172,11 @@
     "add": "Pridať závislosť",
     "searchPlaceholder": "Hľadať poznámky…",
     "noResults": "Žiadne výsledky"
+  },
+  "bug": {
+    "placeholder": "Čo sa pokazilo? Čo ste očakávali?",
+    "send": "Odoslať hlásenie",
+    "thanks": "Ďakujeme! Zapísané ako #{{number}}.",
+    "failed": "Hlásenie sa nepodarilo odoslať"
   }
 }

@@ -144,7 +144,8 @@
     "language": "Language",
     "selectLanguage": "Select language",
     "trash": "Trash",
-    "viewTrash": "Deleted notes"
+    "viewTrash": "Deleted notes",
+    "reportBug": "Report a bug"
   },
   "update": {
     "available": "A new version is available",
@@ -171,5 +172,11 @@
     "add": "Add dependency",
     "searchPlaceholder": "Search notes…",
     "noResults": "No matches"
+  },
+  "bug": {
+    "placeholder": "What went wrong? What did you expect?",
+    "send": "Send report",
+    "thanks": "Thanks! Filed as issue #{{number}}.",
+    "failed": "Couldn’t send report"
   }
 }

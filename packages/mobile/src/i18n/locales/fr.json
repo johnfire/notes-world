@@ -144,7 +144,8 @@
     "language": "Langue",
     "selectLanguage": "Sélectionner la langue",
     "trash": "Corbeille",
-    "viewTrash": "Notes supprimées"
+    "viewTrash": "Notes supprimées",
+    "reportBug": "Signaler un bug"
   },
   "update": {
     "available": "Une nouvelle version est disponible",
@@ -171,5 +172,11 @@
     "add": "Ajouter une dépendance",
     "searchPlaceholder": "Rechercher des notes…",
     "noResults": "Aucun résultat"
+  },
+  "bug": {
+    "placeholder": "Que s’est-il passé ? À quoi vous attendiez-vous ?",
+    "send": "Envoyer le rapport",
+    "thanks": "Merci ! Enregistré comme ticket #{{number}}.",
+    "failed": "Échec de l’envoi du rapport"
   }
 }

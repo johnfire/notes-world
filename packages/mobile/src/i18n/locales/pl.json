@@ -144,7 +144,8 @@
     "language": "Język",
     "selectLanguage": "Wybierz język",
     "trash": "Kosz",
-    "viewTrash": "Usunięte notatki"
+    "viewTrash": "Usunięte notatki",
+    "reportBug": "Zgłoś błąd"
   },
   "update": {
     "available": "Dostępna jest nowa wersja",
@@ -171,5 +172,11 @@
     "add": "Dodaj zależność",
     "searchPlaceholder": "Szukaj notatek…",
     "noResults": "Brak wyników"
+  },
+  "bug": {
+    "placeholder": "Co poszło nie tak? Czego oczekiwałeś?",
+    "send": "Wyślij zgłoszenie",
+    "thanks": "Dzięki! Zapisano jako zgłoszenie #{{number}}.",
+    "failed": "Nie udało się wysłać zgłoszenia"
   }
 }

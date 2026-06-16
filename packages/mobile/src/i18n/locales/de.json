@@ -144,7 +144,8 @@
     "language": "Sprache",
     "selectLanguage": "Sprache auswählen",
     "trash": "Papierkorb",
-    "viewTrash": "Gelöschte Notizen"
+    "viewTrash": "Gelöschte Notizen",
+    "reportBug": "Fehler melden"
   },
   "update": {
     "available": "Eine neue Version ist verfügbar",
@@ -171,5 +172,11 @@
     "add": "Abhängigkeit hinzufügen",
     "searchPlaceholder": "Notizen suchen…",
     "noResults": "Keine Treffer"
+  },
+  "bug": {
+    "placeholder": "Was ist passiert? Was hast du erwartet?",
+    "send": "Bericht senden",
+    "thanks": "Danke! Erfasst als Issue #{{number}}.",
+    "failed": "Bericht konnte nicht gesendet werden"
   }
 }

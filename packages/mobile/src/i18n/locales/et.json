@@ -144,7 +144,8 @@
     "language": "Keel",
     "selectLanguage": "Vali keel",
     "trash": "Prügikast",
-    "viewTrash": "Kustutatud märkmed"
+    "viewTrash": "Kustutatud märkmed",
+    "reportBug": "Teata veast"
   },
   "update": {
     "available": "Saadaval on uus versioon",
@@ -171,5 +172,11 @@
     "add": "Lisa sõltuvus",
     "searchPlaceholder": "Otsi märkmeid…",
     "noResults": "Tulemusi pole"
+  },
+  "bug": {
+    "placeholder": "Mis läks valesti? Mida ootasid?",
+    "send": "Saada raport",
+    "thanks": "Aitäh! Registreeritud kui #{{number}}.",
+    "failed": "Raporti saatmine ebaõnnestus"
   }
 }

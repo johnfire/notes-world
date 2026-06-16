@@ -144,7 +144,8 @@
     "language": "Teanga",
     "selectLanguage": "Roghnaigh teanga",
     "trash": "Bruscar",
-    "viewTrash": "Nótaí scriosta"
+    "viewTrash": "Nótaí scriosta",
+    "reportBug": "Tuairiscigh fabht"
   },
   "update": {
     "available": "Tá leagan nua ar fáil",
@@ -171,5 +172,11 @@
     "add": "Cuir spleáchas leis",
     "searchPlaceholder": "Cuardaigh nótaí…",
     "noResults": "Gan torthaí"
+  },
+  "bug": {
+    "placeholder": "Cad a chuaigh mícheart? Cad a bhí á súil agat?",
+    "send": "Seol tuairisc",
+    "thanks": "Go raibh maith agat! Cláraithe mar #{{number}}.",
+    "failed": "Níorbh fhéidir an tuairisc a sheoladh"
   }
 }

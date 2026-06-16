@@ -144,7 +144,8 @@
     "language": "Jezik",
     "selectLanguage": "Odaberite jezik",
     "trash": "Smeće",
-    "viewTrash": "Izbrisane bilješke"
+    "viewTrash": "Izbrisane bilješke",
+    "reportBug": "Prijavi grešku"
   },
   "update": {
     "available": "Dostupna je nova verzija",
@@ -171,5 +172,11 @@
     "add": "Dodaj ovisnost",
     "searchPlaceholder": "Pretraži bilješke…",
     "noResults": "Nema rezultata"
+  },
+  "bug": {
+    "placeholder": "Što je pošlo po zlu? Što ste očekivali?",
+    "send": "Pošalji prijavu",
+    "thanks": "Hvala! Zabilježeno kao #{{number}}.",
+    "failed": "Prijavu nije moguće poslati"
   }
 }

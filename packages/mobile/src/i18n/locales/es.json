@@ -144,7 +144,8 @@
     "language": "Idioma",
     "selectLanguage": "Seleccionar idioma",
     "trash": "Papelera",
-    "viewTrash": "Notas eliminadas"
+    "viewTrash": "Notas eliminadas",
+    "reportBug": "Informar de un error"
   },
   "update": {
     "available": "Hay una nueva versión disponible",
@@ -171,5 +172,11 @@
     "add": "Añadir dependencia",
     "searchPlaceholder": "Buscar notas…",
     "noResults": "Sin resultados"
+  },
+  "bug": {
+    "placeholder": "¿Qué falló? ¿Qué esperabas?",
+    "send": "Enviar informe",
+    "thanks": "¡Gracias! Registrado como incidencia #{{number}}.",
+    "failed": "No se pudo enviar el informe"
   }
 }
