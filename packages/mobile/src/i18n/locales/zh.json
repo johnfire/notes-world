@@ -135,7 +135,9 @@
     "deleteAccountMsg": "请输入你的当前密码以确认。此操作无法撤销。",
     "deleteAccountFailed": "删除账户失败",
     "language": "语言",
-    "selectLanguage": "选择语言"
+    "selectLanguage": "选择语言",
+    "trash": "回收站",
+    "viewTrash": "已删除的笔记"
   },
   "update": {
     "available": "有新版本可用",
@@ -145,5 +147,13 @@
     "title": "出了点问题",
     "subtitle": "错误已上报。请重试。",
     "retry": "重试"
+  },
+  "trash": {
+    "empty": "回收站为空",
+    "loadError": "无法加载回收站。下拉重试。",
+    "restore": "恢复",
+    "daysLeft": "剩余 {{days}} 天",
+    "purgeTitle": "永久删除？",
+    "purgeMsg": "这将永久删除该笔记。"
   }
 }

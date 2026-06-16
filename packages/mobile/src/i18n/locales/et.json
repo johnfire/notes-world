@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Kinnitamiseks sisesta praegune parool. Seda ei saa tagasi võtta.",
     "deleteAccountFailed": "Konto kustutamine ebaõnnestus",
     "language": "Keel",
-    "selectLanguage": "Vali keel"
+    "selectLanguage": "Vali keel",
+    "trash": "Prügikast",
+    "viewTrash": "Kustutatud märkmed"
   },
   "update": {
     "available": "Saadaval on uus versioon",
@@ -145,5 +147,13 @@
     "title": "Midagi läks valesti",
     "subtitle": "Viga raporteeriti. Proovi uuesti.",
     "retry": "Proovi uuesti"
+  },
+  "trash": {
+    "empty": "Prügikast on tühi",
+    "loadError": "Prügikasti laadimine ebaõnnestus. Tõmba uuesti proovimiseks.",
+    "restore": "Taasta",
+    "daysLeft": "{{days}} päeva jäänud",
+    "purgeTitle": "Kustutada jäädavalt?",
+    "purgeMsg": "See kustutab märkme jäädavalt."
   }
 }

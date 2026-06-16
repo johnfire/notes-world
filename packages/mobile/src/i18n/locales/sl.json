@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Za potrditev vnesite trenutno geslo. Tega dejanja ni mogoče razveljaviti.",
     "deleteAccountFailed": "Brisanje računa ni uspelo",
     "language": "Jezik",
-    "selectLanguage": "Izberite jezik"
+    "selectLanguage": "Izberite jezik",
+    "trash": "Koš",
+    "viewTrash": "Izbrisani zapiski"
   },
   "update": {
     "available": "Na voljo je nova različica",
@@ -145,5 +147,13 @@
     "title": "Nekaj je šlo narobe",
     "subtitle": "Napaka je bila prijavljena. Poskusite znova.",
     "retry": "Poskusi znova"
+  },
+  "trash": {
+    "empty": "Koš je prazen",
+    "loadError": "Koša ni bilo mogoče naložiti. Povlecite za ponovni poskus.",
+    "restore": "Obnovi",
+    "daysLeft": "Še {{days}} dni",
+    "purgeTitle": "Trajno izbrišem?",
+    "purgeMsg": "S tem trajno izbrišete zapisek."
   }
 }

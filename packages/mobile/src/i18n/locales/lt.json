@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Norėdami patvirtinti, įveskite dabartinį slaptažodį. Šio veiksmo negalima atšaukti.",
     "deleteAccountFailed": "Nepavyko ištrinti paskyros",
     "language": "Kalba",
-    "selectLanguage": "Pasirinkite kalbą"
+    "selectLanguage": "Pasirinkite kalbą",
+    "trash": "Šiukšlinė",
+    "viewTrash": "Ištrintos pastabos"
   },
   "update": {
     "available": "Yra nauja versija",
@@ -145,5 +147,13 @@
     "title": "Kažkas nepavyko",
     "subtitle": "Apie klaidą pranešta. Bandykite dar kartą.",
     "retry": "Bandyti dar kartą"
+  },
+  "trash": {
+    "empty": "Šiukšlinė tuščia",
+    "loadError": "Nepavyko įkelti šiukšlinės. Patempkite, kad pakartotumėte.",
+    "restore": "Atkurti",
+    "daysLeft": "Liko {{days}} d.",
+    "purgeTitle": "Ištrinti negrįžtamai?",
+    "purgeMsg": "Tai negrįžtamai ištrins pastabą."
   }
 }

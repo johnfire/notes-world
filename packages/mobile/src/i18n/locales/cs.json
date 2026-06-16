@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Pro potvrzení zadejte své současné heslo. Tuto akci nelze vrátit zpět.",
     "deleteAccountFailed": "Smazání účtu se nezdařilo",
     "language": "Jazyk",
-    "selectLanguage": "Vybrat jazyk"
+    "selectLanguage": "Vybrat jazyk",
+    "trash": "Koš",
+    "viewTrash": "Smazané poznámky"
   },
   "update": {
     "available": "Je dostupná nová verze",
@@ -145,5 +147,13 @@
     "title": "Něco se pokazilo",
     "subtitle": "Chyba byla nahlášena. Zkuste to znovu.",
     "retry": "Zkusit znovu"
+  },
+  "trash": {
+    "empty": "Koš je prázdný",
+    "loadError": "Nepodařilo se načíst koš. Zopakujte tažením dolů.",
+    "restore": "Obnovit",
+    "daysLeft": "Zbývá {{days}} dní",
+    "purgeTitle": "Smazat natrvalo?",
+    "purgeMsg": "Tímto se poznámka trvale smaže."
   }
 }

@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Gib dein aktuelles Passwort zur Bestätigung ein. Dies kann nicht rückgängig gemacht werden.",
     "deleteAccountFailed": "Konto konnte nicht gelöscht werden",
     "language": "Sprache",
-    "selectLanguage": "Sprache auswählen"
+    "selectLanguage": "Sprache auswählen",
+    "trash": "Papierkorb",
+    "viewTrash": "Gelöschte Notizen"
   },
   "update": {
     "available": "Eine neue Version ist verfügbar",
@@ -145,5 +147,13 @@
     "title": "Etwas ist schiefgelaufen",
     "subtitle": "Der Fehler wurde gemeldet. Versuche es erneut.",
     "retry": "Erneut versuchen"
+  },
+  "trash": {
+    "empty": "Papierkorb ist leer",
+    "loadError": "Papierkorb konnte nicht geladen werden. Zum Wiederholen herunterziehen.",
+    "restore": "Wiederherstellen",
+    "daysLeft": "Noch {{days}} Tage",
+    "purgeTitle": "Endgültig löschen?",
+    "purgeMsg": "Dadurch wird die Notiz dauerhaft gelöscht."
   }
 }

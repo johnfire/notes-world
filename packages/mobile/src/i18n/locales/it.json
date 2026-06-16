@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Inserisci la tua password attuale per confermare. Questa azione non può essere annullata.",
     "deleteAccountFailed": "Impossibile eliminare l'account",
     "language": "Lingua",
-    "selectLanguage": "Seleziona lingua"
+    "selectLanguage": "Seleziona lingua",
+    "trash": "Cestino",
+    "viewTrash": "Note eliminate"
   },
   "update": {
     "available": "È disponibile una nuova versione",
@@ -145,5 +147,13 @@
     "title": "Qualcosa è andato storto",
     "subtitle": "L'errore è stato segnalato. Riprova.",
     "retry": "Riprova"
+  },
+  "trash": {
+    "empty": "Il cestino è vuoto",
+    "loadError": "Impossibile caricare il cestino. Trascina per riprovare.",
+    "restore": "Ripristina",
+    "daysLeft": "{{days}} giorni rimasti",
+    "purgeTitle": "Eliminare definitivamente?",
+    "purgeMsg": "La nota verrà eliminata definitivamente."
   }
 }

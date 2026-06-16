@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Cuir isteach do phasfhocal reatha le deimhniú. Ní féidir é seo a chealú.",
     "deleteAccountFailed": "Theip ar scriosadh an chuntais",
     "language": "Teanga",
-    "selectLanguage": "Roghnaigh teanga"
+    "selectLanguage": "Roghnaigh teanga",
+    "trash": "Bruscar",
+    "viewTrash": "Nótaí scriosta"
   },
   "update": {
     "available": "Tá leagan nua ar fáil",
@@ -145,5 +147,13 @@
     "title": "Chuaigh rud éigin amú",
     "subtitle": "Tuairiscíodh an earráid. Bain triail eile as.",
     "retry": "Atriail"
+  },
+  "trash": {
+    "empty": "Tá an bruscar folamh",
+    "loadError": "Níorbh fhéidir an bruscar a lódáil. Tarraing chun athtriail.",
+    "restore": "Athchóirigh",
+    "daysLeft": "{{days}} lá fágtha",
+    "purgeTitle": "Scrios go buan?",
+    "purgeMsg": "Scriosfaidh sé seo an nóta go buan."
   }
 }

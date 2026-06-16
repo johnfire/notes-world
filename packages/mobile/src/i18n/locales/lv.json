@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Lai apstiprinātu, ievadi savu pašreizējo paroli. Šo nevar atsaukt.",
     "deleteAccountFailed": "Neizdevās dzēst kontu",
     "language": "Valoda",
-    "selectLanguage": "Izvēlēties valodu"
+    "selectLanguage": "Izvēlēties valodu",
+    "trash": "Miskaste",
+    "viewTrash": "Dzēstās piezīmes"
   },
   "update": {
     "available": "Ir pieejama jauna versija",
@@ -145,5 +147,13 @@
     "title": "Kaut kas nogāja greizi",
     "subtitle": "Kļūda tika ziņota. Mēģini vēlreiz.",
     "retry": "Mēģināt vēlreiz"
+  },
+  "trash": {
+    "empty": "Miskaste ir tukša",
+    "loadError": "Neizdevās ielādēt miskasti. Pavelciet, lai mēģinātu vēlreiz.",
+    "restore": "Atjaunot",
+    "daysLeft": "Atlikušas {{days}} dienas",
+    "purgeTitle": "Dzēst neatgriezeniski?",
+    "purgeMsg": "Tādējādi piezīme tiks neatgriezeniski dzēsta."
   }
 }

@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Indtast din nuværende adgangskode for at bekræfte. Dette kan ikke fortrydes.",
     "deleteAccountFailed": "Kunne ikke slette konto",
     "language": "Sprog",
-    "selectLanguage": "Vælg sprog"
+    "selectLanguage": "Vælg sprog",
+    "trash": "Papirkurv",
+    "viewTrash": "Slettede noter"
   },
   "update": {
     "available": "En ny version er tilgængelig",
@@ -145,5 +147,13 @@
     "title": "Noget gik galt",
     "subtitle": "Fejlen blev rapporteret. Prøv igen.",
     "retry": "Prøv igen"
+  },
+  "trash": {
+    "empty": "Papirkurven er tom",
+    "loadError": "Kunne ikke indlæse papirkurven. Træk for at prøve igen.",
+    "restore": "Gendan",
+    "daysLeft": "{{days}} dage tilbage",
+    "purgeTitle": "Slet permanent?",
+    "purgeMsg": "Dette sletter noten permanent."
   }
 }

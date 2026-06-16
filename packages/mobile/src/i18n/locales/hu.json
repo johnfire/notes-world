@@ -135,7 +135,9 @@
     "deleteAccountMsg": "A megerősítéshez add meg a jelenlegi jelszavadat. Ezt nem lehet visszavonni.",
     "deleteAccountFailed": "A fiók törlése sikertelen",
     "language": "Nyelv",
-    "selectLanguage": "Nyelv kiválasztása"
+    "selectLanguage": "Nyelv kiválasztása",
+    "trash": "Kuka",
+    "viewTrash": "Törölt jegyzetek"
   },
   "update": {
     "available": "Új verzió érhető el",
@@ -145,5 +147,13 @@
     "title": "Valami hiba történt",
     "subtitle": "A hibát jelentettük. Próbáld újra.",
     "retry": "Újra"
+  },
+  "trash": {
+    "empty": "A kuka üres",
+    "loadError": "Nem sikerült betölteni a kukát. Húzd le az újrapróbálkozáshoz.",
+    "restore": "Visszaállítás",
+    "daysLeft": "{{days}} nap van hátra",
+    "purgeTitle": "Végleges törlés?",
+    "purgeMsg": "Ezzel véglegesen törlöd a jegyzetet."
   }
 }

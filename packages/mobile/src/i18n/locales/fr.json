@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Saisissez votre mot de passe actuel pour confirmer. Cette action est irréversible.",
     "deleteAccountFailed": "Échec de la suppression du compte",
     "language": "Langue",
-    "selectLanguage": "Sélectionner la langue"
+    "selectLanguage": "Sélectionner la langue",
+    "trash": "Corbeille",
+    "viewTrash": "Notes supprimées"
   },
   "update": {
     "available": "Une nouvelle version est disponible",
@@ -145,5 +147,13 @@
     "title": "Une erreur s'est produite",
     "subtitle": "L'erreur a été signalée. Réessayez.",
     "retry": "Réessayer"
+  },
+  "trash": {
+    "empty": "La corbeille est vide",
+    "loadError": "Échec du chargement de la corbeille. Tirez pour réessayer.",
+    "restore": "Restaurer",
+    "daysLeft": "{{days}} jours restants",
+    "purgeTitle": "Supprimer définitivement ?",
+    "purgeMsg": "La note sera supprimée définitivement."
   }
 }

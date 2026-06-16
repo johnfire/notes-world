@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Enter your current password to confirm. This cannot be undone.",
     "deleteAccountFailed": "Failed to delete account",
     "language": "Language",
-    "selectLanguage": "Select language"
+    "selectLanguage": "Select language",
+    "trash": "Trash",
+    "viewTrash": "Deleted notes"
   },
   "update": {
     "available": "A new version is available",
@@ -145,5 +147,13 @@
     "title": "Something went wrong",
     "subtitle": "The error was reported. Try again.",
     "retry": "Retry"
+  },
+  "trash": {
+    "empty": "Trash is empty",
+    "loadError": "Couldn’t load Trash. Pull down to retry.",
+    "restore": "Restore",
+    "daysLeft": "{{days}} days left",
+    "purgeTitle": "Delete forever?",
+    "purgeMsg": "This permanently deletes the note."
   }
 }

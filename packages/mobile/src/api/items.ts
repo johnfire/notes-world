@@ -59,6 +59,15 @@ export function archiveItem(id: string): Promise<Item> {
   return api.post<Item>(`/items/${id}/archive`, {});
 }
 
+// Archived items (Trash). Recoverable until purged (server auto-purges at 30d).
+export function getTrash(limit = 50, offset = 0): Promise<Item[]> {
+  return api.get<Item[]>(`/items/trash?limit=${limit}&offset=${offset}`);
+}
+
+export function restoreItem(id: string): Promise<Item> {
+  return api.post<Item>(`/items/${id}/restore`, {});
+}
+
 export function deleteItem(id: string): Promise<void> {
   return api.post<void>(`/items/${id}/purge`, {});
 }

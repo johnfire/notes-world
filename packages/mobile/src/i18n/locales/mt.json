@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Daħħal il-password attwali tiegħek biex tikkonferma. Dan ma jistax jiġi mreġġa' lura.",
     "deleteAccountFailed": "It-tħassir tal-kont falla",
     "language": "Lingwa",
-    "selectLanguage": "Agħżel lingwa"
+    "selectLanguage": "Agħżel lingwa",
+    "trash": "Skart",
+    "viewTrash": "Noti mħassra"
   },
   "update": {
     "available": "Verżjoni ġdida hija disponibbli",
@@ -145,5 +147,13 @@
     "title": "Xi ħaġa marret ħażin",
     "subtitle": "L-iżball ġie rrappurtat. Erġa' pprova.",
     "retry": "Erġa' pprova"
+  },
+  "trash": {
+    "empty": "L-iskart huwa vojt",
+    "loadError": "Ma setax jitgħabba l-iskart. Iġbed biex terġa’ tipprova.",
+    "restore": "Irkupra",
+    "daysLeft": "Fadal {{days}} jiem",
+    "purgeTitle": "Ħassar għal dejjem?",
+    "purgeMsg": "Dan iħassar in-nota għal dejjem."
   }
 }

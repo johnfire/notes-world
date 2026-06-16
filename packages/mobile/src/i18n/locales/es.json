@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Introduce tu contraseña actual para confirmar. Esta acción no se puede deshacer.",
     "deleteAccountFailed": "Error al eliminar la cuenta",
     "language": "Idioma",
-    "selectLanguage": "Seleccionar idioma"
+    "selectLanguage": "Seleccionar idioma",
+    "trash": "Papelera",
+    "viewTrash": "Notas eliminadas"
   },
   "update": {
     "available": "Hay una nueva versión disponible",
@@ -145,5 +147,13 @@
     "title": "Algo salió mal",
     "subtitle": "El error fue reportado. Inténtalo de nuevo.",
     "retry": "Reintentar"
+  },
+  "trash": {
+    "empty": "La papelera está vacía",
+    "loadError": "No se pudo cargar la papelera. Desliza para reintentar.",
+    "restore": "Restaurar",
+    "daysLeft": "Quedan {{days}} días",
+    "purgeTitle": "¿Eliminar definitivamente?",
+    "purgeMsg": "Esto elimina la nota de forma permanente."
   }
 }

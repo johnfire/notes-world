@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Ange ditt nuvarande lösenord för att bekräfta. Detta kan inte ångras.",
     "deleteAccountFailed": "Det gick inte att ta bort kontot",
     "language": "Språk",
-    "selectLanguage": "Välj språk"
+    "selectLanguage": "Välj språk",
+    "trash": "Papperskorg",
+    "viewTrash": "Borttagna anteckningar"
   },
   "update": {
     "available": "En ny version är tillgänglig",
@@ -145,5 +147,13 @@
     "title": "Något gick fel",
     "subtitle": "Felet rapporterades. Försök igen.",
     "retry": "Försök igen"
+  },
+  "trash": {
+    "empty": "Papperskorgen är tom",
+    "loadError": "Kunde inte ladda papperskorgen. Dra för att försöka igen.",
+    "restore": "Återställ",
+    "daysLeft": "{{days}} dagar kvar",
+    "purgeTitle": "Ta bort permanent?",
+    "purgeMsg": "Detta tar bort anteckningen permanent."
   }
 }

@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Voer je huidige wachtwoord in ter bevestiging. Dit kan niet ongedaan worden gemaakt.",
     "deleteAccountFailed": "Account verwijderen mislukt",
     "language": "Taal",
-    "selectLanguage": "Taal selecteren"
+    "selectLanguage": "Taal selecteren",
+    "trash": "Prullenbak",
+    "viewTrash": "Verwijderde notities"
   },
   "update": {
     "available": "Er is een nieuwe versie beschikbaar",
@@ -145,5 +147,13 @@
     "title": "Er is iets misgegaan",
     "subtitle": "De fout is gerapporteerd. Probeer het opnieuw.",
     "retry": "Opnieuw proberen"
+  },
+  "trash": {
+    "empty": "Prullenbak is leeg",
+    "loadError": "Kan prullenbak niet laden. Trek omlaag om opnieuw te proberen.",
+    "restore": "Herstellen",
+    "daysLeft": "Nog {{days}} dagen",
+    "purgeTitle": "Definitief verwijderen?",
+    "purgeMsg": "Hiermee wordt de notitie permanent verwijderd."
   }
 }

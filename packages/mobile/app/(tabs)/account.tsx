@@ -11,6 +11,7 @@ import {
   Linking,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../src/store/auth";
 import { changeEmail, changePassword, deleteAccount } from "../../src/api/auth";
@@ -29,6 +30,7 @@ const ROLE_KEYS: Record<string, string> = {
 
 export default function AccountScreen() {
   const { t } = useTranslation();
+  const router = useRouter();
   const { user, logout, setUser } = useAuth();
 
   const [emailForm, setEmailForm] = useState({
@@ -246,6 +248,16 @@ export default function AccountScreen() {
             ) : (
               <Text style={s.btnText}>{t("account.updatePassword")}</Text>
             )}
+          </Pressable>
+        </View>
+
+        <SectionHeader title={t("account.trash")} />
+        <View style={s.card}>
+          <Pressable
+            style={({ pressed }) => [s.btn, pressed && s.pressed]}
+            onPress={() => router.push("/trash" as never)}
+          >
+            <Text style={s.btnText}>{t("account.viewTrash")}</Text>
           </Pressable>
         </View>
 

@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Introduza a sua palavra-passe atual para confirmar. Esta ação não pode ser anulada.",
     "deleteAccountFailed": "Falha ao eliminar a conta",
     "language": "Idioma",
-    "selectLanguage": "Selecionar idioma"
+    "selectLanguage": "Selecionar idioma",
+    "trash": "Lixo",
+    "viewTrash": "Notas eliminadas"
   },
   "update": {
     "available": "Está disponível uma nova versão",
@@ -145,5 +147,13 @@
     "title": "Algo correu mal",
     "subtitle": "O erro foi reportado. Tente novamente.",
     "retry": "Tentar novamente"
+  },
+  "trash": {
+    "empty": "O lixo está vazio",
+    "loadError": "Não foi possível carregar o lixo. Puxe para tentar novamente.",
+    "restore": "Restaurar",
+    "daysLeft": "{{days}} dias restantes",
+    "purgeTitle": "Eliminar permanentemente?",
+    "purgeMsg": "Isto elimina a nota permanentemente."
   }
 }

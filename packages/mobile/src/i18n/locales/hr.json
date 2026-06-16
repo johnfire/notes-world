@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Unesite trenutnu lozinku za potvrdu. Ovu radnju nije moguće poništiti.",
     "deleteAccountFailed": "Brisanje računa nije uspjelo",
     "language": "Jezik",
-    "selectLanguage": "Odaberite jezik"
+    "selectLanguage": "Odaberite jezik",
+    "trash": "Smeće",
+    "viewTrash": "Izbrisane bilješke"
   },
   "update": {
     "available": "Dostupna je nova verzija",
@@ -145,5 +147,13 @@
     "title": "Nešto je pošlo po zlu",
     "subtitle": "Pogreška je prijavljena. Pokušajte ponovno.",
     "retry": "Pokušaj ponovno"
+  },
+  "trash": {
+    "empty": "Smeće je prazno",
+    "loadError": "Nije moguće učitati smeće. Povucite za ponovni pokušaj.",
+    "restore": "Vrati",
+    "daysLeft": "Preostalo {{days}} dana",
+    "purgeTitle": "Trajno izbrisati?",
+    "purgeMsg": "Ovo trajno briše bilješku."
   }
 }

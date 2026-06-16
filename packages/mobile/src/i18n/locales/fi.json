@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Vahvista syöttämällä nykyinen salasanasi. Tätä ei voi kumota.",
     "deleteAccountFailed": "Tilin poisto epäonnistui",
     "language": "Kieli",
-    "selectLanguage": "Valitse kieli"
+    "selectLanguage": "Valitse kieli",
+    "trash": "Roskakori",
+    "viewTrash": "Poistetut muistiinpanot"
   },
   "update": {
     "available": "Uusi versio on saatavilla",
@@ -145,5 +147,13 @@
     "title": "Jotain meni pieleen",
     "subtitle": "Virhe raportoitiin. Yritä uudelleen.",
     "retry": "Yritä uudelleen"
+  },
+  "trash": {
+    "empty": "Roskakori on tyhjä",
+    "loadError": "Roskakorin lataus epäonnistui. Päivitä vetämällä.",
+    "restore": "Palauta",
+    "daysLeft": "{{days}} päivää jäljellä",
+    "purgeTitle": "Poistetaanko pysyvästi?",
+    "purgeMsg": "Tämä poistaa muistiinpanon pysyvästi."
   }
 }

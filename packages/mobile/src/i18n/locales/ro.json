@@ -135,7 +135,9 @@
     "deleteAccountMsg": "Introdu parola actuală pentru a confirma. Această acțiune nu poate fi anulată.",
     "deleteAccountFailed": "Ștergerea contului a eșuat",
     "language": "Limbă",
-    "selectLanguage": "Selectează limba"
+    "selectLanguage": "Selectează limba",
+    "trash": "Coș de gunoi",
+    "viewTrash": "Note șterse"
   },
   "update": {
     "available": "Este disponibilă o versiune nouă",
@@ -145,5 +147,13 @@
     "title": "Ceva nu a funcționat",
     "subtitle": "Eroarea a fost raportată. Încearcă din nou.",
     "retry": "Reîncearcă"
+  },
+  "trash": {
+    "empty": "Coșul de gunoi este gol",
+    "loadError": "Nu s-a putut încărca coșul. Trage pentru a reîncerca.",
+    "restore": "Restaurează",
+    "daysLeft": "{{days}} zile rămase",
+    "purgeTitle": "Ștergi definitiv?",
+    "purgeMsg": "Aceasta șterge definitiv nota."
   }
 }
