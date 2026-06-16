@@ -92,11 +92,29 @@ export function registerTagTools(server: McpServer) {
 
   server.tool(
     'delete_tag',
-    'Delete a tag entirely.',
-    { tag_id: z.string().describe('Tag UUID') },
-    async ({ tag_id }) => {
-      await del(`/api/tags/${tag_id}`);
-      return { content: [{ type: 'text', text: `Deleted tag ${tag_id}` }] };
+    'Delete a tag. By default the tagged notes are kept (they just lose the tag). Set delete_items to also move every note carrying the tag to Trash.',
+    {
+      tag_id: z.string().describe('Tag UUID'),
+      delete_items: z
+        .boolean()
+        .optional()
+        .describe(
+          'If true, also archive (→ Trash) every note that has this tag. Default false: keep the notes, remove only the tag.',
+        ),
+    },
+    async ({ tag_id, delete_items }) => {
+      const qs = delete_items ? '?deleteItems=true' : '';
+      await del(`/api/tags/${tag_id}${qs}`);
+      return {
+        content: [
+          {
+            type: 'text',
+            text: delete_items
+              ? `Deleted tag ${tag_id} and moved its notes to Trash`
+              : `Deleted tag ${tag_id} (notes kept)`,
+          },
+        ],
+      };
     }
   );
 }
