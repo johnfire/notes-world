@@ -111,6 +111,10 @@ export function ActionBar() {
         )}
       </div>
 
+      {/* Spacer: pins the action cluster (…through Report a bug) to the far
+          right even when the capped search bar leaves slack. */}
+      <div className="ml-auto" />
+
       {/* Status indicator */}
       {state.loading && (
         <div className="flex items-center gap-1.5 text-xs text-gray-500">
