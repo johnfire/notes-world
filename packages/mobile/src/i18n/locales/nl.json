@@ -68,7 +68,10 @@
     "deleteTitle": "Tag ‘{{name}}’ verwijderen?",
     "deleteMsg": "Alleen het label verwijderen of de notities ook naar de prullenbak verplaatsen?",
     "deleteTagOnly": "Alleen label",
-    "deleteWithNotes": "Label + notities"
+    "deleteWithNotes": "Label + notities",
+    "new": "Nieuw label",
+    "namePlaceholder": "Labelnaam",
+    "create": "“{{name}}” maken"
   },
   "tagDetail": {
     "loadError": "Kan items niet laden. Trek omlaag om opnieuw te proberen.",

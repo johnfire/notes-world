@@ -68,7 +68,10 @@
     "deleteTitle": "Kas kustutada silt „{{name}}“?",
     "deleteMsg": "Kustutada ainult silt või teisaldada ka selle märkmed prügikasti?",
     "deleteTagOnly": "Ainult silt",
-    "deleteWithNotes": "Silt + märkmed"
+    "deleteWithNotes": "Silt + märkmed",
+    "new": "Uus silt",
+    "namePlaceholder": "Sildi nimi",
+    "create": "Loo „{{name}}”"
   },
   "tagDetail": {
     "loadError": "Üksusi ei õnnestunud laadida. Tõmba alla, et uuesti proovida.",

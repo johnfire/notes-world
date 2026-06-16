@@ -68,7 +68,10 @@
     "deleteTitle": "Ta bort taggen ”{{name}}”?",
     "deleteMsg": "Ta bort endast taggen, eller flytta även dess anteckningar till papperskorgen?",
     "deleteTagOnly": "Endast tagg",
-    "deleteWithNotes": "Tagg + anteckningar"
+    "deleteWithNotes": "Tagg + anteckningar",
+    "new": "Ny tagg",
+    "namePlaceholder": "Taggnamn",
+    "create": "Skapa ”{{name}}”"
   },
   "tagDetail": {
     "loadError": "Det gick inte att läsa in objekt. Dra nedåt för att försöka igen.",

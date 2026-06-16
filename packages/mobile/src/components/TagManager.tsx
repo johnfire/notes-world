@@ -8,6 +8,7 @@ import {
   StyleSheet,
   ActivityIndicator,
   TextInput,
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
@@ -17,6 +18,7 @@ import {
   listTags,
   addTagToItem,
   removeTagFromItem,
+  createTag,
 } from "../api/tags";
 import { colors, spacing, radius, font } from "../theme";
 
@@ -70,11 +72,30 @@ export function TagManager({ itemId }: Props) {
     }
   }
 
+  async function handleCreateAndAdd() {
+    const name = search.trim();
+    if (!name) return;
+    try {
+      const tag = await createTag(name);
+      await addTagToItem(itemId, tag.id);
+      setItemTags((prev) => [...prev, tag]);
+      setAllTags((prev) => [...prev, { ...tag, item_count: 1 }]);
+      setPickerVisible(false);
+      setSearch("");
+    } catch (err) {
+      Alert.alert(t("common.error"), (err as Error).message);
+    }
+  }
+
+  const query = search.trim().toLowerCase();
   const available = allTags.filter(
     (t) =>
       !itemTags.find((it) => it.id === t.id) &&
-      t.name.toLowerCase().includes(search.toLowerCase()),
+      t.name.toLowerCase().includes(query),
   );
+  // Offer to create a brand-new tag when the typed name matches nothing.
+  const canCreate =
+    !!search.trim() && !allTags.some((t) => t.name.toLowerCase() === query);
 
   if (loading) return <ActivityIndicator color={colors.accent} size="small" />;
 
@@ -137,10 +158,22 @@ export function TagManager({ itemId }: Props) {
                 <Text style={s.tagCount}>{tag.item_count}</Text>
               </Pressable>
             )}
+            ListHeaderComponent={
+              canCreate ? (
+                <Pressable style={s.createRow} onPress={handleCreateAndAdd}>
+                  <Ionicons name="add-circle" size={16} color={colors.accent} />
+                  <Text style={s.createText}>
+                    {t("tags.create", { name: search.trim() })}
+                  </Text>
+                </Pressable>
+              ) : null
+            }
             ListEmptyComponent={
-              <Text style={s.empty}>
-                {search ? t("tags.noMatching") : t("tags.allAdded")}
-              </Text>
+              canCreate ? null : (
+                <Text style={s.empty}>
+                  {search ? t("tags.noMatching") : t("tags.allAdded")}
+                </Text>
+              )
             }
           />
         </View>
@@ -220,6 +253,20 @@ const s = StyleSheet.create({
     marginBottom: spacing.sm,
     borderWidth: 1,
     borderColor: colors.border,
+  },
+  createRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: spacing.sm,
+    gap: spacing.sm,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+  },
+  createText: {
+    flex: 1,
+    color: colors.accent,
+    fontSize: font.md,
+    fontWeight: "600",
   },
   tagRow: {
     flexDirection: "row",

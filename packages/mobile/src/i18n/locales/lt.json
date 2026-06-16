@@ -68,7 +68,10 @@
     "deleteTitle": "Ištrinti žymą „{{name}}“?",
     "deleteMsg": "Ištrinti tik žymą ar taip pat perkelti jos užrašus į šiukšlinę?",
     "deleteTagOnly": "Tik žyma",
-    "deleteWithNotes": "Žyma + užrašai"
+    "deleteWithNotes": "Žyma + užrašai",
+    "new": "Nauja žyma",
+    "namePlaceholder": "Žymos pavadinimas",
+    "create": "Sukurti „{{name}}”"
   },
   "tagDetail": {
     "loadError": "Nepavyko įkelti elementų. Patraukite žemyn, kad bandytumėte dar kartą.",

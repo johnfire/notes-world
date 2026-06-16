@@ -68,7 +68,10 @@
     "deleteTitle": "Ștergi eticheta „{{name}}”?",
     "deleteMsg": "Ștergeți doar eticheta sau mutați și notele sale în coșul de gunoi?",
     "deleteTagOnly": "Doar eticheta",
-    "deleteWithNotes": "Etichetă + note"
+    "deleteWithNotes": "Etichetă + note",
+    "new": "Etichetă nouă",
+    "namePlaceholder": "Nume etichetă",
+    "create": "Creează „{{name}}”"
   },
   "tagDetail": {
     "loadError": "Elementele nu au putut fi încărcate. Trage în jos pentru a reîncerca.",

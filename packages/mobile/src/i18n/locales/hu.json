@@ -68,7 +68,10 @@
     "deleteTitle": "Törlöd a(z) „{{name}}” címkét?",
     "deleteMsg": "Csak a címkét törli, vagy a hozzá tartozó jegyzeteket is a kukába helyezi?",
     "deleteTagOnly": "Csak címke",
-    "deleteWithNotes": "Címke + jegyzetek"
+    "deleteWithNotes": "Címke + jegyzetek",
+    "new": "Új címke",
+    "namePlaceholder": "Címke neve",
+    "create": "„{{name}}” létrehozása"
   },
   "tagDetail": {
     "loadError": "Nem sikerült betölteni az elemeket. Húzd le az újrapróbálkozáshoz.",

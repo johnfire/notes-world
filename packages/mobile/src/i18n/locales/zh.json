@@ -68,7 +68,10 @@
     "deleteTitle": "删除标签“{{name}}”？",
     "deleteMsg": "仅删除标签，还是同时将其笔记移到回收站？",
     "deleteTagOnly": "仅标签",
-    "deleteWithNotes": "标签 + 笔记"
+    "deleteWithNotes": "标签 + 笔记",
+    "new": "新标签",
+    "namePlaceholder": "标签名称",
+    "create": "创建“{{name}}”"
   },
   "tagDetail": {
     "loadError": "无法加载条目。下拉以重试。",

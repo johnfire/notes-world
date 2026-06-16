@@ -68,7 +68,10 @@
     "deleteTitle": "Tħassar it-tag \"{{name}}\"?",
     "deleteMsg": "Ħassar it-tikketta biss, jew ċaqlaq ukoll in-noti tagħha fil-Ġabra?",
     "deleteTagOnly": "Tikketta biss",
-    "deleteWithNotes": "Tikketta + noti"
+    "deleteWithNotes": "Tikketta + noti",
+    "new": "Tikketta ġdida",
+    "namePlaceholder": "Isem tat-tikketta",
+    "create": "Oħloq “{{name}}”"
   },
   "tagDetail": {
     "loadError": "Ma stajniex intellgħu l-oġġetti. Iġbed 'l isfel biex terġa' tipprova.",

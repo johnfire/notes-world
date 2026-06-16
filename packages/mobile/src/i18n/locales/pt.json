@@ -68,7 +68,10 @@
     "deleteTitle": "Eliminar a etiqueta «{{name}}»?",
     "deleteMsg": "Eliminar apenas a etiqueta ou também mover as suas notas para o lixo?",
     "deleteTagOnly": "Só etiqueta",
-    "deleteWithNotes": "Etiqueta + notas"
+    "deleteWithNotes": "Etiqueta + notas",
+    "new": "Nova etiqueta",
+    "namePlaceholder": "Nome da etiqueta",
+    "create": "Criar “{{name}}”"
   },
   "tagDetail": {
     "loadError": "Não foi possível carregar os itens. Puxe para baixo para tentar novamente.",

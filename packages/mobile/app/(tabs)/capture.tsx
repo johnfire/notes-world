@@ -16,7 +16,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import { createItem } from "../../src/api/items";
-import { listTags, addTagToItem } from "../../src/api/tags";
+import { listTags, addTagToItem, createTag } from "../../src/api/tags";
 import { colors, spacing, radius, font } from "../../src/theme";
 import { ItemType } from "@notes-world/shared";
 import type { TagWithCount } from "@notes-world/shared";
@@ -58,6 +58,21 @@ export default function CaptureScreen() {
     setSelectedTagIds((prev) =>
       prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
     );
+  }
+
+  async function handleCreateTag() {
+    const name = tagSearch.trim();
+    if (!name) return;
+    try {
+      const tag = await createTag(name);
+      setAllTags((prev) => [...prev, { ...tag, item_count: 0 }]);
+      setSelectedTagIds((prev) => [...prev, tag.id]);
+      setPickerVisible(false);
+      setTagSearch("");
+    } catch (e: unknown) {
+      setError(e instanceof Error ? e.message : t("capture.saveFailed"));
+      setPickerVisible(false);
+    }
   }
 
   async function handleSave() {
@@ -237,6 +252,24 @@ export default function CaptureScreen() {
                     <Text style={s.tagCount}>{tag.item_count}</Text>
                   </Pressable>
                 )}
+                ListHeaderComponent={
+                  tagSearch.trim() &&
+                  !allTags.some(
+                    (tg) =>
+                      tg.name.toLowerCase() === tagSearch.trim().toLowerCase(),
+                  ) ? (
+                    <Pressable style={s.tagRow} onPress={handleCreateTag}>
+                      <Ionicons
+                        name="add-circle"
+                        size={16}
+                        color={colors.accent}
+                      />
+                      <Text style={s.createTagText}>
+                        {t("tags.create", { name: tagSearch.trim() })}
+                      </Text>
+                    </Pressable>
+                  ) : null
+                }
                 ListEmptyComponent={
                   <Text style={s.emptyTags}>
                     {tagSearch ? t("tags.noMatching") : t("tags.noneAvailable")}
@@ -391,6 +424,12 @@ const s = StyleSheet.create({
   tagDot: { width: 8, height: 8, borderRadius: 4 },
   tagName: { flex: 1, color: colors.text, fontSize: font.md },
   tagCount: { color: colors.textDim, fontSize: font.sm },
+  createTagText: {
+    flex: 1,
+    color: colors.accent,
+    fontSize: font.md,
+    fontWeight: "600",
+  },
   emptyTags: {
     color: colors.textMuted,
     textAlign: "center",

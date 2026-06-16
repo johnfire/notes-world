@@ -68,7 +68,10 @@
     "deleteTitle": "Eliminare l’etichetta «{{name}}»?",
     "deleteMsg": "Eliminare solo l’etichetta o spostare anche le sue note nel cestino?",
     "deleteTagOnly": "Solo etichetta",
-    "deleteWithNotes": "Etichetta + note"
+    "deleteWithNotes": "Etichetta + note",
+    "new": "Nuova etichetta",
+    "namePlaceholder": "Nome etichetta",
+    "create": "Crea “{{name}}”"
   },
   "tagDetail": {
     "loadError": "Impossibile caricare gli elementi. Tira verso il basso per riprovare.",

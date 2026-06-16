@@ -68,7 +68,10 @@
     "deleteTitle": "Dzēst tagu “{{name}}”?",
     "deleteMsg": "Dzēst tikai birku vai arī pārvietot tās piezīmes uz miskasti?",
     "deleteTagOnly": "Tikai birka",
-    "deleteWithNotes": "Birka + piezīmes"
+    "deleteWithNotes": "Birka + piezīmes",
+    "new": "Jauna birka",
+    "namePlaceholder": "Birkas nosaukums",
+    "create": "Izveidot “{{name}}”"
   },
   "tagDetail": {
     "loadError": "Neizdevās ielādēt vienumus. Pavelc uz leju, lai mēģinātu vēlreiz.",

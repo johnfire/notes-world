@@ -68,7 +68,10 @@
     "deleteTitle": "Supprimer l’étiquette « {{name}} » ?",
     "deleteMsg": "Supprimer seulement l’étiquette ou aussi déplacer ses notes vers la corbeille ?",
     "deleteTagOnly": "Étiquette seule",
-    "deleteWithNotes": "Étiquette + notes"
+    "deleteWithNotes": "Étiquette + notes",
+    "new": "Nouvelle étiquette",
+    "namePlaceholder": "Nom de l’étiquette",
+    "create": "Créer « {{name}} »"
   },
   "tagDetail": {
     "loadError": "Impossible de charger les éléments. Tirez vers le bas pour réessayer.",

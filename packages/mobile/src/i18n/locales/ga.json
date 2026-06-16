@@ -68,7 +68,10 @@
     "deleteTitle": "Scrios an chlib “{{name}}”?",
     "deleteMsg": "An scriosfar an chlib amháin, nó an mbogfar a nótaí go dtí an Bruscar freisin?",
     "deleteTagOnly": "Clib amháin",
-    "deleteWithNotes": "Clib + nótaí"
+    "deleteWithNotes": "Clib + nótaí",
+    "new": "Clib nua",
+    "namePlaceholder": "Ainm na clibe",
+    "create": "Cruthaigh “{{name}}”"
   },
   "tagDetail": {
     "loadError": "Níorbh fhéidir míreanna a luchtú. Tarraing anuas chun atriail.",

@@ -68,7 +68,10 @@
     "deleteTitle": "Delete tag \"{{name}}\"?",
     "deleteMsg": "Delete the tag only, or also move its notes to Trash?",
     "deleteTagOnly": "Tag only",
-    "deleteWithNotes": "Tag + notes"
+    "deleteWithNotes": "Tag + notes",
+    "new": "New tag",
+    "namePlaceholder": "Tag name",
+    "create": "Create “{{name}}”"
   },
   "tagDetail": {
     "loadError": "Couldn't load items. Pull down to retry.",

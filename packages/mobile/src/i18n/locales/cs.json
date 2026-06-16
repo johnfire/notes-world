@@ -68,7 +68,10 @@
     "deleteTitle": "Smazat štítek „{{name}}“?",
     "deleteMsg": "Smazat pouze štítek, nebo přesunout i jeho poznámky do koše?",
     "deleteTagOnly": "Pouze štítek",
-    "deleteWithNotes": "Štítek + poznámky"
+    "deleteWithNotes": "Štítek + poznámky",
+    "new": "Nový štítek",
+    "namePlaceholder": "Název štítku",
+    "create": "Vytvořit „{{name}}”"
   },
   "tagDetail": {
     "loadError": "Položky se nepodařilo načíst. Stáhněte dolů pro opakování.",

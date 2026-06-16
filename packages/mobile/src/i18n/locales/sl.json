@@ -68,7 +68,10 @@
     "deleteTitle": "Izbrisati oznako »{{name}}«?",
     "deleteMsg": "Izbrišem samo oznako ali tudi njene zapiske premaknem v koš?",
     "deleteTagOnly": "Samo oznaka",
-    "deleteWithNotes": "Oznaka + zapiski"
+    "deleteWithNotes": "Oznaka + zapiski",
+    "new": "Nova oznaka",
+    "namePlaceholder": "Ime oznake",
+    "create": "Ustvari „{{name}}”"
   },
   "tagDetail": {
     "loadError": "Elementov ni bilo mogoče naložiti. Povlecite navzdol za ponovni poskus.",

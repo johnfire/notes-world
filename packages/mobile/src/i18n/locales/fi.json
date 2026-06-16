@@ -68,7 +68,10 @@
     "deleteTitle": "Poistetaanko tunniste ”{{name}}”?",
     "deleteMsg": "Poistetaanko vain tunniste vai siirretäänkö myös sen muistiinpanot roskakoriin?",
     "deleteTagOnly": "Vain tunniste",
-    "deleteWithNotes": "Tunniste + muistiinpanot"
+    "deleteWithNotes": "Tunniste + muistiinpanot",
+    "new": "Uusi tunniste",
+    "namePlaceholder": "Tunnisteen nimi",
+    "create": "Luo “{{name}}”"
   },
   "tagDetail": {
     "loadError": "Kohteita ei voitu ladata. Vedä alas yrittääksesi uudelleen.",

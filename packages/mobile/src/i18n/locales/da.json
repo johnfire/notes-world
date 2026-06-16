@@ -68,7 +68,10 @@
     "deleteTitle": "Slet tagget \"{{name}}\"?",
     "deleteMsg": "Slet kun tagget, eller flyt også dets noter til papirkurven?",
     "deleteTagOnly": "Kun tag",
-    "deleteWithNotes": "Tag + noter"
+    "deleteWithNotes": "Tag + noter",
+    "new": "Nyt tag",
+    "namePlaceholder": "Tagnavn",
+    "create": "Opret “{{name}}”"
   },
   "tagDetail": {
     "loadError": "Kunne ikke indlæse elementer. Træk ned for at prøve igen.",

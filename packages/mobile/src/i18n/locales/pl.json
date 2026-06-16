@@ -68,7 +68,10 @@
     "deleteTitle": "Usunąć tag „{{name}}”?",
     "deleteMsg": "Usunąć tylko tag, czy także przenieść jego notatki do kosza?",
     "deleteTagOnly": "Tylko tag",
-    "deleteWithNotes": "Tag + notatki"
+    "deleteWithNotes": "Tag + notatki",
+    "new": "Nowy tag",
+    "namePlaceholder": "Nazwa tagu",
+    "create": "Utwórz „{{name}}”"
   },
   "tagDetail": {
     "loadError": "Nie udało się załadować elementów. Pociągnij w dół, aby ponowić.",

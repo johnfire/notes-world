@@ -68,7 +68,10 @@
     "deleteTitle": "¿Eliminar la etiqueta «{{name}}»?",
     "deleteMsg": "¿Eliminar solo la etiqueta o también mover sus notas a la papelera?",
     "deleteTagOnly": "Solo etiqueta",
-    "deleteWithNotes": "Etiqueta + notas"
+    "deleteWithNotes": "Etiqueta + notas",
+    "new": "Nueva etiqueta",
+    "namePlaceholder": "Nombre de etiqueta",
+    "create": "Crear «{{name}}»"
   },
   "tagDetail": {
     "loadError": "No se pudieron cargar los elementos. Desliza hacia abajo para reintentar.",

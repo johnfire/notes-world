@@ -5,6 +5,10 @@ export function listTags(): Promise<TagWithCount[]> {
   return api.get<TagWithCount[]>("/tags");
 }
 
+export function createTag(name: string): Promise<Tag> {
+  return api.post<Tag>("/tags", { name });
+}
+
 export function getItemsByTag(tagId: string): Promise<Item[]> {
   return api.get<Item[]>(`/tags/${tagId}/items`);
 }

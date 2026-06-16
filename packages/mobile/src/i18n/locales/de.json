@@ -68,7 +68,10 @@
     "deleteTitle": "Tag „{{name}}“ löschen?",
     "deleteMsg": "Nur das Tag löschen oder auch die Notizen in den Papierkorb verschieben?",
     "deleteTagOnly": "Nur Tag",
-    "deleteWithNotes": "Tag + Notizen"
+    "deleteWithNotes": "Tag + Notizen",
+    "new": "Neuer Tag",
+    "namePlaceholder": "Tag-Name",
+    "create": "„{{name}}“ erstellen"
   },
   "tagDetail": {
     "loadError": "Einträge konnten nicht geladen werden. Zum erneuten Versuch nach unten ziehen.",
