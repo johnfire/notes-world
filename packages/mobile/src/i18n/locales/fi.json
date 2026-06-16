@@ -149,7 +149,9 @@
     "selectLanguage": "Valitse kieli",
     "trash": "Roskakori",
     "viewTrash": "Poistetut muistiinpanot",
-    "reportBug": "Ilmoita virheestä"
+    "reportBug": "Ilmoita virheestä",
+    "data": "Tiedot",
+    "exportData": "Vie tiedot"
   },
   "update": {
     "available": "Uusi versio on saatavilla",

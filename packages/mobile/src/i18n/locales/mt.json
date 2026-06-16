@@ -149,7 +149,9 @@
     "selectLanguage": "Agħżel lingwa",
     "trash": "Skart",
     "viewTrash": "Noti mħassra",
-    "reportBug": "Irrapporta bug"
+    "reportBug": "Irrapporta bug",
+    "data": "Dejta",
+    "exportData": "Esporta d-dejta"
   },
   "update": {
     "available": "Verżjoni ġdida hija disponibbli",

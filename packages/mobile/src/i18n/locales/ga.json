@@ -149,7 +149,9 @@
     "selectLanguage": "Roghnaigh teanga",
     "trash": "Bruscar",
     "viewTrash": "Nótaí scriosta",
-    "reportBug": "Tuairiscigh fabht"
+    "reportBug": "Tuairiscigh fabht",
+    "data": "Sonraí",
+    "exportData": "Easpórtáil sonraí"
   },
   "update": {
     "available": "Tá leagan nua ar fáil",

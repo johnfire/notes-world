@@ -149,7 +149,9 @@
     "selectLanguage": "Nyelv kiválasztása",
     "trash": "Kuka",
     "viewTrash": "Törölt jegyzetek",
-    "reportBug": "Hiba jelentése"
+    "reportBug": "Hiba jelentése",
+    "data": "Adatok",
+    "exportData": "Adatok exportálása"
   },
   "update": {
     "available": "Új verzió érhető el",

@@ -11,6 +11,7 @@ import {
   Linking,
   Modal,
   Platform,
+  Share,
 } from "react-native";
 import Constants from "expo-constants";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -19,6 +20,7 @@ import { useTranslation } from "react-i18next";
 import { useAuth } from "../../src/store/auth";
 import { changeEmail, changePassword, deleteAccount } from "../../src/api/auth";
 import { submitBugReport } from "../../src/api/bugReports";
+import { exportAll } from "../../src/api/exportData";
 import { api } from "../../src/api/client";
 import { LanguagePicker } from "../../src/components/LanguagePicker";
 import { colors, spacing, radius, font } from "../../src/theme";
@@ -40,6 +42,20 @@ export default function AccountScreen() {
   const [bugOpen, setBugOpen] = useState(false);
   const [bugText, setBugText] = useState("");
   const [bugSubmitting, setBugSubmitting] = useState(false);
+  const [exporting, setExporting] = useState(false);
+
+  async function handleExport() {
+    if (exporting) return;
+    setExporting(true);
+    try {
+      const data = await exportAll();
+      await Share.share({ message: JSON.stringify(data, null, 2) });
+    } catch (err) {
+      Alert.alert(t("common.error"), (err as Error).message);
+    } finally {
+      setExporting(false);
+    }
+  }
 
   async function handleSubmitBug() {
     const description = bugText.trim();
@@ -279,13 +295,24 @@ export default function AccountScreen() {
           </Pressable>
         </View>
 
-        <SectionHeader title={t("account.trash")} />
+        <SectionHeader title={t("account.data")} />
         <View style={s.card}>
           <Pressable
             style={({ pressed }) => [s.btn, pressed && s.pressed]}
             onPress={() => router.push("/trash" as never)}
           >
             <Text style={s.btnText}>{t("account.viewTrash")}</Text>
+          </Pressable>
+          <Pressable
+            style={({ pressed }) => [s.btn, pressed && s.pressed]}
+            onPress={handleExport}
+            disabled={exporting}
+          >
+            {exporting ? (
+              <ActivityIndicator color={colors.text} />
+            ) : (
+              <Text style={s.btnText}>{t("account.exportData")}</Text>
+            )}
           </Pressable>
         </View>
 

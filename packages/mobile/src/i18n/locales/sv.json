@@ -149,7 +149,9 @@
     "selectLanguage": "Välj språk",
     "trash": "Papperskorg",
     "viewTrash": "Borttagna anteckningar",
-    "reportBug": "Rapportera ett fel"
+    "reportBug": "Rapportera ett fel",
+    "data": "Data",
+    "exportData": "Exportera data"
   },
   "update": {
     "available": "En ny version är tillgänglig",

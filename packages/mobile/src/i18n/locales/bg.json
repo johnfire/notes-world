@@ -149,7 +149,9 @@
     "selectLanguage": "Изберете език",
     "trash": "Кошче",
     "viewTrash": "Изтрити бележки",
-    "reportBug": "Докладвай грешка"
+    "reportBug": "Докладвай грешка",
+    "data": "Данни",
+    "exportData": "Експорт на данни"
   },
   "update": {
     "available": "Налична е нова версия",

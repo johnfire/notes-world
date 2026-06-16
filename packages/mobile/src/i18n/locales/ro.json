@@ -149,7 +149,9 @@
     "selectLanguage": "Selectează limba",
     "trash": "Coș de gunoi",
     "viewTrash": "Note șterse",
-    "reportBug": "Raportează o eroare"
+    "reportBug": "Raportează o eroare",
+    "data": "Date",
+    "exportData": "Exportă datele"
   },
   "update": {
     "available": "Este disponibilă o versiune nouă",

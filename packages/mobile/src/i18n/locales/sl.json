@@ -149,7 +149,9 @@
     "selectLanguage": "Izberite jezik",
     "trash": "Koš",
     "viewTrash": "Izbrisani zapiski",
-    "reportBug": "Prijavi napako"
+    "reportBug": "Prijavi napako",
+    "data": "Podatki",
+    "exportData": "Izvozi podatke"
   },
   "update": {
     "available": "Na voljo je nova različica",

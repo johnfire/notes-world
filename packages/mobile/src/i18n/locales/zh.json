@@ -149,7 +149,9 @@
     "selectLanguage": "选择语言",
     "trash": "回收站",
     "viewTrash": "已删除的笔记",
-    "reportBug": "报告问题"
+    "reportBug": "报告问题",
+    "data": "数据",
+    "exportData": "导出数据"
   },
   "update": {
     "available": "有新版本可用",

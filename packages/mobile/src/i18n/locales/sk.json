@@ -149,7 +149,9 @@
     "selectLanguage": "Vybrať jazyk",
     "trash": "Kôš",
     "viewTrash": "Odstránené poznámky",
-    "reportBug": "Nahlásiť chybu"
+    "reportBug": "Nahlásiť chybu",
+    "data": "Údaje",
+    "exportData": "Exportovať údaje"
   },
   "update": {
     "available": "Je dostupná nová verzia",

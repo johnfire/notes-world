@@ -149,7 +149,9 @@
     "selectLanguage": "Pasirinkite kalbą",
     "trash": "Šiukšlinė",
     "viewTrash": "Ištrintos pastabos",
-    "reportBug": "Pranešti apie klaidą"
+    "reportBug": "Pranešti apie klaidą",
+    "data": "Duomenys",
+    "exportData": "Eksportuoti duomenis"
   },
   "update": {
     "available": "Yra nauja versija",

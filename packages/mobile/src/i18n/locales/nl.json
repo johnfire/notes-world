@@ -149,7 +149,9 @@
     "selectLanguage": "Taal selecteren",
     "trash": "Prullenbak",
     "viewTrash": "Verwijderde notities",
-    "reportBug": "Bug melden"
+    "reportBug": "Bug melden",
+    "data": "Gegevens",
+    "exportData": "Gegevens exporteren"
   },
   "update": {
     "available": "Er is een nieuwe versie beschikbaar",

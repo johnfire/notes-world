@@ -149,7 +149,9 @@
     "selectLanguage": "Vælg sprog",
     "trash": "Papirkurv",
     "viewTrash": "Slettede noter",
-    "reportBug": "Rapportér en fejl"
+    "reportBug": "Rapportér en fejl",
+    "data": "Data",
+    "exportData": "Eksportér data"
   },
   "update": {
     "available": "En ny version er tilgængelig",

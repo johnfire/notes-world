@@ -149,7 +149,9 @@
     "selectLanguage": "Wybierz język",
     "trash": "Kosz",
     "viewTrash": "Usunięte notatki",
-    "reportBug": "Zgłoś błąd"
+    "reportBug": "Zgłoś błąd",
+    "data": "Dane",
+    "exportData": "Eksportuj dane"
   },
   "update": {
     "available": "Dostępna jest nowa wersja",

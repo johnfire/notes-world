@@ -149,7 +149,9 @@
     "selectLanguage": "Izvēlēties valodu",
     "trash": "Miskaste",
     "viewTrash": "Dzēstās piezīmes",
-    "reportBug": "Ziņot par kļūdu"
+    "reportBug": "Ziņot par kļūdu",
+    "data": "Dati",
+    "exportData": "Eksportēt datus"
   },
   "update": {
     "available": "Ir pieejama jauna versija",

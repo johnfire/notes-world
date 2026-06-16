@@ -149,7 +149,9 @@
     "selectLanguage": "Vali keel",
     "trash": "Prügikast",
     "viewTrash": "Kustutatud märkmed",
-    "reportBug": "Teata veast"
+    "reportBug": "Teata veast",
+    "data": "Andmed",
+    "exportData": "Ekspordi andmed"
   },
   "update": {
     "available": "Saadaval on uus versioon",

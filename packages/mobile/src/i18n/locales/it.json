@@ -149,7 +149,9 @@
     "selectLanguage": "Seleziona lingua",
     "trash": "Cestino",
     "viewTrash": "Note eliminate",
-    "reportBug": "Segnala un bug"
+    "reportBug": "Segnala un bug",
+    "data": "Dati",
+    "exportData": "Esporta dati"
   },
   "update": {
     "available": "È disponibile una nuova versione",

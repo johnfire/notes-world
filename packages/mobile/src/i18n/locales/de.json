@@ -149,7 +149,9 @@
     "selectLanguage": "Sprache auswählen",
     "trash": "Papierkorb",
     "viewTrash": "Gelöschte Notizen",
-    "reportBug": "Fehler melden"
+    "reportBug": "Fehler melden",
+    "data": "Daten",
+    "exportData": "Daten exportieren"
   },
   "update": {
     "available": "Eine neue Version ist verfügbar",

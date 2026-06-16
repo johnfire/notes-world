@@ -149,7 +149,9 @@
     "selectLanguage": "Select language",
     "trash": "Trash",
     "viewTrash": "Deleted notes",
-    "reportBug": "Report a bug"
+    "reportBug": "Report a bug",
+    "data": "Data",
+    "exportData": "Export data"
   },
   "update": {
     "available": "A new version is available",
