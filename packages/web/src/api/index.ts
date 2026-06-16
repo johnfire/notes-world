@@ -252,7 +252,10 @@ export const tags = {
       body: JSON.stringify({ color }),
     }),
 
-  delete: (id: string) => request<void>(`/tags/${id}`, { method: "DELETE" }),
+  delete: (id: string, deleteItems = false) =>
+    request<void>(`/tags/${id}${deleteItems ? "?deleteItems=true" : ""}`, {
+      method: "DELETE",
+    }),
 
   getItemsForTag: (id: string, limit = 50, offset = 0) =>
     request<Item[]>(`/tags/${id}/items?limit=${limit}&offset=${offset}`),

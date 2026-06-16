@@ -170,7 +170,24 @@ describe("DELETE /api/tags/:id", () => {
     const res = await request(app).delete("/api/tags/some-id");
 
     expect(res.status).toBe(204);
-    expect(mockService.deleteTag).toHaveBeenCalledWith(TEST_USER_ID, "some-id");
+    expect(mockService.deleteTag).toHaveBeenCalledWith(
+      TEST_USER_ID,
+      "some-id",
+      false,
+    );
+  });
+
+  test("deleteItems=true cascades to the tagged notes", async () => {
+    mockService.deleteTag.mockResolvedValue(undefined);
+
+    const res = await request(app).delete("/api/tags/some-id?deleteItems=true");
+
+    expect(res.status).toBe(204);
+    expect(mockService.deleteTag).toHaveBeenCalledWith(
+      TEST_USER_ID,
+      "some-id",
+      true,
+    );
   });
 
   test("404 when tag not found", async () => {

@@ -52,30 +52,32 @@ export default function TagsScreen() {
     load();
   }
 
+  async function doDelete(tag: TagWithCount, deleteItems: boolean) {
+    try {
+      await deleteTag(tag.id, deleteItems);
+      await load();
+    } catch (err) {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "TagsScreen.deleteTag",
+      });
+    }
+  }
+
   function confirmDelete(tag: TagWithCount) {
-    Alert.alert(
-      t("tags.deleteTitle", { name: tag.name }),
-      t("tags.deleteMsg"),
-      [
-        { text: t("common.cancel"), style: "cancel" },
-        {
-          text: t("common.delete"),
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await deleteTag(tag.id);
-              await load();
-            } catch (err) {
-              void reportClientError({
-                message: (err as Error).message,
-                stack: (err as Error).stack,
-                context: "TagsScreen.deleteTag",
-              });
-            }
-          },
-        },
-      ],
-    );
+    Alert.alert(t("tags.deleteTitle", { name: tag.name }), t("tags.deleteMsg"), [
+      { text: t("common.cancel"), style: "cancel" },
+      {
+        text: t("tags.deleteTagOnly"),
+        onPress: () => void doDelete(tag, false),
+      },
+      {
+        text: t("tags.deleteWithNotes"),
+        style: "destructive",
+        onPress: () => void doDelete(tag, true),
+      },
+    ]);
   }
 
   return (

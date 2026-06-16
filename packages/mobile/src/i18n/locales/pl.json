@@ -66,7 +66,9 @@
     "empty": "Brak tagów",
     "label": "Tagi",
     "deleteTitle": "Usunąć tag „{{name}}”?",
-    "deleteMsg": "Twoje notatki zostaną zachowane — stracą tylko ten tag."
+    "deleteMsg": "Usunąć tylko tag, czy także przenieść jego notatki do kosza?",
+    "deleteTagOnly": "Tylko tag",
+    "deleteWithNotes": "Tag + notatki"
   },
   "tagDetail": {
     "loadError": "Nie udało się załadować elementów. Pociągnij w dół, aby ponowić.",

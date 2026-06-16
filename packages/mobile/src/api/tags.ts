@@ -9,9 +9,14 @@ export function getItemsByTag(tagId: string): Promise<Item[]> {
   return api.get<Item[]>(`/tags/${tagId}/items`);
 }
 
-// Deletes the tag itself; item_tags cascade server-side, items are untouched.
-export function deleteTag(tagId: string): Promise<void> {
-  return api.delete<void>(`/tags/${tagId}`);
+// Deletes the tag. By default item_tags cascade server-side and the notes are
+// untouched; pass deleteItems to also archive (→ Trash) the attached notes.
+export function deleteTag(
+  tagId: string,
+  deleteItems = false,
+): Promise<void> {
+  const qs = deleteItems ? "?deleteItems=true" : "";
+  return api.delete<void>(`/tags/${tagId}${qs}`);
 }
 
 export function getTagsForItem(itemId: string): Promise<Tag[]> {

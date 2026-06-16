@@ -66,7 +66,9 @@
     "empty": "Ingen tags endnu",
     "label": "Tags",
     "deleteTitle": "Slet tagget \"{{name}}\"?",
-    "deleteMsg": "Dine noter bevares — de mister kun dette tag."
+    "deleteMsg": "Slet kun tagget, eller flyt også dets noter til papirkurven?",
+    "deleteTagOnly": "Kun tag",
+    "deleteWithNotes": "Tag + noter"
   },
   "tagDetail": {
     "loadError": "Kunne ikke indlæse elementer. Træk ned for at prøve igen.",

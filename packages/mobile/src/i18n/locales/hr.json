@@ -66,7 +66,9 @@
     "empty": "Još nema oznaka",
     "label": "Oznake",
     "deleteTitle": "Izbrisati oznaku „{{name}}“?",
-    "deleteMsg": "Vaše bilješke ostaju — samo gube ovu oznaku."
+    "deleteMsg": "Izbrisati samo oznaku ili i njezine bilješke premjestiti u smeće?",
+    "deleteTagOnly": "Samo oznaka",
+    "deleteWithNotes": "Oznaka + bilješke"
   },
   "tagDetail": {
     "loadError": "Stavke nije moguće učitati. Povucite prema dolje za ponovni pokušaj.",

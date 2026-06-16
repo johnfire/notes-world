@@ -66,7 +66,9 @@
     "empty": "Gan clibeanna fós",
     "label": "Clibeanna",
     "deleteTitle": "Scrios an chlib “{{name}}”?",
-    "deleteMsg": "Coinnítear do nótaí — ní chailleann siad ach an chlib seo."
+    "deleteMsg": "An scriosfar an chlib amháin, nó an mbogfar a nótaí go dtí an Bruscar freisin?",
+    "deleteTagOnly": "Clib amháin",
+    "deleteWithNotes": "Clib + nótaí"
   },
   "tagDetail": {
     "loadError": "Níorbh fhéidir míreanna a luchtú. Tarraing anuas chun atriail.",

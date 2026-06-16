@@ -66,7 +66,9 @@
     "empty": "Még nincsenek címkék",
     "label": "Címkék",
     "deleteTitle": "Törlöd a(z) „{{name}}” címkét?",
-    "deleteMsg": "A jegyzeteid megmaradnak — csak ezt a címkét veszítik el."
+    "deleteMsg": "Csak a címkét törli, vagy a hozzá tartozó jegyzeteket is a kukába helyezi?",
+    "deleteTagOnly": "Csak címke",
+    "deleteWithNotes": "Címke + jegyzetek"
   },
   "tagDetail": {
     "loadError": "Nem sikerült betölteni az elemeket. Húzd le az újrapróbálkozáshoz.",

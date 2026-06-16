@@ -184,10 +184,30 @@ describe("deleteTag", () => {
     await service.deleteTag(TEST_USER_ID, tag.id);
 
     expect(mockRepo.deleteTag).toHaveBeenCalledWith(tag.id, TEST_USER_ID);
+    expect(mockRepo.archiveItemsForTag).not.toHaveBeenCalled();
     expect(mockBus).toHaveBeenCalledWith(
       "TagDeleted",
       expect.objectContaining({ tag_id: tag.id }),
     );
+  });
+
+  test("deleteItems archives the tagged notes before dropping the tag", async () => {
+    const tag = makeTag();
+    mockRepo.findTagById.mockResolvedValue(tag);
+    mockRepo.archiveItemsForTag.mockResolvedValue(3);
+    mockRepo.deleteTag.mockResolvedValue(undefined);
+
+    await service.deleteTag(TEST_USER_ID, tag.id, true);
+
+    expect(mockRepo.archiveItemsForTag).toHaveBeenCalledWith(
+      tag.id,
+      TEST_USER_ID,
+    );
+    expect(mockRepo.deleteTag).toHaveBeenCalledWith(tag.id, TEST_USER_ID);
+    const archiveOrder =
+      mockRepo.archiveItemsForTag.mock.invocationCallOrder[0];
+    const deleteOrder = mockRepo.deleteTag.mock.invocationCallOrder[0];
+    expect(archiveOrder).toBeLessThan(deleteOrder);
   });
 
   test("throws NotFoundError when tag missing", async () => {

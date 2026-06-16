@@ -66,7 +66,9 @@
     "empty": "L-ebda tikketta s'issa",
     "label": "Tikketti",
     "deleteTitle": "Tħassar it-tag \"{{name}}\"?",
-    "deleteMsg": "In-noti tiegħek jinżammu — jitilfu biss dan it-tag."
+    "deleteMsg": "Ħassar it-tikketta biss, jew ċaqlaq ukoll in-noti tagħha fil-Ġabra?",
+    "deleteTagOnly": "Tikketta biss",
+    "deleteWithNotes": "Tikketta + noti"
   },
   "tagDetail": {
     "loadError": "Ma stajniex intellgħu l-oġġetti. Iġbed 'l isfel biex terġa' tipprova.",

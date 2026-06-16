@@ -66,7 +66,9 @@
     "empty": "No tags yet",
     "label": "Tags",
     "deleteTitle": "Delete tag \"{{name}}\"?",
-    "deleteMsg": "Your notes are kept — they only lose this tag."
+    "deleteMsg": "Delete the tag only, or also move its notes to Trash?",
+    "deleteTagOnly": "Tag only",
+    "deleteWithNotes": "Tag + notes"
   },
   "tagDetail": {
     "loadError": "Couldn't load items. Pull down to retry.",

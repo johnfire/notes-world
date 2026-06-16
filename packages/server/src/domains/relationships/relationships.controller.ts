@@ -27,7 +27,8 @@ export const updateTagColor = wrapAsync(async (req: Request, res: Response) => {
 });
 
 export const deleteTag = wrapAsync(async (req: Request, res: Response) => {
-  await service.deleteTag(req.userId, req.params.id);
+  const deleteItems = req.query.deleteItems === "true";
+  await service.deleteTag(req.userId, req.params.id, deleteItems);
   res.status(204).send();
 });
 

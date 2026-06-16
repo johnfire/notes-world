@@ -66,7 +66,9 @@
     "empty": "Zatiaľ žiadne štítky",
     "label": "Štítky",
     "deleteTitle": "Odstrániť štítok „{{name}}“?",
-    "deleteMsg": "Vaše poznámky zostanú zachované — stratia iba tento štítok."
+    "deleteMsg": "Odstrániť iba štítok, alebo presunúť aj jeho poznámky do koša?",
+    "deleteTagOnly": "Iba štítok",
+    "deleteWithNotes": "Štítok + poznámky"
   },
   "tagDetail": {
     "loadError": "Položky sa nepodarilo načítať. Potiahnite nadol pre opakovanie.",

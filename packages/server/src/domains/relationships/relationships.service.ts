@@ -84,11 +84,21 @@ export async function updateTagColor(
   return updated;
 }
 
-export async function deleteTag(userId: UserId, tagId: TagId): Promise<void> {
+export async function deleteTag(
+  userId: UserId,
+  tagId: TagId,
+  deleteItems = false,
+): Promise<void> {
   const tag = await repo.findTagById(tagId, userId);
   if (!tag) throw new NotFoundError("Tag", tagId);
   if (tag.user_id !== userId) throw new AuthorizationError("Not owner");
 
+  // Archive the attached notes first (while item_tags still links them), then
+  // drop the tag (item_tags cascade). Order matters: deleting the tag first
+  // would remove the links we use to find the notes.
+  if (deleteItems) {
+    await repo.archiveItemsForTag(tagId, userId);
+  }
   await repo.deleteTag(tagId, userId);
   eventBus.emit("TagDeleted", {
     tag_id: tag.id,

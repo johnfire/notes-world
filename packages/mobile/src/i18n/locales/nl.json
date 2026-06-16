@@ -66,7 +66,9 @@
     "empty": "Nog geen tags",
     "label": "Tags",
     "deleteTitle": "Tag ‘{{name}}’ verwijderen?",
-    "deleteMsg": "Je notities blijven bewaard — ze verliezen alleen deze tag."
+    "deleteMsg": "Alleen het label verwijderen of de notities ook naar de prullenbak verplaatsen?",
+    "deleteTagOnly": "Alleen label",
+    "deleteWithNotes": "Label + notities"
   },
   "tagDetail": {
     "loadError": "Kan items niet laden. Trek omlaag om opnieuw te proberen.",

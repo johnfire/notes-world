@@ -66,7 +66,9 @@
     "empty": "Aucune étiquette pour l'instant",
     "label": "Étiquettes",
     "deleteTitle": "Supprimer l’étiquette « {{name}} » ?",
-    "deleteMsg": "Vos notes sont conservées — elles perdent seulement cette étiquette."
+    "deleteMsg": "Supprimer seulement l’étiquette ou aussi déplacer ses notes vers la corbeille ?",
+    "deleteTagOnly": "Étiquette seule",
+    "deleteWithNotes": "Étiquette + notes"
   },
   "tagDetail": {
     "loadError": "Impossible de charger les éléments. Tirez vers le bas pour réessayer.",

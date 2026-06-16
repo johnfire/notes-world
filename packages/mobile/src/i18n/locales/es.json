@@ -66,7 +66,9 @@
     "empty": "Aún no hay etiquetas",
     "label": "Etiquetas",
     "deleteTitle": "¿Eliminar la etiqueta «{{name}}»?",
-    "deleteMsg": "Tus notas se conservan — solo pierden esta etiqueta."
+    "deleteMsg": "¿Eliminar solo la etiqueta o también mover sus notas a la papelera?",
+    "deleteTagOnly": "Solo etiqueta",
+    "deleteWithNotes": "Etiqueta + notas"
   },
   "tagDetail": {
     "loadError": "No se pudieron cargar los elementos. Desliza hacia abajo para reintentar.",

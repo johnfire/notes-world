@@ -78,10 +78,27 @@ describe("Sidebar tag deletion", () => {
     await waitFor(() => expect(screen.getByText("work")).toBeInTheDocument());
     fireEvent.click(screen.getAllByTitle("Delete tag")[0]);
 
-    await waitFor(() => expect(mockDeleteTag).toHaveBeenCalledWith("t1"));
+    // Both confirms return true → delete the tag and its notes.
+    await waitFor(() =>
+      expect(mockDeleteTag).toHaveBeenCalledWith("t1", true),
+    );
     expect(window.confirm).toHaveBeenCalled();
     await waitFor(() => expect(mockLoadTags).toHaveBeenCalled());
     expect(mockOnTagSelect).not.toHaveBeenCalled();
+  });
+
+  test("declining the second prompt deletes the tag only", async () => {
+    vi.spyOn(window, "confirm")
+      .mockReturnValueOnce(true) // confirm deletion
+      .mockReturnValueOnce(false); // keep the notes
+    renderSidebar();
+
+    await waitFor(() => expect(screen.getByText("work")).toBeInTheDocument());
+    fireEvent.click(screen.getAllByTitle("Delete tag")[0]);
+
+    await waitFor(() =>
+      expect(mockDeleteTag).toHaveBeenCalledWith("t1", false),
+    );
   });
 
   test("deleting the selected tag switches back to all items", async () => {
@@ -90,7 +107,9 @@ describe("Sidebar tag deletion", () => {
     await waitFor(() => expect(screen.getByText("work")).toBeInTheDocument());
     fireEvent.click(screen.getAllByTitle("Delete tag")[0]);
 
-    await waitFor(() => expect(mockDeleteTag).toHaveBeenCalledWith("t1"));
+    await waitFor(() =>
+      expect(mockDeleteTag).toHaveBeenCalledWith("t1", true),
+    );
     await waitFor(() => expect(mockOnTagSelect).toHaveBeenCalledWith(null));
   });
 

@@ -66,7 +66,9 @@
     "empty": "Inga taggar än",
     "label": "Taggar",
     "deleteTitle": "Ta bort taggen ”{{name}}”?",
-    "deleteMsg": "Dina anteckningar behålls — de förlorar bara den här taggen."
+    "deleteMsg": "Ta bort endast taggen, eller flytta även dess anteckningar till papperskorgen?",
+    "deleteTagOnly": "Endast tagg",
+    "deleteWithNotes": "Tagg + anteckningar"
   },
   "tagDetail": {
     "loadError": "Det gick inte att läsa in objekt. Dra nedåt för att försöka igen.",

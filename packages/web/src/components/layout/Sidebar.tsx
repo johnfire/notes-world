@@ -120,13 +120,19 @@ export function Sidebar({
 
   const handleDelete = useCallback(
     async (tag: Tag) => {
-      if (
-        !window.confirm(
-          `Delete tag "${tag.name}"? Your notes are kept — they just lose this tag.`,
-        )
-      )
-        return;
-      await api.tags.delete(tag.id);
+      if (!window.confirm(`Delete tag "${tag.name}"?`)) return;
+      // Offer the cascade only when there are notes to act on. Notes go to
+      // Trash (recoverable), they are not purged.
+      let deleteItems = false;
+      const count = tag.count ?? 0;
+      if (count > 0) {
+        deleteItems = window.confirm(
+          `Also move ${count} note${count === 1 ? "" : "s"} tagged "${tag.name}" to Trash?\n\n` +
+            `OK = delete the tag AND its notes.\n` +
+            `Cancel = delete the tag only (notes are kept).`,
+        );
+      }
+      await api.tags.delete(tag.id, deleteItems);
       if (selectedTagId === tag.id) onTagSelect(null);
       await loadTags();
     },

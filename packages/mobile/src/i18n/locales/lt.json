@@ -66,7 +66,9 @@
     "empty": "Dar nėra žymų",
     "label": "Žymos",
     "deleteTitle": "Ištrinti žymą „{{name}}“?",
-    "deleteMsg": "Jūsų užrašai išlieka — jie praranda tik šią žymą."
+    "deleteMsg": "Ištrinti tik žymą ar taip pat perkelti jos užrašus į šiukšlinę?",
+    "deleteTagOnly": "Tik žyma",
+    "deleteWithNotes": "Žyma + užrašai"
   },
   "tagDetail": {
     "loadError": "Nepavyko įkelti elementų. Patraukite žemyn, kad bandytumėte dar kartą.",

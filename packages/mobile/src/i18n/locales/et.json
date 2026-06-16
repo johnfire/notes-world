@@ -66,7 +66,9 @@
     "empty": "Silte pole veel",
     "label": "Sildid",
     "deleteTitle": "Kas kustutada silt „{{name}}“?",
-    "deleteMsg": "Sinu märkmed säilivad — nad kaotavad ainult selle sildi."
+    "deleteMsg": "Kustutada ainult silt või teisaldada ka selle märkmed prügikasti?",
+    "deleteTagOnly": "Ainult silt",
+    "deleteWithNotes": "Silt + märkmed"
   },
   "tagDetail": {
     "loadError": "Üksusi ei õnnestunud laadida. Tõmba alla, et uuesti proovida.",

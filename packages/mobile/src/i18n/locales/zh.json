@@ -66,7 +66,9 @@
     "empty": "暂无标签",
     "label": "标签",
     "deleteTitle": "删除标签“{{name}}”？",
-    "deleteMsg": "您的笔记会保留——只是失去这个标签。"
+    "deleteMsg": "仅删除标签，还是同时将其笔记移到回收站？",
+    "deleteTagOnly": "仅标签",
+    "deleteWithNotes": "标签 + 笔记"
   },
   "tagDetail": {
     "loadError": "无法加载条目。下拉以重试。",

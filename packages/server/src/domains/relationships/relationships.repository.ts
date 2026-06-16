@@ -53,6 +53,24 @@ export async function updateTagColor(
   );
 }
 
+// Soft-delete (archive → Trash) every active item carrying this tag. Used when
+// the user deletes a tag *and* its notes. Returns how many were archived.
+// Notes stay recoverable in Trash; they are not purged here.
+export async function archiveItemsForTag(
+  tagId: TagId,
+  userId: UserId,
+): Promise<number> {
+  const res = await getPool().query(
+    `UPDATE items
+        SET status = 'Archived', archived_at = now(), updated_at = now()
+      WHERE user_id = $1
+        AND status = 'Active'
+        AND id IN (SELECT item_id FROM item_tags WHERE tag_id = $2)`,
+    [userId, tagId],
+  );
+  return res.rowCount ?? 0;
+}
+
 export async function deleteTag(id: TagId, userId: UserId): Promise<void> {
   await getPool().query("DELETE FROM tags WHERE id = $1 AND user_id = $2", [
     id,

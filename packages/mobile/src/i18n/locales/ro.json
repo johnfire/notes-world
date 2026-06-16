@@ -66,7 +66,9 @@
     "empty": "Încă nicio etichetă",
     "label": "Etichete",
     "deleteTitle": "Ștergi eticheta „{{name}}”?",
-    "deleteMsg": "Notițele tale sunt păstrate — pierd doar această etichetă."
+    "deleteMsg": "Ștergeți doar eticheta sau mutați și notele sale în coșul de gunoi?",
+    "deleteTagOnly": "Doar eticheta",
+    "deleteWithNotes": "Etichetă + note"
   },
   "tagDetail": {
     "loadError": "Elementele nu au putut fi încărcate. Trage în jos pentru a reîncerca.",
