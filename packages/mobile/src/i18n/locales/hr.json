@@ -154,7 +154,8 @@
     "exportData": "Izvezi podatke",
     "about": "O aplikaciji",
     "whatsNew": "Novosti",
-    "helpDocs": "Pomoć i dokumentacija"
+    "helpDocs": "Pomoć i dokumentacija",
+    "importData": "Uvezi bilješke"
   },
   "update": {
     "available": "Dostupna je nova verzija",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Nije moguće učitati popis promjena.",
     "empty": "Još ništa."
+  },
+  "import": {
+    "done": "Uvezeno datoteka: {{count}}",
+    "failed": "Uvoz nije uspio"
   }
 }

@@ -154,7 +154,8 @@
     "exportData": "Eksportēt datus",
     "about": "Par",
     "whatsNew": "Jaunumi",
-    "helpDocs": "Palīdzība un dokumentācija"
+    "helpDocs": "Palīdzība un dokumentācija",
+    "importData": "Importēt piezīmes"
   },
   "update": {
     "available": "Ir pieejama jauna versija",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Neizdevās ielādēt izmaiņu žurnālu.",
     "empty": "Vēl nekā."
+  },
+  "import": {
+    "done": "Importēti {{count}} faili",
+    "failed": "Imports neizdevās"
   }
 }

@@ -154,7 +154,8 @@
     "exportData": "Export data",
     "about": "About",
     "whatsNew": "What’s new",
-    "helpDocs": "Help & docs"
+    "helpDocs": "Help & docs",
+    "importData": "Import notes"
   },
   "update": {
     "available": "A new version is available",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Couldn’t load the changelog.",
     "empty": "Nothing yet."
+  },
+  "import": {
+    "done": "Imported {{count}} file(s)",
+    "failed": "Import failed"
   }
 }

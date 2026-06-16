@@ -154,7 +154,8 @@
     "exportData": "Ekspordi andmed",
     "about": "Teave",
     "whatsNew": "Mis on uut",
-    "helpDocs": "Abi ja dokumentatsioon"
+    "helpDocs": "Abi ja dokumentatsioon",
+    "importData": "Impordi märkmed"
   },
   "update": {
     "available": "Saadaval on uus versioon",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Muudatuste logi laadimine ebaõnnestus.",
     "empty": "Veel midagi pole."
+  },
+  "import": {
+    "done": "Imporditi {{count}} faili",
+    "failed": "Import ebaõnnestus"
   }
 }

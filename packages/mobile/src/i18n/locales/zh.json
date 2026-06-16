@@ -154,7 +154,8 @@
     "exportData": "导出数据",
     "about": "关于",
     "whatsNew": "新功能",
-    "helpDocs": "帮助与文档"
+    "helpDocs": "帮助与文档",
+    "importData": "导入笔记"
   },
   "update": {
     "available": "有新版本可用",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "无法加载更新日志。",
     "empty": "暂无内容。"
+  },
+  "import": {
+    "done": "已导入 {{count}} 个文件",
+    "failed": "导入失败"
   }
 }

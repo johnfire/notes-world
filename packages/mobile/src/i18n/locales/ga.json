@@ -154,7 +154,8 @@
     "exportData": "Easpórtáil sonraí",
     "about": "Maidir le",
     "whatsNew": "Cad atá nua",
-    "helpDocs": "Cabhair & doiciméid"
+    "helpDocs": "Cabhair & doiciméid",
+    "importData": "Iompórtáil nótaí"
   },
   "update": {
     "available": "Tá leagan nua ar fáil",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Níorbh fhéidir an logleabhar a lódáil.",
     "empty": "Faic go fóill."
+  },
+  "import": {
+    "done": "Iompórtáladh {{count}} comhad",
+    "failed": "Theip ar an iompórtáil"
   }
 }

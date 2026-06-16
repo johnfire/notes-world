@@ -154,7 +154,8 @@
     "exportData": "Eksportuoti duomenis",
     "about": "Apie",
     "whatsNew": "Kas naujo",
-    "helpDocs": "Pagalba ir dokumentacija"
+    "helpDocs": "Pagalba ir dokumentacija",
+    "importData": "Importuoti pastabas"
   },
   "update": {
     "available": "Yra nauja versija",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Nepavyko įkelti keitimų žurnalo.",
     "empty": "Kol kas nieko."
+  },
+  "import": {
+    "done": "Importuota failų: {{count}}",
+    "failed": "Importavimas nepavyko"
   }
 }

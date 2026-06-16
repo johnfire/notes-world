@@ -154,7 +154,8 @@
     "exportData": "Gegevens exporteren",
     "about": "Over",
     "whatsNew": "Wat is nieuw",
-    "helpDocs": "Help & docs"
+    "helpDocs": "Help & docs",
+    "importData": "Notities importeren"
   },
   "update": {
     "available": "Er is een nieuwe versie beschikbaar",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Kon de changelog niet laden.",
     "empty": "Nog niets."
+  },
+  "import": {
+    "done": "{{count}} bestand(en) geïmporteerd",
+    "failed": "Importeren mislukt"
   }
 }

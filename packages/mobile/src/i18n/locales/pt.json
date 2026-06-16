@@ -154,7 +154,8 @@
     "exportData": "Exportar dados",
     "about": "Sobre",
     "whatsNew": "Novidades",
-    "helpDocs": "Ajuda e documentação"
+    "helpDocs": "Ajuda e documentação",
+    "importData": "Importar notas"
   },
   "update": {
     "available": "Está disponível uma nova versão",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Não foi possível carregar o registo de alterações.",
     "empty": "Ainda nada."
+  },
+  "import": {
+    "done": "{{count}} ficheiro(s) importado(s)",
+    "failed": "Falha na importação"
   }
 }

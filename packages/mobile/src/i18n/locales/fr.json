@@ -154,7 +154,8 @@
     "exportData": "Exporter les données",
     "about": "À propos",
     "whatsNew": "Nouveautés",
-    "helpDocs": "Aide & docs"
+    "helpDocs": "Aide & docs",
+    "importData": "Importer des notes"
   },
   "update": {
     "available": "Une nouvelle version est disponible",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Échec du chargement du journal des modifications.",
     "empty": "Rien pour l’instant."
+  },
+  "import": {
+    "done": "{{count}} fichier(s) importé(s)",
+    "failed": "Échec de l’import"
   }
 }

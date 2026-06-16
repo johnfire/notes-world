@@ -154,7 +154,8 @@
     "exportData": "Exportovat data",
     "about": "O aplikaci",
     "whatsNew": "Novinky",
-    "helpDocs": "Nápověda a dokumentace"
+    "helpDocs": "Nápověda a dokumentace",
+    "importData": "Importovat poznámky"
   },
   "update": {
     "available": "Je dostupná nová verze",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Nepodařilo se načíst seznam změn.",
     "empty": "Zatím nic."
+  },
+  "import": {
+    "done": "Importováno souborů: {{count}}",
+    "failed": "Import se nezdařil"
   }
 }

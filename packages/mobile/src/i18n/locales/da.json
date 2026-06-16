@@ -154,7 +154,8 @@
     "exportData": "Eksportér data",
     "about": "Om",
     "whatsNew": "Nyheder",
-    "helpDocs": "Hjælp & dokumentation"
+    "helpDocs": "Hjælp & dokumentation",
+    "importData": "Importér noter"
   },
   "update": {
     "available": "En ny version er tilgængelig",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Kunne ikke indlæse ændringsloggen.",
     "empty": "Ikke noget endnu."
+  },
+  "import": {
+    "done": "{{count}} fil(er) importeret",
+    "failed": "Import mislykkedes"
   }
 }

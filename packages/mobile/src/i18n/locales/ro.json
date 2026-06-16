@@ -154,7 +154,8 @@
     "exportData": "Exportă datele",
     "about": "Despre",
     "whatsNew": "Noutăți",
-    "helpDocs": "Ajutor și documentație"
+    "helpDocs": "Ajutor și documentație",
+    "importData": "Importă note"
   },
   "update": {
     "available": "Este disponibilă o versiune nouă",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Nu s-a putut încărca jurnalul de modificări.",
     "empty": "Încă nimic."
+  },
+  "import": {
+    "done": "{{count}} fișier(e) importate",
+    "failed": "Importul a eșuat"
   }
 }

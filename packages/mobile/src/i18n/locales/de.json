@@ -154,7 +154,8 @@
     "exportData": "Daten exportieren",
     "about": "Info",
     "whatsNew": "Neuigkeiten",
-    "helpDocs": "Hilfe & Doku"
+    "helpDocs": "Hilfe & Doku",
+    "importData": "Notizen importieren"
   },
   "update": {
     "available": "Eine neue Version ist verfügbar",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Änderungsprotokoll konnte nicht geladen werden.",
     "empty": "Noch nichts."
+  },
+  "import": {
+    "done": "{{count}} Datei(en) importiert",
+    "failed": "Import fehlgeschlagen"
   }
 }

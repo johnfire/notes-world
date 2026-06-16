@@ -154,7 +154,8 @@
     "exportData": "Esporta dati",
     "about": "Informazioni",
     "whatsNew": "Novità",
-    "helpDocs": "Aiuto e documentazione"
+    "helpDocs": "Aiuto e documentazione",
+    "importData": "Importa note"
   },
   "update": {
     "available": "È disponibile una nuova versione",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Impossibile caricare il changelog.",
     "empty": "Ancora niente."
+  },
+  "import": {
+    "done": "{{count}} file importati",
+    "failed": "Importazione non riuscita"
   }
 }

@@ -154,7 +154,8 @@
     "exportData": "Adatok exportálása",
     "about": "Névjegy",
     "whatsNew": "Újdonságok",
-    "helpDocs": "Súgó és dokumentáció"
+    "helpDocs": "Súgó és dokumentáció",
+    "importData": "Jegyzetek importálása"
   },
   "update": {
     "available": "Új verzió érhető el",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Nem sikerült betölteni a változásnaplót.",
     "empty": "Még semmi."
+  },
+  "import": {
+    "done": "{{count}} fájl importálva",
+    "failed": "Az importálás sikertelen"
   }
 }

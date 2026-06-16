@@ -154,7 +154,8 @@
     "exportData": "Eksportuj dane",
     "about": "O aplikacji",
     "whatsNew": "Nowości",
-    "helpDocs": "Pomoc i dokumentacja"
+    "helpDocs": "Pomoc i dokumentacja",
+    "importData": "Importuj notatki"
   },
   "update": {
     "available": "Dostępna jest nowa wersja",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Nie można załadować listy zmian.",
     "empty": "Jeszcze nic."
+  },
+  "import": {
+    "done": "Zaimportowano plików: {{count}}",
+    "failed": "Import nie powiódł się"
   }
 }

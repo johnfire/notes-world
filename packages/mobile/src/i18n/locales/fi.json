@@ -154,7 +154,8 @@
     "exportData": "Vie tiedot",
     "about": "Tietoja",
     "whatsNew": "Uutta",
-    "helpDocs": "Ohje ja dokumentaatio"
+    "helpDocs": "Ohje ja dokumentaatio",
+    "importData": "Tuo muistiinpanot"
   },
   "update": {
     "available": "Uusi versio on saatavilla",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Muutoslokin lataus epäonnistui.",
     "empty": "Ei vielä mitään."
+  },
+  "import": {
+    "done": "Tuotu {{count}} tiedosto(a)",
+    "failed": "Tuonti epäonnistui"
   }
 }

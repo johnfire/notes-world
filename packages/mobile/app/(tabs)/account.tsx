@@ -14,6 +14,8 @@ import {
   Share,
 } from "react-native";
 import Constants from "expo-constants";
+import * as DocumentPicker from "expo-document-picker";
+import { File } from "expo-file-system";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
@@ -21,6 +23,7 @@ import { useAuth } from "../../src/store/auth";
 import { changeEmail, changePassword, deleteAccount } from "../../src/api/auth";
 import { submitBugReport } from "../../src/api/bugReports";
 import { exportAll } from "../../src/api/exportData";
+import { importFolder } from "../../src/api/importData";
 import { api } from "../../src/api/client";
 import { LanguagePicker } from "../../src/components/LanguagePicker";
 import { colors, spacing, radius, font } from "../../src/theme";
@@ -43,6 +46,32 @@ export default function AccountScreen() {
   const [bugText, setBugText] = useState("");
   const [bugSubmitting, setBugSubmitting] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [importing, setImporting] = useState(false);
+
+  async function handleImport() {
+    if (importing) return;
+    const res = await DocumentPicker.getDocumentAsync({
+      multiple: true,
+      copyToCacheDirectory: true,
+      type: ["text/markdown", "text/plain", "*/*"],
+    });
+    if (res.canceled) return;
+    setImporting(true);
+    try {
+      const files = await Promise.all(
+        res.assets.map(async (a) => ({
+          path: a.name,
+          content: await new File(a.uri).text(),
+        })),
+      );
+      await importFolder(files);
+      Alert.alert(t("import.done", { count: files.length }));
+    } catch (err) {
+      Alert.alert(t("import.failed"), (err as Error).message);
+    } finally {
+      setImporting(false);
+    }
+  }
 
   async function handleExport() {
     if (exporting) return;
@@ -312,6 +341,17 @@ export default function AccountScreen() {
               <ActivityIndicator color={colors.text} />
             ) : (
               <Text style={s.btnText}>{t("account.exportData")}</Text>
+            )}
+          </Pressable>
+          <Pressable
+            style={({ pressed }) => [s.btn, pressed && s.pressed]}
+            onPress={handleImport}
+            disabled={importing}
+          >
+            {importing ? (
+              <ActivityIndicator color={colors.text} />
+            ) : (
+              <Text style={s.btnText}>{t("account.importData")}</Text>
             )}
           </Pressable>
         </View>

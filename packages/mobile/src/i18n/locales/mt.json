@@ -154,7 +154,8 @@
     "exportData": "Esporta d-dejta",
     "about": "Dwar",
     "whatsNew": "X’hemm ġdid",
-    "helpDocs": "Għajnuna u dokumenti"
+    "helpDocs": "Għajnuna u dokumenti",
+    "importData": "Importa noti"
   },
   "update": {
     "available": "Verżjoni ġdida hija disponibbli",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Ma setax jitgħabba l-changelog.",
     "empty": "Xejn s’issa."
+  },
+  "import": {
+    "done": "Ġew importati {{count}} fajl(s)",
+    "failed": "L-importazzjoni falliet"
   }
 }

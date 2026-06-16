@@ -154,7 +154,8 @@
     "exportData": "Izvozi podatke",
     "about": "O aplikaciji",
     "whatsNew": "Kaj je novega",
-    "helpDocs": "Pomoč in dokumentacija"
+    "helpDocs": "Pomoč in dokumentacija",
+    "importData": "Uvozi zapiske"
   },
   "update": {
     "available": "Na voljo je nova različica",
@@ -202,5 +203,9 @@
   "changelog": {
     "loadError": "Dnevnika sprememb ni bilo mogoče naložiti.",
     "empty": "Še nič."
+  },
+  "import": {
+    "done": "Uvoženih datotek: {{count}}",
+    "failed": "Uvoz ni uspel"
   }
 }
