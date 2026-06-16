@@ -7,6 +7,7 @@ import { AccountPage } from "../../pages/AccountPage";
 import { AdminPage } from "../../pages/AdminPage";
 import { UpgradePage } from "../../pages/UpgradePage";
 import { Tooltip } from "../Tooltip";
+import { BugReportButton } from "../BugReportButton";
 
 export function ActionBar() {
   const { state, search, clearSearch, refresh } = useApp();
@@ -184,6 +185,9 @@ export function ActionBar() {
           </svg>
         </button>
       </Tooltip>
+
+      {/* Far right: report a bug */}
+      <BugReportButton />
 
       {importOpen && (
         <ImportModal
