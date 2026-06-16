@@ -7,6 +7,16 @@ export const adminRouter = Router();
 adminRouter.post("/users", requireAdmin, controller.createUser);
 adminRouter.get("/users", requireAdmin, controller.listUsers);
 adminRouter.put("/users/:id/role", requireAdmin, controller.updateUserRole);
+adminRouter.put(
+  "/users/:id/password",
+  requireAdmin,
+  controller.resetUserPassword,
+);
+adminRouter.patch(
+  "/users/:id/disabled",
+  requireAdmin,
+  controller.setUserDisabled,
+);
 
 adminRouter.get("/coupons", requireAdmin, controller.listCoupons);
 adminRouter.post("/coupons", requireAdmin, controller.createCoupon);

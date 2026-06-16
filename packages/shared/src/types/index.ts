@@ -17,6 +17,7 @@ export interface User {
   id: UserId;
   email: string;
   role: UserRole;
+  disabled?: boolean;
   stripe_subscription_status?: string | null;
   trial_ends_at?: string | null;
   created_at: string;

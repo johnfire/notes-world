@@ -393,6 +393,16 @@ export const admin = {
       method: "PUT",
       body: JSON.stringify({ role }),
     }),
+  resetPassword: (userId: string, password: string) =>
+    request<void>(`/admin/users/${userId}/password`, {
+      method: "PUT",
+      body: JSON.stringify({ password }),
+    }),
+  setDisabled: (userId: string, disabled: boolean) =>
+    request<User>(`/admin/users/${userId}/disabled`, {
+      method: "PATCH",
+      body: JSON.stringify({ disabled }),
+    }),
   listCoupons: () => request<Coupon[]>("/admin/coupons"),
   createCoupon: (data: {
     code: string;

@@ -106,6 +106,10 @@ export async function login(
   const valid = await bcrypt.compare(input.password, row.password_hash);
   if (!valid) throw new AuthorizationError("Invalid email or password");
 
+  if (row.disabled) {
+    throw new AuthorizationError("This account has been disabled");
+  }
+
   const { password_hash: _, ...user } = row;
   const { tokens, rawRefreshToken } = await issueTokens(user as User);
   return { user: user as User, tokens, rawRefreshToken };
@@ -128,6 +132,9 @@ export async function refresh(
   await repo.deleteRefreshToken(tokenHash);
   const user = await repo.findUserById(stored.user_id);
   if (!user) throw new AuthorizationError("User not found");
+  if (user.disabled) {
+    throw new AuthorizationError("This account has been disabled");
+  }
 
   return issueTokens(user);
 }

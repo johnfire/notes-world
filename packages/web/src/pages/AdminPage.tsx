@@ -114,6 +114,48 @@ function UsersTab() {
     }
   }
 
+  async function handleToggleDisabled(user: User) {
+    const disable = !user.disabled;
+    if (
+      disable &&
+      !window.confirm(
+        `Disable ${user.email}? They will be logged out and unable to sign in until re-enabled.`,
+      )
+    )
+      return;
+    setSaving(user.id);
+    try {
+      const updated = await admin.setDisabled(user.id, disable);
+      setUsers((prev) => prev.map((u) => (u.id === user.id ? updated : u)));
+    } catch (err) {
+      window.alert(err instanceof Error ? err.message : "Failed to update");
+    } finally {
+      setSaving(null);
+    }
+  }
+
+  async function handleResetPassword(user: User) {
+    const pw = window.prompt(
+      `New password for ${user.email} (min 8 characters):`,
+    );
+    if (pw === null) return;
+    if (pw.length < 8) {
+      window.alert("Password must be at least 8 characters");
+      return;
+    }
+    setSaving(user.id);
+    try {
+      await admin.resetPassword(user.id, pw);
+      window.alert(
+        `Password reset for ${user.email}. They have been logged out of all sessions.`,
+      );
+    } catch (err) {
+      window.alert(err instanceof Error ? err.message : "Failed to reset");
+    } finally {
+      setSaving(null);
+    }
+  }
+
   const stats = {
     total: users.length,
     free: users.filter((u) => u.role === "free").length,
@@ -207,10 +249,13 @@ function UsersTab() {
                   Role
                 </th>
                 <th className="text-left px-4 py-2 text-gray-500 font-medium">
-                  Stripe status
+                  Status
                 </th>
                 <th className="text-left px-4 py-2 text-gray-500 font-medium">
                   Joined
+                </th>
+                <th className="text-right px-4 py-2 text-gray-500 font-medium">
+                  Actions
                 </th>
               </tr>
             </thead>
@@ -218,7 +263,9 @@ function UsersTab() {
               {users.map((user) => (
                 <tr
                   key={user.id}
-                  className="border-b border-surface-600 hover:bg-surface-700"
+                  className={`border-b border-surface-600 hover:bg-surface-700 ${
+                    user.disabled ? "opacity-50" : ""
+                  }`}
                 >
                   <td className="px-4 py-2 text-gray-200">{user.email}</td>
                   <td className="px-4 py-2">
@@ -237,11 +284,31 @@ function UsersTab() {
                       ))}
                     </select>
                   </td>
-                  <td className="px-4 py-2 text-gray-500 text-xs">
-                    {user.stripe_subscription_status ?? "—"}
+                  <td className="px-4 py-2">
+                    <button
+                      onClick={() => void handleToggleDisabled(user)}
+                      disabled={saving === user.id}
+                      className={`text-xs font-medium px-2 py-0.5 rounded-full ${
+                        user.disabled
+                          ? "bg-danger/10 text-danger"
+                          : "bg-green-400/10 text-green-400"
+                      }`}
+                      title={user.disabled ? "Click to enable" : "Click to disable"}
+                    >
+                      {user.disabled ? "disabled" : "active"}
+                    </button>
                   </td>
                   <td className="px-4 py-2 text-gray-500 text-xs">
                     {new Date(user.created_at).toLocaleDateString()}
+                  </td>
+                  <td className="px-4 py-2 text-right">
+                    <button
+                      onClick={() => void handleResetPassword(user)}
+                      disabled={saving === user.id}
+                      className="text-gray-500 hover:text-accent text-xs"
+                    >
+                      Reset password
+                    </button>
                   </td>
                 </tr>
               ))}

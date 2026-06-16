@@ -73,6 +73,47 @@ describe("changePassword session invalidation", () => {
   });
 });
 
+// ── Disabled accounts cannot authenticate ─────────────────────────────────────
+// An admin can disable an account; login and refresh must both reject it so the
+// user is locked out without their data being deleted.
+
+describe("disabled account enforcement", () => {
+  test("login rejects a disabled account even with the correct password", async () => {
+    const hash = bcrypt.hashSync("correct-pw", 4);
+    mockRepo.findUserByEmail.mockResolvedValue({
+      id: "user-1",
+      email: "u@example.com",
+      role: "free",
+      disabled: true,
+      password_hash: hash,
+    } as never);
+
+    await expect(
+      service.login({ email: "u@example.com", password: "correct-pw" }),
+    ).rejects.toThrow("This account has been disabled");
+    expect(mockRepo.insertRefreshToken).not.toHaveBeenCalled();
+  });
+
+  test("refresh rejects a disabled account", async () => {
+    mockRepo.findRefreshToken.mockResolvedValue({
+      user_id: "user-1",
+      expires_at: new Date(Date.now() + 60_000),
+    } as never);
+    mockRepo.deleteRefreshToken.mockResolvedValue(undefined as never);
+    mockRepo.findUserById.mockResolvedValue({
+      id: "user-1",
+      email: "u@example.com",
+      role: "free",
+      disabled: true,
+    } as never);
+
+    await expect(service.refresh("some-raw-token")).rejects.toThrow(
+      "This account has been disabled",
+    );
+    expect(mockRepo.insertRefreshToken).not.toHaveBeenCalled();
+  });
+});
+
 // ── Password max length / bcrypt truncation (audit LOW #6) ─────────────────────
 
 describe("password length bounds", () => {

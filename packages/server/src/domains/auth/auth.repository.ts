@@ -11,7 +11,7 @@ export async function findUserByEmail(
 }
 
 const USER_SAFE_COLS =
-  "id, email, role, stripe_subscription_status, trial_ends_at, created_at, updated_at";
+  "id, email, role, disabled, stripe_subscription_status, trial_ends_at, created_at, updated_at";
 
 export async function findUserById(id: string): Promise<User | null> {
   return queryOne<User>(`SELECT ${USER_SAFE_COLS} FROM users WHERE id = $1`, [
@@ -52,6 +52,18 @@ export async function updateUserRole(
     [role, userId],
   );
   return rows[0];
+}
+
+export async function setUserDisabled(
+  userId: string,
+  disabled: boolean,
+): Promise<User | null> {
+  return queryOne<User>(
+    `UPDATE users SET disabled = $1, updated_at = now()
+     WHERE id = $2
+     RETURNING ${USER_SAFE_COLS}`,
+    [disabled, userId],
+  );
 }
 
 export async function updateUserStripe(
