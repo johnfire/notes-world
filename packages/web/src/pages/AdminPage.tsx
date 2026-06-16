@@ -5,6 +5,13 @@ import type { User, UserRole } from "../types";
 
 const ROLES: UserRole[] = ["free", "gift", "paid", "admin"];
 
+const ROLE_LABELS: Record<UserRole, string> = {
+  free: "Free",
+  gift: "Pro (gifted)",
+  paid: "Pro",
+  admin: "Admin",
+};
+
 const ROLE_COLORS: Record<UserRole, string> = {
   free: "text-gray-400",
   gift: "text-green-400",
@@ -152,7 +159,7 @@ function UsersTab() {
           >
             {ROLES.map((r) => (
               <option key={r} value={r}>
-                {r}
+                {ROLE_LABELS[r]}
               </option>
             ))}
           </select>
@@ -173,10 +180,11 @@ function UsersTab() {
           Free: <strong className="text-gray-300">{stats.free}</strong>
         </span>
         <span>
-          Gift: <strong className="text-green-400">{stats.gift}</strong>
+          Pro: <strong className="text-accent">{stats.paid}</strong>
         </span>
         <span>
-          Paid: <strong className="text-accent">{stats.paid}</strong>
+          Pro (gifted):{" "}
+          <strong className="text-green-400">{stats.gift}</strong>
         </span>
         <span>
           Admin: <strong className="text-yellow-400">{stats.admin}</strong>
@@ -224,7 +232,7 @@ function UsersTab() {
                     >
                       {ROLES.map((r) => (
                         <option key={r} value={r}>
-                          {r}
+                          {ROLE_LABELS[r]}
                         </option>
                       ))}
                     </select>
