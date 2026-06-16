@@ -5,6 +5,7 @@ import {
   formatDueShort,
   sortItemsByDate,
   dateOf,
+  isOverdue,
   mergeTypeData,
 } from "./dueDate";
 
@@ -89,6 +90,24 @@ describe("mergeTypeData", () => {
     const existing = { task_status: "Open", due_date: "2026-01-01" };
     mergeTypeData(existing, "due_date", null);
     expect(existing).toEqual({ task_status: "Open", due_date: "2026-01-01" });
+  });
+});
+
+describe("isOverdue", () => {
+  const iso = (d: Date) =>
+    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+  it("is true for a past date, false for today and future", () => {
+    const now = new Date();
+    const yesterday = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+    const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
+    expect(isOverdue(iso(yesterday))).toBe(true);
+    expect(isOverdue(iso(now))).toBe(false); // today is not overdue
+    expect(isOverdue(iso(tomorrow))).toBe(false);
+  });
+
+  it("is false for an invalid date", () => {
+    expect(isOverdue("not-a-date")).toBe(false);
   });
 });
 

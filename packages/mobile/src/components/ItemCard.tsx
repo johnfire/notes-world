@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import type { Item } from "@notes-world/shared";
 import { ItemType } from "@notes-world/shared";
 import { colors, spacing, radius, font } from "../theme";
-import { formatDueShort } from "../lib/dueDate";
+import { formatDueShort, dateOf, isOverdue } from "../lib/dueDate";
 
 const TYPE_COLORS: Record<string, string> = {
   [ItemType.Task]: colors.typeTask,
@@ -28,10 +28,6 @@ interface Props {
   collapsed?: boolean;
   hiddenCount?: number;
   onToggle?: () => void;
-  // When set, show the item's due/start dates in the footer (used by the date
-  // sort views). Each is rendered only when present and parseable.
-  dueDate?: string;
-  startDate?: string;
 }
 
 export function ItemCard({
@@ -41,8 +37,6 @@ export function ItemCard({
   collapsed,
   hiddenCount,
   onToggle,
-  dueDate,
-  startDate,
 }: Props) {
   const { t, i18n } = useTranslation();
   const typeColor = TYPE_COLORS[item.item_type] ?? colors.typeUntyped;
@@ -50,8 +44,12 @@ export function ItemCard({
     day: "2-digit",
     month: "short",
   });
-  const due = dueDate ? formatDueShort(dueDate) : "";
-  const start = startDate ? formatDueShort(startDate) : "";
+  // Dates come straight off the item so they show wherever a card renders.
+  const dueRaw = dateOf(item, "due_date");
+  const startRaw = dateOf(item, "start_date");
+  const due = dueRaw ? formatDueShort(dueRaw) : "";
+  const dueOverdue = dueRaw ? isOverdue(dueRaw) : false;
+  const start = startRaw ? formatDueShort(startRaw) : "";
 
   function handleDelete() {
     Alert.alert(t("item.deleteCardTitle"), t("item.deleteMsg"), [
@@ -111,6 +109,11 @@ export function ItemCard({
       <View style={[s.typeBar, { backgroundColor: typeColor }]} />
       <View style={s.content}>
         <Text style={s.title} numberOfLines={2}>
+          {!!due && (
+            <Text style={dueOverdue ? s.dueInlineOverdue : s.dueInline}>
+              {due}{"  "}
+            </Text>
+          )}
           {item.title}
         </Text>
         {!!item.body && (
@@ -129,16 +132,6 @@ export function ItemCard({
                   color={colors.textMuted}
                 />
                 <Text style={s.start}>{start}</Text>
-              </View>
-            )}
-            {!!due && (
-              <View style={s.dueWrap}>
-                <Ionicons
-                  name="calendar-outline"
-                  size={12}
-                  color={colors.accent}
-                />
-                <Text style={s.due}>{due}</Text>
               </View>
             )}
             <Text style={s.date}>{date}</Text>
@@ -239,10 +232,13 @@ const s = StyleSheet.create({
     alignItems: "center",
     gap: 3,
   },
-  due: {
+  dueInline: {
     color: colors.accent,
-    fontSize: 11,
-    fontWeight: "600",
+    fontWeight: "700",
+  },
+  dueInlineOverdue: {
+    color: colors.danger,
+    fontWeight: "700",
   },
   start: {
     color: colors.textMuted,

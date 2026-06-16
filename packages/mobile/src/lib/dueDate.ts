@@ -4,6 +4,7 @@ export {
   formatDueShort,
   sortItemsByDate,
   dateOf,
+  isOverdue,
   mergeTypeData,
   type DateField,
 } from "@notes-world/shared";

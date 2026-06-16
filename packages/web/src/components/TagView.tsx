@@ -1,7 +1,13 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Tag, Item, ItemType } from "../types";
-import { sortItemsByDate, type DateField } from "@notes-world/shared";
+import {
+  sortItemsByDate,
+  dateOf,
+  isOverdue,
+  formatDueShort,
+  type DateField,
+} from "@notes-world/shared";
 import * as api from "../api";
 import { useApp } from "../context/AppContext";
 import { SortableList } from "./SortableList";
@@ -307,6 +313,17 @@ export function TagView({ tag }: Props) {
                     className="text-sm"
                     style={item.color ? { color: item.color } : undefined}
                   >
+                    {(() => {
+                      const due = dateOf(item, "due_date");
+                      if (!due) return null;
+                      return (
+                        <span
+                          className={`font-semibold ${isOverdue(due) ? "text-red-400" : "text-accent"}`}
+                        >
+                          {formatDueShort(due)}{" "}
+                        </span>
+                      );
+                    })()}
                     {item.title}
                   </p>
                   {item.body && (

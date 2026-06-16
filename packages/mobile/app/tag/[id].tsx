@@ -25,7 +25,7 @@ import {
   getHiddenCounts,
 } from "../../src/lib/dividerGrouping";
 import { applySavedOrder, moveItem } from "../../src/lib/sortItems";
-import { sortItemsByDate, dateOf, type DateField } from "../../src/lib/dueDate";
+import { sortItemsByDate, type DateField } from "../../src/lib/dueDate";
 import { colors, spacing, font, radius } from "../../src/theme";
 import { ItemType } from "@notes-world/shared";
 import type { Item } from "@notes-world/shared";
@@ -260,8 +260,6 @@ export default function TagScreen() {
                 item={item}
                 onPress={() => router.push(`/item/${item.id}`)}
                 onDelete={onDelete}
-                dueDate={dateOf(item, "due_date")}
-                startDate={dateOf(item, "start_date")}
               />
             )
           }

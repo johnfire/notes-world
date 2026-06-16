@@ -56,6 +56,15 @@ export function formatDueShort(date: string): string {
     : `${base} '${String(d.getFullYear()).slice(-2)}`;
 }
 
+/** True when a date is strictly before today (local). Today itself is not overdue. */
+export function isOverdue(date: string): boolean {
+  const d = parseDateValue(date);
+  if (Number.isNaN(d.getTime())) return false;
+  const now = new Date();
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  return d.getTime() < startOfToday.getTime();
+}
+
 /** The chosen date field off an item's type_data, or undefined when absent. */
 export function dateOf(item: Item, field: DateField): string | undefined {
   const td = item.type_data as Record<string, string | undefined> | null | undefined;
