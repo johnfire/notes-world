@@ -162,5 +162,14 @@
     "daysLeft": "Nog {{days}} dagen",
     "purgeTitle": "Definitief verwijderen?",
     "purgeMsg": "Hiermee wordt de notitie permanent verwijderd."
+  },
+  "deps": {
+    "title": "Afhankelijkheden",
+    "dependsOn": "Hangt af van",
+    "blocking": "Blokkeert",
+    "none": "Geen",
+    "add": "Afhankelijkheid toevoegen",
+    "searchPlaceholder": "Notities zoeken…",
+    "noResults": "Geen resultaten"
   }
 }

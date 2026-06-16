@@ -162,5 +162,14 @@
     "daysLeft": "Noch {{days}} Tage",
     "purgeTitle": "Endgültig löschen?",
     "purgeMsg": "Dadurch wird die Notiz dauerhaft gelöscht."
+  },
+  "deps": {
+    "title": "Abhängigkeiten",
+    "dependsOn": "Hängt ab von",
+    "blocking": "Blockiert",
+    "none": "Keine",
+    "add": "Abhängigkeit hinzufügen",
+    "searchPlaceholder": "Notizen suchen…",
+    "noResults": "Keine Treffer"
   }
 }

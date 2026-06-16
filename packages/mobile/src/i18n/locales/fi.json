@@ -162,5 +162,14 @@
     "daysLeft": "{{days}} päivää jäljellä",
     "purgeTitle": "Poistetaanko pysyvästi?",
     "purgeMsg": "Tämä poistaa muistiinpanon pysyvästi."
+  },
+  "deps": {
+    "title": "Riippuvuudet",
+    "dependsOn": "Riippuu",
+    "blocking": "Estää",
+    "none": "Ei mitään",
+    "add": "Lisää riippuvuus",
+    "searchPlaceholder": "Hae muistiinpanoja…",
+    "noResults": "Ei tuloksia"
   }
 }

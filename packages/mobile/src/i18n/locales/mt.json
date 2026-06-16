@@ -162,5 +162,14 @@
     "daysLeft": "Fadal {{days}} jiem",
     "purgeTitle": "Ħassar għal dejjem?",
     "purgeMsg": "Dan iħassar in-nota għal dejjem."
+  },
+  "deps": {
+    "title": "Dipendenzi",
+    "dependsOn": "Jiddependi fuq",
+    "blocking": "Qed jimblokka",
+    "none": "Xejn",
+    "add": "Żid dipendenza",
+    "searchPlaceholder": "Fittex noti…",
+    "noResults": "L-ebda riżultat"
   }
 }

@@ -162,5 +162,14 @@
     "daysLeft": "{{days}} days left",
     "purgeTitle": "Delete forever?",
     "purgeMsg": "This permanently deletes the note."
+  },
+  "deps": {
+    "title": "Dependencies",
+    "dependsOn": "Depends on",
+    "blocking": "Blocking",
+    "none": "None",
+    "add": "Add dependency",
+    "searchPlaceholder": "Search notes…",
+    "noResults": "No matches"
   }
 }

@@ -162,5 +162,14 @@
     "daysLeft": "剩余 {{days}} 天",
     "purgeTitle": "永久删除？",
     "purgeMsg": "这将永久删除该笔记。"
+  },
+  "deps": {
+    "title": "依赖项",
+    "dependsOn": "依赖于",
+    "blocking": "阻塞",
+    "none": "无",
+    "add": "添加依赖项",
+    "searchPlaceholder": "搜索笔记…",
+    "noResults": "无匹配项"
   }
 }

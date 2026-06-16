@@ -162,5 +162,14 @@
     "daysLeft": "{{days}} nap van hátra",
     "purgeTitle": "Végleges törlés?",
     "purgeMsg": "Ezzel véglegesen törlöd a jegyzetet."
+  },
+  "deps": {
+    "title": "Függőségek",
+    "dependsOn": "Ettől függ",
+    "blocking": "Blokkolja",
+    "none": "Nincs",
+    "add": "Függőség hozzáadása",
+    "searchPlaceholder": "Jegyzetek keresése…",
+    "noResults": "Nincs találat"
   }
 }

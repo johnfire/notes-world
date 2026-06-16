@@ -162,5 +162,14 @@
     "daysLeft": "Atlikušas {{days}} dienas",
     "purgeTitle": "Dzēst neatgriezeniski?",
     "purgeMsg": "Tādējādi piezīme tiks neatgriezeniski dzēsta."
+  },
+  "deps": {
+    "title": "Atkarības",
+    "dependsOn": "Atkarīgs no",
+    "blocking": "Bloķē",
+    "none": "Nav",
+    "add": "Pievienot atkarību",
+    "searchPlaceholder": "Meklēt piezīmes…",
+    "noResults": "Nav rezultātu"
   }
 }

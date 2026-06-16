@@ -162,5 +162,14 @@
     "daysLeft": "{{days}} zile rămase",
     "purgeTitle": "Ștergi definitiv?",
     "purgeMsg": "Aceasta șterge definitiv nota."
+  },
+  "deps": {
+    "title": "Dependențe",
+    "dependsOn": "Depinde de",
+    "blocking": "Blochează",
+    "none": "Niciuna",
+    "add": "Adaugă dependență",
+    "searchPlaceholder": "Caută note…",
+    "noResults": "Niciun rezultat"
   }
 }

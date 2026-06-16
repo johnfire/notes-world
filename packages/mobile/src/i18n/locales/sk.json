@@ -162,5 +162,14 @@
     "daysLeft": "Zostáva {{days}} dní",
     "purgeTitle": "Odstrániť natrvalo?",
     "purgeMsg": "Týmto sa poznámka natrvalo odstráni."
+  },
+  "deps": {
+    "title": "Závislosti",
+    "dependsOn": "Závisí od",
+    "blocking": "Blokuje",
+    "none": "Žiadne",
+    "add": "Pridať závislosť",
+    "searchPlaceholder": "Hľadať poznámky…",
+    "noResults": "Žiadne výsledky"
   }
 }

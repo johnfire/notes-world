@@ -25,6 +25,7 @@ import {
 } from "../../src/api/items";
 import { reportClientError } from "../../src/api/report";
 import { TagManager } from "../../src/components/TagManager";
+import { DependencyManager } from "../../src/components/DependencyManager";
 import {
   formatDueShort,
   dateOf,
@@ -478,6 +479,9 @@ export default function ItemScreen() {
             />
           )}
           <TagManager itemId={item.id} />
+          {item.item_type !== ItemType.Divider && (
+            <DependencyManager itemId={item.id} itemType={item.item_type} />
+          )}
           <Pressable style={s.deleteBtn} onPress={handleDelete} hitSlop={8}>
             <Ionicons name="trash-outline" size={18} color={colors.danger} />
             <Text style={s.deleteTxt}>{t("item.deleteNote")}</Text>

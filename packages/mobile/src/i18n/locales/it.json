@@ -162,5 +162,14 @@
     "daysLeft": "{{days}} giorni rimasti",
     "purgeTitle": "Eliminare definitivamente?",
     "purgeMsg": "La nota verrà eliminata definitivamente."
+  },
+  "deps": {
+    "title": "Dipendenze",
+    "dependsOn": "Dipende da",
+    "blocking": "Blocca",
+    "none": "Nessuna",
+    "add": "Aggiungi dipendenza",
+    "searchPlaceholder": "Cerca note…",
+    "noResults": "Nessun risultato"
   }
 }

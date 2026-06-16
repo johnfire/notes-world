@@ -162,5 +162,14 @@
     "daysLeft": "Še {{days}} dni",
     "purgeTitle": "Trajno izbrišem?",
     "purgeMsg": "S tem trajno izbrišete zapisek."
+  },
+  "deps": {
+    "title": "Odvisnosti",
+    "dependsOn": "Odvisno od",
+    "blocking": "Blokira",
+    "none": "Brez",
+    "add": "Dodaj odvisnost",
+    "searchPlaceholder": "Iskanje zapiskov…",
+    "noResults": "Ni rezultatov"
   }
 }

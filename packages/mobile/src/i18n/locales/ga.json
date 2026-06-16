@@ -162,5 +162,14 @@
     "daysLeft": "{{days}} lá fágtha",
     "purgeTitle": "Scrios go buan?",
     "purgeMsg": "Scriosfaidh sé seo an nóta go buan."
+  },
+  "deps": {
+    "title": "Spleáchais",
+    "dependsOn": "Ag brath ar",
+    "blocking": "Ag bac",
+    "none": "Faic",
+    "add": "Cuir spleáchas leis",
+    "searchPlaceholder": "Cuardaigh nótaí…",
+    "noResults": "Gan torthaí"
   }
 }

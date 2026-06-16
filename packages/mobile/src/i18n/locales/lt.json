@@ -162,5 +162,14 @@
     "daysLeft": "Liko {{days}} d.",
     "purgeTitle": "Ištrinti negrįžtamai?",
     "purgeMsg": "Tai negrįžtamai ištrins pastabą."
+  },
+  "deps": {
+    "title": "Priklausomybės",
+    "dependsOn": "Priklauso nuo",
+    "blocking": "Blokuoja",
+    "none": "Nėra",
+    "add": "Pridėti priklausomybę",
+    "searchPlaceholder": "Ieškoti pastabų…",
+    "noResults": "Nėra rezultatų"
   }
 }

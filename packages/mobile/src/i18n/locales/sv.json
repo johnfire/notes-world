@@ -162,5 +162,14 @@
     "daysLeft": "{{days}} dagar kvar",
     "purgeTitle": "Ta bort permanent?",
     "purgeMsg": "Detta tar bort anteckningen permanent."
+  },
+  "deps": {
+    "title": "Beroenden",
+    "dependsOn": "Beror på",
+    "blocking": "Blockerar",
+    "none": "Inga",
+    "add": "Lägg till beroende",
+    "searchPlaceholder": "Sök anteckningar…",
+    "noResults": "Inga träffar"
   }
 }

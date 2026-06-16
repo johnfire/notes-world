@@ -162,5 +162,14 @@
     "daysLeft": "{{days}} päeva jäänud",
     "purgeTitle": "Kustutada jäädavalt?",
     "purgeMsg": "See kustutab märkme jäädavalt."
+  },
+  "deps": {
+    "title": "Sõltuvused",
+    "dependsOn": "Sõltub",
+    "blocking": "Blokeerib",
+    "none": "Puuduvad",
+    "add": "Lisa sõltuvus",
+    "searchPlaceholder": "Otsi märkmeid…",
+    "noResults": "Tulemusi pole"
   }
 }

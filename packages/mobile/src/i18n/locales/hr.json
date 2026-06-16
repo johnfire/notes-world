@@ -162,5 +162,14 @@
     "daysLeft": "Preostalo {{days}} dana",
     "purgeTitle": "Trajno izbrisati?",
     "purgeMsg": "Ovo trajno briše bilješku."
+  },
+  "deps": {
+    "title": "Ovisnosti",
+    "dependsOn": "Ovisi o",
+    "blocking": "Blokira",
+    "none": "Nema",
+    "add": "Dodaj ovisnost",
+    "searchPlaceholder": "Pretraži bilješke…",
+    "noResults": "Nema rezultata"
   }
 }

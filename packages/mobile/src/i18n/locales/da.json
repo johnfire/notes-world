@@ -162,5 +162,14 @@
     "daysLeft": "{{days}} dage tilbage",
     "purgeTitle": "Slet permanent?",
     "purgeMsg": "Dette sletter noten permanent."
+  },
+  "deps": {
+    "title": "Afhængigheder",
+    "dependsOn": "Afhænger af",
+    "blocking": "Blokerer",
+    "none": "Ingen",
+    "add": "Tilføj afhængighed",
+    "searchPlaceholder": "Søg noter…",
+    "noResults": "Ingen resultater"
   }
 }

@@ -162,5 +162,14 @@
     "daysLeft": "Pozostało {{days}} dni",
     "purgeTitle": "Usunąć trwale?",
     "purgeMsg": "Spowoduje to trwałe usunięcie notatki."
+  },
+  "deps": {
+    "title": "Zależności",
+    "dependsOn": "Zależy od",
+    "blocking": "Blokuje",
+    "none": "Brak",
+    "add": "Dodaj zależność",
+    "searchPlaceholder": "Szukaj notatek…",
+    "noResults": "Brak wyników"
   }
 }
