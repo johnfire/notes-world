@@ -10,6 +10,7 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
+  Linking,
 } from "react-native";
 import { useLocalSearchParams, useRouter, useNavigation } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
@@ -42,6 +43,28 @@ function toISODate(d: Date): string {
   const m = String(d.getMonth() + 1).padStart(2, "0");
   const day = String(d.getDate()).padStart(2, "0");
   return `${y}-${m}-${day}`;
+}
+
+const URL_RE = /(https?:\/\/[^\s]+)/g;
+const HAS_URL = /https?:\/\/[^\s]+/;
+
+// Read-only preview that renders URLs in the body as tappable links (the body
+// input itself stays plain text). Shown only when the body contains a link.
+function LinkifiedBody({ text }: { text: string }) {
+  const parts = text.split(URL_RE);
+  return (
+    <Text style={s.bodyPreview}>
+      {parts.map((p, i) =>
+        /^https?:\/\//.test(p) ? (
+          <Text key={i} style={s.link} onPress={() => Linking.openURL(p)}>
+            {p}
+          </Text>
+        ) : (
+          p
+        ),
+      )}
+    </Text>
+  );
 }
 
 function parseDateOr(value: string | undefined, fallback: Date): Date {
@@ -409,6 +432,7 @@ export default function ItemScreen() {
             placeholder={t("item.body")}
             placeholderTextColor={colors.textDim}
           />
+          {HAS_URL.test(body) && <LinkifiedBody text={body} />}
           {item.item_type !== ItemType.Divider && (
             <View style={s.dates}>
               {dateRow(
@@ -607,6 +631,12 @@ const s = StyleSheet.create({
     minHeight: 200,
     paddingTop: spacing.sm,
   },
+  bodyPreview: {
+    color: colors.textMuted,
+    fontSize: font.sm,
+    lineHeight: 20,
+  },
+  link: { color: colors.accent, textDecorationLine: "underline" },
   dates: {
     backgroundColor: colors.surface,
     borderRadius: radius.md,
