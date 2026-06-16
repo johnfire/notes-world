@@ -85,7 +85,8 @@
     "reorder": "Järjestä uudelleen",
     "sortDue": "Eräpäivä",
     "sortStart": "Aloitus",
-    "sortBy": "Lajittele"
+    "sortBy": "Lajittele",
+    "addDivider": "+ Erotin"
   },
   "item": {
     "title": "Otsikko",

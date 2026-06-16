@@ -85,7 +85,8 @@
     "reorder": "Reordenar",
     "sortDue": "Prazo",
     "sortStart": "Início",
-    "sortBy": "Ordenar por"
+    "sortBy": "Ordenar por",
+    "addDivider": "+ Divisor"
   },
   "item": {
     "title": "Título",

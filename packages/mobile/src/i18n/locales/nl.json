@@ -85,7 +85,8 @@
     "reorder": "Herordenen",
     "sortDue": "Deadline",
     "sortStart": "Start",
-    "sortBy": "Sorteer op"
+    "sortBy": "Sorteer op",
+    "addDivider": "+ Scheiding"
   },
   "item": {
     "title": "Titel",

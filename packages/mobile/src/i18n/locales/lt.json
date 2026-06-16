@@ -85,7 +85,8 @@
     "reorder": "Pertvarkyti",
     "sortDue": "Terminas",
     "sortStart": "Pradžia",
-    "sortBy": "Rūšiuoti"
+    "sortBy": "Rūšiuoti",
+    "addDivider": "+ Skirtukas"
   },
   "item": {
     "title": "Pavadinimas",

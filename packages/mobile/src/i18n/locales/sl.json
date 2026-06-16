@@ -85,7 +85,8 @@
     "reorder": "Preuredi",
     "sortDue": "Rok",
     "sortStart": "Začetek",
-    "sortBy": "Razvrsti"
+    "sortBy": "Razvrsti",
+    "addDivider": "+ Ločilo"
   },
   "item": {
     "title": "Naslov",

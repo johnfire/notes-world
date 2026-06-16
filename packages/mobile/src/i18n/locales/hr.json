@@ -85,7 +85,8 @@
     "reorder": "Promijeni redoslijed",
     "sortDue": "Rok",
     "sortStart": "Početak",
-    "sortBy": "Razvrstaj"
+    "sortBy": "Razvrstaj",
+    "addDivider": "+ Razdjelnik"
   },
   "item": {
     "title": "Naslov",

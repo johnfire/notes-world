@@ -85,7 +85,8 @@
     "reorder": "Zmień kolejność",
     "sortDue": "Termin",
     "sortStart": "Start",
-    "sortBy": "Sortuj wg"
+    "sortBy": "Sortuj wg",
+    "addDivider": "+ Separator"
   },
   "item": {
     "title": "Tytuł",

@@ -66,6 +66,10 @@ export function promoteItem(id: string, newType: ItemType): Promise<Item> {
   return api.post<Item>(`/items/${id}/promote`, { new_type: newType });
 }
 
+export function createDivider(): Promise<Item> {
+  return api.post<Item>("/items/divider", {});
+}
+
 // Archived items (Trash). Recoverable until purged (server auto-purges at 30d).
 export function getTrash(limit = 50, offset = 0): Promise<Item[]> {
   return api.get<Item[]>(`/items/trash?limit=${limit}&offset=${offset}`);

@@ -11,8 +11,8 @@ import {
 import { useLocalSearchParams, useRouter, useNavigation } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { getItemsByTag, listTags } from "../../src/api/tags";
-import { archiveItem } from "../../src/api/items";
+import { getItemsByTag, listTags, addTagToItem } from "../../src/api/tags";
+import { archiveItem, createDivider } from "../../src/api/items";
 import {
   collapsedDividers,
   getSortOrder,
@@ -58,6 +58,20 @@ export default function TagScreen() {
         context: "TagScreen.sortByDate",
       });
     });
+  }
+
+  async function addDivider() {
+    try {
+      const divider = await createDivider();
+      await addTagToItem(divider.id, id);
+      await load();
+    } catch (err) {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "TagScreen.addDivider",
+      });
+    }
   }
 
   function toggleCollapse(dividerId: string) {
@@ -186,6 +200,9 @@ export default function TagScreen() {
       ) : (
         <>
         <View style={s.sortBar}>
+          <Pressable onPress={addDivider} style={s.sortBtn} hitSlop={6}>
+            <Text style={s.sortBtnText}>{t("tagDetail.addDivider")}</Text>
+          </Pressable>
           <Text style={s.sortByLabel}>{t("tagDetail.sortBy")}</Text>
           {(
             [

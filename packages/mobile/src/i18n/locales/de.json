@@ -85,7 +85,8 @@
     "reorder": "Neu anordnen",
     "sortDue": "Fällig",
     "sortStart": "Start",
-    "sortBy": "Sortieren nach"
+    "sortBy": "Sortieren nach",
+    "addDivider": "+ Trenner"
   },
   "item": {
     "title": "Titel",

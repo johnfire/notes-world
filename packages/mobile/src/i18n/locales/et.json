@@ -85,7 +85,8 @@
     "reorder": "Järjesta ümber",
     "sortDue": "Tähtaeg",
     "sortStart": "Algus",
-    "sortBy": "Sorteeri"
+    "sortBy": "Sorteeri",
+    "addDivider": "+ Eraldaja"
   },
   "item": {
     "title": "Pealkiri",

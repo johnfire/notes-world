@@ -85,7 +85,8 @@
     "reorder": "调整顺序",
     "sortDue": "截止",
     "sortStart": "开始",
-    "sortBy": "排序"
+    "sortBy": "排序",
+    "addDivider": "+ 分隔线"
   },
   "item": {
     "title": "标题",

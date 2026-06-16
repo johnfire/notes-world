@@ -85,7 +85,8 @@
     "reorder": "Zmeniť poradie",
     "sortDue": "Termín",
     "sortStart": "Štart",
-    "sortBy": "Zoradiť podľa"
+    "sortBy": "Zoradiť podľa",
+    "addDivider": "+ Oddeľovač"
   },
   "item": {
     "title": "Názov",

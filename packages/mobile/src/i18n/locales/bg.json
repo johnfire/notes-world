@@ -85,7 +85,8 @@
     "reorder": "Пренареждане",
     "sortDue": "Срок",
     "sortStart": "Начало",
-    "sortBy": "Сортирай"
+    "sortBy": "Сортирай",
+    "addDivider": "+ Разделител"
   },
   "item": {
     "title": "Заглавие",

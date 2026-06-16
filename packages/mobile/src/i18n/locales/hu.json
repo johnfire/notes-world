@@ -85,7 +85,8 @@
     "reorder": "Átrendezés",
     "sortDue": "Határidő",
     "sortStart": "Kezdés",
-    "sortBy": "Rendezés"
+    "sortBy": "Rendezés",
+    "addDivider": "+ Elválasztó"
   },
   "item": {
     "title": "Cím",

@@ -85,7 +85,8 @@
     "reorder": "Réorganiser",
     "sortDue": "Échéance",
     "sortStart": "Début",
-    "sortBy": "Trier par"
+    "sortBy": "Trier par",
+    "addDivider": "+ Séparateur"
   },
   "item": {
     "title": "Titre",

@@ -85,7 +85,8 @@
     "reorder": "Ändra ordning",
     "sortDue": "Förfaller",
     "sortStart": "Start",
-    "sortBy": "Sortera efter"
+    "sortBy": "Sortera efter",
+    "addDivider": "+ Avdelare"
   },
   "item": {
     "title": "Titel",
