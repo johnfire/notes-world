@@ -68,7 +68,7 @@ export async function findAllTags(userId: UserId): Promise<TagWithCount[]> {
      LEFT JOIN items i ON i.id = it.item_id AND i.status = 'Active' AND i.item_type != 'Divider'
      WHERE t.user_id = $1
      GROUP BY t.id
-     ORDER BY t.name ASC`,
+     ORDER BY (t.name ~ '^[0-9]') DESC, lower(t.name) ASC`,
     [userId],
   );
 }
@@ -81,7 +81,7 @@ export async function findTagsForItem(
     `SELECT t.* FROM tags t
      JOIN item_tags it ON it.tag_id = t.id
      WHERE it.item_id = $1 AND t.user_id = $2
-     ORDER BY t.name ASC`,
+     ORDER BY (t.name ~ '^[0-9]') DESC, lower(t.name) ASC`,
     [itemId, userId],
   );
 }
@@ -96,7 +96,7 @@ export async function findTagUsageCounts(
      LEFT JOIN items i ON i.id = it.item_id AND i.status = 'Active' AND i.item_type != 'Divider'
      WHERE t.user_id = $1
      GROUP BY t.id
-     ORDER BY t.name ASC`,
+     ORDER BY (t.name ~ '^[0-9]') DESC, lower(t.name) ASC`,
     [userId],
   );
 }
@@ -151,7 +151,7 @@ export async function findTagsForItems(
     `SELECT t.*, it.item_id FROM tags t
      JOIN item_tags it ON it.tag_id = t.id
      WHERE it.item_id IN (${placeholders}) AND t.user_id = $1
-     ORDER BY t.name ASC`,
+     ORDER BY (t.name ~ '^[0-9]') DESC, lower(t.name) ASC`,
     [userId, ...itemIds],
   );
   const result: Record<string, Tag[]> = {};
