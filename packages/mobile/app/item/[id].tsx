@@ -317,7 +317,7 @@ export default function ItemScreen() {
             placeholder={t("item.body")}
             placeholderTextColor={colors.textDim}
           />
-          {item.item_type === ItemType.Task && (
+          {item.item_type !== ItemType.Divider && (
             <View style={s.dates}>
               {dateRow(
                 "due_date",

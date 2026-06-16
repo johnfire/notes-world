@@ -103,8 +103,8 @@ export function ItemDrawer() {
               )}
             </div>
 
-            {/* Due / start dates (editable) */}
-            {item.item_type === ItemType.Task && (
+            {/* Due / start dates (editable) — available on any item except dividers */}
+            {item.item_type !== ItemType.Divider && (
               <TaskDates
                 item={item}
                 isArchived={!!isArchived}
