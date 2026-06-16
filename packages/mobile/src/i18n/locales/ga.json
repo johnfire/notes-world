@@ -108,7 +108,8 @@
     "startDate": "Dáta tosaigh",
     "dateNotSet": "Gan socrú",
     "status": "Stádas",
-    "priority": "Tosaíocht"
+    "priority": "Tosaíocht",
+    "promoteTo": "Cuir chun cinn go"
   },
   "account": {
     "title": "Cuntas",

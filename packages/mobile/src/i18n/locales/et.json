@@ -108,7 +108,8 @@
     "startDate": "Alguskuupäev",
     "dateNotSet": "Määramata",
     "status": "Olek",
-    "priority": "Prioriteet"
+    "priority": "Prioriteet",
+    "promoteTo": "Teisenda tüübiks"
   },
   "account": {
     "title": "Konto",

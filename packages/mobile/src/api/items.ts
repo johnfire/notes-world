@@ -59,6 +59,11 @@ export function archiveItem(id: string): Promise<Item> {
   return api.post<Item>(`/items/${id}/archive`, {});
 }
 
+// Promote an item to a concrete type (server seeds type_data defaults).
+export function promoteItem(id: string, newType: ItemType): Promise<Item> {
+  return api.post<Item>(`/items/${id}/promote`, { new_type: newType });
+}
+
 // Archived items (Trash). Recoverable until purged (server auto-purges at 30d).
 export function getTrash(limit = 50, offset = 0): Promise<Item[]> {
   return api.get<Item[]>(`/items/trash?limit=${limit}&offset=${offset}`);

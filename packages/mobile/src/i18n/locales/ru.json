@@ -108,7 +108,8 @@
     "startDate": "Дата начала",
     "dateNotSet": "Не задано",
     "status": "Статус",
-    "priority": "Приоритет"
+    "priority": "Приоритет",
+    "promoteTo": "Преобразовать в"
   },
   "account": {
     "title": "Аккаунт",

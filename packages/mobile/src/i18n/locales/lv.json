@@ -108,7 +108,8 @@
     "startDate": "Sākuma datums",
     "dateNotSet": "Nav iestatīts",
     "status": "Statuss",
-    "priority": "Prioritāte"
+    "priority": "Prioritāte",
+    "promoteTo": "Pārveidot par"
   },
   "account": {
     "title": "Konts",

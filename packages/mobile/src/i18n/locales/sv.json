@@ -108,7 +108,8 @@
     "startDate": "Startdatum",
     "dateNotSet": "Inte angivet",
     "status": "Status",
-    "priority": "Prioritet"
+    "priority": "Prioritet",
+    "promoteTo": "Gör om till"
   },
   "account": {
     "title": "Konto",

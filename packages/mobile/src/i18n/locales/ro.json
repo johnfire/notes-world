@@ -108,7 +108,8 @@
     "startDate": "Data începerii",
     "dateNotSet": "Nesetat",
     "status": "Stare",
-    "priority": "Prioritate"
+    "priority": "Prioritate",
+    "promoteTo": "Transformă în"
   },
   "account": {
     "title": "Cont",

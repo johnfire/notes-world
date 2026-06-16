@@ -108,7 +108,8 @@
     "startDate": "Kezdés dátuma",
     "dateNotSet": "Nincs beállítva",
     "status": "Állapot",
-    "priority": "Prioritás"
+    "priority": "Prioritás",
+    "promoteTo": "Átalakítás erre"
   },
   "account": {
     "title": "Fiók",

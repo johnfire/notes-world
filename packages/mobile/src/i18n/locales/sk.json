@@ -108,7 +108,8 @@
     "startDate": "Dátum začiatku",
     "dateNotSet": "Nenastavené",
     "status": "Stav",
-    "priority": "Priorita"
+    "priority": "Priorita",
+    "promoteTo": "Zmeniť na"
   },
   "account": {
     "title": "Účet",

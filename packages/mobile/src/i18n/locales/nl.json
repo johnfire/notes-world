@@ -108,7 +108,8 @@
     "startDate": "Startdatum",
     "dateNotSet": "Niet ingesteld",
     "status": "Status",
-    "priority": "Prioriteit"
+    "priority": "Prioriteit",
+    "promoteTo": "Omzetten naar"
   },
   "account": {
     "title": "Account",

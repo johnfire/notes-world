@@ -108,7 +108,8 @@
     "startDate": "Aloituspäivä",
     "dateNotSet": "Ei asetettu",
     "status": "Tila",
-    "priority": "Prioriteetti"
+    "priority": "Prioriteetti",
+    "promoteTo": "Muunna tyypiksi"
   },
   "account": {
     "title": "Tili",

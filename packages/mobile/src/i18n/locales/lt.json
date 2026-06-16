@@ -108,7 +108,8 @@
     "startDate": "Pradžios data",
     "dateNotSet": "Nenustatyta",
     "status": "Būsena",
-    "priority": "Prioritetas"
+    "priority": "Prioritetas",
+    "promoteTo": "Paversti į"
   },
   "account": {
     "title": "Paskyra",

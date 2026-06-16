@@ -108,7 +108,8 @@
     "startDate": "Datum početka",
     "dateNotSet": "Nije postavljeno",
     "status": "Status",
-    "priority": "Prioritet"
+    "priority": "Prioritet",
+    "promoteTo": "Pretvori u"
   },
   "account": {
     "title": "Račun",

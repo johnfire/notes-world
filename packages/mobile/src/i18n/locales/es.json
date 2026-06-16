@@ -108,7 +108,8 @@
     "startDate": "Fecha de inicio",
     "dateNotSet": "Sin definir",
     "status": "Estado",
-    "priority": "Prioridad"
+    "priority": "Prioridad",
+    "promoteTo": "Convertir en"
   },
   "account": {
     "title": "Cuenta",

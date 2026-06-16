@@ -21,6 +21,7 @@ import {
   updateItem,
   archiveItem,
   deleteItem,
+  promoteItem,
 } from "../../src/api/items";
 import { reportClientError } from "../../src/api/report";
 import { TagManager } from "../../src/components/TagManager";
@@ -56,6 +57,14 @@ const TYPE_COLORS: Record<string, string> = {
   [ItemType.Untyped]: colors.typeUntyped,
 };
 
+// Promote targets for an Untyped item (mirrors the web drawer).
+const PROMOTE_TYPES: Array<[ItemType, string]> = [
+  [ItemType.Task, "capture.typeTask"],
+  [ItemType.Idea, "capture.typeIdea"],
+  [ItemType.Note, "capture.typeNote"],
+  [ItemType.Reminder, "capture.typeReminder"],
+];
+
 export default function ItemScreen() {
   const { t, i18n } = useTranslation();
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -72,6 +81,7 @@ export default function ItemScreen() {
   const [picker, setPicker] = useState<DateField | null>(null);
   const [savingDates, setSavingDates] = useState(false);
   const [savingTask, setSavingTask] = useState(false);
+  const [promoting, setPromoting] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -208,6 +218,24 @@ export default function ItemScreen() {
       Alert.alert(t("item.saveFailedTitle"), t("item.saveFailedMsg"));
     } finally {
       setSavingTask(false);
+    }
+  }
+
+  async function handlePromote(newType: ItemType) {
+    if (!item) return;
+    setPromoting(true);
+    try {
+      const updated = await promoteItem(item.id, newType);
+      setItem(updated);
+    } catch (err) {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "ItemScreen.promote",
+      });
+      Alert.alert(t("item.saveFailedTitle"), t("item.saveFailedMsg"));
+    } finally {
+      setPromoting(false);
     }
   }
 
@@ -364,6 +392,24 @@ export default function ItemScreen() {
                 t("item.startDate"),
                 dateOf(item, "start_date"),
               )}
+            </View>
+          )}
+          {item.item_type === ItemType.Untyped && (
+            <View style={s.fieldGroup}>
+              <Text style={s.fieldLabel}>{t("item.promoteTo")}</Text>
+              <View style={s.chipRow}>
+                {PROMOTE_TYPES.map(([type, labelKey]) => (
+                  <Pressable
+                    key={type}
+                    disabled={promoting}
+                    onPress={() => void handlePromote(type)}
+                    style={s.chip}
+                    hitSlop={4}
+                  >
+                    <Text style={s.chipTxt}>{t(labelKey)}</Text>
+                  </Pressable>
+                ))}
+              </View>
             </View>
           )}
           {item.item_type === ItemType.Task && (
