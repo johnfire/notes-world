@@ -110,7 +110,8 @@
     "dateNotSet": "Nenustatyta",
     "status": "Būsena",
     "priority": "Prioritetas",
-    "promoteTo": "Paversti į"
+    "promoteTo": "Paversti į",
+    "maturity": "Branda"
   },
   "account": {
     "title": "Paskyra",

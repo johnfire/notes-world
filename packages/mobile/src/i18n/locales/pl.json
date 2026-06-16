@@ -110,7 +110,8 @@
     "dateNotSet": "Nie ustawiono",
     "status": "Status",
     "priority": "Priorytet",
-    "promoteTo": "Zmień na"
+    "promoteTo": "Zmień na",
+    "maturity": "Dojrzałość"
   },
   "account": {
     "title": "Konto",

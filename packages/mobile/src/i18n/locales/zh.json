@@ -110,7 +110,8 @@
     "dateNotSet": "未设置",
     "status": "状态",
     "priority": "优先级",
-    "promoteTo": "转换为"
+    "promoteTo": "转换为",
+    "maturity": "成熟度"
   },
   "account": {
     "title": "账户",

@@ -110,7 +110,8 @@
     "dateNotSet": "Not set",
     "status": "Status",
     "priority": "Priority",
-    "promoteTo": "Promote to"
+    "promoteTo": "Promote to",
+    "maturity": "Maturity"
   },
   "account": {
     "title": "Account",

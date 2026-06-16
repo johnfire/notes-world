@@ -110,7 +110,8 @@
     "dateNotSet": "Nesetat",
     "status": "Stare",
     "priority": "Prioritate",
-    "promoteTo": "Transformă în"
+    "promoteTo": "Transformă în",
+    "maturity": "Maturitate"
   },
   "account": {
     "title": "Cont",

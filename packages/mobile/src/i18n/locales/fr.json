@@ -110,7 +110,8 @@
     "dateNotSet": "Non défini",
     "status": "Statut",
     "priority": "Priorité",
-    "promoteTo": "Convertir en"
+    "promoteTo": "Convertir en",
+    "maturity": "Maturité"
   },
   "account": {
     "title": "Compte",

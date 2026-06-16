@@ -110,7 +110,8 @@
     "dateNotSet": "Niet ingesteld",
     "status": "Status",
     "priority": "Prioriteit",
-    "promoteTo": "Omzetten naar"
+    "promoteTo": "Omzetten naar",
+    "maturity": "Rijpheid"
   },
   "account": {
     "title": "Account",

@@ -110,7 +110,8 @@
     "dateNotSet": "Nav iestatīts",
     "status": "Statuss",
     "priority": "Prioritāte",
-    "promoteTo": "Pārveidot par"
+    "promoteTo": "Pārveidot par",
+    "maturity": "Briedums"
   },
   "account": {
     "title": "Konts",

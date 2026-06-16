@@ -110,7 +110,8 @@
     "dateNotSet": "Nenastavené",
     "status": "Stav",
     "priority": "Priorita",
-    "promoteTo": "Zmeniť na"
+    "promoteTo": "Zmeniť na",
+    "maturity": "Zrelosť"
   },
   "account": {
     "title": "Účet",

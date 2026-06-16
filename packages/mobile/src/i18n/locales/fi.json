@@ -110,7 +110,8 @@
     "dateNotSet": "Ei asetettu",
     "status": "Tila",
     "priority": "Prioriteetti",
-    "promoteTo": "Muunna tyypiksi"
+    "promoteTo": "Muunna tyypiksi",
+    "maturity": "Kypsyys"
   },
   "account": {
     "title": "Tili",

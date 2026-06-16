@@ -110,7 +110,8 @@
     "dateNotSet": "Gan socrú",
     "status": "Stádas",
     "priority": "Tosaíocht",
-    "promoteTo": "Cuir chun cinn go"
+    "promoteTo": "Cuir chun cinn go",
+    "maturity": "Aibíocht"
   },
   "account": {
     "title": "Cuntas",

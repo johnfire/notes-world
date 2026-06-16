@@ -110,7 +110,8 @@
     "dateNotSet": "Μη ορισμένο",
     "status": "Κατάσταση",
     "priority": "Προτεραιότητα",
-    "promoteTo": "Μετατροπή σε"
+    "promoteTo": "Μετατροπή σε",
+    "maturity": "Ωριμότητα"
   },
   "account": {
     "title": "Λογαριασμός",

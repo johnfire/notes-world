@@ -110,7 +110,8 @@
     "dateNotSet": "Ni nastavljeno",
     "status": "Stanje",
     "priority": "Prednost",
-    "promoteTo": "Pretvori v"
+    "promoteTo": "Pretvori v",
+    "maturity": "Zrelost"
   },
   "account": {
     "title": "Račun",

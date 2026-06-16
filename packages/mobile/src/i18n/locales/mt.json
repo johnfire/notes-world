@@ -110,7 +110,8 @@
     "dateNotSet": "Mhux issettjat",
     "status": "Stat",
     "priority": "Prijorità",
-    "promoteTo": "Ibdel għal"
+    "promoteTo": "Ibdel għal",
+    "maturity": "Maturità"
   },
   "account": {
     "title": "Kont",

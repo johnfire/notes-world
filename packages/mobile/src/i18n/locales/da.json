@@ -110,7 +110,8 @@
     "dateNotSet": "Ikke angivet",
     "status": "Status",
     "priority": "Prioritet",
-    "promoteTo": "Konvertér til"
+    "promoteTo": "Konvertér til",
+    "maturity": "Modenhed"
   },
   "account": {
     "title": "Konto",

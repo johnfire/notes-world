@@ -110,7 +110,8 @@
     "dateNotSet": "Nincs beállítva",
     "status": "Állapot",
     "priority": "Prioritás",
-    "promoteTo": "Átalakítás erre"
+    "promoteTo": "Átalakítás erre",
+    "maturity": "Érettség"
   },
   "account": {
     "title": "Fiók",

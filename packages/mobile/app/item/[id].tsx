@@ -33,7 +33,7 @@ import {
   type DateField,
 } from "../../src/lib/dueDate";
 import { colors, spacing, radius, font } from "../../src/theme";
-import { ItemType, TaskStatus, Priority } from "@notes-world/shared";
+import { ItemType, TaskStatus, Priority, IdeaMaturity } from "@notes-world/shared";
 import type { Item, TypeData } from "@notes-world/shared";
 
 // Picked Date -> local YYYY-MM-DD (date-only; avoids a UTC off-by-one day).
@@ -350,6 +350,9 @@ export default function ItemScreen() {
   } | null;
   const statusValue = taskTd?.task_status ?? TaskStatus.Open;
   const priorityValue = taskTd?.priority ?? Priority.Normal;
+  const maturityValue =
+    (item.type_data as { maturity?: string } | null)?.maturity ??
+    IdeaMaturity.Seed;
 
   return (
     <SafeAreaView style={s.root} edges={["bottom"]}>
@@ -410,6 +413,29 @@ export default function ItemScreen() {
                     <Text style={s.chipTxt}>{t(labelKey)}</Text>
                   </Pressable>
                 ))}
+              </View>
+            </View>
+          )}
+          {item.item_type === ItemType.Idea && (
+            <View style={s.fieldGroup}>
+              <Text style={s.fieldLabel}>{t("item.maturity")}</Text>
+              <View style={s.chipRow}>
+                {Object.values(IdeaMaturity).map((m) => {
+                  const active = maturityValue === m;
+                  return (
+                    <Pressable
+                      key={m}
+                      disabled={savingTask}
+                      onPress={() => void persistTaskField({ maturity: m })}
+                      style={[s.chip, active && s.chipActive]}
+                      hitSlop={4}
+                    >
+                      <Text style={[s.chipTxt, active && s.chipTxtActive]}>
+                        {m}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
               </View>
             </View>
           )}

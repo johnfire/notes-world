@@ -110,7 +110,8 @@
     "dateNotSet": "Määramata",
     "status": "Olek",
     "priority": "Prioriteet",
-    "promoteTo": "Teisenda tüübiks"
+    "promoteTo": "Teisenda tüübiks",
+    "maturity": "Küpsus"
   },
   "account": {
     "title": "Konto",

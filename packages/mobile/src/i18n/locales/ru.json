@@ -110,7 +110,8 @@
     "dateNotSet": "Не задано",
     "status": "Статус",
     "priority": "Приоритет",
-    "promoteTo": "Преобразовать в"
+    "promoteTo": "Преобразовать в",
+    "maturity": "Зрелость"
   },
   "account": {
     "title": "Аккаунт",

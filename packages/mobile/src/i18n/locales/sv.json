@@ -110,7 +110,8 @@
     "dateNotSet": "Inte angivet",
     "status": "Status",
     "priority": "Prioritet",
-    "promoteTo": "Gör om till"
+    "promoteTo": "Gör om till",
+    "maturity": "Mognad"
   },
   "account": {
     "title": "Konto",
