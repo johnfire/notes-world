@@ -3,12 +3,35 @@ import { z } from 'zod';
 import { get, post, patch, del } from '../api';
 
 export function registerItemTools(server: McpServer) {
+  const isoDate = z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/, 'must be a date in YYYY-MM-DD format');
+
   server.tool(
     'create_item',
-    'Create a new item (note, idea, task, or untyped). Returns the created item.',
-    { title: z.string(), body: z.string().optional() },
-    async ({ title, body }) => {
-      const item = await post('/api/items', { title, body });
+    'Create a new item (note, idea, task, or untyped). Optionally set a due date and/or start date (YYYY-MM-DD). Returns the created item.',
+    {
+      title: z.string(),
+      body: z.string().optional(),
+      due_date: isoDate.optional().describe('Optional due date, YYYY-MM-DD'),
+      start_date: isoDate.optional().describe('Optional start date, YYYY-MM-DD'),
+    },
+    async ({ title, body, due_date, start_date }) => {
+      const item = await post<{
+        id: string;
+        type_data?: Record<string, unknown> | null;
+      }>('/api/items', { title, body });
+
+      // Dates live in the item's type_data JSON. A freshly captured item has
+      // none, so we patch them in (no existing keys to preserve).
+      if (due_date || start_date) {
+        const type_data: Record<string, unknown> = { ...(item.type_data ?? {}) };
+        if (due_date) type_data.due_date = due_date;
+        if (start_date) type_data.start_date = start_date;
+        const updated = await patch(`/api/items/${item.id}`, { type_data });
+        return { content: [{ type: 'text', text: JSON.stringify(updated, null, 2) }] };
+      }
+
       return { content: [{ type: 'text', text: JSON.stringify(item, null, 2) }] };
     }
   );
