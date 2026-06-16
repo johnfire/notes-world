@@ -1,9 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { ItemType, ItemStatus, TaskStatus, type Item } from "../types";
+import { ItemType, ItemStatus, type Item } from "../types";
 import { linkify } from "../utils/linkify";
 import { useItemDrawer } from "./drawer/useItemDrawer";
 import { TagPicker } from "./drawer/TagPicker";
-import { TaskActions } from "./drawer/TaskActions";
+import { TaskFields } from "./drawer/TaskFields";
 import { DependenciesPanel } from "./drawer/DependenciesPanel";
 
 export function ItemDrawer() {
@@ -14,10 +14,6 @@ export function ItemDrawer() {
 
   const { item, loading } = d;
   const isArchived = item?.status === ItemStatus.Archived;
-  const taskStatus =
-    item?.item_type === ItemType.Task
-      ? (item.type_data as { task_status?: TaskStatus } | null)?.task_status
-      : undefined;
 
   return (
     <>
@@ -112,17 +108,16 @@ export function ItemDrawer() {
               />
             )}
 
+            {/* Status / priority (editable, tasks only) */}
+            <TaskFields
+              item={item}
+              isArchived={!!isArchived}
+              saving={d.saving}
+              onSave={d.saveTaskField}
+            />
+
             {/* Type data */}
             {item.type_data && <TypeDataPanel item={item} />}
-
-            {/* Task actions */}
-            {item.item_type === ItemType.Task && !isArchived && (
-              <TaskActions
-                taskStatus={taskStatus}
-                actioning={d.actioning}
-                onAction={d.handleTaskAction}
-              />
-            )}
 
             {/* Dependencies */}
             {(d.deps.length > 0 ||
@@ -303,8 +298,7 @@ function TypeDataPanel({ item }: { item: import("../types").Item }) {
   const rows: Array<[string, string | undefined]> = [];
 
   if (item.item_type === ItemType.Task) {
-    rows.push([t("app.drawer.status"), td.task_status]);
-    rows.push([t("app.drawer.priority"), td.priority]);
+    // Status & priority are edited above (TaskFields); only show completion here.
     if (td.completed_at)
       rows.push([
         t("app.drawer.completed"),

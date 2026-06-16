@@ -98,7 +98,9 @@
     "deleteCardTitle": "Διαγραφή σημείωσης;",
     "dueDate": "Ημ/νία λήξης",
     "startDate": "Ημ/νία έναρξης",
-    "dateNotSet": "Μη ορισμένο"
+    "dateNotSet": "Μη ορισμένο",
+    "status": "Κατάσταση",
+    "priority": "Προτεραιότητα"
   },
   "account": {
     "title": "Λογαριασμός",

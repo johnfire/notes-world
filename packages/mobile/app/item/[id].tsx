@@ -31,7 +31,7 @@ import {
   type DateField,
 } from "../../src/lib/dueDate";
 import { colors, spacing, radius, font } from "../../src/theme";
-import { ItemType } from "@notes-world/shared";
+import { ItemType, TaskStatus, Priority } from "@notes-world/shared";
 import type { Item, TypeData } from "@notes-world/shared";
 
 // Picked Date -> local YYYY-MM-DD (date-only; avoids a UTC off-by-one day).
@@ -71,6 +71,7 @@ export default function ItemScreen() {
   // Open date picker ("due_date" | "start_date" | null) and in-flight save flag.
   const [picker, setPicker] = useState<DateField | null>(null);
   const [savingDates, setSavingDates] = useState(false);
+  const [savingTask, setSavingTask] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -182,6 +183,34 @@ export default function ItemScreen() {
     }
   }
 
+  // Status/priority also live in the type_data blob — merge in the change and
+  // send the whole thing. A null value clears the field (e.g. completed_at when
+  // moving a task off Done). Persists immediately.
+  async function persistTaskField(patch: Record<string, string | null>) {
+    if (!item) return;
+    const merged: Record<string, unknown> = {
+      ...((item.type_data as Record<string, unknown> | null) ?? {}),
+    };
+    for (const [key, value] of Object.entries(patch)) {
+      if (value === null) delete merged[key];
+      else merged[key] = value;
+    }
+    setSavingTask(true);
+    try {
+      const updated = await updateItem(item.id, { type_data: merged as TypeData });
+      setItem(updated);
+    } catch (err) {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "ItemScreen.persistTaskField",
+      });
+      Alert.alert(t("item.saveFailedTitle"), t("item.saveFailedMsg"));
+    } finally {
+      setSavingTask(false);
+    }
+  }
+
   function dateRow(field: DateField, label: string, value?: string) {
     return (
       <View style={s.dateRow}>
@@ -286,6 +315,12 @@ export default function ItemScreen() {
   }
 
   const typeColor = TYPE_COLORS[item.item_type] ?? colors.typeUntyped;
+  const taskTd = item.type_data as {
+    task_status?: string;
+    priority?: string;
+  } | null;
+  const statusValue = taskTd?.task_status ?? TaskStatus.Open;
+  const priorityValue = taskTd?.priority ?? Priority.Normal;
 
   return (
     <SafeAreaView style={s.root} edges={["bottom"]}>
@@ -329,6 +364,60 @@ export default function ItemScreen() {
                 t("item.startDate"),
                 dateOf(item, "start_date"),
               )}
+            </View>
+          )}
+          {item.item_type === ItemType.Task && (
+            <View style={s.fields}>
+              <View style={s.fieldGroup}>
+                <Text style={s.fieldLabel}>{t("item.status")}</Text>
+                <View style={s.chipRow}>
+                  {Object.values(TaskStatus).map((st) => {
+                    const active = statusValue === st;
+                    return (
+                      <Pressable
+                        key={st}
+                        disabled={savingTask}
+                        onPress={() =>
+                          void persistTaskField({
+                            task_status: st,
+                            completed_at:
+                              st === TaskStatus.Done
+                                ? new Date().toISOString()
+                                : null,
+                          })
+                        }
+                        style={[s.chip, active && s.chipActive]}
+                        hitSlop={4}
+                      >
+                        <Text style={[s.chipTxt, active && s.chipTxtActive]}>
+                          {st}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+              </View>
+              <View style={s.fieldGroup}>
+                <Text style={s.fieldLabel}>{t("item.priority")}</Text>
+                <View style={s.chipRow}>
+                  {Object.values(Priority).map((p) => {
+                    const active = priorityValue === p;
+                    return (
+                      <Pressable
+                        key={p}
+                        disabled={savingTask}
+                        onPress={() => void persistTaskField({ priority: p })}
+                        style={[s.chip, active && s.chipActive]}
+                        hitSlop={4}
+                      >
+                        <Text style={[s.chipTxt, active && s.chipTxtActive]}>
+                          {p}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+              </View>
             </View>
           )}
           {picker && (
@@ -422,6 +511,43 @@ const s = StyleSheet.create({
   },
   dateClear: {
     marginLeft: spacing.xs,
+  },
+  fields: {
+    gap: spacing.md,
+    marginTop: spacing.xs,
+  },
+  fieldGroup: {
+    gap: spacing.xs,
+  },
+  fieldLabel: {
+    color: colors.textMuted,
+    fontSize: font.sm,
+  },
+  chipRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: spacing.xs,
+  },
+  chip: {
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.sm,
+    backgroundColor: colors.surface,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.xs,
+  },
+  chipActive: {
+    backgroundColor: colors.accent,
+    borderColor: colors.accent,
+  },
+  chipTxt: {
+    color: colors.textMuted,
+    fontSize: font.sm,
+    fontWeight: "600",
+  },
+  chipTxtActive: {
+    color: colors.text,
+    fontWeight: "700",
   },
   deleteBtn: {
     flexDirection: "row",

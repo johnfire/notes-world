@@ -98,7 +98,9 @@
     "deleteCardTitle": "Изтриване на бележката?",
     "dueDate": "Дата на падеж",
     "startDate": "Начална дата",
-    "dateNotSet": "Не е зададено"
+    "dateNotSet": "Не е зададено",
+    "status": "Статус",
+    "priority": "Приоритет"
   },
   "account": {
     "title": "Акаунт",

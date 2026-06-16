@@ -98,7 +98,9 @@
     "deleteCardTitle": "Notiz löschen?",
     "dueDate": "Fälligkeitsdatum",
     "startDate": "Startdatum",
-    "dateNotSet": "Nicht gesetzt"
+    "dateNotSet": "Nicht gesetzt",
+    "status": "Status",
+    "priority": "Priorität"
   },
   "account": {
     "title": "Konto",

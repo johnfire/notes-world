@@ -98,7 +98,9 @@
     "deleteCardTitle": "Удалить заметку?",
     "dueDate": "Дата срока",
     "startDate": "Дата начала",
-    "dateNotSet": "Не задано"
+    "dateNotSet": "Не задано",
+    "status": "Статус",
+    "priority": "Приоритет"
   },
   "account": {
     "title": "Аккаунт",

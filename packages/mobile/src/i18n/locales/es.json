@@ -98,7 +98,9 @@
     "deleteCardTitle": "¿Eliminar la nota?",
     "dueDate": "Fecha de vencimiento",
     "startDate": "Fecha de inicio",
-    "dateNotSet": "Sin definir"
+    "dateNotSet": "Sin definir",
+    "status": "Estado",
+    "priority": "Prioridad"
   },
   "account": {
     "title": "Cuenta",

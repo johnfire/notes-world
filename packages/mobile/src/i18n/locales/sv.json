@@ -98,7 +98,9 @@
     "deleteCardTitle": "Ta bort anteckning?",
     "dueDate": "Förfallodatum",
     "startDate": "Startdatum",
-    "dateNotSet": "Inte angivet"
+    "dateNotSet": "Inte angivet",
+    "status": "Status",
+    "priority": "Prioritet"
   },
   "account": {
     "title": "Konto",

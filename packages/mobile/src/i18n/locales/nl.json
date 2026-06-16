@@ -98,7 +98,9 @@
     "deleteCardTitle": "Notitie verwijderen?",
     "dueDate": "Vervaldatum",
     "startDate": "Startdatum",
-    "dateNotSet": "Niet ingesteld"
+    "dateNotSet": "Niet ingesteld",
+    "status": "Status",
+    "priority": "Prioriteit"
   },
   "account": {
     "title": "Account",

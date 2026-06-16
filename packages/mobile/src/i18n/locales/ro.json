@@ -98,7 +98,9 @@
     "deleteCardTitle": "Ștergi notița?",
     "dueDate": "Data scadenței",
     "startDate": "Data începerii",
-    "dateNotSet": "Nesetat"
+    "dateNotSet": "Nesetat",
+    "status": "Stare",
+    "priority": "Prioritate"
   },
   "account": {
     "title": "Cont",

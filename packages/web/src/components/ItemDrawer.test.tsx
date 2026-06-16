@@ -43,6 +43,8 @@ function makeDrawerState(overrides = {}) {
     openItem: vi.fn(),
     saveTitle: mockSaveTitle,
     saveBody: mockSaveBody,
+    saveDate: vi.fn(),
+    saveTaskField: vi.fn(),
     handleAddTag: vi.fn(),
     handleCreateAndAddTag: vi.fn(),
     handleRemoveTag: vi.fn(),
@@ -141,7 +143,7 @@ describe('ItemDrawer', () => {
     expect(screen.queryByText('Promote to…')).not.toBeInTheDocument();
   });
 
-  test('shows task actions for tasks', () => {
+  test('shows editable status and priority for tasks', () => {
     drawerState = makeDrawerState({
       item: {
         id: 'item-1', user_id: 'u1', title: 'Task', body: null,
@@ -151,8 +153,33 @@ describe('ItemDrawer', () => {
       },
     });
     render(<ItemDrawer />);
-    expect(screen.getByText('Start')).toBeInTheDocument();
-    expect(screen.getByText('Complete')).toBeInTheDocument();
+    expect(screen.getByText('Status')).toBeInTheDocument();
+    expect(screen.getByText('Priority')).toBeInTheDocument();
+    // Status select reflects the current value; priority defaults to Normal.
+    expect(screen.getByDisplayValue('Open')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('Normal')).toBeInTheDocument();
+  });
+
+  test('changing status saves task_status and stamps completion on Done', () => {
+    const saveTaskField = vi.fn();
+    drawerState = makeDrawerState({
+      saveTaskField,
+      item: {
+        id: 'item-1', user_id: 'u1', title: 'Task', body: null,
+        item_type: ItemType.Task, status: ItemStatus.Active,
+        type_data: { task_status: TaskStatus.Open, priority: 'Normal' }, color: null,
+        created_at: '', updated_at: '',
+      },
+    });
+    render(<ItemDrawer />);
+    fireEvent.change(screen.getByDisplayValue('Open'), {
+      target: { value: TaskStatus.Done },
+    });
+    expect(saveTaskField).toHaveBeenCalledWith(
+      expect.objectContaining({ task_status: TaskStatus.Done }),
+    );
+    const arg = saveTaskField.mock.calls[0][0];
+    expect(arg.completed_at).toBeTruthy();
   });
 
   test('shows created/updated timestamps', () => {

@@ -98,7 +98,9 @@
     "deleteCardTitle": "Delete note?",
     "dueDate": "Due date",
     "startDate": "Start date",
-    "dateNotSet": "Not set"
+    "dateNotSet": "Not set",
+    "status": "Status",
+    "priority": "Priority"
   },
   "account": {
     "title": "Account",

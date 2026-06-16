@@ -98,7 +98,9 @@
     "deleteCardTitle": "Törlöd a jegyzetet?",
     "dueDate": "Határidő dátuma",
     "startDate": "Kezdés dátuma",
-    "dateNotSet": "Nincs beállítva"
+    "dateNotSet": "Nincs beállítva",
+    "status": "Állapot",
+    "priority": "Prioritás"
   },
   "account": {
     "title": "Fiók",

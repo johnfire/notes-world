@@ -98,7 +98,9 @@
     "deleteCardTitle": "删除笔记？",
     "dueDate": "截止日期",
     "startDate": "开始日期",
-    "dateNotSet": "未设置"
+    "dateNotSet": "未设置",
+    "status": "状态",
+    "priority": "优先级"
   },
   "account": {
     "title": "账户",

@@ -98,7 +98,9 @@
     "deleteCardTitle": "Slet note?",
     "dueDate": "Forfaldsdato",
     "startDate": "Startdato",
-    "dateNotSet": "Ikke angivet"
+    "dateNotSet": "Ikke angivet",
+    "status": "Status",
+    "priority": "Prioritet"
   },
   "account": {
     "title": "Konto",

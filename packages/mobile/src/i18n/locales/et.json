@@ -98,7 +98,9 @@
     "deleteCardTitle": "Kustutada märge?",
     "dueDate": "Tähtaja kuupäev",
     "startDate": "Alguskuupäev",
-    "dateNotSet": "Määramata"
+    "dateNotSet": "Määramata",
+    "status": "Olek",
+    "priority": "Prioriteet"
   },
   "account": {
     "title": "Konto",

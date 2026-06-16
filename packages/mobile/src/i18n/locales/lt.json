@@ -98,7 +98,9 @@
     "deleteCardTitle": "Ištrinti užrašą?",
     "dueDate": "Termino data",
     "startDate": "Pradžios data",
-    "dateNotSet": "Nenustatyta"
+    "dateNotSet": "Nenustatyta",
+    "status": "Būsena",
+    "priority": "Prioritetas"
   },
   "account": {
     "title": "Paskyra",

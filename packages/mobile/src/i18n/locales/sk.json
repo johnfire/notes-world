@@ -98,7 +98,9 @@
     "deleteCardTitle": "Odstrániť poznámku?",
     "dueDate": "Dátum splatnosti",
     "startDate": "Dátum začiatku",
-    "dateNotSet": "Nenastavené"
+    "dateNotSet": "Nenastavené",
+    "status": "Stav",
+    "priority": "Priorita"
   },
   "account": {
     "title": "Účet",

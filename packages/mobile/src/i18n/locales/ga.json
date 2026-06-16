@@ -98,7 +98,9 @@
     "deleteCardTitle": "Scrios nóta?",
     "dueDate": "Spriocdháta",
     "startDate": "Dáta tosaigh",
-    "dateNotSet": "Gan socrú"
+    "dateNotSet": "Gan socrú",
+    "status": "Stádas",
+    "priority": "Tosaíocht"
   },
   "account": {
     "title": "Cuntas",

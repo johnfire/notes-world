@@ -98,7 +98,9 @@
     "deleteCardTitle": "Dzēst piezīmi?",
     "dueDate": "Termiņa datums",
     "startDate": "Sākuma datums",
-    "dateNotSet": "Nav iestatīts"
+    "dateNotSet": "Nav iestatīts",
+    "status": "Statuss",
+    "priority": "Prioritāte"
   },
   "account": {
     "title": "Konts",

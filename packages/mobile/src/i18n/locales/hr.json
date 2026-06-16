@@ -98,7 +98,9 @@
     "deleteCardTitle": "Izbrisati bilješku?",
     "dueDate": "Datum dospijeća",
     "startDate": "Datum početka",
-    "dateNotSet": "Nije postavljeno"
+    "dateNotSet": "Nije postavljeno",
+    "status": "Status",
+    "priority": "Prioritet"
   },
   "account": {
     "title": "Račun",

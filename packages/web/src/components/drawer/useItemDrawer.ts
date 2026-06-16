@@ -154,6 +154,36 @@ export function useItemDrawer() {
     }
   }
 
+  // Status/priority live in the type_data blob, which the server replaces
+  // wholesale, so merge the change in. A null value clears the field. Callers
+  // stamp/clear completed_at alongside task_status to match the complete action.
+  async function saveTaskField(patch: Record<string, string | null>) {
+    if (!item) return;
+    const merged: Record<string, unknown> = {
+      ...((item.type_data as Record<string, unknown> | null) ?? {}),
+    };
+    for (const [key, value] of Object.entries(patch)) {
+      if (value === null) delete merged[key];
+      else merged[key] = value;
+    }
+    setSaving(true);
+    try {
+      const updated = await api.items.update(item.id, {
+        type_data: merged as Item["type_data"],
+      });
+      setItem(updated);
+      updateItemInContext(updated);
+    } catch (err) {
+      api.reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "useItemDrawer.saveTaskField",
+      });
+    } finally {
+      setSaving(false);
+    }
+  }
+
   async function handleAddTag(tag: Tag) {
     if (!item) return;
     await api.tags.tagItem(item.id, tag.id);
@@ -274,6 +304,7 @@ export function useItemDrawer() {
     saveTitle,
     saveBody,
     saveDate,
+    saveTaskField,
     handleAddTag,
     handleCreateAndAddTag,
     handleRemoveTag,
