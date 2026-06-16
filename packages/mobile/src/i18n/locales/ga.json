@@ -187,5 +187,11 @@
     "title": "Deais",
     "empty": "Gan bloic go fóill. Cuir leo san aip ghréasáin iad.",
     "emptyBlock": "Faic anseo"
+  },
+  "checklists": {
+    "rename": "Athainmnigh",
+    "namePlaceholder": "Ainm an liosta",
+    "deleteTitle": "Scrios an liosta seo?",
+    "deleteMsg": "Scriosfaidh sé seo an liosta agus a mhíreanna go buan."
   }
 }

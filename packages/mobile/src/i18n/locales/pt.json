@@ -187,5 +187,11 @@
     "title": "Painel",
     "empty": "Ainda sem blocos. Adicione-os na app web.",
     "emptyBlock": "Nada aqui"
+  },
+  "checklists": {
+    "rename": "Renomear",
+    "namePlaceholder": "Nome da lista",
+    "deleteTitle": "Eliminar esta lista?",
+    "deleteMsg": "Isto elimina permanentemente a lista e os seus itens."
   }
 }

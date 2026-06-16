@@ -187,5 +187,11 @@
     "title": "Tableau de bord",
     "empty": "Aucun bloc. Ajoutez-en dans l’app web.",
     "emptyBlock": "Rien ici"
+  },
+  "checklists": {
+    "rename": "Renommer",
+    "namePlaceholder": "Nom de la liste",
+    "deleteTitle": "Supprimer cette liste ?",
+    "deleteMsg": "Cela supprime définitivement la liste et ses éléments."
   }
 }

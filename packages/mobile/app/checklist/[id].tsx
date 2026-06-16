@@ -27,6 +27,8 @@ export default function ChecklistDetailScreen() {
   const [items, setItems] = useState<ChecklistItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [newName, setNewName] = useState("");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editValue, setEditValue] = useState("");
 
   useEffect(() => {
     getChecklist(id)
@@ -75,6 +77,22 @@ export default function ChecklistDetailScreen() {
     }
   }
 
+  async function saveRename(item: ChecklistItem) {
+    const name = editValue.trim();
+    setEditingId(null);
+    if (!name || name === item.name) return;
+    try {
+      const updated = await updateChecklistItem(id, item.id, { name });
+      setItems((prev) => prev.map((i) => (i.id === item.id ? updated : i)));
+    } catch (err) {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "ChecklistDetailScreen.rename",
+      });
+    }
+  }
+
   async function onDelete(itemId: string) {
     try {
       await deleteChecklistItem(id, itemId);
@@ -119,9 +137,29 @@ export default function ChecklistDetailScreen() {
                   color={item.checked ? colors.accent : colors.textMuted}
                 />
               </Pressable>
-              <Text style={[s.name, item.checked && s.nameChecked]}>
-                {item.name}
-              </Text>
+              {editingId === item.id ? (
+                <TextInput
+                  style={[s.name, s.nameInput]}
+                  value={editValue}
+                  onChangeText={setEditValue}
+                  autoFocus
+                  onBlur={() => saveRename(item)}
+                  onSubmitEditing={() => saveRename(item)}
+                  returnKeyType="done"
+                />
+              ) : (
+                <Pressable
+                  style={s.nameWrap}
+                  onPress={() => {
+                    setEditingId(item.id);
+                    setEditValue(item.name);
+                  }}
+                >
+                  <Text style={[s.name, item.checked && s.nameChecked]}>
+                    {item.name}
+                  </Text>
+                </Pressable>
+              )}
               <Pressable onPress={() => onDelete(item.id)} hitSlop={8}>
                 <Ionicons name="close" size={18} color={colors.textMuted} />
               </Pressable>
@@ -171,7 +209,13 @@ const s = StyleSheet.create({
     borderBottomColor: colors.border,
   },
   check: { padding: 2 },
+  nameWrap: { flex: 1 },
   name: { flex: 1, color: colors.text, fontSize: font.md },
+  nameInput: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.accent,
+    paddingVertical: 2,
+  },
   nameChecked: {
     color: colors.textMuted,
     textDecorationLine: "line-through",

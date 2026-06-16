@@ -187,5 +187,11 @@
     "title": "Panelis",
     "empty": "Vēl nav bloku. Pievienojiet tos tīmekļa lietotnē.",
     "emptyBlock": "Šeit nekā nav"
+  },
+  "checklists": {
+    "rename": "Pārdēvēt",
+    "namePlaceholder": "Saraksta nosaukums",
+    "deleteTitle": "Dzēst šo sarakstu?",
+    "deleteMsg": "Tādējādi saraksts un tā vienumi tiks neatgriezeniski dzēsti."
   }
 }

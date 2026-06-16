@@ -187,5 +187,11 @@
     "title": "Dashboard",
     "empty": "Nog geen blokken. Voeg ze toe in de web-app.",
     "emptyBlock": "Niets hier"
+  },
+  "checklists": {
+    "rename": "Naam wijzigen",
+    "namePlaceholder": "Lijstnaam",
+    "deleteTitle": "Deze lijst verwijderen?",
+    "deleteMsg": "Hiermee worden de lijst en items permanent verwijderd."
   }
 }

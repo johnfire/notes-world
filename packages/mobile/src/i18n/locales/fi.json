@@ -187,5 +187,11 @@
     "title": "Kojelauta",
     "empty": "Ei vielä lohkoja. Lisää ne verkkosovelluksessa.",
     "emptyBlock": "Ei mitään täällä"
+  },
+  "checklists": {
+    "rename": "Nimeä uudelleen",
+    "namePlaceholder": "Listan nimi",
+    "deleteTitle": "Poistetaanko tämä lista?",
+    "deleteMsg": "Tämä poistaa listan ja sen kohteet pysyvästi."
   }
 }

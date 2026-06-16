@@ -187,5 +187,11 @@
     "title": "Skydelis",
     "empty": "Dar nėra blokų. Pridėkite juos žiniatinklio programoje.",
     "emptyBlock": "Čia nieko nėra"
+  },
+  "checklists": {
+    "rename": "Pervadinti",
+    "namePlaceholder": "Sąrašo pavadinimas",
+    "deleteTitle": "Ištrinti šį sąrašą?",
+    "deleteMsg": "Tai negrįžtamai ištrins sąrašą ir jo elementus."
   }
 }

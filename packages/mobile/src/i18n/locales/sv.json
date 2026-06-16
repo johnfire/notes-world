@@ -187,5 +187,11 @@
     "title": "Översikt",
     "empty": "Inga block än. Lägg till dem i webbappen.",
     "emptyBlock": "Inget här"
+  },
+  "checklists": {
+    "rename": "Byt namn",
+    "namePlaceholder": "Listnamn",
+    "deleteTitle": "Ta bort listan?",
+    "deleteMsg": "Detta tar bort listan och dess objekt permanent."
   }
 }

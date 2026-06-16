@@ -187,5 +187,11 @@
     "title": "Nadzorna ploča",
     "empty": "Još nema blokova. Dodajte ih u web aplikaciji.",
     "emptyBlock": "Ovdje nema ničega"
+  },
+  "checklists": {
+    "rename": "Preimenuj",
+    "namePlaceholder": "Naziv popisa",
+    "deleteTitle": "Izbrisati ovaj popis?",
+    "deleteMsg": "Ovo trajno briše popis i njegove stavke."
   }
 }

@@ -187,5 +187,11 @@
     "title": "Panel",
     "empty": "Aún no hay bloques. Añádelos en la app web.",
     "emptyBlock": "Nada aquí"
+  },
+  "checklists": {
+    "rename": "Renombrar",
+    "namePlaceholder": "Nombre de la lista",
+    "deleteTitle": "¿Eliminar esta lista?",
+    "deleteMsg": "Esto elimina permanentemente la lista y sus elementos."
   }
 }

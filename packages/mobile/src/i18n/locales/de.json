@@ -187,5 +187,11 @@
     "title": "Dashboard",
     "empty": "Noch keine Blöcke. Füge sie in der Web-App hinzu.",
     "emptyBlock": "Nichts vorhanden"
+  },
+  "checklists": {
+    "rename": "Umbenennen",
+    "namePlaceholder": "Listenname",
+    "deleteTitle": "Diese Liste löschen?",
+    "deleteMsg": "Dadurch werden die Liste und ihre Einträge dauerhaft gelöscht."
   }
 }

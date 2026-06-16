@@ -187,5 +187,11 @@
     "title": "Tablou de bord",
     "empty": "Încă niciun bloc. Adaugă-le în aplicația web.",
     "emptyBlock": "Nimic aici"
+  },
+  "checklists": {
+    "rename": "Redenumește",
+    "namePlaceholder": "Numele listei",
+    "deleteTitle": "Ștergi această listă?",
+    "deleteMsg": "Aceasta șterge definitiv lista și elementele sale."
   }
 }

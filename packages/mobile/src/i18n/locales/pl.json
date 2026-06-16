@@ -187,5 +187,11 @@
     "title": "Panel",
     "empty": "Brak bloków. Dodaj je w aplikacji web.",
     "emptyBlock": "Nic tutaj"
+  },
+  "checklists": {
+    "rename": "Zmień nazwę",
+    "namePlaceholder": "Nazwa listy",
+    "deleteTitle": "Usunąć tę listę?",
+    "deleteMsg": "Spowoduje to trwałe usunięcie listy i jej elementów."
   }
 }

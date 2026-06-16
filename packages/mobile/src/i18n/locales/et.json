@@ -187,5 +187,11 @@
     "title": "Töölaud",
     "empty": "Plokke veel pole. Lisa need veebirakenduses.",
     "emptyBlock": "Siin pole midagi"
+  },
+  "checklists": {
+    "rename": "Nimeta ümber",
+    "namePlaceholder": "Loendi nimi",
+    "deleteTitle": "Kustutada see loend?",
+    "deleteMsg": "See kustutab jäädavalt loendi ja selle üksused."
   }
 }

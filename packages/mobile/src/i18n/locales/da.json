@@ -187,5 +187,11 @@
     "title": "Oversigt",
     "empty": "Ingen blokke endnu. Tilføj dem i web-appen.",
     "emptyBlock": "Intet her"
+  },
+  "checklists": {
+    "rename": "Omdøb",
+    "namePlaceholder": "Listenavn",
+    "deleteTitle": "Slet denne liste?",
+    "deleteMsg": "Dette sletter listen og dens elementer permanent."
   }
 }

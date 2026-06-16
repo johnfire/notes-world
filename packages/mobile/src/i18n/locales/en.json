@@ -187,5 +187,11 @@
     "title": "Dashboard",
     "empty": "No blocks yet. Add them on the web app.",
     "emptyBlock": "Nothing here"
+  },
+  "checklists": {
+    "rename": "Rename",
+    "namePlaceholder": "List name",
+    "deleteTitle": "Delete this list?",
+    "deleteMsg": "This permanently deletes the list and its items."
   }
 }

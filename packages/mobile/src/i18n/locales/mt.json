@@ -187,5 +187,11 @@
     "title": "Dashboard",
     "empty": "Għad m’hemm l-ebda blokk. Żidhom fl-app tal-web.",
     "emptyBlock": "Xejn hawn"
+  },
+  "checklists": {
+    "rename": "Ibdel l-isem",
+    "namePlaceholder": "Isem tal-lista",
+    "deleteTitle": "Ħassar din il-lista?",
+    "deleteMsg": "Dan iħassar il-lista u l-elementi tagħha għal dejjem."
   }
 }

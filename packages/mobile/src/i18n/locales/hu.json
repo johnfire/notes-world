@@ -187,5 +187,11 @@
     "title": "Irányítópult",
     "empty": "Még nincsenek blokkok. Add hozzá a webes appban.",
     "emptyBlock": "Itt nincs semmi"
+  },
+  "checklists": {
+    "rename": "Átnevezés",
+    "namePlaceholder": "Lista neve",
+    "deleteTitle": "Törli ezt a listát?",
+    "deleteMsg": "Ezzel véglegesen törli a listát és elemeit."
   }
 }

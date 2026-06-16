@@ -187,5 +187,11 @@
     "title": "仪表板",
     "empty": "还没有区块。请在网页应用中添加。",
     "emptyBlock": "暂无内容"
+  },
+  "checklists": {
+    "rename": "重命名",
+    "namePlaceholder": "列表名称",
+    "deleteTitle": "删除此列表？",
+    "deleteMsg": "这将永久删除列表及其条目。"
   }
 }

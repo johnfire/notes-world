@@ -187,5 +187,11 @@
     "title": "Nadzorna plošča",
     "empty": "Še ni blokov. Dodajte jih v spletni aplikaciji.",
     "emptyBlock": "Tukaj ni ničesar"
+  },
+  "checklists": {
+    "rename": "Preimenuj",
+    "namePlaceholder": "Ime seznama",
+    "deleteTitle": "Izbrišem ta seznam?",
+    "deleteMsg": "S tem trajno izbrišete seznam in njegove elemente."
   }
 }

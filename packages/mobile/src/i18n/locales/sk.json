@@ -187,5 +187,11 @@
     "title": "Prehľad",
     "empty": "Zatiaľ žiadne bloky. Pridajte ich vo webovej aplikácii.",
     "emptyBlock": "Nič tu nie je"
+  },
+  "checklists": {
+    "rename": "Premenovať",
+    "namePlaceholder": "Názov zoznamu",
+    "deleteTitle": "Odstrániť tento zoznam?",
+    "deleteMsg": "Týmto sa natrvalo odstráni zoznam aj jeho položky."
   }
 }

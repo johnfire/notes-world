@@ -187,5 +187,11 @@
     "title": "Dashboard",
     "empty": "Ancora nessun blocco. Aggiungili nell’app web.",
     "emptyBlock": "Niente qui"
+  },
+  "checklists": {
+    "rename": "Rinomina",
+    "namePlaceholder": "Nome elenco",
+    "deleteTitle": "Eliminare questo elenco?",
+    "deleteMsg": "Questo elimina definitivamente l’elenco e i suoi elementi."
   }
 }
