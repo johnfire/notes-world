@@ -48,7 +48,8 @@ Read only the doc relevant to the current task.
 
 | File                   | Domain       | Read when...                                                    |
 | ---------------------- | ------------ | --------------------------------------------------------------- |
-| `docs/architecture.md` | Architecture | understanding the stack, packages, ADRs, data flow              |
+| `docs/architecture.md` | Architecture | quick reference — stack, packages, ADRs, data flow              |
+| `docs/architecture-2026-06-17.md` | Architecture | deep current-state snapshot — all surfaces, data model, CI/CD, risks |
 | `docs/deployment.md`   | Deployment   | deploying, SSH access, Docker, VPS setup                        |
 | `docs/database.md`     | Database     | schema, migrations, limits, backup, archive policy              |
 | `docs/features.md`     | Features     | what's built, what's planned, phase status                      |

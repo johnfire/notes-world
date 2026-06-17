@@ -1,8 +1,9 @@
 # Architecture
 
 **Last Updated:** 2026-05-26
-**Status:** current
+**Status:** current (quick reference)
 **Read when:** starting any dev task, understanding how the system fits together
+**Deep dive:** see [architecture-2026-06-17.md](./architecture-2026-06-17.md) for the full current-state snapshot (all client surfaces, data model, auth, i18n, CI/CD, risks)
 
 ## Summary
 
