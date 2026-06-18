@@ -23,6 +23,8 @@ import {
   setTagColor,
 } from "../../src/api/tags";
 import { reportClientError } from "../../src/api/report";
+import { getSortOrder } from "../../src/api/sortOrders";
+import { applySavedOrder } from "../../src/lib/sortItems";
 import { useRefreshOnFocus } from "../../src/lib/useRefreshOnFocus";
 import { colors, spacing, radius, font } from "../../src/theme";
 import type { TagWithCount } from "@notes-world/shared";
@@ -53,8 +55,14 @@ export default function TagsScreen() {
   async function load() {
     try {
       setError(null);
-      const data = await listTags();
-      setTags(data);
+      // Apply the same custom tag order the web sidebar saves (context
+      // "tags:all") so the list matches across platforms; tags without a saved
+      // position fall to the end, exactly as on web.
+      const [data, savedOrder] = await Promise.all([
+        listTags(),
+        getSortOrder("tags:all").catch(() => []),
+      ]);
+      setTags(applySavedOrder(data, savedOrder));
     } catch (err) {
       void reportClientError({
         message: (err as Error).message,
