@@ -19,6 +19,7 @@ import {
 } from "../../src/api/checklists";
 import { reportClientError } from "../../src/api/report";
 import { colors, spacing, radius, font } from "../../src/theme";
+import { sortChecklistItems } from "@notes-world/shared";
 import type { ChecklistItem } from "@notes-world/shared";
 
 export default function ChecklistDetailScreen() {
@@ -126,7 +127,7 @@ export default function ChecklistDetailScreen() {
         <ActivityIndicator style={s.loader} color={colors.accent} />
       ) : (
         <FlatList
-          data={items}
+          data={sortChecklistItems(items)}
           keyExtractor={(i) => i.id}
           renderItem={({ item }) => (
             <View style={s.row}>

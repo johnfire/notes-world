@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ItemType, ItemStatus, type Item } from '../../types';
-import { formatDueShort, sortItemsByDate, sortItemsByStatus, dateOf, mergeTypeData } from '@notes-world/shared';
+import { formatDueShort, sortItemsByDate, sortItemsByStatus, sortChecklistItems, dateOf, mergeTypeData } from '@notes-world/shared';
 
 function task(id: string, title: string, dates?: { due_date?: string; start_date?: string }): Item {
   return {
@@ -178,6 +178,27 @@ describe('sortItemsByStatus', () => {
     const items = [statusTask('a', 'A', 'Done'), statusTask('b', 'B', 'Open')];
     const before = items.map(i => i.id);
     sortItemsByStatus(items);
+    expect(items.map(i => i.id)).toEqual(before);
+  });
+});
+
+describe('sortChecklistItems', () => {
+  const ci = (id: string, checked: boolean, sort_order: number) => ({ id, checked, sort_order });
+
+  it('puts unchecked items before checked ones', () => {
+    const items = [ci('a', true, 0), ci('b', false, 1), ci('c', true, 2), ci('d', false, 3)];
+    expect(sortChecklistItems(items).map(i => i.id)).toEqual(['b', 'd', 'a', 'c']);
+  });
+
+  it('keeps sort_order within each checked group', () => {
+    const items = [ci('x', false, 2), ci('y', false, 0), ci('z', false, 1)];
+    expect(sortChecklistItems(items).map(i => i.id)).toEqual(['y', 'z', 'x']);
+  });
+
+  it('does not mutate the input array', () => {
+    const items = [ci('a', true, 0), ci('b', false, 1)];
+    const before = items.map(i => i.id);
+    sortChecklistItems(items);
     expect(items.map(i => i.id)).toEqual(before);
   });
 });

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Checklist, ChecklistItem } from "../types";
+import { sortChecklistItems } from "@notes-world/shared";
 import * as api from "../api";
 
 export function ChecklistsView() {
@@ -204,7 +205,7 @@ function ChecklistDetail({
         </p>
       ) : (
         <div className="flex flex-col gap-2 mt-3">
-          {items.map((item) => (
+          {sortChecklistItems(items).map((item) => (
             <div
               key={item.id}
               className="card hover:border-surface-400 hover:bg-surface-600 transition-colors py-2 px-3 flex items-center gap-3 group"
