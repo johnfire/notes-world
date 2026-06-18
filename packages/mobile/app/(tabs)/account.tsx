@@ -419,6 +419,10 @@ export default function AccountScreen() {
             </Text>
           </Pressable>
         </View>
+
+        <Text style={s.version}>
+          notes-world v{Constants.expoConfig?.version ?? "?"}
+        </Text>
       </ScrollView>
 
       <Modal
@@ -464,6 +468,12 @@ function SectionHeader({ title }: { title: string }) {
 const s = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   scroll: { padding: spacing.md, gap: spacing.sm, paddingBottom: spacing.xl },
+  version: {
+    textAlign: "center",
+    color: colors.textDim,
+    fontSize: font.sm,
+    marginTop: spacing.lg,
+  },
   heading: {
     color: colors.text,
     fontSize: font.xxl,

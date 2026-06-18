@@ -59,7 +59,7 @@ jobs:
         if: steps.guard.outputs.skip != 'true'
         run: echo "VERSION_CODE=$(( ${{ github.run_number }} + 10 ))" >> "$GITHUB_ENV"
 
-      - name: Inject versionCode + auto-incrementing versionName into build.gradle
+      - name: Inject versionCode + auto-incrementing versionName
         if: steps.guard.outputs.skip != 'true'
         run: |
           # versionName tracks the monotonic versionCode (e.g. 0.1.19, 0.1.20)
@@ -70,6 +70,11 @@ jobs:
           sed -i -E "s/versionName \"[^\"]*\"/versionName \"0.1.${VERSION_CODE}\"/" \
             packages/mobile/android/app/build.gradle
           grep -nE 'versionCode|versionName' packages/mobile/android/app/build.gradle
+          # Keep the JS-visible version (Constants.expoConfig.version — shown on
+          # the Account screen and attached to error reports) in lockstep with
+          # the native build, so the displayed version changes every publish.
+          node -e "const f='packages/mobile/app.json';const fs=require('fs');const j=JSON.parse(fs.readFileSync(f,'utf8'));j.expo.version='0.1.'+process.env.VERSION_CODE;fs.writeFileSync(f,JSON.stringify(j,null,2)+'\n')"
+          grep -n '"version"' packages/mobile/app.json
 
       - name: Build release AAB
         if: steps.guard.outputs.skip != 'true'
