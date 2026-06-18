@@ -23,8 +23,8 @@ import {
   setTagColor,
 } from "../../src/api/tags";
 import { reportClientError } from "../../src/api/report";
-import { getSortOrder } from "../../src/api/sortOrders";
-import { applySavedOrder } from "../../src/lib/sortItems";
+import { getSortOrder, saveSortOrder } from "../../src/api/sortOrders";
+import { applySavedOrder, moveItem } from "../../src/lib/sortItems";
 import { useRefreshOnFocus } from "../../src/lib/useRefreshOnFocus";
 import { colors, spacing, radius, font } from "../../src/theme";
 import type { TagWithCount } from "@notes-world/shared";
@@ -47,6 +47,7 @@ export default function TagsScreen() {
   const [adding, setAdding] = useState(false);
   const [newName, setNewName] = useState("");
   const [creating, setCreating] = useState(false);
+  const [reordering, setReordering] = useState(false);
   // Tag-actions sheet (rename / color / delete), opened by long-press.
   const [actionTag, setActionTag] = useState<TagWithCount | null>(null);
   const [renameValue, setRenameValue] = useState("");
@@ -163,22 +164,62 @@ export default function TagsScreen() {
     ]);
   }
 
+  // Reorder via up/down arrows, saved to the shared "tags:all" context so the
+  // newest order set on either platform becomes the order on both (last write
+  // wins). Mirrors the per-tag item reorder on the tag detail screen.
+  function onMove(index: number, direction: -1 | 1) {
+    setTags((prev) => {
+      const next = moveItem(prev, index, direction);
+      if (next !== prev) {
+        saveSortOrder(
+          "tags:all",
+          next.map((tg) => tg.id),
+        ).catch((err) => {
+          void reportClientError({
+            message: (err as Error).message,
+            stack: (err as Error).stack,
+            context: "TagsScreen.onMove",
+          });
+        });
+      }
+      return next;
+    });
+  }
+
   return (
     <SafeAreaView style={s.root} edges={["top"]}>
       <View style={s.headerRow}>
         <Text style={s.heading}>{t("tags.title")}</Text>
-        <Pressable
-          onPress={() => setAdding((a) => !a)}
-          hitSlop={8}
-          style={s.newBtn}
-        >
-          <Ionicons
-            name={adding ? "close" : "add"}
-            size={18}
-            color={colors.accent}
-          />
-          <Text style={s.newBtnText}>{t("tags.new")}</Text>
-        </Pressable>
+        <View style={s.headerActions}>
+          {tags.length > 1 && (
+            <Pressable
+              onPress={() => setReordering((r) => !r)}
+              hitSlop={8}
+              style={s.newBtn}
+            >
+              <Ionicons
+                name={reordering ? "checkmark" : "swap-vertical"}
+                size={18}
+                color={colors.accent}
+              />
+              <Text style={s.newBtnText}>
+                {reordering ? t("common.done") : t("tagDetail.reorder")}
+              </Text>
+            </Pressable>
+          )}
+          <Pressable
+            onPress={() => setAdding((a) => !a)}
+            hitSlop={8}
+            style={s.newBtn}
+          >
+            <Ionicons
+              name={adding ? "close" : "add"}
+              size={18}
+              color={colors.accent}
+            />
+            <Text style={s.newBtnText}>{t("tags.new")}</Text>
+          </Pressable>
+        </View>
       </View>
       {adding && (
         <View style={s.addRow}>
@@ -218,22 +259,63 @@ export default function TagsScreen() {
               tintColor={colors.accent}
             />
           }
-          renderItem={({ item }) => (
-            <Pressable
-              style={({ pressed }) => [s.row, pressed && s.rowPressed]}
-              onPress={() => router.push(`/tag/${item.id}` as never)}
-              onLongPress={() => openActions(item)}
-            >
-              <View
-                style={[
-                  s.dot,
-                  { backgroundColor: item.color ?? colors.accent },
-                ]}
-              />
-              <Text style={s.tagName}>{item.name}</Text>
-              <Text style={s.count}>{item.item_count ?? 0}</Text>
-            </Pressable>
-          )}
+          renderItem={({ item, index }) =>
+            reordering ? (
+              <View style={s.row}>
+                <View
+                  style={[
+                    s.dot,
+                    { backgroundColor: item.color ?? colors.accent },
+                  ]}
+                />
+                <Text style={s.tagName} numberOfLines={1}>
+                  {item.name}
+                </Text>
+                <Pressable
+                  onPress={() => onMove(index, -1)}
+                  hitSlop={8}
+                  disabled={index === 0}
+                  style={s.reorderBtn}
+                >
+                  <Text
+                    style={[s.reorderArrow, index === 0 && s.reorderDisabled]}
+                  >
+                    ↑
+                  </Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => onMove(index, 1)}
+                  hitSlop={8}
+                  disabled={index === tags.length - 1}
+                  style={s.reorderBtn}
+                >
+                  <Text
+                    style={[
+                      s.reorderArrow,
+                      index === tags.length - 1 && s.reorderDisabled,
+                    ]}
+                  >
+                    ↓
+                  </Text>
+                </Pressable>
+              </View>
+            ) : (
+              <Pressable
+                style={({ pressed }) => [s.row, pressed && s.rowPressed]}
+                onPress={() => router.push(`/tag/${item.id}` as never)}
+                onLongPress={() => openActions(item)}
+              >
+                <View
+                  style={[
+                    s.dot,
+                    { backgroundColor: item.color ?? colors.accent },
+                  ]}
+                />
+                <Text style={s.tagName}>{item.name}</Text>
+                <Text style={s.count}>{item.item_count ?? 0}</Text>
+              </Pressable>
+            )
+          }
           ListEmptyComponent={
             <Text style={s.empty}>{error ? error : t("tags.empty")}</Text>
           }
@@ -326,8 +408,12 @@ const s = StyleSheet.create({
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
   },
+  headerActions: { flexDirection: "row", alignItems: "center", gap: spacing.md },
   newBtn: { flexDirection: "row", alignItems: "center", gap: 2 },
   newBtnText: { color: colors.accent, fontSize: font.md, fontWeight: "600" },
+  reorderBtn: { paddingHorizontal: spacing.sm },
+  reorderArrow: { color: colors.accent, fontSize: font.lg },
+  reorderDisabled: { color: colors.textMuted, opacity: 0.4 },
   addRow: {
     flexDirection: "row",
     alignItems: "center",
