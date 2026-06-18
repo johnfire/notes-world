@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { listItems, archiveItem } from "../../src/api/items";
 import { reportClientError } from "../../src/api/report";
+import { useRefreshOnFocus } from "../../src/lib/useRefreshOnFocus";
 import { ItemCard } from "../../src/components/ItemCard";
 import { useAuth } from "../../src/store/auth";
 import { colors, spacing, radius, font } from "../../src/theme";
@@ -78,6 +79,14 @@ export default function ItemsScreen() {
     setPage(1);
     load(1, search);
   }, [search, filter]);
+
+  // Silently refresh page 1 when the tab is re-focused or the app returns to the
+  // foreground, so items added on another device show up. Initial mount load is
+  // handled by the effect above, so the first focus is skipped.
+  useRefreshOnFocus(() => {
+    setPage(1);
+    load(1, search);
+  });
 
   function onRefresh() {
     setRefreshing(true);

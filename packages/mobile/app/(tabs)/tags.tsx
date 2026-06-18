@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -23,6 +23,7 @@ import {
   setTagColor,
 } from "../../src/api/tags";
 import { reportClientError } from "../../src/api/report";
+import { useRefreshOnFocus } from "../../src/lib/useRefreshOnFocus";
 import { colors, spacing, radius, font } from "../../src/theme";
 import type { TagWithCount } from "@notes-world/shared";
 
@@ -67,9 +68,9 @@ export default function TagsScreen() {
     }
   }
 
-  useEffect(() => {
-    load();
-  }, []);
+  // Load on first focus and refresh whenever the tab is re-focused or the app
+  // returns to the foreground, so tags created on another device appear.
+  useRefreshOnFocus(load, { immediate: true });
 
   function onRefresh() {
     setRefreshing(true);
