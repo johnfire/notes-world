@@ -1,10 +1,12 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { LANGUAGES } from "../i18n/languages";
 import { Seo } from "../components/Seo";
+import { useAuth } from "../context/AuthContext";
 
 export function LandingPage() {
   const { t, i18n } = useTranslation();
+  const { accessToken, loading: authLoading } = useAuth();
 
   const freeFeatures = t("pricing.free.features", {
     returnObjects: true,
@@ -12,6 +14,11 @@ export function LandingPage() {
   const proFeatures = t("pricing.pro.features", {
     returnObjects: true,
   }) as string[];
+
+  // Returning visitor with a live session (restored from the refresh cookie) —
+  // send them to their app instead of the marketing page so it doesn't look
+  // like they've been logged out. Anonymous visitors/crawlers still see this.
+  if (!authLoading && accessToken) return <Navigate to="/app" replace />;
 
   return (
     <div className="min-h-screen bg-[#0f0f0f] text-[#f0f0f0] font-sans">

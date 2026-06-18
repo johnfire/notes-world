@@ -1,11 +1,11 @@
 import { useState, FormEvent } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
 import { Seo } from "../components/Seo";
 
 export function LoginPage() {
-  const { login, register } = useAuth();
+  const { login, register, accessToken, loading: authLoading } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
@@ -37,6 +37,10 @@ export function LoginPage() {
       setLoading(false);
     }
   }
+
+  // Already signed in (session restored from the refresh cookie) — skip the
+  // login form and go straight to the app instead of asking to log in again.
+  if (!authLoading && accessToken) return <Navigate to="/app" replace />;
 
   return (
     <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
