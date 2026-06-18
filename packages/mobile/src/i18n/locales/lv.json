@@ -86,7 +86,8 @@
     "sortDue": "Termiņš",
     "sortStart": "Sākums",
     "sortBy": "Kārtot pēc",
-    "addDivider": "+ Atdalītājs"
+    "addDivider": "+ Atdalītājs",
+    "sortStatus": "Statuss"
   },
   "item": {
     "title": "Virsraksts",

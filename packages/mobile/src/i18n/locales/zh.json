@@ -86,7 +86,8 @@
     "sortDue": "截止",
     "sortStart": "开始",
     "sortBy": "排序",
-    "addDivider": "+ 分隔线"
+    "addDivider": "+ 分隔线",
+    "sortStatus": "状态"
   },
   "item": {
     "title": "标题",

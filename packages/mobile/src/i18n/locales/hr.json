@@ -86,7 +86,8 @@
     "sortDue": "Rok",
     "sortStart": "Početak",
     "sortBy": "Razvrstaj",
-    "addDivider": "+ Razdjelnik"
+    "addDivider": "+ Razdjelnik",
+    "sortStatus": "Status"
   },
   "item": {
     "title": "Naslov",

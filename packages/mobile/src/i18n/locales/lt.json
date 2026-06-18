@@ -86,7 +86,8 @@
     "sortDue": "Terminas",
     "sortStart": "Pradžia",
     "sortBy": "Rūšiuoti",
-    "addDivider": "+ Skirtukas"
+    "addDivider": "+ Skirtukas",
+    "sortStatus": "Būsena"
   },
   "item": {
     "title": "Pavadinimas",

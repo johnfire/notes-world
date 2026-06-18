@@ -86,7 +86,8 @@
     "sortDue": "Tähtaeg",
     "sortStart": "Algus",
     "sortBy": "Sorteeri",
-    "addDivider": "+ Eraldaja"
+    "addDivider": "+ Eraldaja",
+    "sortStatus": "Olek"
   },
   "item": {
     "title": "Pealkiri",

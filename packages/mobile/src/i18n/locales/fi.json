@@ -86,7 +86,8 @@
     "sortDue": "Eräpäivä",
     "sortStart": "Aloitus",
     "sortBy": "Lajittele",
-    "addDivider": "+ Erotin"
+    "addDivider": "+ Erotin",
+    "sortStatus": "Tila"
   },
   "item": {
     "title": "Otsikko",

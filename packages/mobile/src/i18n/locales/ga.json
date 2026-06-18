@@ -86,7 +86,8 @@
     "sortDue": "Spriocdháta",
     "sortStart": "Tús",
     "sortBy": "Sórtáil de réir",
-    "addDivider": "+ Deighilteoir"
+    "addDivider": "+ Deighilteoir",
+    "sortStatus": "Stádas"
   },
   "item": {
     "title": "Teideal",

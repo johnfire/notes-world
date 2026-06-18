@@ -86,7 +86,8 @@
     "sortDue": "Échéance",
     "sortStart": "Début",
     "sortBy": "Trier par",
-    "addDivider": "+ Séparateur"
+    "addDivider": "+ Séparateur",
+    "sortStatus": "Statut"
   },
   "item": {
     "title": "Titre",

@@ -86,7 +86,8 @@
     "sortDue": "Termín",
     "sortStart": "Začátek",
     "sortBy": "Seřadit dle",
-    "addDivider": "+ Oddělovač"
+    "addDivider": "+ Oddělovač",
+    "sortStatus": "Stav"
   },
   "item": {
     "title": "Název",

@@ -86,7 +86,8 @@
     "sortDue": "Vence",
     "sortStart": "Inicio",
     "sortBy": "Ordenar por",
-    "addDivider": "+ Divisor"
+    "addDivider": "+ Divisor",
+    "sortStatus": "Estado"
   },
   "item": {
     "title": "Título",

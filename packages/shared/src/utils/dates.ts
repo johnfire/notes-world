@@ -1,6 +1,35 @@
-import { Item, TypeData } from "../types";
+import { Item, TypeData, TaskStatus } from "../types";
 
 export type DateField = "due_date" | "start_date";
+
+// Workflow order used when sorting tasks by status: the kanban lifecycle with
+// finished work last. Non-task items (and tasks with an unrecognised status)
+// rank after every known status, tie-broken by title.
+const STATUS_ORDER: Record<string, number> = {
+  [TaskStatus.Open]: 0,
+  [TaskStatus.InProgress]: 1,
+  [TaskStatus.Blocked]: 2,
+  [TaskStatus.Done]: 3,
+};
+
+function statusRank(item: Item): number {
+  const td = item.type_data as Record<string, string | undefined> | null | undefined;
+  const s = td?.task_status;
+  return s !== undefined && s in STATUS_ORDER ? STATUS_ORDER[s] : Infinity;
+}
+
+/**
+ * Returns a new array ordered by task status (Open → InProgress → Blocked →
+ * Done), with non-task items last, every group tie-broken by lowercased title.
+ */
+export function sortItemsByStatus(items: Item[]): Item[] {
+  return [...items].sort((a, b) => {
+    const ra = statusRank(a);
+    const rb = statusRank(b);
+    if (ra !== rb) return ra - rb;
+    return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+  });
+}
 
 /**
  * Merge a single date field into an item's existing type_data and return the

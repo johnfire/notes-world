@@ -86,7 +86,8 @@
     "sortDue": "Scadență",
     "sortStart": "Început",
     "sortBy": "Sortează după",
-    "addDivider": "+ Separator"
+    "addDivider": "+ Separator",
+    "sortStatus": "Stare"
   },
   "item": {
     "title": "Titlu",

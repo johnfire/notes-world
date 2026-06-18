@@ -86,7 +86,8 @@
     "sortDue": "Skadenza",
     "sortStart": "Bidu",
     "sortBy": "Issortja skont",
-    "addDivider": "+ Diviżorju"
+    "addDivider": "+ Diviżorju",
+    "sortStatus": "Status"
   },
   "item": {
     "title": "Titlu",

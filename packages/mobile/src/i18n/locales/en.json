@@ -86,7 +86,8 @@
     "sortDue": "Due",
     "sortStart": "Start",
     "sortBy": "Sort by",
-    "addDivider": "+ Divider"
+    "addDivider": "+ Divider",
+    "sortStatus": "Status"
   },
   "item": {
     "title": "Title",

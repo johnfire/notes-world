@@ -86,7 +86,8 @@
     "sortDue": "Срок",
     "sortStart": "Начало",
     "sortBy": "Сортирай",
-    "addDivider": "+ Разделител"
+    "addDivider": "+ Разделител",
+    "sortStatus": "Състояние"
   },
   "item": {
     "title": "Заглавие",

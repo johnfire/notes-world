@@ -86,7 +86,8 @@
     "sortDue": "Fällig",
     "sortStart": "Start",
     "sortBy": "Sortieren nach",
-    "addDivider": "+ Trenner"
+    "addDivider": "+ Trenner",
+    "sortStatus": "Status"
   },
   "item": {
     "title": "Titel",

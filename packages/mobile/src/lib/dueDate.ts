@@ -3,6 +3,7 @@
 export {
   formatDueShort,
   sortItemsByDate,
+  sortItemsByStatus,
   dateOf,
   isOverdue,
   mergeTypeData,

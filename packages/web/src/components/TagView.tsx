@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Tag, Item, ItemType } from "../types";
 import {
   sortItemsByDate,
+  sortItemsByStatus,
   dateOf,
   isOverdue,
   formatDueShort,
@@ -128,10 +129,9 @@ export function TagView({ tag }: Props) {
   const stagedItems = items.filter((i) => unsortedIds.has(i.id));
   const sortedItems = items.filter((i) => !unsortedIds.has(i.id));
 
-  // One-shot: rearrange the list by a date field once (soonest first, undated
-  // last) and persist it as the normal saved order. Drag stays available after.
-  async function sortByDate(field: DateField) {
-    const ordered = sortItemsByDate(sortedItems, field);
+  // One-shot: rearrange the list once and persist it as the normal saved order.
+  // Drag stays available after. Used for the date and status quick-sorts.
+  async function applySort(ordered: Item[], context: string) {
     setVisualOrder(ordered);
     try {
       await api.sortOrders.save(
@@ -142,10 +142,18 @@ export function TagView({ tag }: Props) {
       api.reportClientError({
         message: (err as Error).message,
         stack: (err as Error).stack,
-        context: "TagView.sortByDate",
+        context,
       });
     }
     setSortNonce((n) => n + 1);
+  }
+
+  function sortByDate(field: DateField) {
+    return applySort(sortItemsByDate(sortedItems, field), "TagView.sortByDate");
+  }
+
+  function sortByStatus() {
+    return applySort(sortItemsByStatus(sortedItems), "TagView.sortByStatus");
   }
 
   const handleExternalDrop = useCallback(
@@ -193,6 +201,13 @@ export function TagView({ tag }: Props) {
             title={`${t("app.tagView.sortBy")} ${t("app.drawer.startDate")}`}
           >
             {t("app.drawer.startDate")}
+          </button>
+          <button
+            onClick={() => void sortByStatus()}
+            className="text-xs text-accent/80 hover:text-accent transition-colors px-2 py-1 rounded hover:bg-surface-600"
+            title={`${t("app.tagView.sortBy")} ${t("app.drawer.status")}`}
+          >
+            {t("app.drawer.status")}
           </button>
           <span className="text-surface-500">|</span>
           <button

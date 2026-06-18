@@ -86,7 +86,8 @@
     "sortDue": "Deadline",
     "sortStart": "Start",
     "sortBy": "Sorteer op",
-    "addDivider": "+ Scheiding"
+    "addDivider": "+ Scheiding",
+    "sortStatus": "Status"
   },
   "item": {
     "title": "Titel",

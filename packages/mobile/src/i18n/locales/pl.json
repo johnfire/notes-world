@@ -86,7 +86,8 @@
     "sortDue": "Termin",
     "sortStart": "Start",
     "sortBy": "Sortuj wg",
-    "addDivider": "+ Separator"
+    "addDivider": "+ Separator",
+    "sortStatus": "Status"
   },
   "item": {
     "title": "Tytuł",

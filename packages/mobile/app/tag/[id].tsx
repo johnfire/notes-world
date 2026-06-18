@@ -25,7 +25,11 @@ import {
   getHiddenCounts,
 } from "../../src/lib/dividerGrouping";
 import { applySavedOrder, moveItem } from "../../src/lib/sortItems";
-import { sortItemsByDate, type DateField } from "../../src/lib/dueDate";
+import {
+  sortItemsByDate,
+  sortItemsByStatus,
+  type DateField,
+} from "../../src/lib/dueDate";
 import { colors, spacing, font, radius } from "../../src/theme";
 import { ItemType } from "@notes-world/shared";
 import type { Item } from "@notes-world/shared";
@@ -45,8 +49,7 @@ export default function TagScreen() {
   // One-shot reorder: rearrange by a date field once (soonest first, undated
   // last) and persist it as the normal manual order. Manual drag stays fully
   // available afterwards — this just gives the list a quick starting order.
-  function sortByDate(field: DateField) {
-    const ordered = sortItemsByDate(items, field);
+  function persistOrder(ordered: typeof items, context: string) {
     setItems(ordered);
     saveSortOrder(
       `tag:${id}`,
@@ -55,9 +58,17 @@ export default function TagScreen() {
       void reportClientError({
         message: (err as Error).message,
         stack: (err as Error).stack,
-        context: "TagScreen.sortByDate",
+        context,
       });
     });
+  }
+
+  function sortByDate(field: DateField) {
+    persistOrder(sortItemsByDate(items, field), "TagScreen.sortByDate");
+  }
+
+  function sortByStatus() {
+    persistOrder(sortItemsByStatus(items), "TagScreen.sortByStatus");
   }
 
   async function addDivider() {
@@ -219,6 +230,9 @@ export default function TagScreen() {
               <Text style={s.sortBtnText}>{t(label)}</Text>
             </Pressable>
           ))}
+          <Pressable onPress={sortByStatus} style={s.sortBtn} hitSlop={6}>
+            <Text style={s.sortBtnText}>{t("tagDetail.sortStatus")}</Text>
+          </Pressable>
         </View>
         <FlatList
           data={visibleItems}

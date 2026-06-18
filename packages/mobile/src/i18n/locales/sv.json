@@ -86,7 +86,8 @@
     "sortDue": "Förfaller",
     "sortStart": "Start",
     "sortBy": "Sortera efter",
-    "addDivider": "+ Avdelare"
+    "addDivider": "+ Avdelare",
+    "sortStatus": "Status"
   },
   "item": {
     "title": "Titel",

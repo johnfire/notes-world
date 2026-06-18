@@ -86,7 +86,8 @@
     "sortDue": "Λήξη",
     "sortStart": "Έναρξη",
     "sortBy": "Ταξινόμηση",
-    "addDivider": "+ Διαχωριστικό"
+    "addDivider": "+ Διαχωριστικό",
+    "sortStatus": "Κατάσταση"
   },
   "item": {
     "title": "Τίτλος",

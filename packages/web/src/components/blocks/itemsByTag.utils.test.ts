@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ItemType, ItemStatus, type Item } from '../../types';
-import { formatDueShort, sortItemsByDate, dateOf, mergeTypeData } from '@notes-world/shared';
+import { formatDueShort, sortItemsByDate, sortItemsByStatus, dateOf, mergeTypeData } from '@notes-world/shared';
 
 function task(id: string, title: string, dates?: { due_date?: string; start_date?: string }): Item {
   return {
@@ -115,6 +115,69 @@ describe('sortItemsByDate', () => {
     ];
     const before = items.map(i => i.id);
     sortItemsByDate(items, 'due_date');
+    expect(items.map(i => i.id)).toEqual(before);
+  });
+});
+
+function statusTask(id: string, title: string, task_status?: string): Item {
+  return {
+    id,
+    user_id: 'u1',
+    title,
+    item_type: ItemType.Task,
+    status: ItemStatus.Active,
+    type_data: task_status ? { task_status } : undefined,
+    created_at: '',
+    updated_at: '',
+  } as Item;
+}
+
+function note(id: string, title: string): Item {
+  return {
+    id,
+    user_id: 'u1',
+    title,
+    item_type: ItemType.Note,
+    status: ItemStatus.Active,
+    type_data: undefined,
+    created_at: '',
+    updated_at: '',
+  } as Item;
+}
+
+describe('sortItemsByStatus', () => {
+  it('orders tasks by workflow status: Open, InProgress, Blocked, Done', () => {
+    const items = [
+      statusTask('d', 'D', 'Done'),
+      statusTask('b', 'B', 'Blocked'),
+      statusTask('o', 'O', 'Open'),
+      statusTask('p', 'P', 'InProgress'),
+    ];
+    expect(sortItemsByStatus(items).map(i => i.id)).toEqual(['o', 'p', 'b', 'd']);
+  });
+
+  it('places non-task / statusless items last, tie-broken by title', () => {
+    const items = [
+      note('z', 'Zeta'),
+      statusTask('done', 'Done task', 'Done'),
+      note('a', 'Alpha'),
+      statusTask('open', 'Open task', 'Open'),
+    ];
+    expect(sortItemsByStatus(items).map(i => i.id)).toEqual(['open', 'done', 'a', 'z']);
+  });
+
+  it('tie-breaks equal statuses by title', () => {
+    const items = [
+      statusTask('z', 'Zebra', 'Open'),
+      statusTask('m', 'Mango', 'Open'),
+    ];
+    expect(sortItemsByStatus(items).map(i => i.id)).toEqual(['m', 'z']);
+  });
+
+  it('does not mutate the input array', () => {
+    const items = [statusTask('a', 'A', 'Done'), statusTask('b', 'B', 'Open')];
+    const before = items.map(i => i.id);
+    sortItemsByStatus(items);
     expect(items.map(i => i.id)).toEqual(before);
   });
 });

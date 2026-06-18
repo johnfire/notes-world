@@ -86,7 +86,8 @@
     "sortDue": "Forfald",
     "sortStart": "Start",
     "sortBy": "Sortér efter",
-    "addDivider": "+ Skilletegn"
+    "addDivider": "+ Skilletegn",
+    "sortStatus": "Status"
   },
   "item": {
     "title": "Titel",
