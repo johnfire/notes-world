@@ -139,7 +139,11 @@ export function TasksView() {
                     onClick={() => openItem(item.id)}
                     className="w-full text-left"
                   >
-                    <p className="text-sm text-gray-200 leading-snug">
+                    <p
+                      className={`text-sm leading-snug ${
+                        id === "Done" ? "text-purple-300" : "text-gray-200"
+                      }`}
+                    >
                       {item.title}
                     </p>
                     {item.body && (
