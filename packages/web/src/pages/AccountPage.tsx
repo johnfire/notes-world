@@ -7,6 +7,8 @@ import type { ApiKey } from "../api";
 import { UpgradePage } from "./UpgradePage";
 import { LANGUAGES } from "../i18n/languages";
 import { useTooltips } from "../hooks/useTooltips";
+import { useDefaultView } from "../hooks/useDefaultView";
+import type { AppView } from "../components/layout/ViewBar";
 import { useOnboardingTour } from "../hooks/useOnboardingTour";
 import { ChangelogPage } from "./ChangelogPage";
 
@@ -23,6 +25,7 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
   const { user, logout, changeEmail, changePassword, deleteAccount } =
     useAuth();
   const tooltips = useTooltips();
+  const defaultView = useDefaultView();
   const tour = useOnboardingTour();
   const [changelogOpen, setChangelogOpen] = useState(false);
   const [upgradeOpen, setUpgradeOpen] = useState(false);
@@ -201,6 +204,29 @@ export function AccountPage({ onClose }: { onClose: () => void }) {
                   className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${tooltips.enabled ? "translate-x-5" : "translate-x-0.5"}`}
                 />
               </button>
+            </div>
+            <div className="flex items-center justify-between mt-4">
+              <div className="min-w-0 pr-4">
+                <p className="text-sm text-gray-200">
+                  {t("app.account.defaultView")}
+                </p>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  {t("app.account.defaultViewDesc")}
+                </p>
+              </div>
+              <select
+                value={defaultView.defaultView}
+                onChange={(e) =>
+                  defaultView.setDefaultView(e.target.value as AppView)
+                }
+                className="input text-sm shrink-0 w-36"
+              >
+                {defaultView.options.map((id) => (
+                  <option key={id} value={id}>
+                    {t(`app.views.${id}`)}
+                  </option>
+                ))}
+              </select>
             </div>
             <div className="flex items-center justify-between mt-4">
               <div>

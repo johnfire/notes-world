@@ -286,7 +286,9 @@
       "language": "Language",
       "preferences": "Preferences",
       "tooltipsToggle": "Show tooltips",
-      "tooltipsDesc": "Hover hints on buttons and icons"
+      "tooltipsDesc": "Hover hints on buttons and icons",
+      "defaultView": "Default view",
+      "defaultViewDesc": "Which screen opens when you launch the app"
     }
   }
 }

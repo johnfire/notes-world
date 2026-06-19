@@ -12,12 +12,13 @@ import { ChecklistsView } from "./components/ChecklistsView";
 import { CaptureBar } from "./components/CaptureBar";
 import { TrashView } from "./components/TrashView";
 import { OnboardingTour } from "./components/OnboardingTour";
+import { getDefaultView } from "./hooks/useDefaultView";
 import { Tag } from "./types";
 
 function DashboardView() {
   const { state, loadDashboard, loadTags } = useApp();
   const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
-  const [currentView, setCurrentView] = useState<AppView>("dashboard");
+  const [currentView, setCurrentView] = useState<AppView>(getDefaultView);
   const [showTrash, setShowTrash] = useState(false);
 
   useEffect(() => {
