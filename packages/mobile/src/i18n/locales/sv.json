@@ -146,6 +146,8 @@
     "deleteAccount": "Ta bort konto",
     "deleteAccountMsg": "Ange ditt nuvarande lösenord för att bekräfta. Detta kan inte ångras.",
     "deleteAccountFailed": "Det gick inte att ta bort kontot",
+    "openingScreen": "Startskärm",
+    "selectDefaultTab": "Välj startskärm",
     "language": "Språk",
     "selectLanguage": "Välj språk",
     "trash": "Papperskorg",

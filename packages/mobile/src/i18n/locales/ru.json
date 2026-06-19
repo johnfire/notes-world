@@ -146,6 +146,8 @@
     "deleteAccount": "Удалить аккаунт",
     "deleteAccountMsg": "Введите текущий пароль для подтверждения. Это действие нельзя отменить.",
     "deleteAccountFailed": "Не удалось удалить аккаунт",
+    "openingScreen": "Начальный экран",
+    "selectDefaultTab": "Выберите начальный экран",
     "language": "Язык",
     "selectLanguage": "Выберите язык",
     "trash": "Корзина",

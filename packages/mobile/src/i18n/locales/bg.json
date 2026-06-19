@@ -146,6 +146,8 @@
     "deleteAccount": "Изтрий акаунта",
     "deleteAccountMsg": "Въведете текущата си парола за потвърждение. Това действие не може да бъде отменено.",
     "deleteAccountFailed": "Изтриването на акаунта е неуспешно",
+    "openingScreen": "Начален екран",
+    "selectDefaultTab": "Изберете начален екран",
     "language": "Език",
     "selectLanguage": "Изберете език",
     "trash": "Кошче",

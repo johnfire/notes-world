@@ -146,6 +146,8 @@
     "deleteAccount": "Șterge contul",
     "deleteAccountMsg": "Introdu parola actuală pentru a confirma. Această acțiune nu poate fi anulată.",
     "deleteAccountFailed": "Ștergerea contului a eșuat",
+    "openingScreen": "Ecran de pornire",
+    "selectDefaultTab": "Alege ecranul de pornire",
     "language": "Limbă",
     "selectLanguage": "Selectează limba",
     "trash": "Coș de gunoi",

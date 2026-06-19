@@ -146,6 +146,8 @@
     "deleteAccount": "Odstrániť účet",
     "deleteAccountMsg": "Pre potvrdenie zadajte svoje súčasné heslo. Túto akciu nie je možné vrátiť späť.",
     "deleteAccountFailed": "Odstránenie účtu zlyhalo",
+    "openingScreen": "Úvodná obrazovka",
+    "selectDefaultTab": "Vyberte úvodnú obrazovku",
     "language": "Jazyk",
     "selectLanguage": "Vybrať jazyk",
     "trash": "Kôš",

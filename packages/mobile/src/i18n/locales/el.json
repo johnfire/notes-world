@@ -146,6 +146,8 @@
     "deleteAccount": "Διαγραφή λογαριασμού",
     "deleteAccountMsg": "Εισαγάγετε τον τρέχοντα κωδικό σας για επιβεβαίωση. Αυτό δεν μπορεί να αναιρεθεί.",
     "deleteAccountFailed": "Η διαγραφή του λογαριασμού απέτυχε",
+    "openingScreen": "Αρχική οθόνη",
+    "selectDefaultTab": "Επιλογή αρχικής οθόνης",
     "language": "Γλώσσα",
     "selectLanguage": "Επιλογή γλώσσας",
     "trash": "Κάδος",

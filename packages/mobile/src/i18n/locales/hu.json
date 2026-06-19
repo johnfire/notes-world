@@ -146,6 +146,8 @@
     "deleteAccount": "Fiók törlése",
     "deleteAccountMsg": "A megerősítéshez add meg a jelenlegi jelszavadat. Ezt nem lehet visszavonni.",
     "deleteAccountFailed": "A fiók törlése sikertelen",
+    "openingScreen": "Kezdőképernyő",
+    "selectDefaultTab": "Válassza ki a kezdőképernyőt",
     "language": "Nyelv",
     "selectLanguage": "Nyelv kiválasztása",
     "trash": "Kuka",

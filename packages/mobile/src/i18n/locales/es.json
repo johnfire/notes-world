@@ -146,6 +146,8 @@
     "deleteAccount": "Eliminar cuenta",
     "deleteAccountMsg": "Introduce tu contraseña actual para confirmar. Esta acción no se puede deshacer.",
     "deleteAccountFailed": "Error al eliminar la cuenta",
+    "openingScreen": "Pantalla de inicio",
+    "selectDefaultTab": "Elegir pantalla de inicio",
     "language": "Idioma",
     "selectLanguage": "Seleccionar idioma",
     "trash": "Papelera",

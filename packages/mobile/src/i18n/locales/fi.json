@@ -146,6 +146,8 @@
     "deleteAccount": "Poista tili",
     "deleteAccountMsg": "Vahvista syöttämällä nykyinen salasanasi. Tätä ei voi kumota.",
     "deleteAccountFailed": "Tilin poisto epäonnistui",
+    "openingScreen": "Aloitusnäyttö",
+    "selectDefaultTab": "Valitse aloitusnäyttö",
     "language": "Kieli",
     "selectLanguage": "Valitse kieli",
     "trash": "Roskakori",

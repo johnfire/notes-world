@@ -146,6 +146,8 @@
     "deleteAccount": "Ħassar il-kont",
     "deleteAccountMsg": "Daħħal il-password attwali tiegħek biex tikkonferma. Dan ma jistax jiġi mreġġa' lura.",
     "deleteAccountFailed": "It-tħassir tal-kont falla",
+    "openingScreen": "Skrin tal-bidu",
+    "selectDefaultTab": "Agħżel skrin tal-bidu",
     "language": "Lingwa",
     "selectLanguage": "Agħżel lingwa",
     "trash": "Skart",

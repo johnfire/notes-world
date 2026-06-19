@@ -1,5 +1,6 @@
 import { Stack, Redirect, useSegments } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useEffect, useRef, useState } from "react";
 import {
   View,
   ActivityIndicator,
@@ -11,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import "../src/i18n";
 import { AuthProvider, useAuth } from "../src/store/auth";
 import { colors } from "../src/theme";
+import { DefaultTab, getDefaultTab, tabHref } from "../src/lib/defaultTab";
 import { useUpdateCheck } from "../src/hooks/useUpdateCheck";
 import { ErrorBoundary } from "../src/components/ErrorBoundary";
 import { reportClientError } from "../src/api/report";
@@ -38,8 +40,15 @@ if (globalAny.ErrorUtils) {
 function RootRedirect() {
   const { user, loading } = useAuth();
   const segments = useSegments();
+  const [defaultTab, setDefaultTab] = useState<DefaultTab | null>(null);
+  // Guards the one-time cold-start landing so it doesn't fight later navigation.
+  const landedRef = useRef(false);
 
-  if (loading) {
+  useEffect(() => {
+    void getDefaultTab().then(setDefaultTab);
+  }, []);
+
+  if (loading || defaultTab === null) {
     return (
       <View
         style={{
@@ -55,9 +64,26 @@ function RootRedirect() {
   }
 
   const inAuth = segments[0] === "(auth)";
+  const target = tabHref(defaultTab);
 
   if (!user && !inAuth) return <Redirect href="/(auth)/welcome" />;
-  if (user && inAuth) return <Redirect href="/(tabs)" />;
+  if (user && inAuth) {
+    landedRef.current = true;
+    return <Redirect href={target} />;
+  }
+  // Cold start: an authenticated user opens straight into the Notes tab. Send
+  // them to their chosen tab once, but only from the tabs group so we never
+  // hijack a deep link into an item/tag/trash screen.
+  if (
+    user &&
+    !landedRef.current &&
+    defaultTab !== "index" &&
+    segments[0] === "(tabs)"
+  ) {
+    landedRef.current = true;
+    return <Redirect href={target} />;
+  }
+  if (user) landedRef.current = true;
   return null;
 }
 

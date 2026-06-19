@@ -146,6 +146,8 @@
     "deleteAccount": "Dzēst kontu",
     "deleteAccountMsg": "Lai apstiprinātu, ievadi savu pašreizējo paroli. Šo nevar atsaukt.",
     "deleteAccountFailed": "Neizdevās dzēst kontu",
+    "openingScreen": "Sākuma ekrāns",
+    "selectDefaultTab": "Izvēlieties sākuma ekrānu",
     "language": "Valoda",
     "selectLanguage": "Izvēlēties valodu",
     "trash": "Miskaste",

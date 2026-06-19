@@ -146,6 +146,8 @@
     "deleteAccount": "Elimina account",
     "deleteAccountMsg": "Inserisci la tua password attuale per confermare. Questa azione non può essere annullata.",
     "deleteAccountFailed": "Impossibile eliminare l'account",
+    "openingScreen": "Schermata iniziale",
+    "selectDefaultTab": "Scegli schermata iniziale",
     "language": "Lingua",
     "selectLanguage": "Seleziona lingua",
     "trash": "Cestino",

@@ -146,6 +146,8 @@
     "deleteAccount": "Scrios cuntas",
     "deleteAccountMsg": "Cuir isteach do phasfhocal reatha le deimhniú. Ní féidir é seo a chealú.",
     "deleteAccountFailed": "Theip ar scriosadh an chuntais",
+    "openingScreen": "Scáileán tosaigh",
+    "selectDefaultTab": "Roghnaigh an scáileán tosaigh",
     "language": "Teanga",
     "selectLanguage": "Roghnaigh teanga",
     "trash": "Bruscar",

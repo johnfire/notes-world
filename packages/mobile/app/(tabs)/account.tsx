@@ -26,6 +26,7 @@ import { exportAll } from "../../src/api/exportData";
 import { importFolder } from "../../src/api/importData";
 import { api } from "../../src/api/client";
 import { LanguagePicker } from "../../src/components/LanguagePicker";
+import { DefaultTabPicker } from "../../src/components/DefaultTabPicker";
 import { colors, spacing, radius, font } from "../../src/theme";
 
 const WEB_APP_URL = "https://notes-world.christopherrehm.de";
@@ -380,6 +381,11 @@ export default function AccountScreen() {
           >
             <Text style={s.btnText}>{t("account.reportBug")}</Text>
           </Pressable>
+        </View>
+
+        <SectionHeader title={t("account.openingScreen")} />
+        <View style={s.card}>
+          <DefaultTabPicker />
         </View>
 
         <SectionHeader title={t("account.language")} />

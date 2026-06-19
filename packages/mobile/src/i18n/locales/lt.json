@@ -146,6 +146,8 @@
     "deleteAccount": "Ištrinti paskyrą",
     "deleteAccountMsg": "Norėdami patvirtinti, įveskite dabartinį slaptažodį. Šio veiksmo negalima atšaukti.",
     "deleteAccountFailed": "Nepavyko ištrinti paskyros",
+    "openingScreen": "Pradžios ekranas",
+    "selectDefaultTab": "Pasirinkite pradžios ekraną",
     "language": "Kalba",
     "selectLanguage": "Pasirinkite kalbą",
     "trash": "Šiukšlinė",

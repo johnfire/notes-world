@@ -146,6 +146,8 @@
     "deleteAccount": "Delete account",
     "deleteAccountMsg": "Enter your current password to confirm. This cannot be undone.",
     "deleteAccountFailed": "Failed to delete account",
+    "openingScreen": "Opening screen",
+    "selectDefaultTab": "Choose opening screen",
     "language": "Language",
     "selectLanguage": "Select language",
     "trash": "Trash",

@@ -146,6 +146,8 @@
     "deleteAccount": "Supprimer le compte",
     "deleteAccountMsg": "Saisissez votre mot de passe actuel pour confirmer. Cette action est irréversible.",
     "deleteAccountFailed": "Échec de la suppression du compte",
+    "openingScreen": "Écran d'ouverture",
+    "selectDefaultTab": "Choisir l'écran d'ouverture",
     "language": "Langue",
     "selectLanguage": "Sélectionner la langue",
     "trash": "Corbeille",

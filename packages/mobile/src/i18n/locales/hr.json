@@ -146,6 +146,8 @@
     "deleteAccount": "Izbriši račun",
     "deleteAccountMsg": "Unesite trenutnu lozinku za potvrdu. Ovu radnju nije moguće poništiti.",
     "deleteAccountFailed": "Brisanje računa nije uspjelo",
+    "openingScreen": "Početni zaslon",
+    "selectDefaultTab": "Odaberite početni zaslon",
     "language": "Jezik",
     "selectLanguage": "Odaberite jezik",
     "trash": "Smeće",

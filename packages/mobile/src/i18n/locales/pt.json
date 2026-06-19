@@ -146,6 +146,8 @@
     "deleteAccount": "Eliminar conta",
     "deleteAccountMsg": "Introduza a sua palavra-passe atual para confirmar. Esta ação não pode ser anulada.",
     "deleteAccountFailed": "Falha ao eliminar a conta",
+    "openingScreen": "Ecrã inicial",
+    "selectDefaultTab": "Escolher ecrã inicial",
     "language": "Idioma",
     "selectLanguage": "Selecionar idioma",
     "trash": "Lixo",

@@ -146,6 +146,8 @@
     "deleteAccount": "Account verwijderen",
     "deleteAccountMsg": "Voer je huidige wachtwoord in ter bevestiging. Dit kan niet ongedaan worden gemaakt.",
     "deleteAccountFailed": "Account verwijderen mislukt",
+    "openingScreen": "Startscherm",
+    "selectDefaultTab": "Startscherm kiezen",
     "language": "Taal",
     "selectLanguage": "Taal selecteren",
     "trash": "Prullenbak",

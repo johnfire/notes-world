@@ -146,6 +146,8 @@
     "deleteAccount": "Konto löschen",
     "deleteAccountMsg": "Gib dein aktuelles Passwort zur Bestätigung ein. Dies kann nicht rückgängig gemacht werden.",
     "deleteAccountFailed": "Konto konnte nicht gelöscht werden",
+    "openingScreen": "Startbildschirm",
+    "selectDefaultTab": "Startbildschirm wählen",
     "language": "Sprache",
     "selectLanguage": "Sprache auswählen",
     "trash": "Papierkorb",

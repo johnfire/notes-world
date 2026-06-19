@@ -3,7 +3,7 @@ import { View, Text, Pressable, StyleSheet, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import type { Item } from "@notes-world/shared";
-import { ItemType } from "@notes-world/shared";
+import { ItemType, TaskStatus } from "@notes-world/shared";
 import { colors, spacing, radius, font } from "../theme";
 import { formatDueShort, dateOf, isOverdue } from "../lib/dueDate";
 
@@ -40,6 +40,11 @@ export function ItemCard({
 }: Props) {
   const { t, i18n } = useTranslation();
   const typeColor = TYPE_COLORS[item.item_type] ?? colors.typeUntyped;
+  // Completed tasks get a light-purple title so they read as "done" in lists.
+  const isDoneTask =
+    item.item_type === ItemType.Task &&
+    (item.type_data as { task_status?: string } | null)?.task_status ===
+      TaskStatus.Done;
   const date = new Date(item.updated_at).toLocaleDateString(i18n.language, {
     day: "2-digit",
     month: "short",
@@ -108,7 +113,7 @@ export function ItemCard({
     >
       <View style={[s.typeBar, { backgroundColor: typeColor }]} />
       <View style={s.content}>
-        <Text style={s.title} numberOfLines={2}>
+        <Text style={[s.title, isDoneTask && s.titleDone]} numberOfLines={2}>
           {!!due && (
             <Text style={dueOverdue ? s.dueInlineOverdue : s.dueInline}>
               {due}{"  "}
@@ -200,6 +205,9 @@ const s = StyleSheet.create({
     color: colors.text,
     fontSize: font.md,
     fontWeight: "600",
+  },
+  titleDone: {
+    color: colors.taskDone,
   },
   body: {
     color: colors.textMuted,

@@ -146,6 +146,8 @@
     "deleteAccount": "Usuń konto",
     "deleteAccountMsg": "Wprowadź swoje obecne hasło, aby potwierdzić. Tej operacji nie można cofnąć.",
     "deleteAccountFailed": "Nie udało się usunąć konta",
+    "openingScreen": "Ekran startowy",
+    "selectDefaultTab": "Wybierz ekran startowy",
     "language": "Język",
     "selectLanguage": "Wybierz język",
     "trash": "Kosz",

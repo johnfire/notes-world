@@ -146,6 +146,8 @@
     "deleteAccount": "Kustuta konto",
     "deleteAccountMsg": "Kinnitamiseks sisesta praegune parool. Seda ei saa tagasi võtta.",
     "deleteAccountFailed": "Konto kustutamine ebaõnnestus",
+    "openingScreen": "Avakuva",
+    "selectDefaultTab": "Vali avakuva",
     "language": "Keel",
     "selectLanguage": "Vali keel",
     "trash": "Prügikast",

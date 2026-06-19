@@ -11,6 +11,7 @@ export const colors = {
   danger: "#e05c5c",
   success: "#5ce07a",
   warning: "#e0a85c",
+  taskDone: "#c4b5fd", // light purple — completed task titles
 
   typeTask: "#7c6af7",
   typeNote: "#5c9ce0",

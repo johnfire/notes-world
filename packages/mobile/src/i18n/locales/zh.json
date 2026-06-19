@@ -146,6 +146,8 @@
     "deleteAccount": "删除账户",
     "deleteAccountMsg": "请输入你的当前密码以确认。此操作无法撤销。",
     "deleteAccountFailed": "删除账户失败",
+    "openingScreen": "起始页面",
+    "selectDefaultTab": "选择起始页面",
     "language": "语言",
     "selectLanguage": "选择语言",
     "trash": "回收站",

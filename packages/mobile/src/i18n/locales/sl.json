@@ -146,6 +146,8 @@
     "deleteAccount": "Izbriši račun",
     "deleteAccountMsg": "Za potrditev vnesite trenutno geslo. Tega dejanja ni mogoče razveljaviti.",
     "deleteAccountFailed": "Brisanje računa ni uspelo",
+    "openingScreen": "Začetni zaslon",
+    "selectDefaultTab": "Izberite začetni zaslon",
     "language": "Jezik",
     "selectLanguage": "Izberite jezik",
     "trash": "Koš",

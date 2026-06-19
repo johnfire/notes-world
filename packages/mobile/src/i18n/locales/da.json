@@ -146,6 +146,8 @@
     "deleteAccount": "Slet konto",
     "deleteAccountMsg": "Indtast din nuværende adgangskode for at bekræfte. Dette kan ikke fortrydes.",
     "deleteAccountFailed": "Kunne ikke slette konto",
+    "openingScreen": "Startskærm",
+    "selectDefaultTab": "Vælg startskærm",
     "language": "Sprog",
     "selectLanguage": "Vælg sprog",
     "trash": "Papirkurv",
