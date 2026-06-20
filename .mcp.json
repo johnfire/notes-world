@@ -1,11 +1,8 @@
 {
   "mcpServers": {
     "notes-world": {
-      "command": "node",
-      "args": ["/home/christopher/programming/notes-world/src/mcp/dist/index.js"],
-      "env": {
-        "NOTES_WORLD_API_URL": "http://localhost:3001"
-      }
+      "type": "http",
+      "url": "https://notes-world.christopherrehm.de/mcp"
     }
   }
 }
