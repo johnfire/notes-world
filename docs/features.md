@@ -44,8 +44,8 @@ Phase 1 is largely complete and live on the VPS. The app supports item capture, 
 
 ### AI Access
 
-- MCP server (stdio) in `packages/mcp`
-- 25+ tools covering items, tasks, ideas, notes, tags (full CRUD + search + export)
+- MCP server (Streamable HTTP :3002, OAuth 2.1) in `packages/mcp`
+- 25+ tools covering items, tasks, ideas, notes, tags, checklists (full CRUD + search + export)
 - Requires API to be running; MCP calls REST, not DB directly
 
 ### Docs & Help
@@ -58,7 +58,9 @@ Phase 1 is largely complete and live on the VPS. The app supports item capture, 
 ### Phase 2 — Dependencies & Task Lifecycle
 
 - AddDependency, RemoveDependency, circular dependency detection
+- AddCrossReference, RemoveCrossReference (non-blocking links)
 - CompleteTask, StartTask, BlockTask operations
+- Dependency-resolution subscription (dependent tasks auto-unblock)
 - ActionableTasks, BlockedTasks, OverdueTasks block types (full)
 - Markdown file upload UI + import report
 
@@ -69,6 +71,7 @@ Phase 1 is largely complete and live on the VPS. The app supports item capture, 
 - DependencyGraph block with interactive visual graph
 - Ideas maturity pipeline view
 - Critical path highlighting
+- Advanced search: filter by dependency status, maturity, etc.
 
 ### Phase 4 — Multi-User & Auth Hardening
 
@@ -82,7 +85,10 @@ Phase 1 is largely complete and live on the VPS. The app supports item capture, 
 - Item sharing, shared tags
 - AI-assisted "what to do next" suggestions
 - AI-assisted classification on capture
+- Notification system
 
 ## Current Reality vs Original Phase Plan
 
 The original phases assumed strict sequencing. In practice Phase 1 expanded to include auth, multi-user, mobile app, and admin features that were originally Phase 4 concerns. The app is live and in daily use.
+
+The full original phase definitions — per-phase includes/excludes, test gates, and acceptance criteria — are archived in [`older-docs/phases.md`](older-docs/phases.md).

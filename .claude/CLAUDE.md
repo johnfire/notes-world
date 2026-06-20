@@ -13,7 +13,7 @@ packages/
   server/    Express API (TypeScript, Node 20) — port 3001
   web/       React 18 SPA (Vite, Tailwind) — port 5173 in dev
   shared/    Shared types
-  mcp/       MCP server (stdio) for AI agent access
+  mcp/       MCP server (Streamable HTTP :3002, OAuth 2.1) for AI agent access
   mobile/    React Native app (Expo SDK 54)
   importer/  Python markdown importer
 ```
@@ -48,11 +48,10 @@ Read only the doc relevant to the current task.
 
 | File                   | Domain       | Read when...                                                    |
 | ---------------------- | ------------ | --------------------------------------------------------------- |
-| `docs/architecture.md` | Architecture | quick reference — stack, packages, ADRs, data flow              |
-| `docs/architecture-2026-06-17.md` | Architecture | deep current-state snapshot — all surfaces, data model, CI/CD, risks |
+| `docs/architecture.md` | Architecture | canonical current-state architecture — all surfaces, data model, CI/CD, ADRs, risks (update in place; PDF at `architecture.pdf`) |
 | `docs/deployment.md`   | Deployment   | deploying, SSH access, Docker, VPS setup                        |
-| `docs/database.md`     | Database     | schema, migrations, limits, backup, archive policy              |
-| `docs/features.md`     | Features     | what's built, what's planned, phase status                      |
-| `docs/vision.md`       | Vision       | long-term direction, AI-as-interface, architectural decisions   |
-| `docs/api.md`          | API          | endpoints, auth, rate limiting, MCP server, error format        |
-| `docs/older-docs/`     | Archive      | old ispec/intent/policy specs — not current, for reference only |
+| `docs/database.md`     | Database     | schema, migrations, limits, backup, archive policy             |
+| `docs/features.md`     | Features     | what's built, what's planned, phase status                     |
+| `docs/vision.md`       | Vision       | long-term direction, AI-as-interface, architectural decisions  |
+| `docs/api.md`          | API          | endpoints, auth, rate limiting, MCP server, error format       |
+| `docs/older-docs/`     | Archive      | superseded docs — old ispecs, archived feature notes, superpowers plans/specs; reference only |

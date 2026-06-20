@@ -12,6 +12,12 @@ notes-world started as a personal productivity dashboard to consolidate fragment
 
 Consolidate ~800 items scattered across 20 markdown notebook files into a single structured view with dependencies, priorities, and tags. Single user, home network, fast capture.
 
+## Who It's For
+
+One primary user — a software engineer and artist in Bavaria, working across several devices (Ubuntu laptop, Linux Mint desktop, Android phone and tablet). Captures ideas in bursts and organizes later; thinks in dependencies and priorities; values clean, logical, simple systems. The data model was built multi-tenant-ready from day one, so more users can be added without a core rewrite.
+
+The original problem statement, success criteria, and Phase-1 scope/constraints/assumptions are archived in [`older-docs/context.md`](older-docs/context.md).
+
 ## Current State (2026-05-26)
 
 Live at notes-world.christopherrehm.de. Multi-user with JWT auth, mobile app (Expo), admin panel, MCP server for AI access. In daily use.

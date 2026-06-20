@@ -6,7 +6,7 @@
 
 ## Summary
 
-Express REST API on port 3001. JWT auth for all `/api` routes except `/health` and `/api/auth`. Rate limited to 200 req/min per IP. MCP server in `packages/mcp` exposes 25+ tools over stdio by calling this API.
+Express REST API on port 3001. JWT auth for all `/api` routes except `/health` and `/api/auth`. Rate limited to 200 req/min per IP. MCP server in `packages/mcp` (Streamable HTTP on port 3002, OAuth 2.1) exposes 25+ tools by calling this API.
 
 ## Base URL
 
@@ -17,7 +17,7 @@ Express REST API on port 3001. JWT auth for all `/api` routes except `/health` a
 
 - JWT tokens issued at login, stored in `Authorization: Bearer <token>` header
 - Mobile app stores token in Expo SecureStore
-- MCP server uses API key auth (SHA-256 hashed, stored in DB, revocable)
+- MCP server: OAuth 2.1 for interactive connectors, or a `nw_` API key (SHA-256 hashed, revocable)
 - Admin endpoints require role `admin`
 
 ## Rate Limiting
@@ -70,6 +70,14 @@ Express REST API on port 3001. JWT auth for all `/api` routes except `/health` a
 - `GET /:context` — get saved order for a context key
 - `PUT /:context` — save order for a context key
 
+### Export — `/api/export`
+
+- `GET /tag/:tagId` — export one tag's items as a single `.md` file
+- `GET /untagged` — export untagged items as a single `.md` file
+- `GET /all` — export the whole database as a `.zip` (one `.md` per tag + `untagged.md`)
+
+Markdown output preserves type metadata, dividers, and colors (colors as `<!-- color: #hex -->` HTML comments) so exports are re-importable. Full export uses `archiver` (zlib level 9).
+
 ### Admin — `/api/admin`
 
 - `GET /users` — list all users (admin only)
@@ -83,14 +91,13 @@ Express REST API on port 3001. JWT auth for all `/api` routes except `/health` a
 
 ## MCP Server
 
-Location: `packages/mcp/`
+Location: `packages/mcp/` — runs as the `mcp` service in the Docker stack.
 
-- Transport: stdio
-- Started by AI client (Claude Code, Claude Desktop) — not part of Docker stack
-- Requires the REST API to be running
-- Configured via `.mcp.json` at project root
-- Start API first: `npm run dev --workspace=packages/server`
-- 25+ tools: full CRUD on items, tags, ideas, tasks, notes + search + export
+- Transport: Streamable HTTP (stateless — a fresh `McpServer` per request) on port 3002, exposed at `/mcp` via nginx
+- Connector URL: `https://notes-world.christopherrehm.de/mcp`
+- Auth: OAuth 2.1 (`/.well-known/oauth-authorization-server`, `/oauth/authorize`, `/oauth/token`) for interactive connectors (e.g. the claude.ai connector); tool calls authenticate via JWT or a `nw_` API key
+- Data path: calls the REST API with `NOTES_WORLD_API_KEY` — never the database directly
+- 25+ tools: full CRUD on items, tags, tasks, notes/ideas + search + export + checklists
 
 ## Error Format
 
