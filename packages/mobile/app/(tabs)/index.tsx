@@ -1,193 +1,257 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   View,
-  FlatList,
-  TextInput,
   Text,
-  ActivityIndicator,
-  StyleSheet,
+  TextInput,
+  FlatList,
   Pressable,
+  Modal,
+  StyleSheet,
+  ActivityIndicator,
   RefreshControl,
+  Alert,
 } from "react-native";
-import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { listItems, archiveItem } from "../../src/api/items";
+import {
+  listTags,
+  deleteTag,
+  createTag,
+  renameTag,
+  setTagColor,
+} from "../../src/api/tags";
 import { reportClientError } from "../../src/api/report";
+import { getSortOrder, saveSortOrder } from "../../src/api/sortOrders";
+import { applySavedOrder, moveItem } from "../../src/lib/sortItems";
 import { useRefreshOnFocus } from "../../src/lib/useRefreshOnFocus";
-import { ItemCard } from "../../src/components/ItemCard";
-import { useAuth } from "../../src/store/auth";
 import { colors, spacing, radius, font } from "../../src/theme";
-import type { Item } from "@notes-world/shared";
-import { ItemStatus, ItemType } from "@notes-world/shared";
+import type { TagWithCount } from "@notes-world/shared";
 
-const PAGE_SIZE = 30;
-
-// Home type filter — the mobile analogue of the web view tabs.
-const FILTERS: Array<{ value: ItemType | null; labelKey: string }> = [
-  { value: null, labelKey: "home.filterAll" },
-  { value: ItemType.Task, labelKey: "capture.typeTask" },
-  { value: ItemType.Idea, labelKey: "capture.typeIdea" },
-  { value: ItemType.Note, labelKey: "capture.typeNote" },
-  { value: ItemType.Reminder, labelKey: "capture.typeReminder" },
+// Mirror of the web palette (packages/web/src/utils/colors.ts) so tag colors
+// match across platforms.
+const PALETTE = [
+  "#ffffff", "#ef4444", "#f97316", "#f59e0b", "#eab308", "#84cc16",
+  "#22c55e", "#10b981", "#14b8a6", "#06b6d4", "#0ea5e9", "#3b82f6",
+  "#6366f1", "#8b5cf6", "#ec4899", "#f43f5e",
 ];
 
-export default function ItemsScreen() {
+export default function TagsScreen() {
   const router = useRouter();
   const { t } = useTranslation();
-  const { logout } = useAuth();
-  const [items, setItems] = useState<Item[]>([]);
-  const [search, setSearch] = useState("");
+  const [tags, setTags] = useState<TagWithCount[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
   const [error, setError] = useState<string | null>(null);
-  const [filter, setFilter] = useState<ItemType | null>(null);
+  const [adding, setAdding] = useState(false);
+  const [newName, setNewName] = useState("");
+  const [creating, setCreating] = useState(false);
+  const [reordering, setReordering] = useState(false);
+  // Tag-actions sheet (rename / color / delete), opened by long-press.
+  const [actionTag, setActionTag] = useState<TagWithCount | null>(null);
+  const [renameValue, setRenameValue] = useState("");
+  const [savingAction, setSavingAction] = useState(false);
 
-  const load = useCallback(
-    async (p: number, q: string, append = false) => {
-      try {
-        setError(null);
-        const res = await listItems({
-          page: p,
-          page_size: PAGE_SIZE,
-          search: q || undefined,
-          status: ItemStatus.Active,
-          item_type: filter ?? undefined,
-        });
-        setTotal(res.total);
-        setItems((prev) => (append ? [...prev, ...res.items] : res.items));
-      } catch (err) {
-        void reportClientError({
-          message: (err as Error).message,
-          stack: (err as Error).stack,
-          context: "ItemsScreen.load",
-        });
-        setError(t("home.loadError"));
-      } finally {
-        setLoading(false);
-        setRefreshing(false);
-      }
-    },
-    [t, filter],
-  );
-
-  useEffect(() => {
-    setLoading(true);
-    setPage(1);
-    load(1, search);
-  }, [search, filter]);
-
-  // Silently refresh page 1 when the tab is re-focused or the app returns to the
-  // foreground, so items added on another device show up. Initial mount load is
-  // handled by the effect above, so the first focus is skipped.
-  useRefreshOnFocus(() => {
-    setPage(1);
-    load(1, search);
-  });
-
-  function onRefresh() {
-    setRefreshing(true);
-    setPage(1);
-    load(1, search);
-  }
-
-  async function onDelete(id: string) {
+  async function load() {
     try {
-      await archiveItem(id);
-      setItems((prev) => prev.filter((i) => i.id !== id));
-      setTotal((t) => t - 1);
+      setError(null);
+      // Apply the same custom tag order the web sidebar saves (context
+      // "tags:all") so the list matches across platforms; tags without a saved
+      // position fall to the end, exactly as on web.
+      const [data, savedOrder] = await Promise.all([
+        listTags(),
+        getSortOrder("tags:all").catch(() => []),
+      ]);
+      setTags(applySavedOrder(data, savedOrder));
     } catch (err) {
-      // Item stays in the list if delete fails, but still report it.
       void reportClientError({
         message: (err as Error).message,
         stack: (err as Error).stack,
-        context: "ItemsScreen.onDelete",
+        context: "TagsScreen.load",
+      });
+      setError(t("tags.loadError"));
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  }
+
+  // Load on first focus and refresh whenever the tab is re-focused or the app
+  // returns to the foreground, so tags created on another device appear.
+  useRefreshOnFocus(load, { immediate: true });
+
+  function onRefresh() {
+    setRefreshing(true);
+    load();
+  }
+
+  async function handleCreate() {
+    const name = newName.trim();
+    if (!name || creating) return;
+    setCreating(true);
+    try {
+      await createTag(name);
+      setNewName("");
+      setAdding(false);
+      await load();
+    } catch (err) {
+      Alert.alert(t("common.error"), (err as Error).message);
+    } finally {
+      setCreating(false);
+    }
+  }
+
+  async function doDelete(tag: TagWithCount, deleteItems: boolean) {
+    try {
+      await deleteTag(tag.id, deleteItems);
+      await load();
+    } catch (err) {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "TagsScreen.deleteTag",
       });
     }
   }
 
-  function onEndReached() {
-    if (items.length >= total) return;
-    const next = page + 1;
-    setPage(next);
-    load(next, search, true);
+  function openActions(tag: TagWithCount) {
+    setActionTag(tag);
+    setRenameValue(tag.name);
+  }
+
+  async function handleRename() {
+    const name = renameValue.trim();
+    if (!actionTag || !name || name === actionTag.name) return;
+    setSavingAction(true);
+    try {
+      await renameTag(actionTag.id, name);
+      setActionTag(null);
+      await load();
+    } catch (err) {
+      Alert.alert(t("common.error"), (err as Error).message);
+    } finally {
+      setSavingAction(false);
+    }
+  }
+
+  async function handleColor(color: string | null) {
+    if (!actionTag) return;
+    setSavingAction(true);
+    try {
+      await setTagColor(actionTag.id, color);
+      setActionTag(null);
+      await load();
+    } catch (err) {
+      Alert.alert(t("common.error"), (err as Error).message);
+    } finally {
+      setSavingAction(false);
+    }
+  }
+
+  function confirmDelete(tag: TagWithCount) {
+    Alert.alert(t("tags.deleteTitle", { name: tag.name }), t("tags.deleteMsg"), [
+      { text: t("common.cancel"), style: "cancel" },
+      {
+        text: t("tags.deleteTagOnly"),
+        onPress: () => void doDelete(tag, false),
+      },
+      {
+        text: t("tags.deleteWithNotes"),
+        style: "destructive",
+        onPress: () => void doDelete(tag, true),
+      },
+    ]);
+  }
+
+  // Reorder via up/down arrows, saved to the shared "tags:all" context so the
+  // newest order set on either platform becomes the order on both (last write
+  // wins). Mirrors the per-tag item reorder on the tag detail screen.
+  function onMove(index: number, direction: -1 | 1) {
+    setTags((prev) => {
+      const next = moveItem(prev, index, direction);
+      if (next !== prev) {
+        saveSortOrder(
+          "tags:all",
+          next.map((tg) => tg.id),
+        ).catch((err) => {
+          void reportClientError({
+            message: (err as Error).message,
+            stack: (err as Error).stack,
+            context: "TagsScreen.onMove",
+          });
+        });
+      }
+      return next;
+    });
   }
 
   return (
     <SafeAreaView style={s.root} edges={["top"]}>
-      <View style={s.header}>
-        <Text style={s.title}>{t("home.title")}</Text>
+      <View style={s.headerRow}>
+        <Text style={s.heading}>{t("tags.title")}</Text>
         <View style={s.headerActions}>
+          {tags.length > 1 && (
+            <Pressable
+              onPress={() => setReordering((r) => !r)}
+              hitSlop={8}
+              style={s.newBtn}
+            >
+              <Ionicons
+                name={reordering ? "checkmark" : "swap-vertical"}
+                size={18}
+                color={colors.accent}
+              />
+              <Text style={s.newBtnText}>
+                {reordering ? t("common.done") : t("tagDetail.reorder")}
+              </Text>
+            </Pressable>
+          )}
           <Pressable
-            onPress={() => router.push("/dashboard" as never)}
+            onPress={() => setAdding((a) => !a)}
             hitSlop={8}
+            style={s.newBtn}
           >
-            <Ionicons name="grid-outline" size={20} color={colors.textMuted} />
-          </Pressable>
-          <Pressable onPress={logout} hitSlop={8}>
             <Ionicons
-              name="log-out-outline"
-              size={22}
-              color={colors.textMuted}
+              name={adding ? "close" : "add"}
+              size={18}
+              color={colors.accent}
             />
+            <Text style={s.newBtnText}>{t("tags.new")}</Text>
           </Pressable>
         </View>
       </View>
-
-      <View style={s.searchRow}>
-        <Ionicons
-          name="search-outline"
-          size={16}
-          color={colors.textDim}
-          style={s.searchIcon}
-        />
-        <TextInput
-          style={s.search}
-          placeholder={t("home.search")}
-          placeholderTextColor={colors.textDim}
-          value={search}
-          onChangeText={setSearch}
-          returnKeyType="search"
-          clearButtonMode="while-editing"
-        />
-      </View>
-
-      <View style={s.filterRow}>
-        {FILTERS.map((f) => {
-          const active = filter === f.value;
-          return (
-            <Pressable
-              key={f.labelKey}
-              onPress={() => setFilter(f.value)}
-              style={[s.filterChip, active && s.filterChipActive]}
-              hitSlop={4}
-            >
-              <Text
-                style={[s.filterText, active && s.filterTextActive]}
-              >
-                {t(f.labelKey)}
-              </Text>
-            </Pressable>
-          );
-        })}
-      </View>
-
+      {adding && (
+        <View style={s.addRow}>
+          <TextInput
+            style={s.addInput}
+            placeholder={t("tags.namePlaceholder")}
+            placeholderTextColor={colors.textDim}
+            value={newName}
+            onChangeText={setNewName}
+            autoFocus
+            returnKeyType="done"
+            onSubmitEditing={handleCreate}
+          />
+          <Pressable
+            style={s.addSubmit}
+            onPress={handleCreate}
+            disabled={creating || !newName.trim()}
+          >
+            {creating ? (
+              <ActivityIndicator size="small" color={colors.text} />
+            ) : (
+              <Text style={s.addSubmitText}>{t("tags.add")}</Text>
+            )}
+          </Pressable>
+        </View>
+      )}
       {loading ? (
         <ActivityIndicator style={s.loader} color={colors.accent} />
       ) : (
         <FlatList
-          data={items}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => (
-            <ItemCard
-              item={item}
-              onPress={() => router.push(`/item/${item.id}`)}
-              onDelete={onDelete}
-            />
-          )}
+          data={tags}
+          keyExtractor={(t) => t.id}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -195,75 +259,258 @@ export default function ItemsScreen() {
               tintColor={colors.accent}
             />
           }
-          onEndReached={onEndReached}
-          onEndReachedThreshold={0.3}
+          renderItem={({ item, index }) =>
+            reordering ? (
+              <View style={s.row}>
+                <View
+                  style={[
+                    s.dot,
+                    { backgroundColor: item.color ?? colors.accent },
+                  ]}
+                />
+                <Text style={s.tagName} numberOfLines={1}>
+                  {item.name}
+                </Text>
+                <Pressable
+                  onPress={() => onMove(index, -1)}
+                  hitSlop={8}
+                  disabled={index === 0}
+                  style={s.reorderBtn}
+                >
+                  <Text
+                    style={[s.reorderArrow, index === 0 && s.reorderDisabled]}
+                  >
+                    ↑
+                  </Text>
+                </Pressable>
+                <Pressable
+                  onPress={() => onMove(index, 1)}
+                  hitSlop={8}
+                  disabled={index === tags.length - 1}
+                  style={s.reorderBtn}
+                >
+                  <Text
+                    style={[
+                      s.reorderArrow,
+                      index === tags.length - 1 && s.reorderDisabled,
+                    ]}
+                  >
+                    ↓
+                  </Text>
+                </Pressable>
+              </View>
+            ) : (
+              <Pressable
+                style={({ pressed }) => [s.row, pressed && s.rowPressed]}
+                onPress={() => router.push(`/tag/${item.id}` as never)}
+                onLongPress={() => openActions(item)}
+              >
+                <View
+                  style={[
+                    s.dot,
+                    { backgroundColor: item.color ?? colors.accent },
+                  ]}
+                />
+                <Text style={s.tagName}>{item.name}</Text>
+                <Text style={s.count}>{item.item_count ?? 0}</Text>
+              </Pressable>
+            )
+          }
           ListEmptyComponent={
-            <Text style={s.empty}>
-              {error ? error : search ? t("home.noResults") : t("home.empty")}
-            </Text>
+            <Text style={s.empty}>{error ? error : t("tags.empty")}</Text>
           }
           contentContainerStyle={{ paddingBottom: spacing.xl }}
         />
       )}
+
+      <Modal
+        visible={!!actionTag}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setActionTag(null)}
+      >
+        <Pressable style={s.backdrop} onPress={() => setActionTag(null)} />
+        <View style={s.sheet}>
+          <Text style={s.sheetTitle} numberOfLines={1}>
+            {actionTag?.name}
+          </Text>
+
+          <Text style={s.sheetLabel}>{t("tags.rename")}</Text>
+          <View style={s.renameRow}>
+            <TextInput
+              style={s.addInput}
+              value={renameValue}
+              onChangeText={setRenameValue}
+              placeholder={t("tags.namePlaceholder")}
+              placeholderTextColor={colors.textDim}
+              returnKeyType="done"
+              onSubmitEditing={handleRename}
+            />
+            <Pressable
+              style={s.addSubmit}
+              onPress={handleRename}
+              disabled={savingAction || !renameValue.trim()}
+            >
+              <Text style={s.addSubmitText}>{t("common.save")}</Text>
+            </Pressable>
+          </View>
+
+          <Text style={s.sheetLabel}>{t("tags.color")}</Text>
+          <View style={s.swatches}>
+            {PALETTE.map((c) => (
+              <Pressable
+                key={c}
+                onPress={() => handleColor(c)}
+                disabled={savingAction}
+                style={[
+                  s.swatch,
+                  { backgroundColor: c },
+                  actionTag?.color === c && s.swatchActive,
+                ]}
+              />
+            ))}
+          </View>
+          {!!actionTag?.color && (
+            <Pressable onPress={() => handleColor(null)} disabled={savingAction}>
+              <Text style={s.removeColor}>{t("tags.removeColor")}</Text>
+            </Pressable>
+          )}
+
+          <Pressable
+            style={s.deleteAction}
+            onPress={() => {
+              const tag = actionTag;
+              setActionTag(null);
+              if (tag) confirmDelete(tag);
+            }}
+          >
+            <Ionicons name="trash-outline" size={16} color={colors.danger} />
+            <Text style={s.deleteActionText}>{t("common.delete")}</Text>
+          </Pressable>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
 
 const s = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
-  header: {
+  headerRow: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
+    justifyContent: "space-between",
+    paddingRight: spacing.md,
   },
-  title: {
+  heading: {
     color: colors.text,
     fontSize: font.xxl,
     fontWeight: "700",
-  },
-  headerActions: { flexDirection: "row", alignItems: "center", gap: spacing.md },
-  searchRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: colors.surface,
-    borderRadius: radius.md,
-    marginHorizontal: spacing.md,
-    marginBottom: spacing.sm,
-    paddingHorizontal: spacing.sm,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  searchIcon: { marginRight: spacing.xs },
-  search: {
-    flex: 1,
-    color: colors.text,
-    fontSize: font.md,
+    paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
   },
-  filterRow: {
+  headerActions: { flexDirection: "row", alignItems: "center", gap: spacing.md },
+  newBtn: { flexDirection: "row", alignItems: "center", gap: 2 },
+  newBtnText: { color: colors.accent, fontSize: font.md, fontWeight: "600" },
+  reorderBtn: { paddingHorizontal: spacing.sm },
+  reorderArrow: { color: colors.accent, fontSize: font.lg },
+  reorderDisabled: { color: colors.textMuted, opacity: 0.4 },
+  addRow: {
     flexDirection: "row",
-    flexWrap: "wrap",
-    gap: spacing.xs,
+    alignItems: "center",
+    gap: spacing.sm,
     paddingHorizontal: spacing.md,
-    marginBottom: spacing.sm,
+    paddingBottom: spacing.sm,
   },
-  filterChip: {
+  addInput: {
+    flex: 1,
+    backgroundColor: colors.surface,
+    borderRadius: radius.md,
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: radius.full,
-    backgroundColor: colors.surface,
     paddingHorizontal: spacing.md,
-    paddingVertical: 4,
+    paddingVertical: spacing.sm,
+    color: colors.text,
+    fontSize: font.md,
   },
-  filterChipActive: {
+  addSubmit: {
     backgroundColor: colors.accent,
-    borderColor: colors.accent,
+    borderRadius: radius.md,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
   },
-  filterText: { color: colors.textMuted, fontSize: font.sm, fontWeight: "600" },
-  filterTextActive: { color: colors.text },
+  addSubmitText: { color: colors.text, fontSize: font.sm, fontWeight: "700" },
+  backdrop: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)" },
+  sheet: {
+    backgroundColor: colors.surface,
+    borderTopLeftRadius: radius.lg,
+    borderTopRightRadius: radius.lg,
+    padding: spacing.md,
+    gap: spacing.sm,
+  },
+  sheetTitle: {
+    color: colors.text,
+    fontSize: font.lg,
+    fontWeight: "700",
+    marginBottom: spacing.xs,
+  },
+  sheetLabel: {
+    color: colors.textMuted,
+    fontSize: font.sm,
+    fontWeight: "600",
+    marginTop: spacing.xs,
+  },
+  renameRow: { flexDirection: "row", alignItems: "center", gap: spacing.sm },
+  swatches: { flexDirection: "row", flexWrap: "wrap", gap: spacing.sm },
+  swatch: {
+    width: 28,
+    height: 28,
+    borderRadius: radius.full,
+    borderWidth: 2,
+    borderColor: "transparent",
+  },
+  swatchActive: { borderColor: colors.text },
+  removeColor: {
+    color: colors.textMuted,
+    fontSize: font.sm,
+    paddingVertical: spacing.xs,
+  },
+  deleteAction: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: spacing.xs,
+    marginTop: spacing.sm,
+    paddingVertical: spacing.sm,
+    borderRadius: radius.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  deleteActionText: { color: colors.danger, fontSize: font.md, fontWeight: "600" },
   loader: { marginTop: spacing.xl },
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.md,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+    gap: spacing.sm,
+  },
+  rowPressed: { backgroundColor: colors.surface },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: radius.full,
+  },
+  tagName: { flex: 1, color: colors.text, fontSize: font.md },
+  count: {
+    color: colors.textMuted,
+    fontSize: font.sm,
+    backgroundColor: colors.surface,
+    paddingHorizontal: spacing.sm,
+    paddingVertical: 2,
+    borderRadius: radius.full,
+  },
   empty: {
     color: colors.textMuted,
     textAlign: "center",

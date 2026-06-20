@@ -20,7 +20,7 @@ export default function TabsLayout() {
       }}
     >
       <Tabs.Screen
-        name="tags"
+        name="index"
         options={{
           title: t("tabs.tags"),
           tabBarIcon: ({ color, size }) => (
@@ -47,7 +47,7 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="index"
+        name="notes"
         options={{
           title: t("tabs.notes"),
           tabBarIcon: ({ color, size }) => (
