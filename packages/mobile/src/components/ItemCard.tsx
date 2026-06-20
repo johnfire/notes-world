@@ -3,7 +3,7 @@ import { View, Text, Pressable, StyleSheet, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import type { Item } from "@notes-world/shared";
-import { ItemType } from "@notes-world/shared";
+import { ItemType, TaskStatus } from "@notes-world/shared";
 import { colors, spacing, radius, font } from "../theme";
 import { formatDueShort, dateOf, isOverdue } from "../lib/dueDate";
 
@@ -15,6 +15,33 @@ const TYPE_COLORS: Record<string, string> = {
   [ItemType.Untyped]: colors.typeUntyped,
   [ItemType.Divider]: colors.typeUntyped,
 };
+
+// Task status → colour/label, matching the web Kanban so a task reads the same
+// on every surface. The coloured left bar + footer badge let you tell Done from
+// not-done (and each status apart) at a glance in a list.
+const STATUS_COLORS: Record<string, string> = {
+  [TaskStatus.Open]: colors.statusOpen,
+  [TaskStatus.InProgress]: colors.statusInProgress,
+  [TaskStatus.Blocked]: colors.statusBlocked,
+  [TaskStatus.Done]: colors.statusDone,
+};
+
+const STATUS_LABELS: Record<string, string> = {
+  [TaskStatus.Open]: "Open",
+  [TaskStatus.InProgress]: "In Progress",
+  [TaskStatus.Blocked]: "Blocked",
+  [TaskStatus.Done]: "Done",
+};
+
+// A task with a missing or unrecognised status reads as Open, matching the
+// item-detail editor's default.
+function taskStatusOf(item: Item): TaskStatus | null {
+  if (item.item_type !== ItemType.Task) return null;
+  const s = (item.type_data as { task_status?: string } | null)?.task_status;
+  return (Object.values(TaskStatus) as string[]).includes(s ?? "")
+    ? (s as TaskStatus)
+    : TaskStatus.Open;
+}
 
 // Dividers render as a compact one-line section header. A very dark red so they
 // stand out against the near-black note cards.
@@ -40,6 +67,12 @@ export function ItemCard({
 }: Props) {
   const { t, i18n } = useTranslation();
   const typeColor = TYPE_COLORS[item.item_type] ?? colors.typeUntyped;
+  const taskStatus = taskStatusOf(item);
+  const statusColor = taskStatus
+    ? (STATUS_COLORS[taskStatus] ?? colors.typeTask)
+    : null;
+  // Tasks show their status on the bar; everything else keeps its type colour.
+  const barColor = statusColor ?? typeColor;
   const date = new Date(item.updated_at).toLocaleDateString(i18n.language, {
     day: "2-digit",
     month: "short",
@@ -106,7 +139,7 @@ export function ItemCard({
       style={({ pressed }) => [s.card, pressed && s.cardPressed]}
       onPress={onPress}
     >
-      <View style={[s.typeBar, { backgroundColor: typeColor }]} />
+      <View style={[s.typeBar, { backgroundColor: barColor }]} />
       <View style={s.content}>
         <Text style={s.title} numberOfLines={2}>
           {!!due && (
@@ -122,7 +155,16 @@ export function ItemCard({
           </Text>
         )}
         <View style={s.footer}>
-          <Text style={[s.badge, { color: typeColor }]}>{item.item_type}</Text>
+          <View style={s.footerLeft}>
+            <Text style={[s.badge, { color: typeColor }]}>
+              {item.item_type}
+            </Text>
+            {taskStatus && statusColor && (
+              <Text style={[s.badge, { color: statusColor }]}>
+                {STATUS_LABELS[taskStatus] ?? taskStatus}
+              </Text>
+            )}
+          </View>
           <View style={s.footerRight}>
             {!!start && (
               <View style={s.dueWrap}>
@@ -211,6 +253,12 @@ const s = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginTop: spacing.xs,
+  },
+  footerLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.sm,
+    flexShrink: 1,
   },
   footerRight: {
     flexDirection: "row",
