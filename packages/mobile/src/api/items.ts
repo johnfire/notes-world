@@ -32,6 +32,16 @@ export function getItem(id: string): Promise<Item> {
   return api.get<Item>(`/items/${id}`);
 }
 
+// All items of a type for the user, across every tag and untagged. Used by the
+// Done view to gather completed tasks regardless of how they're tagged.
+export function getItemsByType(
+  type: ItemType,
+  limit = 200,
+  offset = 0,
+): Promise<Item[]> {
+  return api.get<Item[]>(`/items/type/${type}?limit=${limit}&offset=${offset}`);
+}
+
 export interface CreateItemInput {
   title: string;
   body?: string;

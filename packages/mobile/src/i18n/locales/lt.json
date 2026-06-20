@@ -14,7 +14,8 @@
     "capture": "Fiksuoti",
     "tags": "Žymos",
     "checklists": "Sąrašai",
-    "account": "Paskyra"
+    "account": "Paskyra",
+    "done": "Atlikta"
   },
   "auth": {
     "tagline": "Jūsų asmeninė žinių bazė",
@@ -87,7 +88,8 @@
     "sortStart": "Pradžia",
     "sortBy": "Rūšiuoti",
     "addDivider": "+ Skirtukas",
-    "sortStatus": "Būsena"
+    "sortStatus": "Būsena",
+    "hideCompleted": "Slėpti atliktus"
   },
   "item": {
     "title": "Pavadinimas",
@@ -208,5 +210,10 @@
   "import": {
     "done": "Importuota failų: {{count}}",
     "failed": "Importavimas nepavyko"
+  },
+  "done": {
+    "count": "Atlikta: {{count}}",
+    "empty": "Dar nėra atliktų elementų",
+    "loadError": "Nepavyko įkelti atliktų elementų. Patraukite žemyn, kad bandytumėte dar kartą."
   }
 }

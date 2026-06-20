@@ -15,6 +15,7 @@ import { getItemsByTag, listTags, addTagToItem } from "../../src/api/tags";
 import { archiveItem, createDivider } from "../../src/api/items";
 import {
   collapsedDividers,
+  hideCompleted as hideCompletedApi,
   getSortOrder,
   saveSortOrder,
 } from "../../src/api/sortOrders";
@@ -28,6 +29,7 @@ import { applySavedOrder, moveItem } from "../../src/lib/sortItems";
 import {
   sortItemsByDate,
   sortItemsByStatus,
+  isCompleted,
   type DateField,
 } from "../../src/lib/dueDate";
 import { colors, spacing, font, radius } from "../../src/theme";
@@ -45,6 +47,8 @@ export default function TagScreen() {
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [reordering, setReordering] = useState(false);
+  // Per-tag "hide completed" view filter. Default ON; persisted like sort order.
+  const [hideCompleted, setHideCompleted] = useState(true);
 
   // One-shot reorder: rearrange by a date field once (soonest first, undated
   // last) and persist it as the normal manual order. Manual drag stays fully
@@ -83,6 +87,22 @@ export default function TagScreen() {
         context: "TagScreen.addDivider",
       });
     }
+  }
+
+  function toggleHideCompleted() {
+    setHideCompleted((prev) => {
+      const next = !prev;
+      // Fire-and-forget: keep the state the user just set even if the save
+      // fails (matches the collapse toggle).
+      hideCompletedApi.save(id, next).catch((err) => {
+        void reportClientError({
+          message: (err as Error).message,
+          stack: (err as Error).stack,
+          context: "TagScreen.toggleHideCompleted",
+        });
+      });
+      return next;
+    });
   }
 
   function toggleCollapse(dividerId: string) {
@@ -134,7 +154,7 @@ export default function TagScreen() {
   async function load() {
     try {
       setError(null);
-      const [res, collapsedIds, orderRows] = await Promise.all([
+      const [res, collapsedIds, orderRows, hidden] = await Promise.all([
         getItemsByTag(id),
         // If the collapsed-state fetch fails, fall back to nothing collapsed.
         collapsedDividers.get(id).catch(() => [] as string[]),
@@ -142,9 +162,12 @@ export default function TagScreen() {
         getSortOrder(`tag:${id}`).catch(
           () => [] as Array<{ item_id: string; sort_order: number }>,
         ),
+        // A failed fetch falls back to the default (ON) — completed stay hidden.
+        hideCompletedApi.get(id).catch(() => true),
       ]);
       setItems(applySavedOrder(res, orderRows));
       setCollapsed(new Set(collapsedIds));
+      setHideCompleted(hidden);
     } catch (err) {
       void reportClientError({
         message: (err as Error).message,
@@ -201,7 +224,11 @@ export default function TagScreen() {
     ? items
     : items.filter((item) => {
         const parent = parentDividerMap.get(item.id);
-        return !(parent && collapsed.has(parent));
+        if (parent && collapsed.has(parent)) return false;
+        // Pure view filter — toggling off (or un-completing an item) brings it
+        // back with all its tags intact.
+        if (hideCompleted && isCompleted(item)) return false;
+        return true;
       });
 
   return (
@@ -213,6 +240,18 @@ export default function TagScreen() {
         <View style={s.sortBar}>
           <Pressable onPress={addDivider} style={s.sortBtn} hitSlop={6}>
             <Text style={s.sortBtnText}>{t("tagDetail.addDivider")}</Text>
+          </Pressable>
+          <Pressable
+            onPress={toggleHideCompleted}
+            style={[s.sortBtn, hideCompleted && s.sortBtnActive]}
+            hitSlop={6}
+            accessibilityRole="switch"
+            accessibilityState={{ checked: hideCompleted }}
+          >
+            <Text style={s.sortBtnText}>
+              {hideCompleted ? "✓ " : ""}
+              {t("tagDetail.hideCompleted")}
+            </Text>
           </Pressable>
           <Text style={s.sortByLabel}>{t("tagDetail.sortBy")}</Text>
           {(
@@ -352,6 +391,9 @@ const s = StyleSheet.create({
     backgroundColor: colors.surfaceHigh,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.xs,
+  },
+  sortBtnActive: {
+    borderColor: colors.accent,
   },
   sortBtnText: {
     color: colors.accent,

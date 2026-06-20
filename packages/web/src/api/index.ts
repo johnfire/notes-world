@@ -13,6 +13,7 @@ import {
   Checklist,
   ChecklistItem,
 } from "../types";
+import { decodeHideCompleted, encodeHideCompleted } from "@notes-world/shared";
 
 const BASE = "/api";
 
@@ -299,6 +300,20 @@ export const collapsedDividers = {
 
   save: (tagId: string, dividerIds: string[]) =>
     sortOrders.save(`tag:${tagId}:collapsed`, dividerIds),
+};
+
+// ── Hide-completed toggle (per tag) ────────────────────────────────────────
+// Persisted on the sort-orders endpoint under its own context key, the same way
+// sort order and collapsed dividers are. Default is ON — see decodeHideCompleted.
+
+export const hideCompleted = {
+  get: (tagId: string) =>
+    sortOrders
+      .get(`tag:${tagId}:hide-completed`)
+      .then((rows) => decodeHideCompleted(rows)),
+
+  save: (tagId: string, hidden: boolean) =>
+    sortOrders.save(`tag:${tagId}:hide-completed`, encodeHideCompleted(hidden)),
 };
 
 // ── Dashboard ─────────────────────────────────────────────────────────────────

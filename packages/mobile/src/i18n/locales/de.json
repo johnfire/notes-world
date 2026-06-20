@@ -14,7 +14,8 @@
     "capture": "Erfassen",
     "tags": "Tags",
     "checklists": "Listen",
-    "account": "Konto"
+    "account": "Konto",
+    "done": "Erledigt"
   },
   "auth": {
     "tagline": "Deine persönliche Wissensdatenbank",
@@ -87,7 +88,8 @@
     "sortStart": "Start",
     "sortBy": "Sortieren nach",
     "addDivider": "+ Trenner",
-    "sortStatus": "Status"
+    "sortStatus": "Status",
+    "hideCompleted": "Erledigte ausblenden"
   },
   "item": {
     "title": "Titel",
@@ -208,5 +210,10 @@
   "import": {
     "done": "{{count}} Datei(en) importiert",
     "failed": "Import fehlgeschlagen"
+  },
+  "done": {
+    "count": "{{count}} erledigt",
+    "empty": "Noch keine erledigten Einträge",
+    "loadError": "Erledigte Einträge konnten nicht geladen werden. Zum erneuten Versuch nach unten ziehen."
   }
 }

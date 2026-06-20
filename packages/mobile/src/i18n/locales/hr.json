@@ -14,7 +14,8 @@
     "capture": "Zabilježi",
     "tags": "Oznake",
     "checklists": "Popisi",
-    "account": "Račun"
+    "account": "Račun",
+    "done": "Završeno"
   },
   "auth": {
     "tagline": "Vaša osobna baza znanja",
@@ -87,7 +88,8 @@
     "sortStart": "Početak",
     "sortBy": "Razvrstaj",
     "addDivider": "+ Razdjelnik",
-    "sortStatus": "Status"
+    "sortStatus": "Status",
+    "hideCompleted": "Sakrij završene"
   },
   "item": {
     "title": "Naslov",
@@ -208,5 +210,10 @@
   "import": {
     "done": "Uvezeno datoteka: {{count}}",
     "failed": "Uvoz nije uspio"
+  },
+  "done": {
+    "count": "Završeno: {{count}}",
+    "empty": "Još nema završenih stavki",
+    "loadError": "Završene stavke nije moguće učitati. Povucite prema dolje za ponovni pokušaj."
   }
 }

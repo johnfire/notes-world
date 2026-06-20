@@ -14,7 +14,8 @@
     "capture": "Opfang",
     "tags": "Tags",
     "checklists": "Lister",
-    "account": "Konto"
+    "account": "Konto",
+    "done": "Færdige"
   },
   "auth": {
     "tagline": "Din personlige videnbase",
@@ -87,7 +88,8 @@
     "sortStart": "Start",
     "sortBy": "Sortér efter",
     "addDivider": "+ Skilletegn",
-    "sortStatus": "Status"
+    "sortStatus": "Status",
+    "hideCompleted": "Skjul færdige"
   },
   "item": {
     "title": "Titel",
@@ -208,5 +210,10 @@
   "import": {
     "done": "{{count}} fil(er) importeret",
     "failed": "Import mislykkedes"
+  },
+  "done": {
+    "count": "{{count}} færdige",
+    "empty": "Ingen færdige elementer endnu",
+    "loadError": "Kunne ikke indlæse færdige elementer. Træk ned for at prøve igen."
   }
 }

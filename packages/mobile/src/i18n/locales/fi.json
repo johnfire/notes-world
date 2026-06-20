@@ -14,7 +14,8 @@
     "capture": "Kirjaa",
     "tags": "Tunnisteet",
     "checklists": "Listat",
-    "account": "Tili"
+    "account": "Tili",
+    "done": "Valmis"
   },
   "auth": {
     "tagline": "Henkilökohtainen tietämyskantasi",
@@ -87,7 +88,8 @@
     "sortStart": "Aloitus",
     "sortBy": "Lajittele",
     "addDivider": "+ Erotin",
-    "sortStatus": "Tila"
+    "sortStatus": "Tila",
+    "hideCompleted": "Piilota valmiit"
   },
   "item": {
     "title": "Otsikko",
@@ -208,5 +210,10 @@
   "import": {
     "done": "Tuotu {{count}} tiedosto(a)",
     "failed": "Tuonti epäonnistui"
+  },
+  "done": {
+    "count": "{{count}} valmista",
+    "empty": "Ei vielä valmiita kohteita",
+    "loadError": "Valmiita kohteita ei voitu ladata. Vedä alas yrittääksesi uudelleen."
   }
 }

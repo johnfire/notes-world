@@ -14,7 +14,8 @@
     "capture": "Capture",
     "tags": "Tags",
     "checklists": "Lists",
-    "account": "Account"
+    "account": "Account",
+    "done": "Done"
   },
   "auth": {
     "tagline": "Your personal knowledge base",
@@ -87,7 +88,8 @@
     "sortStart": "Start",
     "sortBy": "Sort by",
     "addDivider": "+ Divider",
-    "sortStatus": "Status"
+    "sortStatus": "Status",
+    "hideCompleted": "Hide done"
   },
   "item": {
     "title": "Title",
@@ -208,5 +210,10 @@
   "import": {
     "done": "Imported {{count}} file(s)",
     "failed": "Import failed"
+  },
+  "done": {
+    "count": "{{count}} completed",
+    "empty": "No completed items yet",
+    "loadError": "Couldn't load completed items. Pull down to retry."
   }
 }

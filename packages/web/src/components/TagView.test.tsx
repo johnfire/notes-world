@@ -11,6 +11,8 @@ const mockTagItem = vi.fn();
 const mockOpenItem = vi.fn();
 const mockRemoveUnsorted = vi.fn();
 const mockLoadTags = vi.fn();
+const mockHideCompletedGet = vi.fn();
+const mockHideCompletedSave = vi.fn();
 
 vi.mock("../api", () => ({
   tags: {
@@ -26,10 +28,15 @@ vi.mock("../api", () => ({
     get: (...args: unknown[]) => mockGetCollapsed(...args),
     save: vi.fn().mockResolvedValue(undefined),
   },
+  hideCompleted: {
+    get: (...args: unknown[]) => mockHideCompletedGet(...args),
+    save: (...args: unknown[]) => mockHideCompletedSave(...args),
+  },
   sortOrders: {
     get: vi.fn().mockResolvedValue([]),
     save: vi.fn().mockResolvedValue(undefined),
   },
+  reportClientError: vi.fn(),
 }));
 
 vi.mock("../context/AppContext", () => ({
@@ -63,9 +70,16 @@ function makeItem(id: string, title: string, type = ItemType.Untyped) {
   };
 }
 
+function makeTask(id: string, title: string, status: string) {
+  return { ...makeItem(id, title, ItemType.Task), type_data: { task_status: status } };
+}
+
 beforeEach(() => {
   vi.clearAllMocks();
   mockGetCollapsed.mockResolvedValue([]);
+  // Default behaviour of the toggle is ON (completed hidden).
+  mockHideCompletedGet.mockResolvedValue(true);
+  mockHideCompletedSave.mockResolvedValue(undefined);
 });
 
 describe("TagView", () => {
@@ -153,5 +167,84 @@ describe("TagView", () => {
     await waitFor(() =>
       expect(mockGetItemsForTag).toHaveBeenCalledWith("t1", 500),
     );
+  });
+
+  describe("hide completed", () => {
+    test("hides completed tasks by default (toggle ON)", async () => {
+      mockGetItemsForTag.mockResolvedValue([
+        makeTask("a", "Active task", "Open"),
+        makeTask("b", "Finished task", "Done"),
+      ]);
+
+      render(<TagView tag={tag} />);
+
+      await waitFor(() =>
+        expect(screen.getByText("Active task")).toBeInTheDocument(),
+      );
+      expect(screen.queryByText("Finished task")).not.toBeInTheDocument();
+    });
+
+    test("toggling the filter off reveals completed tasks again (reversible)", async () => {
+      mockGetItemsForTag.mockResolvedValue([
+        makeTask("a", "Active task", "Open"),
+        makeTask("b", "Finished task", "Done"),
+      ]);
+
+      render(<TagView tag={tag} />);
+
+      await waitFor(() =>
+        expect(screen.getByText("Active task")).toBeInTheDocument(),
+      );
+      expect(screen.queryByText("Finished task")).not.toBeInTheDocument();
+
+      fireEvent.click(screen.getByTitle("Hide done"));
+
+      await waitFor(() =>
+        expect(screen.getByText("Finished task")).toBeInTheDocument(),
+      );
+      // The non-completed item is still there — nothing was mutated.
+      expect(screen.getByText("Active task")).toBeInTheDocument();
+    });
+
+    test("persists the toggle per tag when changed", async () => {
+      mockGetItemsForTag.mockResolvedValue([makeTask("a", "Active task", "Open")]);
+
+      render(<TagView tag={tag} />);
+
+      await waitFor(() =>
+        expect(screen.getByText("Active task")).toBeInTheDocument(),
+      );
+      fireEvent.click(screen.getByTitle("Hide done"));
+
+      await waitFor(() =>
+        expect(mockHideCompletedSave).toHaveBeenCalledWith("t1", false),
+      );
+    });
+
+    test("respects a stored OFF preference on load", async () => {
+      mockHideCompletedGet.mockResolvedValue(false);
+      mockGetItemsForTag.mockResolvedValue([
+        makeTask("b", "Finished task", "Done"),
+      ]);
+
+      render(<TagView tag={tag} />);
+
+      await waitFor(() =>
+        expect(screen.getByText("Finished task")).toBeInTheDocument(),
+      );
+    });
+
+    test("a task with a garbage status is treated as not-completed and stays visible", async () => {
+      mockGetItemsForTag.mockResolvedValue([
+        { ...makeItem("g", "Garbage task", ItemType.Task), type_data: "broken" },
+      ]);
+
+      render(<TagView tag={tag} />);
+
+      // Default toggle is ON; a malformed item must never be hidden or crash.
+      await waitFor(() =>
+        expect(screen.getByText("Garbage task")).toBeInTheDocument(),
+      );
+    });
   });
 });

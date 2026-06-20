@@ -14,7 +14,8 @@
     "capture": "Talleta",
     "tags": "Sildid",
     "checklists": "Loendid",
-    "account": "Konto"
+    "account": "Konto",
+    "done": "Tehtud"
   },
   "auth": {
     "tagline": "Sinu isiklik teadmusbaas",
@@ -87,7 +88,8 @@
     "sortStart": "Algus",
     "sortBy": "Sorteeri",
     "addDivider": "+ Eraldaja",
-    "sortStatus": "Olek"
+    "sortStatus": "Olek",
+    "hideCompleted": "Peida tehtud"
   },
   "item": {
     "title": "Pealkiri",
@@ -208,5 +210,10 @@
   "import": {
     "done": "Imporditi {{count}} faili",
     "failed": "Import ebaõnnestus"
+  },
+  "done": {
+    "count": "{{count}} tehtud",
+    "empty": "Tehtud üksusi pole veel",
+    "loadError": "Tehtud üksusi ei õnnestunud laadida. Tõmba alla, et uuesti proovida."
   }
 }

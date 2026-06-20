@@ -14,7 +14,8 @@
     "capture": "Vastleggen",
     "tags": "Tags",
     "checklists": "Lijsten",
-    "account": "Account"
+    "account": "Account",
+    "done": "Voltooid"
   },
   "auth": {
     "tagline": "Je persoonlijke kennisbank",
@@ -87,7 +88,8 @@
     "sortStart": "Start",
     "sortBy": "Sorteer op",
     "addDivider": "+ Scheiding",
-    "sortStatus": "Status"
+    "sortStatus": "Status",
+    "hideCompleted": "Voltooide verbergen"
   },
   "item": {
     "title": "Titel",
@@ -208,5 +210,10 @@
   "import": {
     "done": "{{count}} bestand(en) geïmporteerd",
     "failed": "Importeren mislukt"
+  },
+  "done": {
+    "count": "{{count}} voltooid",
+    "empty": "Nog geen voltooide items",
+    "loadError": "Kan voltooide items niet laden. Trek omlaag om opnieuw te proberen."
   }
 }

@@ -14,7 +14,8 @@
     "capture": "Rögzítés",
     "tags": "Címkék",
     "checklists": "Listák",
-    "account": "Fiók"
+    "account": "Fiók",
+    "done": "Kész"
   },
   "auth": {
     "tagline": "A személyes tudásbázisod",
@@ -87,7 +88,8 @@
     "sortStart": "Kezdés",
     "sortBy": "Rendezés",
     "addDivider": "+ Elválasztó",
-    "sortStatus": "Állapot"
+    "sortStatus": "Állapot",
+    "hideCompleted": "Kész elrejtése"
   },
   "item": {
     "title": "Cím",
@@ -208,5 +210,10 @@
   "import": {
     "done": "{{count}} fájl importálva",
     "failed": "Az importálás sikertelen"
+  },
+  "done": {
+    "count": "{{count}} kész",
+    "empty": "Még nincsenek kész elemek",
+    "loadError": "Nem sikerült betölteni a kész elemeket. Húzd le az újrapróbálkozáshoz."
   }
 }

@@ -4,6 +4,7 @@ import { Tag, Item, ItemType } from "../types";
 import {
   sortItemsByDate,
   sortItemsByStatus,
+  omitCompleted,
   dateOf,
   isOverdue,
   formatDueShort,
@@ -32,6 +33,8 @@ export function TagView({ tag }: Props) {
   const [visualOrder, setVisualOrder] = useState<Item[]>([]);
   const [loading, setLoading] = useState(false);
   const [collapsedSet, setCollapsedSet] = useState<Set<string>>(new Set());
+  // Per-tag "hide completed" view filter. Default ON; persisted like sort order.
+  const [hideCompleted, setHideCompleted] = useState(true);
   // Bumped after a one-shot date sort to remount SortableList so it reloads the
   // freshly-saved order. Manual drag remains fully available afterwards.
   const [sortNonce, setSortNonce] = useState(0);
@@ -45,11 +48,14 @@ export function TagView({ tag }: Props) {
     Promise.all([
       api.tags.getItemsForTag(tag.id, 500),
       api.collapsedDividers.get(tag.id),
+      // A failed fetch falls back to the default (ON) — completed stay hidden.
+      api.hideCompleted.get(tag.id).catch(() => true),
     ])
-      .then(([fetchedItems, collapsed]) => {
+      .then(([fetchedItems, collapsed, hidden]) => {
         setItems(fetchedItems);
         if (isTagChange) setVisualOrder(fetchedItems);
         setCollapsedSet(new Set(collapsed));
+        setHideCompleted(hidden);
       })
       .finally(() => setLoading(false));
   }, [tag.id, refreshKey]);
@@ -57,6 +63,22 @@ export function TagView({ tag }: Props) {
   const handleReorder = useCallback((ordered: Item[]) => {
     setVisualOrder(ordered);
   }, []);
+
+  function toggleHideCompleted() {
+    setHideCompleted((prev) => {
+      const next = !prev;
+      // Fire-and-forget: keep the state the user just set even if the save
+      // fails (matches how the collapse toggle behaves).
+      api.hideCompleted.save(tag.id, next).catch((err) =>
+        api.reportClientError({
+          message: (err as Error).message,
+          stack: (err as Error).stack,
+          context: "TagView.toggleHideCompleted",
+        }),
+      );
+      return next;
+    });
+  }
 
   function toggleCollapse(dividerId: string) {
     setCollapsedSet((prev) => {
@@ -128,6 +150,9 @@ export function TagView({ tag }: Props) {
   const unsortedIds = new Set(unsortedItems.map((i) => i.id));
   const stagedItems = items.filter((i) => unsortedIds.has(i.id));
   const sortedItems = items.filter((i) => !unsortedIds.has(i.id));
+  // Pure view filter — never mutates items, so toggling off (or un-completing
+  // an item) brings everything back with all its original tags.
+  const visibleItems = hideCompleted ? omitCompleted(sortedItems) : sortedItems;
 
   // One-shot: rearrange the list once and persist it as the normal saved order.
   // Drag stays available after. Used for the date and status quick-sorts.
@@ -187,6 +212,20 @@ export function TagView({ tag }: Props) {
           )}
         </h2>
         <div className="flex items-center gap-2">
+          <button
+            onClick={toggleHideCompleted}
+            aria-pressed={hideCompleted}
+            className={`text-xs transition-colors px-2 py-1 rounded hover:bg-surface-600 ${
+              hideCompleted
+                ? "text-accent/90 hover:text-accent"
+                : "text-gray-500 hover:text-gray-300"
+            }`}
+            title={t("app.tagView.hideCompleted")}
+          >
+            {hideCompleted ? "✓ " : ""}
+            {t("app.tagView.hideCompleted")}
+          </button>
+          <span className="text-surface-500">|</span>
           <span className="text-xs text-gray-600">{t("app.tagView.sortBy")}</span>
           <button
             onClick={() => void sortByDate("due_date")}
@@ -275,14 +314,16 @@ export function TagView({ tag }: Props) {
         <p className="text-sm text-gray-600 py-8 text-center">
           {t("app.actions.loading")}
         </p>
-      ) : sortedItems.length === 0 && stagedItems.length === 0 ? (
+      ) : visibleItems.length === 0 && stagedItems.length === 0 ? (
         <p className="text-sm text-gray-600 py-8 text-center">
-          {t("app.tagView.noItems")}
+          {hideCompleted && sortedItems.length > 0
+            ? t("app.tagView.allCompletedHidden")
+            : t("app.tagView.noItems")}
         </p>
       ) : (
         <SortableList
           key={`${tag.id}:${sortNonce}`}
-          items={sortedItems}
+          items={visibleItems}
           contextKey={`tag:${tag.id}`}
           onReorder={handleReorder}
           onExternalDrop={handleExternalDrop}

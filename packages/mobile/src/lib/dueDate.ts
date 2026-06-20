@@ -7,5 +7,8 @@ export {
   dateOf,
   isOverdue,
   mergeTypeData,
+  isCompleted,
+  omitCompleted,
+  selectCompletedItems,
   type DateField,
 } from "@notes-world/shared";

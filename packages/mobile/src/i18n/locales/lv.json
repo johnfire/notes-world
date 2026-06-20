@@ -14,7 +14,8 @@
     "capture": "Pierakstīt",
     "tags": "Birkas",
     "checklists": "Saraksti",
-    "account": "Konts"
+    "account": "Konts",
+    "done": "Pabeigts"
   },
   "auth": {
     "tagline": "Tava personīgā zināšanu bāze",
@@ -87,7 +88,8 @@
     "sortStart": "Sākums",
     "sortBy": "Kārtot pēc",
     "addDivider": "+ Atdalītājs",
-    "sortStatus": "Statuss"
+    "sortStatus": "Statuss",
+    "hideCompleted": "Slēpt pabeigtos"
   },
   "item": {
     "title": "Virsraksts",
@@ -208,5 +210,10 @@
   "import": {
     "done": "Importēti {{count}} faili",
     "failed": "Imports neizdevās"
+  },
+  "done": {
+    "count": "{{count}} pabeigti",
+    "empty": "Pagaidām nav pabeigtu vienumu",
+    "loadError": "Neizdevās ielādēt pabeigtos vienumus. Pavelc uz leju, lai mēģinātu vēlreiz."
   }
 }

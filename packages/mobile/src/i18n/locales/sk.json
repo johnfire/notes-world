@@ -14,7 +14,8 @@
     "capture": "Zachytiť",
     "tags": "Štítky",
     "checklists": "Zoznamy",
-    "account": "Účet"
+    "account": "Účet",
+    "done": "Hotové"
   },
   "auth": {
     "tagline": "Vaša osobná znalostná báza",
@@ -87,7 +88,8 @@
     "sortStart": "Štart",
     "sortBy": "Zoradiť podľa",
     "addDivider": "+ Oddeľovač",
-    "sortStatus": "Stav"
+    "sortStatus": "Stav",
+    "hideCompleted": "Skryť hotové"
   },
   "item": {
     "title": "Názov",
@@ -208,5 +210,10 @@
   "import": {
     "done": "Importované súbory: {{count}}",
     "failed": "Import zlyhal"
+  },
+  "done": {
+    "count": "Hotových: {{count}}",
+    "empty": "Zatiaľ žiadne hotové položky",
+    "loadError": "Hotové položky sa nepodarilo načítať. Potiahnite nadol pre opakovanie."
   }
 }

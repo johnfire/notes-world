@@ -14,7 +14,8 @@
     "capture": "Captură",
     "tags": "Etichete",
     "checklists": "Liste",
-    "account": "Cont"
+    "account": "Cont",
+    "done": "Finalizate"
   },
   "auth": {
     "tagline": "Baza ta personală de cunoștințe",
@@ -87,7 +88,8 @@
     "sortStart": "Început",
     "sortBy": "Sortează după",
     "addDivider": "+ Separator",
-    "sortStatus": "Stare"
+    "sortStatus": "Stare",
+    "hideCompleted": "Ascunde finalizate"
   },
   "item": {
     "title": "Titlu",
@@ -208,5 +210,10 @@
   "import": {
     "done": "{{count}} fișier(e) importate",
     "failed": "Importul a eșuat"
+  },
+  "done": {
+    "count": "{{count}} finalizate",
+    "empty": "Încă niciun element finalizat",
+    "loadError": "Elementele finalizate nu au putut fi încărcate. Trage în jos pentru a reîncerca."
   }
 }

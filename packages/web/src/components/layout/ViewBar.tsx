@@ -1,8 +1,14 @@
 import { useTranslation } from "react-i18next";
 
-export type AppView = "dashboard" | "ideas" | "tasks" | "checklists";
+export type AppView = "dashboard" | "ideas" | "tasks" | "checklists" | "done";
 
-const VIEW_IDS: AppView[] = ["dashboard", "ideas", "tasks", "checklists"];
+const VIEW_IDS: AppView[] = [
+  "dashboard",
+  "ideas",
+  "tasks",
+  "checklists",
+  "done",
+];
 
 interface ViewBarProps {
   currentView: AppView;

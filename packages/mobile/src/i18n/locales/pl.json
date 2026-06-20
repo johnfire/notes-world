@@ -14,7 +14,8 @@
     "capture": "Zapisz",
     "tags": "Tagi",
     "checklists": "Listy",
-    "account": "Konto"
+    "account": "Konto",
+    "done": "Ukończone"
   },
   "auth": {
     "tagline": "Twoja osobista baza wiedzy",
@@ -87,7 +88,8 @@
     "sortStart": "Start",
     "sortBy": "Sortuj wg",
     "addDivider": "+ Separator",
-    "sortStatus": "Status"
+    "sortStatus": "Status",
+    "hideCompleted": "Ukryj ukończone"
   },
   "item": {
     "title": "Tytuł",
@@ -208,5 +210,10 @@
   "import": {
     "done": "Zaimportowano plików: {{count}}",
     "failed": "Import nie powiódł się"
+  },
+  "done": {
+    "count": "Ukończone: {{count}}",
+    "empty": "Brak ukończonych elementów",
+    "loadError": "Nie udało się załadować ukończonych elementów. Pociągnij w dół, aby ponowić."
   }
 }

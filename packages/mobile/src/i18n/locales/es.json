@@ -14,7 +14,8 @@
     "capture": "Capturar",
     "tags": "Etiquetas",
     "checklists": "Listas",
-    "account": "Cuenta"
+    "account": "Cuenta",
+    "done": "Completados"
   },
   "auth": {
     "tagline": "Tu base de conocimiento personal",
@@ -87,7 +88,8 @@
     "sortStart": "Inicio",
     "sortBy": "Ordenar por",
     "addDivider": "+ Divisor",
-    "sortStatus": "Estado"
+    "sortStatus": "Estado",
+    "hideCompleted": "Ocultar completados"
   },
   "item": {
     "title": "Título",
@@ -208,5 +210,10 @@
   "import": {
     "done": "{{count}} archivo(s) importado(s)",
     "failed": "Error al importar"
+  },
+  "done": {
+    "count": "{{count}} completados",
+    "empty": "Aún no hay elementos completados",
+    "loadError": "No se pudieron cargar los elementos completados. Desliza hacia abajo para reintentar."
   }
 }

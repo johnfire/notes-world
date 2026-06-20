@@ -14,7 +14,8 @@
     "capture": "Gabháil",
     "tags": "Clibeanna",
     "checklists": "Liostaí",
-    "account": "Cuntas"
+    "account": "Cuntas",
+    "done": "Déanta"
   },
   "auth": {
     "tagline": "Do bhonn eolais phearsanta",
@@ -87,7 +88,8 @@
     "sortStart": "Tús",
     "sortBy": "Sórtáil de réir",
     "addDivider": "+ Deighilteoir",
-    "sortStatus": "Stádas"
+    "sortStatus": "Stádas",
+    "hideCompleted": "Folaigh déanta"
   },
   "item": {
     "title": "Teideal",
@@ -208,5 +210,10 @@
   "import": {
     "done": "Iompórtáladh {{count}} comhad",
     "failed": "Theip ar an iompórtáil"
+  },
+  "done": {
+    "count": "{{count}} déanta",
+    "empty": "Gan míreanna déanta fós",
+    "loadError": "Níorbh fhéidir míreanna déanta a luchtú. Tarraing anuas chun atriail."
   }
 }

@@ -9,6 +9,7 @@ import { TagView } from "./components/TagView";
 import { IdeasView } from "./components/IdeasView";
 import { TasksView } from "./components/TasksView";
 import { ChecklistsView } from "./components/ChecklistsView";
+import { DoneView } from "./components/DoneView";
 import { CaptureBar } from "./components/CaptureBar";
 import { TrashView } from "./components/TrashView";
 import { OnboardingTour } from "./components/OnboardingTour";
@@ -44,6 +45,7 @@ function DashboardView() {
     if (currentView === "ideas") return <IdeasView />;
     if (currentView === "tasks") return <TasksView />;
     if (currentView === "checklists") return <ChecklistsView />;
+    if (currentView === "done") return <DoneView />;
     if (state.searchResults !== null) return <SearchResults />;
     if (showTrash) return <TrashView />;
     if (selectedTag) return <TagView tag={selectedTag} />;

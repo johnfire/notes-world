@@ -14,7 +14,8 @@
     "capture": "捕捉",
     "tags": "标签",
     "checklists": "清单",
-    "account": "账户"
+    "account": "账户",
+    "done": "已完成"
   },
   "auth": {
     "tagline": "你的个人知识库",
@@ -87,7 +88,8 @@
     "sortStart": "开始",
     "sortBy": "排序",
     "addDivider": "+ 分隔线",
-    "sortStatus": "状态"
+    "sortStatus": "状态",
+    "hideCompleted": "隐藏已完成"
   },
   "item": {
     "title": "标题",
@@ -208,5 +210,10 @@
   "import": {
     "done": "已导入 {{count}} 个文件",
     "failed": "导入失败"
+  },
+  "done": {
+    "count": "已完成 {{count}}",
+    "empty": "暂无已完成条目",
+    "loadError": "无法加载已完成条目。下拉以重试。"
   }
 }

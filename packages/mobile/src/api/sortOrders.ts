@@ -1,4 +1,5 @@
 import { api } from "./client";
+import { decodeHideCompleted, encodeHideCompleted } from "@notes-world/shared";
 
 // Persisted via the shared sort-orders endpoint. Collapsed-divider state reuses
 // it under a dedicated context key so it stays in sync with the web app.
@@ -28,4 +29,18 @@ export const collapsedDividers = {
 
   save: (tagId: string, dividerIds: string[]): Promise<void> =>
     saveSortOrder(collapsedKey(tagId), dividerIds),
+};
+
+// Per-tag "hide completed" toggle. Stored on the same endpoint under its own
+// context key; default is ON — see decodeHideCompleted in @notes-world/shared.
+const hideCompletedKey = (tagId: string) => `tag:${tagId}:hide-completed`;
+
+export const hideCompleted = {
+  get: (tagId: string): Promise<boolean> =>
+    getSortOrder(hideCompletedKey(tagId)).then((rows) =>
+      decodeHideCompleted(rows),
+    ),
+
+  save: (tagId: string, hidden: boolean): Promise<void> =>
+    saveSortOrder(hideCompletedKey(tagId), encodeHideCompleted(hidden)),
 };

@@ -14,7 +14,8 @@
     "capture": "Aqbad",
     "tags": "Tikketti",
     "checklists": "Listi",
-    "account": "Kont"
+    "account": "Kont",
+    "done": "Lesti"
   },
   "auth": {
     "tagline": "Il-bażi tal-għarfien personali tiegħek",
@@ -87,7 +88,8 @@
     "sortStart": "Bidu",
     "sortBy": "Issortja skont",
     "addDivider": "+ Diviżorju",
-    "sortStatus": "Status"
+    "sortStatus": "Status",
+    "hideCompleted": "Aħbi l-lesti"
   },
   "item": {
     "title": "Titlu",
@@ -208,5 +210,10 @@
   "import": {
     "done": "Ġew importati {{count}} fajl(s)",
     "failed": "L-importazzjoni falliet"
+  },
+  "done": {
+    "count": "{{count}} lesti",
+    "empty": "L-ebda oġġett lest s'issa",
+    "loadError": "Ma stajniex intellgħu l-oġġetti lesti. Iġbed 'l isfel biex terġa' tipprova."
   }
 }

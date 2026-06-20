@@ -14,7 +14,8 @@
     "capture": "Fånga",
     "tags": "Taggar",
     "checklists": "Listor",
-    "account": "Konto"
+    "account": "Konto",
+    "done": "Klara"
   },
   "auth": {
     "tagline": "Din personliga kunskapsbas",
@@ -87,7 +88,8 @@
     "sortStart": "Start",
     "sortBy": "Sortera efter",
     "addDivider": "+ Avdelare",
-    "sortStatus": "Status"
+    "sortStatus": "Status",
+    "hideCompleted": "Dölj klara"
   },
   "item": {
     "title": "Titel",
@@ -208,5 +210,10 @@
   "import": {
     "done": "{{count}} fil(er) importerade",
     "failed": "Importen misslyckades"
+  },
+  "done": {
+    "count": "{{count}} klara",
+    "empty": "Inga klara objekt än",
+    "loadError": "Det gick inte att läsa in klara objekt. Dra nedåt för att försöka igen."
   }
 }
