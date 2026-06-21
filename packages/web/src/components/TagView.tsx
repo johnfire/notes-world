@@ -13,6 +13,8 @@ import {
 import * as api from "../api";
 import { useApp } from "../context/AppContext";
 import { SortableList } from "./SortableList";
+import type { DropMode } from "../hooks/useSortableList";
+import { subtreeIds, treeDropOrder } from "../lib/hierarchy";
 import { linkify } from "../utils/linkify";
 import { ColorDot } from "./tag-view/ColorDot";
 import { DividerRow } from "./tag-view/DividerRow";
@@ -187,6 +189,51 @@ export function TagView({ tag }: Props) {
   function handleOutdent(item: Item) {
     const parent = item.parent_id ? itemById.get(item.parent_id) : undefined;
     void reparent(item, parent?.parent_id ?? null);
+  }
+
+  // Drag-to-nest. "into" makes `from` a child of `target`; "before" makes it a
+  // sibling just above `target` (drop before a top-level row to un-nest). The
+  // whole subtree moves as a block (see lib/hierarchy) so the flat list stays a
+  // valid depth-first tree. The server still enforces the cycle + depth-7 guards.
+  async function handleTreeDrop(fromId: string, targetId: string, mode: DropMode) {
+    const from = itemById.get(fromId);
+    const target = itemById.get(targetId);
+    if (!from || !target || fromId === targetId) return;
+
+    const orderIds = (visualOrder.length ? visualOrder : items).map((i) => i.id);
+    if (subtreeIds(items, orderIds, fromId).includes(targetId)) return;
+
+    const newParentId = mode === "into" ? targetId : target.parent_id ?? null;
+
+    let updated: Item;
+    try {
+      updated = await api.items.setParent(fromId, newParentId);
+    } catch (err) {
+      api.reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "TagView.handleTreeDrop",
+      });
+      return;
+    }
+
+    const newOrderIds = treeDropOrder(items, orderIds, fromId, targetId, mode);
+    const nextItems = items.map((i) => (i.id === fromId ? updated : i));
+    setItems(nextItems);
+    const byId = new Map(nextItems.map((i) => [i.id, i]));
+    setVisualOrder(
+      newOrderIds.map((id) => byId.get(id)).filter((i): i is Item => !!i),
+    );
+    try {
+      await api.sortOrders.save(`tag:${tag.id}`, newOrderIds);
+    } catch (err) {
+      api.reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "TagView.handleTreeDrop.save",
+      });
+    }
+    setSortNonce((n) => n + 1);
   }
 
   async function handleAddDivider() {
@@ -396,6 +443,7 @@ export function TagView({ tag }: Props) {
           contextKey={`tag:${tag.id}`}
           onReorder={handleReorder}
           onExternalDrop={handleExternalDrop}
+          onTreeDrop={handleTreeDrop}
           extraDragData={(item) =>
             item.item_type !== ItemType.Divider
               ? [

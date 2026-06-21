@@ -10,6 +10,11 @@ export interface ExtraDragData {
   value: string;
 }
 
+// Where a drop lands relative to the hovered row: onto its middle ("into" — make
+// it a child) or onto its top edge ("before" — make it a sibling). Only computed
+// when an onTreeDrop handler is supplied; otherwise the list is a flat reorder.
+export type DropMode = "into" | "before";
+
 interface UseSortableListResult<T extends HasId> {
   orderedItems: T[];
   dragHandleProps: (id: string) => {
@@ -23,6 +28,7 @@ interface UseSortableListResult<T extends HasId> {
     onDrop: (e: React.DragEvent) => void;
   };
   dragOverId: string | null;
+  dropMode: DropMode | null;
   dragId: string | null;
 }
 
@@ -33,10 +39,15 @@ export function useSortableList<T extends HasId>(
   contextKey: string | null,
   extraDragData?: (item: T) => ExtraDragData[],
   onExternalDrop?: (itemId: string, targetId: string) => void,
+  // When supplied, internal drags are delegated here (with their drop mode)
+  // instead of doing the default flat reorder — this is what makes the list a
+  // tree. The caller owns the resulting parent + order changes.
+  onTreeDrop?: (fromId: string, targetId: string, mode: DropMode) => void,
 ): UseSortableListResult<T> {
   const [orderedIds, setOrderedIds] = useState<string[]>([]);
   const [dragId, setDragId] = useState<string | null>(null);
   const [dragOverId, setDragOverId] = useState<string | null>(null);
+  const [dropMode, setDropMode] = useState<DropMode | null>(null);
   const [loaded, setLoaded] = useState(false);
 
   const dragIdRef = useRef<string | null>(null);
@@ -144,6 +155,7 @@ export function useSortableList<T extends HasId>(
     dragIdRef.current = null;
     setDragId(null);
     setDragOverId(null);
+    setDropMode(null);
   }
 
   function handleDragOver(e: React.DragEvent, targetId: string) {
@@ -156,6 +168,13 @@ export function useSortableList<T extends HasId>(
       e.dataTransfer.types.includes("application/x-from-staging");
     if (isInternal || isExternal) {
       setDragOverId(targetId);
+      // Tree mode: top third of the row nests before/as-sibling, the rest nests
+      // the dragged item *into* the hovered row.
+      if (isInternal && onTreeDrop) {
+        const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+        const intoBody = e.clientY - rect.top > rect.height * 0.35;
+        setDropMode(intoBody ? "into" : "before");
+      }
     }
   }
 
@@ -164,6 +183,7 @@ export function useSortableList<T extends HasId>(
     const related = e.relatedTarget as Node | null;
     if (!related || !(e.currentTarget as Node).contains(related)) {
       setDragOverId((prev) => (prev === targetId ? null : prev));
+      setDropMode(null);
     }
   }
 
@@ -194,6 +214,17 @@ export function useSortableList<T extends HasId>(
       instanceKey.current,
     );
     if (!fromId || fromId === targetId) return;
+
+    // Tree mode: hand internal drags to the caller (which owns the parent +
+    // order changes). External/staging drops fall through to the flat insert.
+    if (onTreeDrop && dragIdRef.current) {
+      const mode = dropMode ?? "into";
+      setDropMode(null);
+      dragIdRef.current = null;
+      setDragId(null);
+      onTreeDrop(fromId, targetId, mode);
+      return;
+    }
 
     setOrderedIds((prev) => {
       const next = [...prev];
@@ -233,6 +264,7 @@ export function useSortableList<T extends HasId>(
       onDrop: (e: React.DragEvent) => handleDrop(e, id),
     }),
     dragOverId,
+    dropMode,
     dragId,
   };
 }

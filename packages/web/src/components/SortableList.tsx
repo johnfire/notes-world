@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { useSortableList, ExtraDragData } from '../hooks/useSortableList';
+import { useSortableList, ExtraDragData, DropMode } from '../hooks/useSortableList';
 
 interface HasId { id: string }
 
@@ -10,6 +10,9 @@ interface Props<T extends HasId> {
   extraDragData?: (item: T) => ExtraDragData[];
   onReorder?: (orderedItems: T[]) => void;
   onExternalDrop?: (itemId: string, targetId: string) => void;
+  // When supplied, internal drags become tree drops (nest "into" / "before")
+  // and the caller owns the parent + order changes. Omit it for a flat list.
+  onTreeDrop?: (fromId: string, targetId: string, mode: DropMode) => void;
   className?: string;
   itemClassName?: string | ((item: T) => string);
 }
@@ -41,11 +44,24 @@ export function SortableList<T extends HasId>({
   extraDragData,
   onReorder,
   onExternalDrop,
+  onTreeDrop,
   className,
   itemClassName,
 }: Props<T>) {
-  const { orderedItems, dragHandleProps, dropZoneProps, dragOverId, dragId } =
-    useSortableList(items, contextKey, extraDragData, onExternalDrop);
+  const {
+    orderedItems,
+    dragHandleProps,
+    dropZoneProps,
+    dragOverId,
+    dropMode,
+    dragId,
+  } = useSortableList(
+    items,
+    contextKey,
+    extraDragData,
+    onExternalDrop,
+    onTreeDrop,
+  );
 
   // Notify parent of order changes
   const onReorderRef = useRef(onReorder);
@@ -73,7 +89,11 @@ export function SortableList<T extends HasId>({
               'transition-all duration-150',
               content == null ? 'hidden' : '',
               dragId === item.id ? 'opacity-40 scale-[0.98]' : '',
-              dragOverId === item.id ? 'border-t-2 border-accent pt-0.5' : '',
+              dragOverId === item.id
+                ? dropMode === 'into'
+                  ? 'ring-2 ring-accent ring-inset rounded-md'
+                  : 'border-t-2 border-accent pt-0.5'
+                : '',
               typeof itemClassName === 'function' ? itemClassName(item) : (itemClassName ?? ''),
             ].filter(Boolean).join(' ')}
           >
