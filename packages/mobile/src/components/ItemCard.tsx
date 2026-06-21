@@ -22,6 +22,7 @@ const TYPE_COLORS: Record<string, string> = {
 const STATUS_COLORS: Record<string, string> = {
   [TaskStatus.Open]: colors.statusOpen,
   [TaskStatus.InProgress]: colors.statusInProgress,
+  [TaskStatus.OnHold]: colors.statusOnHold,
   [TaskStatus.Blocked]: colors.statusBlocked,
   [TaskStatus.Done]: colors.statusDone,
 };
@@ -29,6 +30,7 @@ const STATUS_COLORS: Record<string, string> = {
 const STATUS_LABELS: Record<string, string> = {
   [TaskStatus.Open]: "Open",
   [TaskStatus.InProgress]: "In Progress",
+  [TaskStatus.OnHold]: "On Hold",
   [TaskStatus.Blocked]: "Blocked",
   [TaskStatus.Done]: "Done",
 };

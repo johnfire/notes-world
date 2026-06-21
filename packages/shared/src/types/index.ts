@@ -60,6 +60,7 @@ export enum TaskStatus {
   InProgress = "InProgress",
   Done = "Done",
   Blocked = "Blocked",
+  OnHold = "OnHold",
 }
 
 export enum Priority {

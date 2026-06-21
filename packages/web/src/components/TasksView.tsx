@@ -1,18 +1,31 @@
 import { useEffect, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Item, ItemType, TaskStatus, Priority } from "../types";
+import { dateOf } from "@notes-world/shared";
 import * as api from "../api";
 import { useApp } from "../context/AppContext";
 import { relativeAge, stalenessColor } from "../utils/time";
 
-type TStatus = "Open" | "InProgress" | "Blocked" | "Done";
+type TStatus = "Open" | "InProgress" | "OnHold" | "Blocked" | "Done";
 
-const COLUMN_IDS: TStatus[] = ["Open", "InProgress", "Blocked", "Done"];
+const COLUMN_IDS: TStatus[] = [
+  "Open",
+  "InProgress",
+  "OnHold",
+  "Blocked",
+  "Done",
+];
 
 function getStatus(item: Item): TStatus {
   const td = item.type_data as { task_status?: string } | null;
   const s = td?.task_status;
-  if (s === "Open" || s === "InProgress" || s === "Blocked" || s === "Done")
+  if (
+    s === "Open" ||
+    s === "InProgress" ||
+    s === "OnHold" ||
+    s === "Blocked" ||
+    s === "Done"
+  )
     return s;
   return "Open";
 }
@@ -29,6 +42,16 @@ const PRIORITY_RANK: Record<string, number> = {
 function priorityRank(item: Item): number {
   const p = (item.type_data as { priority?: string } | null)?.priority;
   return PRIORITY_RANK[p ?? Priority.Normal] ?? PRIORITY_RANK[Priority.Normal];
+}
+
+// Tiebreak within a priority: soonest due date first, undated tasks last.
+function compareDue(a: Item, b: Item): number {
+  const da = dateOf(a, "due_date");
+  const db = dateOf(b, "due_date");
+  if (da && db) return da < db ? -1 : da > db ? 1 : 0;
+  if (da) return -1;
+  if (db) return 1;
+  return 0;
 }
 
 export function TasksView() {
@@ -93,6 +116,7 @@ export function TasksView() {
   const STATUS_COLOR: Record<TStatus, string> = {
     Open: "text-gray-400",
     InProgress: "text-blue-400",
+    OnHold: "text-amber-400",
     Blocked: "text-red-400",
     Done: "text-green-400",
   };
@@ -100,6 +124,7 @@ export function TasksView() {
   const STATUS_KEY: Record<TStatus, string> = {
     Open: "app.status.open",
     InProgress: "app.status.inProgress",
+    OnHold: "app.status.onHold",
     Blocked: "app.status.blocked",
     Done: "app.status.done",
   };
@@ -107,14 +132,17 @@ export function TasksView() {
   const grouped: Record<TStatus, Item[]> = {
     Open: [],
     InProgress: [],
+    OnHold: [],
     Blocked: [],
     Done: [],
   };
   for (const item of items) grouped[getStatus(item)].push(item);
-  // Auto-sort each column by priority — Critical at the top, then High, Normal,
-  // Low. Equal-priority tasks keep their existing order (stable sort).
+  // Auto-sort each column by priority (Critical → High → Normal → Low), then by
+  // soonest due date within the same priority.
   for (const status of COLUMN_IDS) {
-    grouped[status].sort((a, b) => priorityRank(a) - priorityRank(b));
+    grouped[status].sort(
+      (a, b) => priorityRank(a) - priorityRank(b) || compareDue(a, b),
+    );
   }
 
   return (

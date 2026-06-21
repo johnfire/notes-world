@@ -29,7 +29,7 @@ function makeTask(id: string, title: string, status = 'Open', priority = 'Normal
 beforeEach(() => vi.clearAllMocks());
 
 describe('TasksView', () => {
-  test('renders four status columns', async () => {
+  test('renders all five status columns', async () => {
     mockByType.mockResolvedValue([]);
 
     render(<TasksView />);
@@ -38,6 +38,7 @@ describe('TasksView', () => {
 
     expect(screen.getByText('Open')).toBeInTheDocument();
     expect(screen.getByText('In Progress')).toBeInTheDocument();
+    expect(screen.getByText('On Hold')).toBeInTheDocument();
     expect(screen.getByText('Blocked')).toBeInTheDocument();
     expect(screen.getByText('Done')).toBeInTheDocument();
   });
@@ -100,6 +101,32 @@ describe('TasksView', () => {
 
     const order = ['critical task', 'high task', 'normal task', 'low task'].map(
       (tt) => screen.getByText(tt),
+    );
+    for (let i = 0; i < order.length - 1; i++) {
+      expect(
+        order[i].compareDocumentPosition(order[i + 1]) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
+    }
+  });
+
+  test('within a priority, sorts by soonest due date (undated last)', async () => {
+    const task = (id: string, title: string, due?: string) => ({
+      id, user_id: 'u1', title, item_type: ItemType.Task, status: 'Active',
+      type_data: { task_status: 'Open', priority: 'Normal', due_date: due },
+      created_at: '', updated_at: new Date().toISOString(),
+    });
+    mockByType.mockResolvedValue([
+      task('1', 'later', '2026-12-01'),
+      task('2', 'undated'),
+      task('3', 'sooner', '2026-06-01'),
+    ]);
+
+    render(<TasksView />);
+    await waitFor(() => expect(screen.getByText('sooner')).toBeInTheDocument());
+
+    const order = ['sooner', 'later', 'undated'].map((tt) =>
+      screen.getByText(tt),
     );
     for (let i = 0; i < order.length - 1; i++) {
       expect(

@@ -123,6 +123,7 @@
     "status": {
       "open": "Open",
       "inProgress": "In Progress",
+      "onHold": "On Hold",
       "blocked": "Blocked",
       "done": "Done"
     },

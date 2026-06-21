@@ -18,9 +18,10 @@ export const colors = {
   typeReminder: "#e05c9c",
   typeUntyped: "#888",
 
-  // Task status colours — mirror the web Kanban (Tailwind gray/blue/red/green-400)
+  // Task status colours — mirror the web Kanban (Tailwind gray/blue/amber/red/green-400)
   statusOpen: "#9ca3af",
   statusInProgress: "#60a5fa",
+  statusOnHold: "#fbbf24",
   statusBlocked: "#f87171",
   statusDone: "#4ade80",
 };
