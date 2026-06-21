@@ -121,6 +121,74 @@ export function TagView({ tag }: Props) {
   const parentDividerMap = getParentDividerMap();
   const hiddenCounts = getHiddenCounts();
 
+  // ── Hierarchy (parent_id tree) ──────────────────────────────────────────────
+  const itemById = new Map(items.map((i) => [i.id, i]));
+
+  // Depth of each item (0 = top level). Items whose parent isn't in this tag
+  // float to the top level. The server guards against cycles, so this is finite.
+  const depthMap = new Map<string, number>();
+  const depthOf = (item: Item): number => {
+    const cached = depthMap.get(item.id);
+    if (cached !== undefined) return cached;
+    const parent = item.parent_id ? itemById.get(item.parent_id) : undefined;
+    const d = parent ? depthOf(parent) + 1 : 0;
+    depthMap.set(item.id, d);
+    return d;
+  };
+  items.forEach(depthOf);
+
+  // Items with at least one child in this tag get a collapse chevron.
+  const hasChildren = new Set<string>();
+  for (const i of items) {
+    if (i.parent_id && itemById.has(i.parent_id)) hasChildren.add(i.parent_id);
+  }
+
+  // True when any ancestor of the item is collapsed → its row is hidden.
+  function underCollapsedAncestor(item: Item): boolean {
+    let pid = item.parent_id ?? null;
+    while (pid && itemById.has(pid)) {
+      if (collapsedSet.has(pid)) return true;
+      pid = itemById.get(pid)?.parent_id ?? null;
+    }
+    return false;
+  }
+
+  async function reparent(item: Item, parentId: string | null) {
+    try {
+      const updated = await api.items.setParent(item.id, parentId);
+      setItems((prev) => prev.map((i) => (i.id === item.id ? updated : i)));
+    } catch (err) {
+      api.reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "TagView.reparent",
+      });
+    }
+  }
+
+  // Nest under the item directly above in the rendered order — it's always
+  // adjacent, so the flat list stays a valid depth-first tree.
+  function handleIndent(item: Item) {
+    const order = visualOrder.length ? visualOrder : items;
+    const idx = order.findIndex((i) => i.id === item.id);
+    let prev: Item | null = null;
+    for (let j = idx - 1; j >= 0; j--) {
+      if (order[j].item_type !== ItemType.Divider) {
+        prev = order[j];
+        break;
+      }
+    }
+    if (prev && prev.id !== item.parent_id && prev.id !== item.id) {
+      void reparent(item, prev.id);
+    }
+  }
+
+  // Move up one level toward the root (parent → grandparent, or out to root).
+  function handleOutdent(item: Item) {
+    const parent = item.parent_id ? itemById.get(item.parent_id) : undefined;
+    void reparent(item, parent?.parent_id ?? null);
+  }
+
   async function handleAddDivider() {
     const divider = await api.items.createDivider();
     await api.tags.tagItem(divider.id, tag.id);
@@ -355,9 +423,33 @@ export function TagView({ tag }: Props) {
             if (parentDivider && collapsedSet.has(parentDivider)) {
               return null;
             }
+            if (underCollapsedAncestor(item)) return null;
+            const depth = depthMap.get(item.id) ?? 0;
+            const collapsible = hasChildren.has(item.id);
+            const isCollapsed = collapsedSet.has(item.id);
             return (
-              <div className="card hover:border-surface-400 hover:bg-surface-600 transition-colors py-2 px-3 flex items-center gap-2 group">
+              <div
+                className="card hover:border-surface-400 hover:bg-surface-600 transition-colors py-2 px-3 flex items-center gap-2 group"
+                style={depth > 0 ? { marginLeft: depth * 20 } : undefined}
+              >
                 {dragHandle}
+                {collapsible ? (
+                  <button
+                    onClick={() => toggleCollapse(item.id)}
+                    className="text-gray-600 hover:text-gray-300 shrink-0 p-0.5"
+                    title={isCollapsed ? "Expand" : "Collapse"}
+                  >
+                    <svg
+                      className={`w-3.5 h-3.5 transition-transform ${isCollapsed ? "" : "rotate-90"}`}
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path d="M7 5l6 5-6 5V5z" />
+                    </svg>
+                  </button>
+                ) : (
+                  <span className="w-[18px] shrink-0" />
+                )}
                 <ColorDot
                   color={item.color}
                   onChange={(c) => handleColorChange(item.id, c)}
@@ -389,6 +481,23 @@ export function TagView({ tag }: Props) {
                     </p>
                   )}
                 </button>
+                <div className="flex items-center opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
+                  <button
+                    onClick={() => handleOutdent(item)}
+                    disabled={depth === 0}
+                    className="text-gray-600 hover:text-gray-200 disabled:opacity-20 disabled:cursor-not-allowed px-1"
+                    title="Outdent (un-nest)"
+                  >
+                    ⇤
+                  </button>
+                  <button
+                    onClick={() => handleIndent(item)}
+                    className="text-gray-600 hover:text-gray-200 px-1"
+                    title="Indent (nest under the item above)"
+                  >
+                    ⇥
+                  </button>
+                </div>
                 <div className="shrink-0 opacity-80">
                   <ItemTypeBadge type={item.item_type} />
                 </div>

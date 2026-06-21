@@ -6,6 +6,7 @@ import { ItemType } from "../types";
 const mockGetItemsForTag = vi.fn();
 const mockGetCollapsed = vi.fn();
 const mockArchive = vi.fn();
+const mockSetParent = vi.fn();
 const mockCreateDivider = vi.fn();
 const mockTagItem = vi.fn();
 const mockOpenItem = vi.fn();
@@ -22,6 +23,7 @@ vi.mock("../api", () => ({
   items: {
     archive: (...args: unknown[]) => mockArchive(...args),
     createDivider: (...args: unknown[]) => mockCreateDivider(...args),
+    setParent: (...args: unknown[]) => mockSetParent(...args),
     update: vi.fn().mockResolvedValue({}),
   },
   collapsedDividers: {
@@ -145,6 +147,42 @@ describe("TagView", () => {
     // The type badges sit on the rows (titles differ from the type labels).
     expect(screen.getByText("Note")).toBeInTheDocument();
     expect(screen.getByText("Idea")).toBeInTheDocument();
+  });
+
+  test("indent nests an item under the one above it", async () => {
+    mockGetItemsForTag.mockResolvedValue([
+      makeItem("a", "First", ItemType.Note),
+      makeItem("b", "Second", ItemType.Note),
+    ]);
+    mockSetParent.mockResolvedValue({
+      ...makeItem("b", "Second", ItemType.Note),
+      parent_id: "a",
+    });
+
+    render(<TagView tag={tag} />);
+    await waitFor(() => expect(screen.getByText("Second")).toBeInTheDocument());
+
+    const indentButtons = screen.getAllByTitle("Indent (nest under the item above)");
+    fireEvent.click(indentButtons[1]); // the second item nests under the first
+
+    await waitFor(() => expect(mockSetParent).toHaveBeenCalledWith("b", "a"));
+  });
+
+  test("collapsing a parent hides its children", async () => {
+    mockGetItemsForTag.mockResolvedValue([
+      makeItem("p", "Parent item", ItemType.Task),
+      { ...makeItem("c", "Child item", ItemType.Note), parent_id: "p" },
+    ]);
+
+    render(<TagView tag={tag} />);
+    await waitFor(() => expect(screen.getByText("Child item")).toBeInTheDocument());
+
+    fireEvent.click(screen.getByTitle("Collapse")); // only the parent has a chevron
+
+    await waitFor(() =>
+      expect(screen.queryByText("Child item")).not.toBeInTheDocument(),
+    );
+    expect(screen.getByText("Parent item")).toBeInTheDocument();
   });
 
   test("dividers do not count toward item count", async () => {

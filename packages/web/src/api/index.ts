@@ -128,6 +128,13 @@ export const items = {
       body: JSON.stringify({ new_type, type_data }),
     }),
 
+  // Nest an item under another, or pass null to move it back to the root.
+  setParent: (id: string, parent_id: string | null) =>
+    request<Item>(`/items/${id}/parent`, {
+      method: "POST",
+      body: JSON.stringify({ parent_id }),
+    }),
+
   archive: (id: string) =>
     request<Item>(`/items/${id}/archive`, { method: "POST" }),
 
