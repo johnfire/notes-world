@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Nadzorna ploča",
       "tasks": "Zadaci",
-      "ideas": "Ideje"
+      "ideas": "Ideje",
+      "notes": "Bilješke",
+      "untyped": "Bez vrste"
+    },
+    "typeView": {
+      "empty": "Ovdje još nema ničega"
     },
     "sidebar": {
       "tags": "Tagovi",
@@ -166,6 +171,9 @@
       "notes": "Bilješke",
       "addNotes": "Dodaj bilješke…",
       "promoteTo": "Unaprijedi u…",
+      "changeType": "Promijeni vrstu…",
+      "changeTypeConfirm": "Pretvori u {{type}}? Ovo će ukloniti {{details}}.",
+      "convert": "Pretvori",
       "created": "Stvoreno",
       "updated": "Ažurirano",
       "status": "Status",

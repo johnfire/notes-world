@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Panel",
       "tasks": "Tareas",
-      "ideas": "Ideas"
+      "ideas": "Ideas",
+      "notes": "Notas",
+      "untyped": "Sin tipo"
+    },
+    "typeView": {
+      "empty": "Aún no hay nada aquí"
     },
     "sidebar": {
       "tags": "Etiquetas",
@@ -166,6 +171,9 @@
       "notes": "Notas",
       "addNotes": "Añadir notas…",
       "promoteTo": "Promover a…",
+      "changeType": "Cambiar tipo…",
+      "changeTypeConfirm": "¿Convertir en {{type}}? Esto elimina {{details}}.",
+      "convert": "Convertir",
       "created": "Creado",
       "updated": "Actualizado",
       "status": "Estado",

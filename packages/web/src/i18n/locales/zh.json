@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "仪表板",
       "tasks": "任务",
-      "ideas": "想法"
+      "ideas": "想法",
+      "notes": "笔记",
+      "untyped": "未分类"
+    },
+    "typeView": {
+      "empty": "这里还没有内容"
     },
     "sidebar": {
       "tags": "标签",
@@ -166,6 +171,9 @@
       "notes": "笔记",
       "addNotes": "添加笔记…",
       "promoteTo": "提升为…",
+      "changeType": "更改类型…",
+      "changeTypeConfirm": "转换为{{type}}？此操作会移除{{details}}。",
+      "convert": "转换",
       "created": "创建时间",
       "updated": "更新时间",
       "status": "状态",

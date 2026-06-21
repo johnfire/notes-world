@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Armatuurlaud",
       "tasks": "Ülesanded",
-      "ideas": "Ideed"
+      "ideas": "Ideed",
+      "notes": "Märkmed",
+      "untyped": "Tüübita"
+    },
+    "typeView": {
+      "empty": "Siin pole veel midagi"
     },
     "sidebar": {
       "tags": "Sildid",
@@ -166,6 +171,9 @@
       "notes": "Märkmed",
       "addNotes": "Lisa märkmeid…",
       "promoteTo": "Eduta…",
+      "changeType": "Muuda tüüpi…",
+      "changeTypeConfirm": "Teisenda tüübiks {{type}}? See eemaldab {{details}}.",
+      "convert": "Teisenda",
       "created": "Loodud",
       "updated": "Uuendatud",
       "status": "Olek",

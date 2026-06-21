@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Dashboard",
       "tasks": "Opgaver",
-      "ideas": "Idéer"
+      "ideas": "Idéer",
+      "notes": "Noter",
+      "untyped": "Uden type"
+    },
+    "typeView": {
+      "empty": "Her er ingenting endnu"
     },
     "sidebar": {
       "tags": "Tags",
@@ -166,6 +171,9 @@
       "notes": "Noter",
       "addNotes": "Tilføj noter…",
       "promoteTo": "Forfrem til…",
+      "changeType": "Skift type…",
+      "changeTypeConfirm": "Konvertér til {{type}}? Dette fjerner {{details}}.",
+      "convert": "Konvertér",
       "created": "Oprettet",
       "updated": "Opdateret",
       "status": "Status",

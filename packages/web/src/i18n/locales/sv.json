@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Dashboard",
       "tasks": "Uppgifter",
-      "ideas": "Idéer"
+      "ideas": "Idéer",
+      "notes": "Anteckningar",
+      "untyped": "Utan typ"
+    },
+    "typeView": {
+      "empty": "Inget här ännu"
     },
     "sidebar": {
       "tags": "Taggar",
@@ -166,6 +171,9 @@
       "notes": "Anteckningar",
       "addNotes": "Lägg till anteckningar…",
       "promoteTo": "Befordra till…",
+      "changeType": "Ändra typ…",
+      "changeTypeConfirm": "Konvertera till {{type}}? Detta tar bort {{details}}.",
+      "convert": "Konvertera",
       "created": "Skapad",
       "updated": "Uppdaterad",
       "status": "Status",

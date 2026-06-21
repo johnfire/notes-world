@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Prehľad",
       "tasks": "Úlohy",
-      "ideas": "Nápady"
+      "ideas": "Nápady",
+      "notes": "Poznámky",
+      "untyped": "Bez typu"
+    },
+    "typeView": {
+      "empty": "Zatiaľ tu nič nie je"
     },
     "sidebar": {
       "tags": "Štítky",
@@ -166,6 +171,9 @@
       "notes": "Poznámky",
       "addNotes": "Pridať poznámky…",
       "promoteTo": "Povýšiť na…",
+      "changeType": "Zmeniť typ…",
+      "changeTypeConfirm": "Zmeniť na {{type}}? Týmto sa odstráni {{details}}.",
+      "convert": "Previesť",
       "created": "Vytvorené",
       "updated": "Aktualizované",
       "status": "Stav",

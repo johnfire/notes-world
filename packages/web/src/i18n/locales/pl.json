@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Pulpit",
       "tasks": "Zadania",
-      "ideas": "Pomysły"
+      "ideas": "Pomysły",
+      "notes": "Notatki",
+      "untyped": "Bez typu"
+    },
+    "typeView": {
+      "empty": "Jeszcze nic tu nie ma"
     },
     "sidebar": {
       "tags": "Tagi",
@@ -166,6 +171,9 @@
       "notes": "Notatki",
       "addNotes": "Dodaj notatki…",
       "promoteTo": "Awansuj do…",
+      "changeType": "Zmień typ…",
+      "changeTypeConfirm": "Zmienić na {{type}}? Spowoduje to usunięcie: {{details}}.",
+      "convert": "Konwertuj",
       "created": "Utworzono",
       "updated": "Zaktualizowano",
       "status": "Status",

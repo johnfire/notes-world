@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Suvestinė",
       "tasks": "Užduotys",
-      "ideas": "Idėjos"
+      "ideas": "Idėjos",
+      "notes": "Užrašai",
+      "untyped": "Be tipo"
+    },
+    "typeView": {
+      "empty": "Čia dar nieko nėra"
     },
     "sidebar": {
       "tags": "Žymos",
@@ -166,6 +171,9 @@
       "notes": "Užrašai",
       "addNotes": "Pridėti užrašų…",
       "promoteTo": "Pakelti į…",
+      "changeType": "Keisti tipą…",
+      "changeTypeConfirm": "Paversti į {{type}}? Tai pašalins {{details}}.",
+      "convert": "Paversti",
       "created": "Sukurta",
       "updated": "Atnaujinta",
       "status": "Būsena",

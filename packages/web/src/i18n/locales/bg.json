@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Табло",
       "tasks": "Задачи",
-      "ideas": "Идеи"
+      "ideas": "Идеи",
+      "notes": "Бележки",
+      "untyped": "Без тип"
+    },
+    "typeView": {
+      "empty": "Тук все още няма нищо"
     },
     "sidebar": {
       "tags": "Тагове",
@@ -166,6 +171,9 @@
       "notes": "Бележки",
       "addNotes": "Добавете бележки…",
       "promoteTo": "Повишете до…",
+      "changeType": "Смяна на типа…",
+      "changeTypeConfirm": "Преобразуване в {{type}}? Това премахва {{details}}.",
+      "convert": "Преобразувай",
       "created": "Създадено",
       "updated": "Обновено",
       "status": "Статус",

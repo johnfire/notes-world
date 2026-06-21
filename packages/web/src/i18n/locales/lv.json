@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Informācijas panelis",
       "tasks": "Uzdevumi",
-      "ideas": "Idejas"
+      "ideas": "Idejas",
+      "notes": "Piezīmes",
+      "untyped": "Bez tipa"
+    },
+    "typeView": {
+      "empty": "Šeit vēl nekā nav"
     },
     "sidebar": {
       "tags": "Atzīmes",
@@ -166,6 +171,9 @@
       "notes": "Piezīmes",
       "addNotes": "Pievienot piezīmes…",
       "promoteTo": "Paaugstināt uz…",
+      "changeType": "Mainīt tipu…",
+      "changeTypeConfirm": "Pārveidot par {{type}}? Šī darbība noņem {{details}}.",
+      "convert": "Pārveidot",
       "created": "Izveidots",
       "updated": "Atjaunināts",
       "status": "Statuss",

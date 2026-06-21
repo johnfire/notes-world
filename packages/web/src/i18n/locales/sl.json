@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Nadzorna plošča",
       "tasks": "Naloge",
-      "ideas": "Ideje"
+      "ideas": "Ideje",
+      "notes": "Beležke",
+      "untyped": "Brez tipa"
+    },
+    "typeView": {
+      "empty": "Tukaj še ni ničesar"
     },
     "sidebar": {
       "tags": "Oznake",
@@ -166,6 +171,9 @@
       "notes": "Beležke",
       "addNotes": "Dodaj beležke…",
       "promoteTo": "Napreduj v…",
+      "changeType": "Spremeni vrsto…",
+      "changeTypeConfirm": "Pretvori v {{type}}? S tem boste odstranili {{details}}.",
+      "convert": "Pretvori",
       "created": "Ustvarjeno",
       "updated": "Posodobljeno",
       "status": "Status",

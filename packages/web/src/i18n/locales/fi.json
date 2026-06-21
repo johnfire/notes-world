@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Kojelauta",
       "tasks": "Tehtävät",
-      "ideas": "Ideat"
+      "ideas": "Ideat",
+      "notes": "Muistiinpanot",
+      "untyped": "Tyypitön"
+    },
+    "typeView": {
+      "empty": "Täällä ei ole vielä mitään"
     },
     "sidebar": {
       "tags": "Tagit",
@@ -166,6 +171,9 @@
       "notes": "Muistiinpanot",
       "addNotes": "Lisää muistiinpanoja…",
       "promoteTo": "Ylennä kohteeksi…",
+      "changeType": "Vaihda tyyppiä…",
+      "changeTypeConfirm": "Muunna tyypiksi {{type}}? Tämä poistaa {{details}}.",
+      "convert": "Muunna",
       "created": "Luotu",
       "updated": "Päivitetty",
       "status": "Tila",

@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Deais",
       "tasks": "Cúraimí",
-      "ideas": "Smaointe"
+      "ideas": "Smaointe",
+      "notes": "Nótaí",
+      "untyped": "Gan cineál"
+    },
+    "typeView": {
+      "empty": "Níl aon rud anseo fós"
     },
     "sidebar": {
       "tags": "Clibeanna",
@@ -166,6 +171,9 @@
       "notes": "Nótaí",
       "addNotes": "Cuir nótaí leis…",
       "promoteTo": "Ardaigh go…",
+      "changeType": "Athraigh cineál…",
+      "changeTypeConfirm": "Athraigh go {{type}}? Bainfidh sé seo {{details}}.",
+      "convert": "Tiontaigh",
       "created": "Cruthaithe",
       "updated": "Nuashonraithe",
       "status": "Stádas",

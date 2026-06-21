@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Dashboard",
       "tasks": "Kompiti",
-      "ideas": "Ideat"
+      "ideas": "Ideat",
+      "notes": "Noti",
+      "untyped": "Mingħajr tip"
+    },
+    "typeView": {
+      "empty": "Għad m'hemm xejn hawn"
     },
     "sidebar": {
       "tags": "Tagi",
@@ -166,6 +171,9 @@
       "notes": "Noti",
       "addNotes": "Żid noti…",
       "promoteTo": "Promwovi għal…",
+      "changeType": "Ibdel it-tip…",
+      "changeTypeConfirm": "Ibdel għal {{type}}? Dan se jneħħi {{details}}.",
+      "convert": "Ikkonverti",
       "created": "Maħluq",
       "updated": "Aġġornat",
       "status": "Status",

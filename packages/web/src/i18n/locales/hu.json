@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Irányítópult",
       "tasks": "Feladatok",
-      "ideas": "Ötletek"
+      "ideas": "Ötletek",
+      "notes": "Megjegyzések",
+      "untyped": "Típus nélkül"
+    },
+    "typeView": {
+      "empty": "Még nincs itt semmi"
     },
     "sidebar": {
       "tags": "Címkék",
@@ -166,6 +171,9 @@
       "notes": "Megjegyzések",
       "addNotes": "Megjegyzések hozzáadása…",
       "promoteTo": "Előléptetés…",
+      "changeType": "Típus módosítása…",
+      "changeTypeConfirm": "Átalakítás erre: {{type}}? Ez eltávolítja a következőt: {{details}}.",
+      "convert": "Átalakítás",
       "created": "Létrehozva",
       "updated": "Frissítve",
       "status": "Állapot",

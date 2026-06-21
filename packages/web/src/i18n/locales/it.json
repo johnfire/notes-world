@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Dashboard",
       "tasks": "Attività",
-      "ideas": "Idee"
+      "ideas": "Idee",
+      "notes": "Note",
+      "untyped": "Senza tipo"
+    },
+    "typeView": {
+      "empty": "Ancora niente qui"
     },
     "sidebar": {
       "tags": "Tag",
@@ -166,6 +171,9 @@
       "notes": "Note",
       "addNotes": "Aggiungi note…",
       "promoteTo": "Promuovi a…",
+      "changeType": "Cambia tipo…",
+      "changeTypeConfirm": "Convertire in {{type}}? Questo rimuove {{details}}.",
+      "convert": "Converti",
       "created": "Creato",
       "updated": "Aggiornato",
       "status": "Stato",

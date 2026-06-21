@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Dashboard",
       "tasks": "Taken",
-      "ideas": "Ideeën"
+      "ideas": "Ideeën",
+      "notes": "Notities",
+      "untyped": "Zonder type"
+    },
+    "typeView": {
+      "empty": "Hier is nog niets"
     },
     "sidebar": {
       "tags": "Tags",
@@ -166,6 +171,9 @@
       "notes": "Notities",
       "addNotes": "Notities toevoegen…",
       "promoteTo": "Promoveren naar…",
+      "changeType": "Type wijzigen…",
+      "changeTypeConfirm": "Omzetten naar {{type}}? Hiermee wordt {{details}} verwijderd.",
+      "convert": "Omzetten",
       "created": "Aangemaakt",
       "updated": "Bijgewerkt",
       "status": "Status",

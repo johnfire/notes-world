@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Přehled",
       "tasks": "Úkoly",
-      "ideas": "Nápady"
+      "ideas": "Nápady",
+      "notes": "Poznámky",
+      "untyped": "Bez typu"
+    },
+    "typeView": {
+      "empty": "Zatím tu nic není"
     },
     "sidebar": {
       "tags": "Štítky",
@@ -166,6 +171,9 @@
       "notes": "Poznámky",
       "addNotes": "Přidat poznámky…",
       "promoteTo": "Povýšit na…",
+      "changeType": "Změnit typ…",
+      "changeTypeConfirm": "Změnit na {{type}}? Tímto se odstraní {{details}}.",
+      "convert": "Převést",
       "created": "Vytvořeno",
       "updated": "Aktualizováno",
       "status": "Stav",

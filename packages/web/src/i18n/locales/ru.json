@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Панель",
       "tasks": "Задачи",
-      "ideas": "Идеи"
+      "ideas": "Идеи",
+      "notes": "Заметки",
+      "untyped": "Без типа"
+    },
+    "typeView": {
+      "empty": "Здесь пока ничего нет"
     },
     "sidebar": {
       "tags": "Теги",
@@ -166,6 +171,9 @@
       "notes": "Заметки",
       "addNotes": "Добавить заметки…",
       "promoteTo": "Повысить до…",
+      "changeType": "Изменить тип…",
+      "changeTypeConfirm": "Преобразовать в {{type}}? Это удалит {{details}}.",
+      "convert": "Преобразовать",
       "created": "Создано",
       "updated": "Обновлено",
       "status": "Статус",

@@ -140,7 +140,12 @@
     "views": {
       "dashboard": "Tablou de bord",
       "tasks": "Sarcini",
-      "ideas": "Idei"
+      "ideas": "Idei",
+      "notes": "Note",
+      "untyped": "Fără tip"
+    },
+    "typeView": {
+      "empty": "Încă nimic aici"
     },
     "sidebar": {
       "tags": "Etichete",
@@ -166,6 +171,9 @@
       "notes": "Note",
       "addNotes": "Adăugați note…",
       "promoteTo": "Promovați la…",
+      "changeType": "Schimbă tipul…",
+      "changeTypeConfirm": "Transformă în {{type}}? Acest lucru elimină {{details}}.",
+      "convert": "Transformă",
       "created": "Creat",
       "updated": "Actualizat",
       "status": "Stare",
