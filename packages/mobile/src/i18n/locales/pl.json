@@ -53,6 +53,7 @@
     "typeTask": "Zadanie",
     "typeIdea": "Pomysł",
     "typeReminder": "Przypomnienie",
+    "typeUntyped": "Untyped",
     "title": "Tytuł…",
     "body": "Treść (opcjonalnie)…",
     "saveFailed": "Nie udało się zapisać"

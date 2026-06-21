@@ -53,6 +53,7 @@
     "typeTask": "Zadatak",
     "typeIdea": "Ideja",
     "typeReminder": "Podsjetnik",
+    "typeUntyped": "Untyped",
     "title": "Naslov…",
     "body": "Tekst (neobavezno)…",
     "saveFailed": "Spremanje nije uspjelo"

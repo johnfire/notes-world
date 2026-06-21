@@ -53,6 +53,7 @@
     "typeTask": "Ülesanne",
     "typeIdea": "Idee",
     "typeReminder": "Meeldetuletus",
+    "typeUntyped": "Untyped",
     "title": "Pealkiri…",
     "body": "Sisu (valikuline)…",
     "saveFailed": "Salvestamine ebaõnnestus"

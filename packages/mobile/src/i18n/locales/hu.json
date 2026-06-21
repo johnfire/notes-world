@@ -53,6 +53,7 @@
     "typeTask": "Feladat",
     "typeIdea": "Ötlet",
     "typeReminder": "Emlékeztető",
+    "typeUntyped": "Untyped",
     "title": "Cím…",
     "body": "Tartalom (opcionális)…",
     "saveFailed": "A mentés sikertelen"

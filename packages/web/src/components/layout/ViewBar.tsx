@@ -1,13 +1,22 @@
 import { useTranslation } from "react-i18next";
 
-export type AppView = "dashboard" | "ideas" | "tasks" | "checklists" | "done";
+export type AppView =
+  | "dashboard"
+  | "ideas"
+  | "tasks"
+  | "notes"
+  | "checklists"
+  | "done"
+  | "untyped";
 
 const VIEW_IDS: AppView[] = [
   "dashboard",
   "ideas",
   "tasks",
+  "notes",
   "checklists",
   "done",
+  "untyped",
 ];
 
 interface ViewBarProps {

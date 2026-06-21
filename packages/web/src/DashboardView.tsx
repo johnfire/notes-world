@@ -8,12 +8,13 @@ import { ItemDrawer } from "./components/ItemDrawer";
 import { TagView } from "./components/TagView";
 import { IdeasView } from "./components/IdeasView";
 import { TasksView } from "./components/TasksView";
+import { TypeListView } from "./components/TypeListView";
 import { ChecklistsView } from "./components/ChecklistsView";
 import { DoneView } from "./components/DoneView";
 import { CaptureBar } from "./components/CaptureBar";
 import { TrashView } from "./components/TrashView";
 import { OnboardingTour } from "./components/OnboardingTour";
-import { Tag } from "./types";
+import { Tag, ItemType } from "./types";
 
 function DashboardView() {
   const { state, loadDashboard, loadTags } = useApp();
@@ -44,6 +45,9 @@ function DashboardView() {
   function renderMain() {
     if (currentView === "ideas") return <IdeasView />;
     if (currentView === "tasks") return <TasksView />;
+    if (currentView === "notes") return <TypeListView type={ItemType.Note} />;
+    if (currentView === "untyped")
+      return <TypeListView type={ItemType.Untyped} />;
     if (currentView === "checklists") return <ChecklistsView />;
     if (currentView === "done") return <DoneView />;
     if (state.searchResults !== null) return <SearchResults />;

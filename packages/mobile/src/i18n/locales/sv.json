@@ -53,6 +53,7 @@
     "typeTask": "Uppgift",
     "typeIdea": "Idé",
     "typeReminder": "Påminnelse",
+    "typeUntyped": "Untyped",
     "title": "Titel…",
     "body": "Innehåll (valfritt)…",
     "saveFailed": "Det gick inte att spara"

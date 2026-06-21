@@ -53,6 +53,7 @@
     "typeTask": "Kompitu",
     "typeIdea": "Idea",
     "typeReminder": "Tfakkira",
+    "typeUntyped": "Untyped",
     "title": "Titlu…",
     "body": "Korp (mhux obbligatorju)…",
     "saveFailed": "L-issejvjar falla"

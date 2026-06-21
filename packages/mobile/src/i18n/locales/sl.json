@@ -53,6 +53,7 @@
     "typeTask": "Opravilo",
     "typeIdea": "Ideja",
     "typeReminder": "Opomnik",
+    "typeUntyped": "Untyped",
     "title": "Naslov…",
     "body": "Besedilo (neobvezno)…",
     "saveFailed": "Shranjevanje ni uspelo"

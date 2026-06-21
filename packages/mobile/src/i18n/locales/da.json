@@ -53,6 +53,7 @@
     "typeTask": "Opgave",
     "typeIdea": "Idé",
     "typeReminder": "Påmindelse",
+    "typeUntyped": "Untyped",
     "title": "Titel…",
     "body": "Indhold (valgfrit)…",
     "saveFailed": "Kunne ikke gemme"

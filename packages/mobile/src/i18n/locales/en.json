@@ -53,6 +53,7 @@
     "typeTask": "Task",
     "typeIdea": "Idea",
     "typeReminder": "Reminder",
+    "typeUntyped": "Untyped",
     "title": "Title…",
     "body": "Body (optional)…",
     "saveFailed": "Failed to save"

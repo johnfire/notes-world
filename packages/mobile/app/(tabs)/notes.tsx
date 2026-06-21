@@ -31,6 +31,7 @@ const FILTERS: Array<{ value: ItemType | null; labelKey: string }> = [
   { value: ItemType.Idea, labelKey: "capture.typeIdea" },
   { value: ItemType.Note, labelKey: "capture.typeNote" },
   { value: ItemType.Reminder, labelKey: "capture.typeReminder" },
+  { value: ItemType.Untyped, labelKey: "capture.typeUntyped" },
 ];
 
 export default function ItemsScreen() {

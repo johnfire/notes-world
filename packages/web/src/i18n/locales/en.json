@@ -143,8 +143,13 @@
       "dashboard": "Dashboard",
       "tasks": "Tasks",
       "ideas": "Ideas",
+      "notes": "Notes",
       "checklists": "Lists",
-      "done": "Done"
+      "done": "Done",
+      "untyped": "Untyped"
+    },
+    "typeView": {
+      "empty": "Nothing here yet"
     },
     "sidebar": {
       "tags": "Tags",

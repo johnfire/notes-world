@@ -53,6 +53,7 @@
     "typeTask": "Užduotis",
     "typeIdea": "Idėja",
     "typeReminder": "Priminimas",
+    "typeUntyped": "Untyped",
     "title": "Pavadinimas…",
     "body": "Turinys (neprivaloma)…",
     "saveFailed": "Nepavyko išsaugoti"

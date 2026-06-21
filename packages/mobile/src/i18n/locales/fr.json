@@ -53,6 +53,7 @@
     "typeTask": "Tâche",
     "typeIdea": "Idée",
     "typeReminder": "Rappel",
+    "typeUntyped": "Untyped",
     "title": "Titre…",
     "body": "Contenu (facultatif)…",
     "saveFailed": "Échec de l'enregistrement"
