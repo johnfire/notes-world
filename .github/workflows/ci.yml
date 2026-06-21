@@ -79,3 +79,45 @@ jobs:
           ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no \
             claude@82.165.32.162 \
             "docker compose -f /opt/notes-world/docker-compose.yml logs app --tail=5 2>&1"
+
+  # Drop the pipeline result on the VPS so the agent fleet (Claude) can read it
+  # without being told. Reuses the existing deploy key — no new secret. Runs on
+  # success AND failure (if: always()) and reports the test-and-deploy outcome.
+  notify:
+    needs: test-and-deploy
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write CI result to the VPS
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          RESULT: ${{ needs.test-and-deploy.result }}
+          COMMIT_MSG: ${{ github.event.head_commit.message }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan 82.165.32.162 >> ~/.ssh/known_hosts 2>/dev/null
+
+          # Build the payload on the runner; jq escapes the commit message safely
+          # (it is untrusted input, so it is passed via env, never interpolated).
+          jq -n \
+            --arg project    "notes-world" \
+            --arg status     "$RESULT" \
+            --arg branch     "${{ github.ref_name }}" \
+            --arg commit     "${{ github.sha }}" \
+            --arg message    "$COMMIT_MSG" \
+            --arg run_url    "$RUN_URL" \
+            --arg run_number "${{ github.run_number }}" \
+            --arg actor      "${{ github.actor }}" \
+            --arg timestamp  "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            '{project:$project,status:$status,branch:$branch,commit:$commit,message:$message,run_url:$run_url,run_number:$run_number,actor:$actor,timestamp:$timestamp}' \
+            > ci-status.json
+          echo "Payload:"; cat ci-status.json
+
+          SSH="ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no claude@82.165.32.162"
+          # Latest result (overwrite) + append-only history trail (one JSON/line).
+          $SSH 'cat > ~/notes-world-ci-status.json' < ci-status.json
+          jq -c . ci-status.json | $SSH 'cat >> ~/notes-world-ci-history.jsonl'
+          echo "Delivered CI status '$RESULT' to claude@82.165.32.162:~/notes-world-ci-status.json"

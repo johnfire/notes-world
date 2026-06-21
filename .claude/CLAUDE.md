@@ -42,6 +42,20 @@ docker compose up --build
 - All tables have `user_id` column (ADR-005)
 - Migrations: `packages/server/src/db/migrations/` — only add new files, never edit existing
 
+## CI status (for agents)
+
+After every push to `master`, the `notify` job in `.github/workflows/ci.yml`
+writes the pipeline outcome to the VPS — no chat channel needed. To check the
+last build/deploy without being told, read the JSON:
+
+```bash
+ssh claude@82.165.32.162 cat notes-world-ci-status.json   # latest result
+ssh claude@82.165.32.162 tail -n 5 notes-world-ci-history.jsonl  # recent trail
+```
+
+`status` is `success` / `failure` / `cancelled`; on failure, drill in with
+`gh run view <run_id> --log-failed` (the `run_url`/run id are in the JSON).
+
 ## Doc Index
 
 Read only the doc relevant to the current task.
