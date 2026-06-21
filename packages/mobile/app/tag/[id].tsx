@@ -12,7 +12,7 @@ import { useLocalSearchParams, useRouter, useNavigation } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { getItemsByTag, listTags, addTagToItem } from "../../src/api/tags";
-import { archiveItem, createDivider } from "../../src/api/items";
+import { archiveItem, createDivider, setParent } from "../../src/api/items";
 import {
   collapsedDividers,
   hideCompleted as hideCompletedApi,
@@ -25,6 +25,11 @@ import {
   getParentDividerMap,
   getHiddenCounts,
 } from "../../src/lib/dividerGrouping";
+import {
+  computeDepths,
+  parentsWithChildren,
+  hiddenByCollapse,
+} from "../../src/lib/hierarchy";
 import { applySavedOrder, moveItem } from "../../src/lib/sortItems";
 import {
   sortItemsByDate,
@@ -216,8 +221,48 @@ export default function TagScreen() {
     });
   }
 
+  async function setItemParent(item: Item, parentId: string | null) {
+    try {
+      const updated = await setParent(item.id, parentId);
+      setItems((prev) => prev.map((i) => (i.id === item.id ? updated : i)));
+    } catch (err) {
+      void reportClientError({
+        message: (err as Error).message,
+        stack: (err as Error).stack,
+        context: "TagScreen.setItemParent",
+      });
+    }
+  }
+
+  // Nest under the nearest non-divider item directly above — it's adjacent, so
+  // the flat order stays a valid tree without any reordering.
+  function indentItem(index: number) {
+    const item = items[index];
+    let prev: Item | null = null;
+    for (let j = index - 1; j >= 0; j--) {
+      if (items[j].item_type !== ItemType.Divider) {
+        prev = items[j];
+        break;
+      }
+    }
+    if (prev && prev.id !== item.parent_id && prev.id !== item.id) {
+      void setItemParent(item, prev.id);
+    }
+  }
+
+  // Move up one level toward the top (parent → grandparent, or out to the top).
+  function outdentItem(item: Item) {
+    const parent = item.parent_id
+      ? items.find((i) => i.id === item.parent_id)
+      : undefined;
+    void setItemParent(item, parent?.parent_id ?? null);
+  }
+
   const parentDividerMap = getParentDividerMap(items);
   const hiddenCounts = getHiddenCounts(items);
+  const depths = computeDepths(items);
+  const parentsSet = parentsWithChildren(items);
+  const hiddenByParent = hiddenByCollapse(items, collapsed);
   // Hide items whose parent divider is collapsed; dividers always stay visible.
   // While reordering, show everything so positions are unambiguous.
   const visibleItems = reordering
@@ -225,6 +270,7 @@ export default function TagScreen() {
     : items.filter((item) => {
         const parent = parentDividerMap.get(item.id);
         if (parent && collapsed.has(parent)) return false;
+        if (hiddenByParent.has(item.id)) return false;
         // Pure view filter — toggling off (or un-completing an item) brings it
         // back with all its tags intact.
         if (hideCompleted && isCompleted(item)) return false;
@@ -282,6 +328,7 @@ export default function TagScreen() {
                 <Text
                   style={[
                     s.reorderTitle,
+                    { marginLeft: (depths.get(item.id) ?? 0) * 16 },
                     item.item_type === ItemType.Divider && s.reorderDivider,
                   ]}
                   numberOfLines={1}
@@ -315,6 +362,32 @@ export default function TagScreen() {
                     ↓
                   </Text>
                 </Pressable>
+                {item.item_type !== ItemType.Divider && (
+                  <>
+                    <Pressable
+                      onPress={() => outdentItem(item)}
+                      hitSlop={8}
+                      disabled={!item.parent_id}
+                      style={s.reorderBtn}
+                    >
+                      <Text
+                        style={[
+                          s.reorderArrow,
+                          !item.parent_id && s.reorderDisabled,
+                        ]}
+                      >
+                        ⇤
+                      </Text>
+                    </Pressable>
+                    <Pressable
+                      onPress={() => indentItem(index)}
+                      hitSlop={8}
+                      style={s.reorderBtn}
+                    >
+                      <Text style={s.reorderArrow}>⇥</Text>
+                    </Pressable>
+                  </>
+                )}
               </View>
             ) : item.item_type === ItemType.Divider ? (
               <ItemCard
@@ -330,6 +403,10 @@ export default function TagScreen() {
                 item={item}
                 onPress={() => router.push(`/item/${item.id}`)}
                 onDelete={onDelete}
+                depth={depths.get(item.id) ?? 0}
+                collapsible={parentsSet.has(item.id)}
+                collapsed={collapsed.has(item.id)}
+                onToggle={() => toggleCollapse(item.id)}
               />
             )
           }

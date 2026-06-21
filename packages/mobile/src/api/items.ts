@@ -76,6 +76,11 @@ export function promoteItem(id: string, newType: ItemType): Promise<Item> {
   return api.post<Item>(`/items/${id}/promote`, { new_type: newType });
 }
 
+// Nest an item under another, or pass null to move it back to the top level.
+export function setParent(id: string, parentId: string | null): Promise<Item> {
+  return api.post<Item>(`/items/${id}/parent`, { parent_id: parentId });
+}
+
 export function createDivider(): Promise<Item> {
   return api.post<Item>("/items/divider", {});
 }

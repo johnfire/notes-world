@@ -51,7 +51,11 @@ interface Props {
   item: Item;
   onPress: () => void;
   onDelete?: (id: string) => void;
-  // Divider-only: collapse state, count of hidden items, and the toggle handler.
+  // Hierarchy: depth in the parent_id tree (indents the card) and whether the
+  // item has children (shows a collapse chevron).
+  depth?: number;
+  collapsible?: boolean;
+  // Collapse state + toggle — used by dividers and by parent items alike.
   collapsed?: boolean;
   hiddenCount?: number;
   onToggle?: () => void;
@@ -61,6 +65,8 @@ export function ItemCard({
   item,
   onPress,
   onDelete,
+  depth,
+  collapsible,
   collapsed,
   hiddenCount,
   onToggle,
@@ -136,9 +142,22 @@ export function ItemCard({
 
   return (
     <Pressable
-      style={({ pressed }) => [s.card, pressed && s.cardPressed]}
+      style={({ pressed }) => [
+        s.card,
+        depth ? { marginLeft: spacing.md + depth * 16 } : null,
+        pressed && s.cardPressed,
+      ]}
       onPress={onPress}
     >
+      {collapsible && (
+        <Pressable onPress={onToggle} hitSlop={8} style={s.treeChevron}>
+          <Ionicons
+            name={collapsed ? "chevron-forward" : "chevron-down"}
+            size={16}
+            color={colors.textMuted}
+          />
+        </Pressable>
+      )}
       <View style={[s.typeBar, { backgroundColor: barColor }]} />
       <View style={s.content}>
         <Text style={s.title} numberOfLines={2}>
@@ -232,6 +251,10 @@ const s = StyleSheet.create({
   },
   typeBar: {
     width: 4,
+  },
+  treeChevron: {
+    paddingHorizontal: spacing.xs,
+    justifyContent: "center",
   },
   content: {
     flex: 1,
