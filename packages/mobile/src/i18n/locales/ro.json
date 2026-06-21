@@ -53,7 +53,7 @@
     "typeTask": "Sarcină",
     "typeIdea": "Idee",
     "typeReminder": "Memento",
-    "typeUntyped": "Untyped",
+    "typeUntyped": "Fără tip",
     "title": "Titlu…",
     "body": "Conținut (opțional)…",
     "saveFailed": "Salvarea a eșuat"

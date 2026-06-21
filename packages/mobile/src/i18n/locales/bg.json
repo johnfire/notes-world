@@ -53,7 +53,7 @@
     "typeTask": "Задача",
     "typeIdea": "Идея",
     "typeReminder": "Напомняне",
-    "typeUntyped": "Untyped",
+    "typeUntyped": "Без тип",
     "title": "Заглавие…",
     "body": "Текст (по избор)…",
     "saveFailed": "Запазването е неуспешно"

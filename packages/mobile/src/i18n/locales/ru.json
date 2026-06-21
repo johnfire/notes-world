@@ -53,7 +53,7 @@
     "typeTask": "Задача",
     "typeIdea": "Идея",
     "typeReminder": "Напоминание",
-    "typeUntyped": "Untyped",
+    "typeUntyped": "Без типа",
     "title": "Заголовок…",
     "body": "Текст (необязательно)…",
     "saveFailed": "Не удалось сохранить"

@@ -53,7 +53,7 @@
     "typeTask": "任务",
     "typeIdea": "想法",
     "typeReminder": "提醒",
-    "typeUntyped": "Untyped",
+    "typeUntyped": "未分类",
     "title": "标题…",
     "body": "正文（可选）…",
     "saveFailed": "保存失败"

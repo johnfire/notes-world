@@ -53,7 +53,7 @@
     "typeTask": "Uzdevums",
     "typeIdea": "Ideja",
     "typeReminder": "Atgādinājums",
-    "typeUntyped": "Untyped",
+    "typeUntyped": "Bez tipa",
     "title": "Virsraksts…",
     "body": "Saturs (neobligāts)…",
     "saveFailed": "Neizdevās saglabāt"

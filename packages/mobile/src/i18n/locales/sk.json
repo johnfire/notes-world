@@ -53,7 +53,7 @@
     "typeTask": "Úloha",
     "typeIdea": "Nápad",
     "typeReminder": "Pripomienka",
-    "typeUntyped": "Untyped",
+    "typeUntyped": "Bez typu",
     "title": "Názov…",
     "body": "Text (voliteľné)…",
     "saveFailed": "Uloženie zlyhalo"

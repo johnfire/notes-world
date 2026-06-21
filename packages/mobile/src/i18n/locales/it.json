@@ -53,7 +53,7 @@
     "typeTask": "Attività",
     "typeIdea": "Idea",
     "typeReminder": "Promemoria",
-    "typeUntyped": "Untyped",
+    "typeUntyped": "Senza tipo",
     "title": "Titolo…",
     "body": "Contenuto (facoltativo)…",
     "saveFailed": "Salvataggio non riuscito"

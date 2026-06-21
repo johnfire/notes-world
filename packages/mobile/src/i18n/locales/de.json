@@ -53,7 +53,7 @@
     "typeTask": "Aufgabe",
     "typeIdea": "Idee",
     "typeReminder": "Erinnerung",
-    "typeUntyped": "Untyped",
+    "typeUntyped": "Ohne Typ",
     "title": "Titel…",
     "body": "Inhalt (optional)…",
     "saveFailed": "Speichern fehlgeschlagen"

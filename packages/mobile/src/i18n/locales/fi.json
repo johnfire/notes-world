@@ -53,7 +53,7 @@
     "typeTask": "Tehtävä",
     "typeIdea": "Idea",
     "typeReminder": "Muistutus",
-    "typeUntyped": "Untyped",
+    "typeUntyped": "Tyypitön",
     "title": "Otsikko…",
     "body": "Sisältö (valinnainen)…",
     "saveFailed": "Tallennus epäonnistui"

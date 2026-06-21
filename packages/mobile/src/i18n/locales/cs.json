@@ -53,7 +53,7 @@
     "typeTask": "Úkol",
     "typeIdea": "Nápad",
     "typeReminder": "Připomínka",
-    "typeUntyped": "Untyped",
+    "typeUntyped": "Bez typu",
     "title": "Název…",
     "body": "Text (volitelné)…",
     "saveFailed": "Uložení se nezdařilo"

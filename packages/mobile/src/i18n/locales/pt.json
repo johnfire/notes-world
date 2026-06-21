@@ -53,7 +53,7 @@
     "typeTask": "Tarefa",
     "typeIdea": "Ideia",
     "typeReminder": "Lembrete",
-    "typeUntyped": "Untyped",
+    "typeUntyped": "Sem tipo",
     "title": "Título…",
     "body": "Conteúdo (opcional)…",
     "saveFailed": "Falha ao guardar"

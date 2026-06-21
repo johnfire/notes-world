@@ -53,7 +53,7 @@
     "typeTask": "Tarea",
     "typeIdea": "Idea",
     "typeReminder": "Recordatorio",
-    "typeUntyped": "Untyped",
+    "typeUntyped": "Sin tipo",
     "title": "Título…",
     "body": "Contenido (opcional)…",
     "saveFailed": "Error al guardar"

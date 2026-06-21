@@ -53,7 +53,7 @@
     "typeTask": "Εργασία",
     "typeIdea": "Ιδέα",
     "typeReminder": "Υπενθύμιση",
-    "typeUntyped": "Untyped",
+    "typeUntyped": "Χωρίς τύπο",
     "title": "Τίτλος…",
     "body": "Κείμενο (προαιρετικό)…",
     "saveFailed": "Η αποθήκευση απέτυχε"

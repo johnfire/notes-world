@@ -53,7 +53,7 @@
     "typeTask": "Taak",
     "typeIdea": "Idee",
     "typeReminder": "Herinnering",
-    "typeUntyped": "Untyped",
+    "typeUntyped": "Zonder type",
     "title": "Titel…",
     "body": "Inhoud (optioneel)…",
     "saveFailed": "Opslaan mislukt"
