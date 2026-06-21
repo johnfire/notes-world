@@ -131,6 +131,22 @@ describe("TagView", () => {
     expect(mockOpenItem).toHaveBeenCalledWith("i1");
   });
 
+  test("labels each listed item with its type", async () => {
+    mockGetItemsForTag.mockResolvedValue([
+      makeItem("1", "A recipe note", ItemType.Note),
+      makeItem("2", "A bright idea", ItemType.Idea),
+    ]);
+
+    render(<TagView tag={tag} />);
+
+    await waitFor(() =>
+      expect(screen.getByText("A recipe note")).toBeInTheDocument(),
+    );
+    // The type badges sit on the rows (titles differ from the type labels).
+    expect(screen.getByText("Note")).toBeInTheDocument();
+    expect(screen.getByText("Idea")).toBeInTheDocument();
+  });
+
   test("dividers do not count toward item count", async () => {
     mockGetItemsForTag.mockResolvedValue([
       makeItem("1", "Item", ItemType.Untyped),

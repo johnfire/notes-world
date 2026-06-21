@@ -16,6 +16,7 @@ import { SortableList } from "./SortableList";
 import { linkify } from "../utils/linkify";
 import { ColorDot } from "./tag-view/ColorDot";
 import { DividerRow } from "./tag-view/DividerRow";
+import { ItemTypeBadge } from "./ItemTypeBadge";
 
 interface Props {
   tag: Tag;
@@ -388,6 +389,9 @@ export function TagView({ tag }: Props) {
                     </p>
                   )}
                 </button>
+                <div className="shrink-0 opacity-80">
+                  <ItemTypeBadge type={item.item_type} />
+                </div>
                 <button
                   onClick={() => handleArchiveItem(item.id)}
                   className="text-gray-700 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 shrink-0"
