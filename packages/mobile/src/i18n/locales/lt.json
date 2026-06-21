@@ -115,6 +115,8 @@
     "status": "Būsena",
     "priority": "Prioritetas",
     "promoteTo": "Paversti į",
+    "changeTypeMsg": "Tai pašalins {{details}}.",
+    "remindAt": "Priminimo laikas",
     "maturity": "Branda",
     "color": "Spalva"
   },

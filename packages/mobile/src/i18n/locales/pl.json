@@ -115,6 +115,8 @@
     "status": "Status",
     "priority": "Priorytet",
     "promoteTo": "Zmień na",
+    "changeTypeMsg": "Spowoduje to usunięcie: {{details}}.",
+    "remindAt": "Czas przypomnienia",
     "maturity": "Dojrzałość",
     "color": "Kolor"
   },

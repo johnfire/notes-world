@@ -115,6 +115,8 @@
     "status": "Statut",
     "priority": "Priorité",
     "promoteTo": "Convertir en",
+    "changeTypeMsg": "Cela supprime {{details}}.",
+    "remindAt": "Heure du rappel",
     "maturity": "Maturité",
     "color": "Couleur"
   },

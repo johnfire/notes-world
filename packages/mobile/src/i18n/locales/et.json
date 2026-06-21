@@ -115,6 +115,8 @@
     "status": "Olek",
     "priority": "Prioriteet",
     "promoteTo": "Teisenda tüübiks",
+    "changeTypeMsg": "See eemaldab {{details}}.",
+    "remindAt": "Meeldetuletuse aeg",
     "maturity": "Küpsus",
     "color": "Värv"
   },

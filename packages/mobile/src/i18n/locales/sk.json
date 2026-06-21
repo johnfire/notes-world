@@ -115,6 +115,8 @@
     "status": "Stav",
     "priority": "Priorita",
     "promoteTo": "Zmeniť na",
+    "changeTypeMsg": "Týmto sa odstráni {{details}}.",
+    "remindAt": "Čas pripomienky",
     "maturity": "Zrelosť",
     "color": "Farba"
   },

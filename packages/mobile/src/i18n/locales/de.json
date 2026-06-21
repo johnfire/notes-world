@@ -115,6 +115,8 @@
     "status": "Status",
     "priority": "Priorität",
     "promoteTo": "Umwandeln in",
+    "changeTypeMsg": "Dies entfernt {{details}}.",
+    "remindAt": "Erinnerungszeit",
     "maturity": "Reifegrad",
     "color": "Farbe"
   },

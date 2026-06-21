@@ -115,6 +115,8 @@
     "status": "Статус",
     "priority": "Приоритет",
     "promoteTo": "Преобразовать в",
+    "changeTypeMsg": "Это удалит {{details}}.",
+    "remindAt": "Время напоминания",
     "maturity": "Зрелость",
     "color": "Цвет"
   },

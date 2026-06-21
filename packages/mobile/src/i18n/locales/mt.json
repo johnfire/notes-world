@@ -115,6 +115,8 @@
     "status": "Stat",
     "priority": "Prijorità",
     "promoteTo": "Ibdel għal",
+    "changeTypeMsg": "Dan se jneħħi {{details}}.",
+    "remindAt": "Ħin tat-tfakkira",
     "maturity": "Maturità",
     "color": "Kulur"
   },

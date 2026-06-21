@@ -115,6 +115,8 @@
     "status": "Stádas",
     "priority": "Tosaíocht",
     "promoteTo": "Cuir chun cinn go",
+    "changeTypeMsg": "Bainfidh sé seo {{details}}.",
+    "remindAt": "Am meabhrúcháin",
     "maturity": "Aibíocht",
     "color": "Dath"
   },

@@ -115,6 +115,8 @@
     "status": "Status",
     "priority": "Prioriteit",
     "promoteTo": "Omzetten naar",
+    "changeTypeMsg": "Hiermee wordt {{details}} verwijderd.",
+    "remindAt": "Herinneringstijd",
     "maturity": "Rijpheid",
     "color": "Kleur"
   },

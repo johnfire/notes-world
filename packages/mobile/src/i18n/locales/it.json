@@ -115,6 +115,8 @@
     "status": "Stato",
     "priority": "Priorità",
     "promoteTo": "Converti in",
+    "changeTypeMsg": "Questo rimuove {{details}}.",
+    "remindAt": "Ora del promemoria",
     "maturity": "Maturità",
     "color": "Colore"
   },

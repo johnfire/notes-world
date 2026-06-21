@@ -115,6 +115,8 @@
     "status": "Status",
     "priority": "Prioritet",
     "promoteTo": "Pretvori u",
+    "changeTypeMsg": "Ovo će ukloniti {{details}}.",
+    "remindAt": "Vrijeme podsjetnika",
     "maturity": "Zrelost",
     "color": "Boja"
   },

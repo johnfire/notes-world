@@ -22,8 +22,12 @@ export function useItemDrawer() {
   const [tagSearch, setTagSearch] = useState("");
   const [tagPickerOpen, setTagPickerOpen] = useState(false);
 
-  // promote
+  // promote / type change
   const [promoteOpen, setPromoteOpen] = useState(false);
+  // Target type awaiting a "this drops X" confirmation; null when none pending.
+  const [pendingType, setPendingType] = useState<Item["item_type"] | null>(
+    null,
+  );
 
   // task actions
   const [actioning, setActioning] = useState(false);
@@ -39,6 +43,7 @@ export function useItemDrawer() {
     setLoading(true);
     setTagPickerOpen(false);
     setPromoteOpen(false);
+    setPendingType(null);
     try {
       const [fetched, fetchedTags] = await Promise.all([
         api.items.getById(id),
@@ -213,6 +218,7 @@ export function useItemDrawer() {
   async function handlePromote(newType: import("../../types").ItemType) {
     if (!item) return;
     setPromoteOpen(false);
+    setPendingType(null);
     const updated = await api.items.promote(item.id, newType);
     setItem(updated);
     updateItemInContext(updated);
@@ -290,6 +296,8 @@ export function useItemDrawer() {
     setTagPickerOpen,
     promoteOpen,
     setPromoteOpen,
+    pendingType,
+    setPendingType,
     actioning,
     deps,
     dependents,

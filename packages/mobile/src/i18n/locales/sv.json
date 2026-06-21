@@ -115,6 +115,8 @@
     "status": "Status",
     "priority": "Prioritet",
     "promoteTo": "Gör om till",
+    "changeTypeMsg": "Detta tar bort {{details}}.",
+    "remindAt": "Påminnelsetid",
     "maturity": "Mognad",
     "color": "Färg"
   },

@@ -8,6 +8,7 @@ const mockSaveTitle = vi.fn();
 const mockSaveBody = vi.fn();
 const mockHandleTaskAction = vi.fn();
 const mockHandlePromote = vi.fn();
+const mockSetPendingType = vi.fn();
 const mockHandleArchive = vi.fn();
 const mockHandleRestore = vi.fn();
 
@@ -32,6 +33,8 @@ function makeDrawerState(overrides = {}) {
     setTagPickerOpen: vi.fn(),
     promoteOpen: false,
     setPromoteOpen: vi.fn(),
+    pendingType: null,
+    setPendingType: mockSetPendingType,
     actioning: false,
     deps: [],
     dependents: [],
@@ -125,12 +128,12 @@ describe('ItemDrawer', () => {
     expect(screen.getByText('Restore')).toBeInTheDocument();
   });
 
-  test('shows Promote button for Untyped active items', () => {
+  test('shows Change type for Untyped active items', () => {
     render(<ItemDrawer />);
-    expect(screen.getByText('Promote to…')).toBeInTheDocument();
+    expect(screen.getByText('Change type…')).toBeInTheDocument();
   });
 
-  test('does not show Promote for typed items', () => {
+  test('shows Change type for already-typed active items', () => {
     drawerState = makeDrawerState({
       item: {
         id: 'item-1', user_id: 'u1', title: 'Task', body: null,
@@ -140,7 +143,63 @@ describe('ItemDrawer', () => {
       },
     });
     render(<ItemDrawer />);
-    expect(screen.queryByText('Promote to…')).not.toBeInTheDocument();
+    expect(screen.getByText('Change type…')).toBeInTheDocument();
+  });
+
+  test('hides Change type for archived items', () => {
+    drawerState = makeDrawerState({
+      item: {
+        id: 'item-1', user_id: 'u1', title: 'Task', body: null,
+        item_type: ItemType.Task, status: ItemStatus.Archived,
+        type_data: { task_status: 'Open', priority: 'Normal' }, color: null,
+        created_at: '', updated_at: '',
+      },
+    });
+    render(<ItemDrawer />);
+    expect(screen.queryByText('Change type…')).not.toBeInTheDocument();
+  });
+
+  test('converting a lossless item promotes immediately (no confirm)', () => {
+    // Default item is Untyped with type_data null → nothing to lose.
+    drawerState = makeDrawerState({ promoteOpen: true });
+    render(<ItemDrawer />);
+    fireEvent.click(screen.getByText('Task'));
+    expect(mockHandlePromote).toHaveBeenCalledWith(ItemType.Task);
+    expect(mockSetPendingType).not.toHaveBeenCalled();
+  });
+
+  test('converting a lossy item asks to confirm instead of promoting', () => {
+    drawerState = makeDrawerState({
+      promoteOpen: true,
+      item: {
+        id: 'item-1', user_id: 'u1', title: 'Task', body: null,
+        item_type: ItemType.Task, status: ItemStatus.Active,
+        type_data: { task_status: 'Open', priority: 'Normal', due_date: '2026-02-01' },
+        color: null, created_at: '', updated_at: '',
+      },
+    });
+    render(<ItemDrawer />);
+    // Current type (Task) is excluded from the options; Note is offered.
+    fireEvent.click(screen.getByText('Note'));
+    expect(mockSetPendingType).toHaveBeenCalledWith(ItemType.Note);
+    expect(mockHandlePromote).not.toHaveBeenCalled();
+  });
+
+  test('confirming a pending lossy conversion promotes and names the loss', () => {
+    drawerState = makeDrawerState({
+      promoteOpen: true,
+      pendingType: ItemType.Note,
+      item: {
+        id: 'item-1', user_id: 'u1', title: 'Task', body: null,
+        item_type: ItemType.Task, status: ItemStatus.Active,
+        type_data: { task_status: 'Open', priority: 'Normal', due_date: '2026-02-01' },
+        color: null, created_at: '', updated_at: '',
+      },
+    });
+    render(<ItemDrawer />);
+    expect(screen.getByText(/Change to Note/)).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Convert'));
+    expect(mockHandlePromote).toHaveBeenCalledWith(ItemType.Note);
   });
 
   test('shows editable status and priority for tasks', () => {

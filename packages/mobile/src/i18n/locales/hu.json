@@ -115,6 +115,8 @@
     "status": "Állapot",
     "priority": "Prioritás",
     "promoteTo": "Átalakítás erre",
+    "changeTypeMsg": "Ez eltávolítja a következőt: {{details}}.",
+    "remindAt": "Emlékeztető időpontja",
     "maturity": "Érettség",
     "color": "Szín"
   },

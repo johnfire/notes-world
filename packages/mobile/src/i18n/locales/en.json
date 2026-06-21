@@ -114,7 +114,9 @@
     "dateNotSet": "Not set",
     "status": "Status",
     "priority": "Priority",
-    "promoteTo": "Promote to",
+    "promoteTo": "Change type",
+    "changeTypeMsg": "This removes {{details}}.",
+    "remindAt": "Reminder time",
     "maturity": "Maturity",
     "color": "Color"
   },

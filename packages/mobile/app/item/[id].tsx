@@ -34,7 +34,14 @@ import {
   type DateField,
 } from "../../src/lib/dueDate";
 import { colors, spacing, radius, font } from "../../src/theme";
-import { ItemType, TaskStatus, Priority, IdeaMaturity } from "@notes-world/shared";
+import {
+  ItemType,
+  TaskStatus,
+  Priority,
+  IdeaMaturity,
+  droppedFieldsOnTypeChange,
+  type DroppedTypeField,
+} from "@notes-world/shared";
 import type { Item, TypeData } from "@notes-world/shared";
 
 // Picked Date -> local YYYY-MM-DD (date-only; avoids a UTC off-by-one day).
@@ -81,13 +88,24 @@ const TYPE_COLORS: Record<string, string> = {
   [ItemType.Untyped]: colors.typeUntyped,
 };
 
-// Promote targets for an Untyped item (mirrors the web drawer).
+// Types a user can convert an item to (mirrors the web drawer). The item's
+// current type is filtered out at render time.
 const PROMOTE_TYPES: Array<[ItemType, string]> = [
   [ItemType.Task, "capture.typeTask"],
   [ItemType.Idea, "capture.typeIdea"],
   [ItemType.Note, "capture.typeNote"],
   [ItemType.Reminder, "capture.typeReminder"],
 ];
+
+// Type-specific fields the user can lose when converting → i18n label keys.
+const FIELD_LABEL: Record<DroppedTypeField, string> = {
+  status: "item.status",
+  priority: "item.priority",
+  dueDate: "item.dueDate",
+  startDate: "item.startDate",
+  maturity: "item.maturity",
+  remindAt: "item.remindAt",
+};
 
 // Shared color palette (packages/web/src/utils/colors.ts).
 const PALETTE = [
@@ -288,6 +306,26 @@ export default function ItemScreen() {
     }
   }
 
+  // Convert immediately when nothing is lost; otherwise confirm, naming the
+  // type-specific fields the change would discard.
+  function requestPromote(newType: ItemType) {
+    if (!item) return;
+    const lost = droppedFieldsOnTypeChange(item);
+    if (lost.length === 0) {
+      void handlePromote(newType);
+      return;
+    }
+    const details = lost.map((f) => t(FIELD_LABEL[f])).join(", ");
+    Alert.alert(t("item.promoteTo"), t("item.changeTypeMsg", { details }), [
+      { text: t("common.cancel"), style: "cancel" },
+      {
+        text: t("item.promoteTo"),
+        style: "destructive",
+        onPress: () => void handlePromote(newType),
+      },
+    ]);
+  }
+
   function dateRow(field: DateField, label: string, value?: string) {
     return (
       <View style={s.dateRow}>
@@ -477,21 +515,23 @@ export default function ItemScreen() {
               </View>
             </View>
           )}
-          {item.item_type === ItemType.Untyped && (
+          {item.item_type !== ItemType.Divider && (
             <View style={s.fieldGroup}>
               <Text style={s.fieldLabel}>{t("item.promoteTo")}</Text>
               <View style={s.chipRow}>
-                {PROMOTE_TYPES.map(([type, labelKey]) => (
-                  <Pressable
-                    key={type}
-                    disabled={promoting}
-                    onPress={() => void handlePromote(type)}
-                    style={s.chip}
-                    hitSlop={4}
-                  >
-                    <Text style={s.chipTxt}>{t(labelKey)}</Text>
-                  </Pressable>
-                ))}
+                {PROMOTE_TYPES.filter(([type]) => type !== item.item_type).map(
+                  ([type, labelKey]) => (
+                    <Pressable
+                      key={type}
+                      disabled={promoting}
+                      onPress={() => requestPromote(type)}
+                      style={s.chip}
+                      hitSlop={4}
+                    >
+                      <Text style={s.chipTxt}>{t(labelKey)}</Text>
+                    </Pressable>
+                  ),
+                )}
               </View>
             </View>
           )}

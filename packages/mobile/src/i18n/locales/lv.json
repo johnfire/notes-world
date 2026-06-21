@@ -115,6 +115,8 @@
     "status": "Statuss",
     "priority": "Prioritāte",
     "promoteTo": "Pārveidot par",
+    "changeTypeMsg": "Šī darbība noņem {{details}}.",
+    "remindAt": "Atgādinājuma laiks",
     "maturity": "Briedums",
     "color": "Krāsa"
   },

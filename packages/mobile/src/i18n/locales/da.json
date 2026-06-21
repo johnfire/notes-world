@@ -115,6 +115,8 @@
     "status": "Status",
     "priority": "Prioritet",
     "promoteTo": "Konvertér til",
+    "changeTypeMsg": "Dette fjerner {{details}}.",
+    "remindAt": "Påmindelsestidspunkt",
     "maturity": "Modenhed",
     "color": "Farve"
   },

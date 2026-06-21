@@ -1,6 +1,29 @@
 import { useTranslation } from "react-i18next";
+import {
+  droppedFieldsOnTypeChange,
+  type DroppedTypeField,
+} from "@notes-world/shared";
 import { ItemType, ItemStatus, type Item } from "../types";
 import { linkify } from "../utils/linkify";
+import { ItemTypeBadge } from "./ItemTypeBadge";
+
+// Type-specific fields the user can lose when converting → i18n label keys.
+const FIELD_LABEL: Record<DroppedTypeField, string> = {
+  status: "app.drawer.status",
+  priority: "app.drawer.priority",
+  dueDate: "app.drawer.dueDate",
+  startDate: "app.drawer.startDate",
+  maturity: "app.drawer.maturity",
+  remindAt: "app.drawer.remindAt",
+};
+
+// Real types a user can convert between; Untyped/Divider are never targets.
+const CONVERT_TARGETS = [
+  ItemType.Task,
+  ItemType.Idea,
+  ItemType.Note,
+  ItemType.Reminder,
+];
 import { useItemDrawer } from "./drawer/useItemDrawer";
 import { TagPicker } from "./drawer/TagPicker";
 import { TaskFields } from "./drawer/TaskFields";
@@ -15,6 +38,10 @@ export function ItemDrawer() {
   const { item, loading } = d;
   const isArchived = item?.status === ItemStatus.Archived;
 
+  // What a type change would discard from this item (empty = lossless).
+  const lostFields = item ? droppedFieldsOnTypeChange(item) : [];
+  const lostLabels = lostFields.map((f) => t(FIELD_LABEL[f])).join(", ");
+
   return (
     <>
       {/* Backdrop */}
@@ -26,7 +53,7 @@ export function ItemDrawer() {
         <div className="flex items-center gap-3 px-5 py-4 border-b border-surface-500 shrink-0">
           {!loading && item && (
             <>
-              <TypeBadge type={item.item_type} />
+              <ItemTypeBadge type={item.item_type} />
               {isArchived && (
                 <span className="badge bg-surface-500 text-gray-500">
                   {t("app.drawer.archived")}
@@ -169,30 +196,59 @@ export function ItemDrawer() {
         {/* Footer */}
         {item && !loading && (
           <div className="px-5 py-3 border-t border-surface-500 flex items-center gap-2 shrink-0">
-            {!isArchived && item.item_type === ItemType.Untyped && (
+            {!isArchived && item.item_type !== ItemType.Divider && (
               <div className="relative">
                 <button
-                  onClick={() => d.setPromoteOpen((p) => !p)}
+                  onClick={() => {
+                    d.setPendingType(null);
+                    d.setPromoteOpen((p) => !p);
+                  }}
                   className="btn-ghost text-xs"
                 >
-                  {t("app.drawer.promoteTo")}
+                  {t("app.drawer.changeType")}
                 </button>
                 {d.promoteOpen && (
-                  <div className="absolute bottom-10 left-0 z-10 w-36 bg-surface-700 border border-surface-500 rounded-md shadow-xl overflow-hidden">
-                    {[
-                      ItemType.Task,
-                      ItemType.Idea,
-                      ItemType.Note,
-                      ItemType.Reminder,
-                    ].map((type) => (
-                      <button
-                        key={type}
-                        onClick={() => void d.handlePromote(type)}
-                        className="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-surface-600 hover:text-white"
-                      >
-                        {t(`app.types.${type.toLowerCase()}`)}
-                      </button>
-                    ))}
+                  <div className="absolute bottom-10 left-0 z-10 w-60 bg-surface-700 border border-surface-500 rounded-md shadow-xl overflow-hidden">
+                    {d.pendingType ? (
+                      <div className="p-3 space-y-2.5">
+                        <p className="text-xs text-gray-300 leading-relaxed">
+                          {t("app.drawer.changeTypeConfirm", {
+                            type: t(`app.types.${d.pendingType.toLowerCase()}`),
+                            details: lostLabels,
+                          })}
+                        </p>
+                        <div className="flex justify-end gap-2">
+                          <button
+                            onClick={() => d.setPendingType(null)}
+                            className="btn-ghost text-xs text-gray-400"
+                          >
+                            {t("app.actions.cancel")}
+                          </button>
+                          <button
+                            onClick={() => void d.handlePromote(d.pendingType!)}
+                            className="btn-ghost text-xs text-accent"
+                          >
+                            {t("app.drawer.convert")}
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      CONVERT_TARGETS.filter(
+                        (type) => type !== item.item_type,
+                      ).map((type) => (
+                        <button
+                          key={type}
+                          onClick={() => {
+                            if (lostFields.length === 0)
+                              void d.handlePromote(type);
+                            else d.setPendingType(type);
+                          }}
+                          className="w-full text-left px-3 py-2 text-sm text-gray-300 hover:bg-surface-600 hover:text-white"
+                        >
+                          {t(`app.types.${type.toLowerCase()}`)}
+                        </button>
+                      ))
+                    )}
                   </div>
                 )}
               </div>
@@ -220,27 +276,6 @@ export function ItemDrawer() {
       </aside>
     </>
   );
-}
-
-function TypeBadge({ type }: { type: ItemType }) {
-  const { t } = useTranslation();
-  const cls: Record<ItemType, string> = {
-    [ItemType.Task]: "badge-task",
-    [ItemType.Idea]: "badge-idea",
-    [ItemType.Note]: "badge-note",
-    [ItemType.Reminder]: "badge-reminder",
-    [ItemType.Untyped]: "badge-untyped",
-    [ItemType.Divider]: "badge-untyped",
-  };
-  const typeKey: Record<ItemType, string> = {
-    [ItemType.Task]: "app.types.task",
-    [ItemType.Idea]: "app.types.idea",
-    [ItemType.Note]: "app.types.note",
-    [ItemType.Reminder]: "app.types.reminder",
-    [ItemType.Untyped]: "app.types.untyped",
-    [ItemType.Divider]: "app.types.untyped",
-  };
-  return <span className={cls[type]}>{t(typeKey[type])}</span>;
 }
 
 function TaskDates({

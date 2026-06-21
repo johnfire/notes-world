@@ -115,6 +115,8 @@
     "status": "Stare",
     "priority": "Prioritate",
     "promoteTo": "Transformă în",
+    "changeTypeMsg": "Acest lucru elimină {{details}}.",
+    "remindAt": "Ora amintirii",
     "maturity": "Maturitate",
     "color": "Culoare"
   },

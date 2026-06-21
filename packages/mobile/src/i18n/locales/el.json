@@ -115,6 +115,8 @@
     "status": "Κατάσταση",
     "priority": "Προτεραιότητα",
     "promoteTo": "Μετατροπή σε",
+    "changeTypeMsg": "Αυτό αφαιρεί {{details}}.",
+    "remindAt": "Ώρα υπενθύμισης",
     "maturity": "Ωριμότητα",
     "color": "Χρώμα"
   },

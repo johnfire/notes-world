@@ -115,6 +115,8 @@
     "status": "Статус",
     "priority": "Приоритет",
     "promoteTo": "Преобразуване в",
+    "changeTypeMsg": "Това премахва {{details}}.",
+    "remindAt": "Време за напомняне",
     "maturity": "Зрялост",
     "color": "Цвят"
   },
