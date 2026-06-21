@@ -107,6 +107,15 @@ const FIELD_LABEL: Record<DroppedTypeField, string> = {
   remindAt: "item.remindAt",
 };
 
+// Pretty labels for the status chips (the enum values are PascalCase).
+const STATUS_LABELS: Record<string, string> = {
+  Open: "Open",
+  InProgress: "In Progress",
+  OnHold: "On Hold",
+  Blocked: "Blocked",
+  Done: "Done",
+};
+
 // Shared color palette (packages/web/src/utils/colors.ts).
 const PALETTE = [
   "#ffffff", "#ef4444", "#f97316", "#f59e0b", "#eab308", "#84cc16",
@@ -582,7 +591,7 @@ export default function ItemScreen() {
                         hitSlop={4}
                       >
                         <Text style={[s.chipTxt, active && s.chipTxtActive]}>
-                          {st}
+                          {STATUS_LABELS[st] ?? st}
                         </Text>
                       </Pressable>
                     );

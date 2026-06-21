@@ -11,6 +11,16 @@ interface TaskFieldsProps {
 const selectCls =
   "bg-surface-700 border border-surface-500 rounded-md px-2 py-1.5 text-sm text-gray-200 [color-scheme:dark] focus:outline-none focus:border-accent disabled:opacity-60";
 
+// Map the raw status value to its i18n label so the dropdown reads "In Progress"
+// / "On Hold" rather than the bare enum value.
+const STATUS_LABEL_KEY: Record<string, string> = {
+  Open: "app.status.open",
+  InProgress: "app.status.inProgress",
+  OnHold: "app.status.onHold",
+  Blocked: "app.status.blocked",
+  Done: "app.status.done",
+};
+
 // Editable status + priority for tasks. Both write straight into type_data;
 // picking Done stamps completed_at, any other status clears it.
 export function TaskFields({
@@ -51,7 +61,7 @@ export function TaskFields({
         >
           {Object.values(TaskStatus).map((s) => (
             <option key={s} value={s}>
-              {s}
+              {t(STATUS_LABEL_KEY[s] ?? s)}
             </option>
           ))}
         </select>
