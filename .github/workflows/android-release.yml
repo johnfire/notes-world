@@ -99,3 +99,17 @@ jobs:
             packages/mobile/android/app/build/outputs/bundle/release/app-release.aab \
             notes.world \
             alpha
+
+  # Mirror of the CI/CD notify job: drop the Android publish result on the VPS
+  # for the agent fleet. Reuses the existing deploy key — no new secret.
+  notify:
+    needs: publish
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/ci-notify
+        with:
+          result: ${{ needs.publish.result }}
+          workflow: android
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}

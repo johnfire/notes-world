@@ -44,17 +44,22 @@ docker compose up --build
 
 ## CI status (for agents)
 
-After every push to `master`, the `notify` job in `.github/workflows/ci.yml`
-writes the pipeline outcome to the VPS — no chat channel needed. To check the
-last build/deploy without being told, read the JSON:
+Both workflows' `notify` job (shared composite action `.github/actions/ci-notify`)
+writes its outcome to the VPS — no chat channel needed. To check the last run
+without being told, read the JSON:
 
 ```bash
-ssh claude@82.165.32.162 cat notes-world-ci-status.json   # latest result
-ssh claude@82.165.32.162 tail -n 5 notes-world-ci-history.jsonl  # recent trail
+ssh claude@82.165.32.162 cat notes-world-ci-status.json       # latest CI/CD (test+deploy)
+ssh claude@82.165.32.162 cat notes-world-android-status.json  # latest Android publish
+ssh claude@82.165.32.162 tail -n 5 notes-world-ci-history.jsonl  # combined trail (has `workflow` field)
 ```
 
 `status` is `success` / `failure` / `cancelled`; on failure, drill in with
 `gh run view <run_id> --log-failed` (the `run_url`/run id are in the JSON).
+
+A laptop systemd timer (`ci-ping-relay`) also pushes new run results into the
+Hermes bridge, so they arrive as `check_messages` pings (sender `ci`) — a real
+notification, not just a file.
 
 ## Doc Index
 

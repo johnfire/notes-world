@@ -1,0 +1,52 @@
+name: "Notify VPS of result"
+description: "Write a workflow's outcome to the VPS as JSON so the agent fleet can read it (no chat channel, no new secret)."
+
+inputs:
+  result:
+    description: "Outcome of the upstream job: success | failure | cancelled"
+    required: true
+  workflow:
+    description: "Short id for the workflow (e.g. ci, android) — names the per-workflow status file"
+    required: true
+  ssh-key:
+    description: "SSH private key for the VPS deploy user"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - shell: bash
+      env:
+        SSH_PRIVATE_KEY: ${{ inputs.ssh-key }}
+        RESULT: ${{ inputs.result }}
+        WORKFLOW: ${{ inputs.workflow }}
+        # Commit message is untrusted — pass via env, never interpolate into the script.
+        COMMIT_MSG: ${{ github.event.head_commit.message }}
+        RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+        chmod 600 ~/.ssh/id_ed25519
+        ssh-keyscan 82.165.32.162 >> ~/.ssh/known_hosts 2>/dev/null
+
+        # Build the payload on the runner; jq escapes the commit message safely.
+        jq -n \
+          --arg project    "notes-world" \
+          --arg workflow   "$WORKFLOW" \
+          --arg status     "$RESULT" \
+          --arg branch     "${{ github.ref_name }}" \
+          --arg commit     "${{ github.sha }}" \
+          --arg message    "$COMMIT_MSG" \
+          --arg run_url    "$RUN_URL" \
+          --arg run_number "${{ github.run_number }}" \
+          --arg actor      "${{ github.actor }}" \
+          --arg timestamp  "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+          '{project:$project,workflow:$workflow,status:$status,branch:$branch,commit:$commit,message:$message,run_url:$run_url,run_number:$run_number,actor:$actor,timestamp:$timestamp}' \
+          > ci-status.json
+        echo "Payload:"; cat ci-status.json
+
+        SSH="ssh -i ~/.ssh/id_ed25519 -o StrictHostKeyChecking=no claude@82.165.32.162"
+        # Per-workflow latest (overwrite) + shared append-only history (one JSON/line).
+        $SSH "cat > ~/notes-world-${WORKFLOW}-status.json" < ci-status.json
+        jq -c . ci-status.json | $SSH 'cat >> ~/notes-world-ci-history.jsonl'
+        echo "Delivered '$WORKFLOW' status '$RESULT' to the VPS"
