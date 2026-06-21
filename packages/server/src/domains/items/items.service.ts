@@ -136,6 +136,69 @@ export async function promoteItem(
   return updated;
 }
 
+// Nest an item under another (or, with parentId null, move it back to the root).
+// Type-agnostic — any item may parent any other — but guarded against cycles and
+// against exceeding the hierarchy depth cap.
+export async function setParent(
+  userId: UserId,
+  id: ItemId,
+  parentId: ItemId | null,
+): Promise<Item> {
+  const item = await repo.findById(id, userId);
+  if (!item) throw new NotFoundError("Item", id);
+  if (item.user_id !== userId) throw new AuthorizationError("Not owner");
+  if (item.status !== ItemStatus.Active)
+    throw new StateError("Cannot reparent an archived item");
+
+  // Un-nest → back to the root.
+  if (parentId == null) {
+    const cleared = await repo.update(id, userId, { parent_id: null });
+    if (!cleared) throw new NotFoundError("Item", id);
+    eventBus.emit("ItemReparented", {
+      item: cleared,
+      parent_id: null,
+      reparented_at: cleared.updated_at,
+    });
+    return cleared;
+  }
+
+  if (parentId === id)
+    throw new ValidationError("An item cannot be its own parent");
+
+  const parent = await repo.findById(parentId, userId);
+  if (!parent) throw new NotFoundError("Item", parentId);
+  if (parent.user_id !== userId) throw new AuthorizationError("Not owner");
+  if (parent.status !== ItemStatus.Active)
+    throw new StateError("Cannot nest under an archived item");
+
+  // Cycle guard: the proposed parent must not already sit inside this item's own
+  // subtree — i.e. this item must not be an ancestor of it.
+  const parentAncestors = await repo.findAncestorIds(parentId, userId);
+  if (parentAncestors.includes(id))
+    throw new ValidationError("That would create a cycle in the hierarchy");
+
+  // Depth guard: root items are level 1, so the parent sits at (ancestors + 1)
+  // and this item lands one below. The deepest leaf in this item's subtree must
+  // still fit under the cap once it moves.
+  const newLevel = parentAncestors.length + 2;
+  const height = await repo.subtreeHeight(id, userId);
+  if (newLevel + height > LIMITS.HIERARCHY_DEPTH_MAX) {
+    throw new ValidationError(
+      `Nesting would exceed the maximum depth of ${LIMITS.HIERARCHY_DEPTH_MAX}`,
+      { max_depth: LIMITS.HIERARCHY_DEPTH_MAX },
+    );
+  }
+
+  const updated = await repo.update(id, userId, { parent_id: parentId });
+  if (!updated) throw new NotFoundError("Item", id);
+  eventBus.emit("ItemReparented", {
+    item: updated,
+    parent_id: parentId,
+    reparented_at: updated.updated_at,
+  });
+  return updated;
+}
+
 export async function archiveItem(userId: UserId, id: ItemId): Promise<Item> {
   const item = await repo.findById(id, userId);
   if (!item) throw new NotFoundError("Item", id);

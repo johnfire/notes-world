@@ -388,3 +388,78 @@ describe('getItemsByTag', () => {
     expect(mockRepo.findByTag).toHaveBeenCalledWith(TEST_USER_ID, 'tag-id-1', 50, 0);
   });
 });
+
+// ── setParent (hierarchy) ─────────────────────────────────────────────────────
+
+describe('setParent', () => {
+  test('clears the parent (un-nest) and emits ItemReparented', async () => {
+    const item = makeItem();
+    const cleared = makeItem({ id: item.id, parent_id: null });
+    mockRepo.findById.mockResolvedValueOnce(item);
+    mockRepo.update.mockResolvedValue(cleared);
+
+    const result = await service.setParent(TEST_USER_ID, item.id, null);
+
+    expect(mockRepo.update).toHaveBeenCalledWith(item.id, TEST_USER_ID, { parent_id: null });
+    expect(result).toBe(cleared);
+    expect(mockBus).toHaveBeenCalledWith('ItemReparented', expect.objectContaining({ parent_id: null }));
+  });
+
+  test('nests under a valid parent and emits ItemReparented', async () => {
+    const item = makeItem();
+    const parent = makeItem();
+    const updated = makeItem({ id: item.id, parent_id: parent.id });
+    mockRepo.findById.mockResolvedValueOnce(item).mockResolvedValueOnce(parent);
+    mockRepo.findAncestorIds.mockResolvedValue([]); // parent is at the root
+    mockRepo.subtreeHeight.mockResolvedValue(0);     // item is a leaf
+    mockRepo.update.mockResolvedValue(updated);
+
+    const result = await service.setParent(TEST_USER_ID, item.id, parent.id);
+
+    expect(mockRepo.update).toHaveBeenCalledWith(item.id, TEST_USER_ID, { parent_id: parent.id });
+    expect(result).toBe(updated);
+    expect(mockBus).toHaveBeenCalledWith('ItemReparented', expect.objectContaining({ parent_id: parent.id }));
+  });
+
+  test('rejects making an item its own parent', async () => {
+    const item = makeItem();
+    mockRepo.findById.mockResolvedValueOnce(item);
+
+    await expect(service.setParent(TEST_USER_ID, item.id, item.id))
+      .rejects.toMatchObject({ code: 'VALIDATION_ERROR' });
+    expect(mockRepo.update).not.toHaveBeenCalled();
+  });
+
+  test('rejects a cycle (the proposed parent sits under the item)', async () => {
+    const item = makeItem();
+    const parent = makeItem();
+    mockRepo.findById.mockResolvedValueOnce(item).mockResolvedValueOnce(parent);
+    mockRepo.findAncestorIds.mockResolvedValue([item.id]); // item is above the parent
+
+    await expect(service.setParent(TEST_USER_ID, item.id, parent.id))
+      .rejects.toMatchObject({ code: 'VALIDATION_ERROR' });
+    expect(mockRepo.update).not.toHaveBeenCalled();
+  });
+
+  test('rejects nesting that would exceed the depth cap of 7', async () => {
+    const item = makeItem();
+    const parent = makeItem();
+    mockRepo.findById.mockResolvedValueOnce(item).mockResolvedValueOnce(parent);
+    // parent has 6 ancestors → it sits at level 7, so the item would land at 8
+    mockRepo.findAncestorIds.mockResolvedValue(['a', 'b', 'c', 'd', 'e', 'f']);
+    mockRepo.subtreeHeight.mockResolvedValue(0);
+
+    await expect(service.setParent(TEST_USER_ID, item.id, parent.id))
+      .rejects.toMatchObject({ code: 'VALIDATION_ERROR' });
+    expect(mockRepo.update).not.toHaveBeenCalled();
+  });
+
+  test('rejects reparenting an archived item', async () => {
+    const item = makeItem({ status: ItemStatus.Archived });
+    mockRepo.findById.mockResolvedValueOnce(item);
+
+    await expect(service.setParent(TEST_USER_ID, item.id, '00000000-0000-0000-0000-0000000000ff'))
+      .rejects.toMatchObject({ code: 'STATE_ERROR' });
+    expect(mockRepo.update).not.toHaveBeenCalled();
+  });
+});

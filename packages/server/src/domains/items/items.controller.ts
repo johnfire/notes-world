@@ -52,6 +52,15 @@ export const promoteItem = wrapAsync(async (req: Request, res: Response) => {
   res.json(item);
 });
 
+export const setParent = wrapAsync(async (req: Request, res: Response) => {
+  const item = await service.setParent(
+    req.userId,
+    req.params.id,
+    req.body.parent_id ?? null,
+  );
+  res.json(item);
+});
+
 export const archiveItem = wrapAsync(async (req: Request, res: Response) => {
   const item = await service.archiveItem(req.userId, req.params.id);
   res.json(item);

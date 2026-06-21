@@ -18,6 +18,7 @@ itemsRouter.post("/purge-expired", ctrl.purgeExpired);
 itemsRouter.post("/", ctrl.captureItem);
 itemsRouter.patch("/:id", ctrl.updateItem);
 itemsRouter.post("/:id/promote", ctrl.promoteItem);
+itemsRouter.post("/:id/parent", ctrl.setParent);
 itemsRouter.post("/:id/archive", ctrl.archiveItem);
 itemsRouter.post("/:id/restore", ctrl.restoreItem);
 itemsRouter.post("/:id/purge", ctrl.purgeItem);

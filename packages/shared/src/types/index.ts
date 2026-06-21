@@ -113,6 +113,9 @@ export interface Item {
   status: ItemStatus;
   type_data?: TypeData;
   color?: string | null;
+  // Parent in the global item hierarchy (null/absent = top-level). Type-agnostic:
+  // any item type may parent any other. See ADR / migration 018.
+  parent_id?: ItemId | null;
   archived_at?: string | null;
   created_at: string;
   updated_at: string;

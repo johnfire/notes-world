@@ -40,6 +40,7 @@ export async function update(
     status?: string;
     archived_at?: string | null;
     color?: string | null;
+    parent_id?: string | null;
   },
 ): Promise<Item | null> {
   const { sql, params } = buildUpdate(
@@ -56,6 +57,7 @@ export async function update(
         "status",
         "archived_at",
         "color",
+        "parent_id",
       ],
     },
   );
@@ -248,6 +250,53 @@ export async function hardDelete(id: ItemId, userId: UserId): Promise<boolean> {
     [id, userId],
   );
   return rows.length > 0;
+}
+
+// Ancestors of an item — its parent, grandparent, … up to the root — nearest
+// first. Used to detect cycles (is X already above the proposed parent?) and to
+// measure how deep the proposed parent sits. The recursion is bounded by the
+// HIERARCHY_DEPTH_MAX guard enforced before any reparent, so it can't run away.
+export async function findAncestorIds(
+  itemId: ItemId,
+  userId: UserId,
+): Promise<string[]> {
+  const rows = await query<{ id: string; depth: number }>(
+    `WITH RECURSIVE ancestors AS (
+       SELECT parent_id AS id, 1 AS depth
+       FROM items
+       WHERE id = $1 AND user_id = $2 AND parent_id IS NOT NULL
+       UNION ALL
+       SELECT i.parent_id, a.depth + 1
+       FROM items i
+       JOIN ancestors a ON i.id = a.id
+       WHERE i.user_id = $2 AND i.parent_id IS NOT NULL
+     )
+     SELECT id, depth FROM ancestors ORDER BY depth`,
+    [itemId, userId],
+  );
+  return rows.map((r) => r.id);
+}
+
+// Height of the subtree rooted at an item: 0 for a leaf, 1 if it has children,
+// etc. Combined with the proposed parent's depth, this is how the depth cap is
+// enforced when a whole subtree is dragged under a deeper parent.
+export async function subtreeHeight(
+  itemId: ItemId,
+  userId: UserId,
+): Promise<number> {
+  const rows = await query<{ h: number }>(
+    `WITH RECURSIVE subtree AS (
+       SELECT id, 0 AS depth FROM items WHERE id = $1 AND user_id = $2
+       UNION ALL
+       SELECT i.id, s.depth + 1
+       FROM items i
+       JOIN subtree s ON i.parent_id = s.id
+       WHERE i.user_id = $2
+     )
+     SELECT COALESCE(MAX(depth), 0) AS h FROM subtree`,
+    [itemId, userId],
+  );
+  return rows[0]?.h ?? 0;
 }
 
 export { withTransaction };

@@ -1,4 +1,4 @@
-import { ItemType, TypeData, PaginationParams } from '../../types';
+import { ItemType, ItemId, TypeData, PaginationParams } from '../../types';
 
 export interface CaptureItemInput {
   title: string;
@@ -15,6 +15,10 @@ export interface UpdateItemInput {
 export interface PromoteItemInput {
   new_type: ItemType;
   type_data?: TypeData;
+}
+
+export interface SetParentInput {
+  parent_id: ItemId | null;
 }
 
 export interface SearchItemsInput extends PaginationParams {

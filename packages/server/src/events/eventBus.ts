@@ -5,6 +5,7 @@ import { Item, Tag } from '../types';
 export interface ItemCapturedEvent   { item: Item; created_at: string }
 export interface ItemUpdatedEvent    { item: Item; updated_at: string }
 export interface ItemPromotedEvent   { item: Item; previous_type: string; new_type: string; promoted_at: string }
+export interface ItemReparentedEvent { item: Item; parent_id: string | null; reparented_at: string }
 export interface ItemArchivedEvent   { item: Item; archived_at: string }
 export interface ItemRestoredEvent   { item: Item; restored_at: string }
 export interface TaskCompletedEvent  { item: Item; completed_at: string }
@@ -21,6 +22,7 @@ export type EventMap = {
   ItemCaptured:       ItemCapturedEvent;
   ItemUpdated:        ItemUpdatedEvent;
   ItemPromoted:       ItemPromotedEvent;
+  ItemReparented:     ItemReparentedEvent;
   ItemArchived:       ItemArchivedEvent;
   ItemRestored:       ItemRestoredEvent;
   TaskCompleted:      TaskCompletedEvent;
