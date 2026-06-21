@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Item, ItemType, TaskStatus } from "../types";
+import { Item, ItemType, TaskStatus, Priority } from "../types";
 import * as api from "../api";
 import { useApp } from "../context/AppContext";
 import { relativeAge, stalenessColor } from "../utils/time";
@@ -15,6 +15,20 @@ function getStatus(item: Item): TStatus {
   if (s === "Open" || s === "InProgress" || s === "Blocked" || s === "Done")
     return s;
   return "Open";
+}
+
+// Lower rank sorts higher (closer to the top of the column). Tasks with no
+// priority set are treated as Normal, matching the editor's default.
+const PRIORITY_RANK: Record<string, number> = {
+  [Priority.Critical]: 0,
+  [Priority.High]: 1,
+  [Priority.Normal]: 2,
+  [Priority.Low]: 3,
+};
+
+function priorityRank(item: Item): number {
+  const p = (item.type_data as { priority?: string } | null)?.priority;
+  return PRIORITY_RANK[p ?? Priority.Normal] ?? PRIORITY_RANK[Priority.Normal];
 }
 
 export function TasksView() {
@@ -97,6 +111,11 @@ export function TasksView() {
     Done: [],
   };
   for (const item of items) grouped[getStatus(item)].push(item);
+  // Auto-sort each column by priority — Critical at the top, then High, Normal,
+  // Low. Equal-priority tasks keep their existing order (stable sort).
+  for (const status of COLUMN_IDS) {
+    grouped[status].sort((a, b) => priorityRank(a) - priorityRank(b));
+  }
 
   return (
     <div className="flex gap-3 p-4 h-full overflow-x-auto">

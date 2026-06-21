@@ -84,6 +84,31 @@ describe('TasksView', () => {
     await waitFor(() => expect(screen.getByText('High')).toBeInTheDocument());
   });
 
+  test('sorts each column by priority, highest at the top', async () => {
+    // Deliberately out of order in the fetch.
+    mockByType.mockResolvedValue([
+      makeTask('1', 'low task', 'Open', 'Low'),
+      makeTask('2', 'critical task', 'Open', 'Critical'),
+      makeTask('3', 'normal task', 'Open', 'Normal'),
+      makeTask('4', 'high task', 'Open', 'High'),
+    ]);
+
+    render(<TasksView />);
+    await waitFor(() =>
+      expect(screen.getByText('critical task')).toBeInTheDocument(),
+    );
+
+    const order = ['critical task', 'high task', 'normal task', 'low task'].map(
+      (tt) => screen.getByText(tt),
+    );
+    for (let i = 0; i < order.length - 1; i++) {
+      expect(
+        order[i].compareDocumentPosition(order[i + 1]) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
+    }
+  });
+
   test('clicking task title opens item', async () => {
     mockByType.mockResolvedValue([makeTask('t1', 'Click me')]);
 
