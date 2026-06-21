@@ -185,7 +185,7 @@ export function Sidebar({
 
   return (
     <aside
-      className="w-1/4 bg-surface-900 border-r border-surface-500 flex flex-col shrink-0 overflow-hidden"
+      className="w-1/5 bg-surface-900 border-r border-surface-500 flex flex-col shrink-0 overflow-hidden"
       data-tour="sidebar"
     >
       {/* Header */}
