@@ -7,6 +7,7 @@ COPY packages/shared/package.json ./packages/shared/
 COPY packages/server/package.json ./packages/server/
 COPY packages/web/package.json    ./packages/web/
 COPY packages/mcp/package.json    ./packages/mcp/
+COPY packages/mail-mcp/package.json ./packages/mail-mcp/
 RUN npm install
 
 # Build shared (server depends on it)
@@ -38,6 +39,21 @@ COPY --from=mcp-builder /app/packages/mcp/dist ./dist
 EXPOSE 3002
 HEALTHCHECK --interval=15s --timeout=5s --start-period=30s --retries=5 \
   CMD wget -qO- http://localhost:3002/health || exit 1
+CMD ["node", "dist/index.js"]
+
+# Build mail MCP HTTP server (no @notes-world/shared dependency, so builds from base)
+FROM base AS mail-mcp-builder
+COPY packages/mail-mcp ./packages/mail-mcp
+RUN npm run build --workspace=packages/mail-mcp && npm prune --omit=dev
+
+# Mail MCP HTTP image
+FROM node:20-alpine AS mail-mcp
+WORKDIR /app
+COPY --from=mail-mcp-builder /app/node_modules ./node_modules
+COPY --from=mail-mcp-builder /app/packages/mail-mcp/dist ./dist
+EXPOSE 3003
+HEALTHCHECK --interval=15s --timeout=5s --start-period=30s --retries=5 \
+  CMD wget -qO- http://localhost:3003/health || exit 1
 CMD ["node", "dist/index.js"]
 
 # Production API image — pure API server, no static files

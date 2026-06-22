@@ -8,12 +8,13 @@
     "packages/server",
     "packages/web",
     "packages/mcp",
+    "packages/mail-mcp",
     "packages/mobile"
   ],
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace=packages/server\" \"npm run dev --workspace=packages/web\"",
     "build": "npm run build --workspace=packages/shared && npm run build --workspace=packages/server && npm run build --workspace=packages/web",
-    "test": "npm run test --workspace=packages/shared && npm run test --workspace=packages/server && npm run test --workspace=packages/web && npm run test --workspace=packages/mobile",
+    "test": "npm run test --workspace=packages/shared && npm run test --workspace=packages/server && npm run test --workspace=packages/web && npm run test --workspace=packages/mail-mcp && npm run test --workspace=packages/mobile",
     "lint": "npm run lint --workspace=packages/server && npm run lint --workspace=packages/web",
     "migrate": "npm run migrate --workspace=packages/server"
   },

@@ -35,6 +35,9 @@ jobs:
       - name: Run mobile tests
         run: npm test --workspace=packages/mobile
 
+      - name: Run mail-mcp tests
+        run: npm test --workspace=packages/mail-mcp
+
       - name: Generate changelog
         run: node scripts/generate-changelog.mjs
 

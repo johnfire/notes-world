@@ -40,6 +40,33 @@ services:
       - app
     restart: unless-stopped
 
+  mail-mcp:
+    build:
+      context: .
+      target: mail-mcp
+    environment:
+      - MAIL_MCP_PORT=3003
+      - MAIL_MCP_BASE_URL=https://mcp.mail.christopherrehm.de
+      - MAIL_MCP_OAUTH_CLIENT_ID=mail-mcp
+      - MAIL_MCP_API_KEY=${MAIL_MCP_API_KEY}
+      - MAIL_MCP_JWT_SECRET=${MAIL_MCP_JWT_SECRET}
+      - MAIL_MCP_STORE_PATH=/data/oauth-store.json
+      - IMAP_HOST=mail.christopherrehm.de
+      - IMAP_PORT=993
+      - IMAP_LOGIN=contact@christopherrehm.de*mcp-mail
+      - IMAP_PASSWORD=${IMAP_PASSWORD}
+      - MAILBOX_ADDRESS=contact@christopherrehm.de
+      - MAIL_MCP_ALLOWED_FROM=contact@christopherrehm.de,christopher@leguilde.art,contact@leguilde.art,contact@tandkcybernetics.net
+    ports:
+      - "127.0.0.1:8092:3003"
+    extra_hosts:
+      # Reach the host's Dovecot by hostname (so TLS validates) via the docker
+      # bridge gateway, instead of hairpinning out through the public IP.
+      - "mail.christopherrehm.de:host-gateway"
+    volumes:
+      - mail_mcp_oauth_store:/data
+    restart: unless-stopped
+
   nginx:
     image: nginx:alpine
     ports:
@@ -93,3 +120,4 @@ services:
 volumes:
   postgres_data:
   mcp_oauth_store:
+  mail_mcp_oauth_store:
