@@ -4,7 +4,7 @@ import { IdeaMaturity } from "../types";
 // Ideas board so the two surfaces can't drift on the stage order.
 export const IDEA_BOARD_MATURITIES: IdeaMaturity[] = [
   IdeaMaturity.Seed,
+  IdeaMaturity.Parked,
   IdeaMaturity.Developing,
   IdeaMaturity.Ready,
-  IdeaMaturity.Parked,
 ];
