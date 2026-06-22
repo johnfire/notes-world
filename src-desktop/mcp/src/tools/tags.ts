@@ -5,10 +5,11 @@ import { get, post, patch, del } from '../api';
 export function registerTagTools(server: McpServer) {
   server.tool(
     'list_tags',
-    'List all tags with usage counts.',
-    {},
-    async () => {
-      const tags = await get('/api/tags/usage');
+    'List tags with usage counts. Optionally filter by the colour the user assigned to a tag (an exact hex such as "#84cc16") to pull a whole colour-coded group at once — the user colour-codes tags by theme (e.g. green = health/food, purple = art).',
+    { color: z.string().optional().describe('Hex colour to filter by, e.g. "#84cc16". Omit to list every tag.') },
+    async ({ color }) => {
+      const qs = color ? `?color=${encodeURIComponent(color)}` : '';
+      const tags = await get(`/api/tags/usage${qs}`);
       return { content: [{ type: 'text', text: JSON.stringify(tags, null, 2) }] };
     }
   );

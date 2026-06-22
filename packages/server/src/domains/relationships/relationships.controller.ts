@@ -39,7 +39,9 @@ export const getAllTags = wrapAsync(async (req: Request, res: Response) => {
 
 export const getTagUsageCounts = wrapAsync(
   async (req: Request, res: Response) => {
-    const tags = await service.getTagUsageCounts(req.userId);
+    const color =
+      typeof req.query.color === "string" ? req.query.color : undefined;
+    const tags = await service.getTagUsageCounts(req.userId, color);
     res.json(tags);
   },
 );

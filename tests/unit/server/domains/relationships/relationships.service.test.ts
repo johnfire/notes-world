@@ -268,7 +268,21 @@ describe("getTagUsageCounts", () => {
     const result = await service.getTagUsageCounts(TEST_USER_ID);
 
     expect(result).toBe(tags);
-    expect(mockRepo.findTagUsageCounts).toHaveBeenCalledWith(TEST_USER_ID);
+    expect(mockRepo.findTagUsageCounts).toHaveBeenCalledWith(
+      TEST_USER_ID,
+      undefined,
+    );
+  });
+
+  test("forwards the color filter to the repository", async () => {
+    mockRepo.findTagUsageCounts.mockResolvedValue([]);
+
+    await service.getTagUsageCounts(TEST_USER_ID, "#84cc16");
+
+    expect(mockRepo.findTagUsageCounts).toHaveBeenCalledWith(
+      TEST_USER_ID,
+      "#84cc16",
+    );
   });
 });
 

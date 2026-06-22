@@ -66,7 +66,21 @@ describe("GET /api/tags/usage", () => {
 
     expect(res.status).toBe(200);
     expect(res.body[0].count).toBe(3);
-    expect(mockService.getTagUsageCounts).toHaveBeenCalledWith(TEST_USER_ID);
+    expect(mockService.getTagUsageCounts).toHaveBeenCalledWith(
+      TEST_USER_ID,
+      undefined,
+    );
+  });
+
+  test("passes the color filter through to the service", async () => {
+    mockService.getTagUsageCounts.mockResolvedValue([]);
+
+    await request(app).get("/api/tags/usage?color=%2384cc16");
+
+    expect(mockService.getTagUsageCounts).toHaveBeenCalledWith(
+      TEST_USER_ID,
+      "#84cc16",
+    );
   });
 });
 

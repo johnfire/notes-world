@@ -106,16 +106,23 @@ export async function findTagsForItem(
 
 export async function findTagUsageCounts(
   userId: UserId,
+  color?: string | null,
 ): Promise<InternalTagWithCount[]> {
+  const params: unknown[] = [userId];
+  let colorClause = "";
+  if (color) {
+    params.push(color);
+    colorClause = ` AND t.color = $${params.length}`;
+  }
   return query<InternalTagWithCount>(
     `SELECT t.*, COUNT(i.id)::int AS count
      FROM tags t
      LEFT JOIN item_tags it ON it.tag_id = t.id
      LEFT JOIN items i ON i.id = it.item_id AND i.status = 'Active' AND i.item_type != 'Divider'
-     WHERE t.user_id = $1
+     WHERE t.user_id = $1${colorClause}
      GROUP BY t.id
      ORDER BY (t.name ~ '^[0-9]') DESC, lower(t.name) ASC`,
-    [userId],
+    params,
   );
 }
 

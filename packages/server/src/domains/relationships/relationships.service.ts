@@ -122,8 +122,9 @@ export async function getTagsForItem(
 
 export async function getTagUsageCounts(
   userId: UserId,
+  color?: string | null,
 ): Promise<TagWithCount[]> {
-  return repo.findTagUsageCounts(userId);
+  return repo.findTagUsageCounts(userId, color);
 }
 
 export async function tagItem(
