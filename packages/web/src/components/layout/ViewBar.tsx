@@ -9,7 +9,7 @@ export type AppView =
   | "done"
   | "untyped";
 
-const VIEW_IDS: AppView[] = [
+export const VIEW_IDS: AppView[] = [
   "dashboard",
   "ideas",
   "tasks",

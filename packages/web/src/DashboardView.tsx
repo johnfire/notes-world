@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { AppProvider, useApp } from "./context/AppContext";
 import { ActionBar } from "./components/layout/ActionBar";
-import { ViewBar, AppView } from "./components/layout/ViewBar";
+import { ViewBar, AppView, VIEW_IDS } from "./components/layout/ViewBar";
 import { Sidebar } from "./components/layout/Sidebar";
 import { DashboardGrid } from "./components/layout/DashboardGrid";
 import { ItemDrawer } from "./components/ItemDrawer";
@@ -18,8 +19,17 @@ import { Tag, ItemType } from "./types";
 
 function DashboardView() {
   const { state, loadDashboard, loadTags } = useApp();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
-  const [currentView, setCurrentView] = useState<AppView>("dashboard");
+  // Restore the active tab from the URL (?view=tasks) so a browser refresh keeps
+  // the user on their tab instead of dropping back to the dashboard. An unknown
+  // or missing value falls back to dashboard.
+  const viewParam = searchParams.get("view");
+  const [currentView, setCurrentView] = useState<AppView>(
+    (VIEW_IDS as string[]).includes(viewParam ?? "")
+      ? (viewParam as AppView)
+      : "dashboard",
+  );
   const [showTrash, setShowTrash] = useState(false);
 
   useEffect(() => {
@@ -30,6 +40,12 @@ function DashboardView() {
     setCurrentView(view);
     setShowTrash(false);
     if (view !== "dashboard") setSelectedTag(null);
+    // Mirror the tab in the URL so it survives a refresh and can be bookmarked.
+    // Dashboard is the default — keep its URL clean by dropping the param.
+    const next = new URLSearchParams(searchParams);
+    if (view === "dashboard") next.delete("view");
+    else next.set("view", view);
+    setSearchParams(next, { replace: true });
   }
 
   function handleTagSelect(tag: Tag | null) {
