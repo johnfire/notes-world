@@ -16,7 +16,8 @@
     "checklists": "Listi",
     "account": "Kont",
     "done": "Lesti",
-    "tasks": "Kompiti"
+    "tasks": "Kompiti",
+    "ideas": "Ideat"
   },
   "auth": {
     "tagline": "Il-bażi tal-għarfien personali tiegħek",
@@ -225,5 +226,11 @@
     "loadError": "Ma rnexxielix intella' l-kompiti.",
     "moveBack": "Mexxi għall-istatus ta' qabel",
     "moveForward": "Mexxi għall-istatus li jmiss"
+  },
+  "ideaBoard": {
+    "empty": "L-ebda idea f'dan l-istadju.",
+    "loadError": "Ma rnexxielix intella' l-ideat.",
+    "moveBack": "Mexxi għall-istadju ta' qabel",
+    "moveForward": "Mexxi għall-istadju li jmiss"
   }
 }

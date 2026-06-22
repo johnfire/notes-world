@@ -16,7 +16,8 @@
     "checklists": "Loendid",
     "account": "Konto",
     "done": "Tehtud",
-    "tasks": "Ülesanded"
+    "tasks": "Ülesanded",
+    "ideas": "Ideed"
   },
   "auth": {
     "tagline": "Sinu isiklik teadmusbaas",
@@ -225,5 +226,11 @@
     "loadError": "Ülesannete laadimine ebaõnnestus.",
     "moveBack": "Liiguta eelmisse olekusse",
     "moveForward": "Liiguta järgmisse olekusse"
+  },
+  "ideaBoard": {
+    "empty": "Selles etapis pole ideid.",
+    "loadError": "Ideede laadimine ebaõnnestus.",
+    "moveBack": "Liiguta eelmisse etappi",
+    "moveForward": "Liiguta järgmisse etappi"
   }
 }

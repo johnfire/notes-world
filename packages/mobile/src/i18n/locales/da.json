@@ -16,7 +16,8 @@
     "checklists": "Lister",
     "account": "Konto",
     "done": "Færdige",
-    "tasks": "Opgaver"
+    "tasks": "Opgaver",
+    "ideas": "Idéer"
   },
   "auth": {
     "tagline": "Din personlige videnbase",
@@ -225,5 +226,11 @@
     "loadError": "Kunne ikke indlæse opgaver.",
     "moveBack": "Flyt til forrige status",
     "moveForward": "Flyt til næste status"
+  },
+  "ideaBoard": {
+    "empty": "Ingen idéer i denne fase.",
+    "loadError": "Kunne ikke indlæse idéer.",
+    "moveBack": "Flyt til forrige fase",
+    "moveForward": "Flyt til næste fase"
   }
 }

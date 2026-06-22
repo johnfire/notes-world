@@ -16,7 +16,8 @@
     "checklists": "Listat",
     "account": "Tili",
     "done": "Valmis",
-    "tasks": "Tehtävät"
+    "tasks": "Tehtävät",
+    "ideas": "Ideat"
   },
   "auth": {
     "tagline": "Henkilökohtainen tietämyskantasi",
@@ -225,5 +226,11 @@
     "loadError": "Tehtävien lataaminen epäonnistui.",
     "moveBack": "Siirrä edelliseen tilaan",
     "moveForward": "Siirrä seuraavaan tilaan"
+  },
+  "ideaBoard": {
+    "empty": "Ei ideoita tässä vaiheessa.",
+    "loadError": "Ideoiden lataaminen epäonnistui.",
+    "moveBack": "Siirrä edelliseen vaiheeseen",
+    "moveForward": "Siirrä seuraavaan vaiheeseen"
   }
 }

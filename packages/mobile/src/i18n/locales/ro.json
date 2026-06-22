@@ -16,7 +16,8 @@
     "checklists": "Liste",
     "account": "Cont",
     "done": "Finalizate",
-    "tasks": "Sarcini"
+    "tasks": "Sarcini",
+    "ideas": "Idei"
   },
   "auth": {
     "tagline": "Baza ta personală de cunoștințe",
@@ -225,5 +226,11 @@
     "loadError": "Sarcinile nu au putut fi încărcate.",
     "moveBack": "Mută la starea anterioară",
     "moveForward": "Mută la starea următoare"
+  },
+  "ideaBoard": {
+    "empty": "Nicio idee în această etapă.",
+    "loadError": "Ideile nu au putut fi încărcate.",
+    "moveBack": "Mută la etapa anterioară",
+    "moveForward": "Mută la etapa următoare"
   }
 }

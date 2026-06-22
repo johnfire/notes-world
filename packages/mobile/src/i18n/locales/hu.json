@@ -16,7 +16,8 @@
     "checklists": "Listák",
     "account": "Fiók",
     "done": "Kész",
-    "tasks": "Feladatok"
+    "tasks": "Feladatok",
+    "ideas": "Ötletek"
   },
   "auth": {
     "tagline": "A személyes tudásbázisod",
@@ -225,5 +226,11 @@
     "loadError": "A feladatok betöltése nem sikerült.",
     "moveBack": "Áthelyezés az előző állapotba",
     "moveForward": "Áthelyezés a következő állapotba"
+  },
+  "ideaBoard": {
+    "empty": "Nincsenek ötletek ebben a szakaszban.",
+    "loadError": "Az ötletek betöltése nem sikerült.",
+    "moveBack": "Áthelyezés az előző szakaszba",
+    "moveForward": "Áthelyezés a következő szakaszba"
   }
 }

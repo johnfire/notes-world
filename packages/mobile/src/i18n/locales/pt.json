@@ -16,7 +16,8 @@
     "checklists": "Listas",
     "account": "Conta",
     "done": "Concluídos",
-    "tasks": "Tarefas"
+    "tasks": "Tarefas",
+    "ideas": "Ideias"
   },
   "auth": {
     "tagline": "A sua base de conhecimento pessoal",
@@ -225,5 +226,11 @@
     "loadError": "Não foi possível carregar as tarefas.",
     "moveBack": "Mover para o estado anterior",
     "moveForward": "Mover para o estado seguinte"
+  },
+  "ideaBoard": {
+    "empty": "Nenhuma ideia nesta fase.",
+    "loadError": "Não foi possível carregar as ideias.",
+    "moveBack": "Mover para a fase anterior",
+    "moveForward": "Mover para a fase seguinte"
   }
 }

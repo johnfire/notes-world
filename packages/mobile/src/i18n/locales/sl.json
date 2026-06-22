@@ -16,7 +16,8 @@
     "checklists": "Seznami",
     "account": "Račun",
     "done": "Končano",
-    "tasks": "Opravila"
+    "tasks": "Opravila",
+    "ideas": "Ideje"
   },
   "auth": {
     "tagline": "Vaša osebna baza znanja",
@@ -225,5 +226,11 @@
     "loadError": "Opravil ni bilo mogoče naložiti.",
     "moveBack": "Premakni v prejšnje stanje",
     "moveForward": "Premakni v naslednje stanje"
+  },
+  "ideaBoard": {
+    "empty": "Ni idej v tej fazi.",
+    "loadError": "Idej ni bilo mogoče naložiti.",
+    "moveBack": "Premakni v prejšnjo fazo",
+    "moveForward": "Premakni v naslednjo fazo"
   }
 }

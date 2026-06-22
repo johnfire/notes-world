@@ -143,6 +143,15 @@ export default function RootLayout() {
             }}
           />
           <Stack.Screen
+            name="ideas/[maturity]"
+            options={{
+              headerShown: true,
+              headerStyle: { backgroundColor: "#1a1a1a" },
+              headerTintColor: "#f0f0f0",
+              presentation: "card",
+            }}
+          />
+          <Stack.Screen
             name="trash"
             options={{
               headerShown: true,

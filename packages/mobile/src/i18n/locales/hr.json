@@ -16,7 +16,8 @@
     "checklists": "Popisi",
     "account": "Račun",
     "done": "Završeno",
-    "tasks": "Zadaci"
+    "tasks": "Zadaci",
+    "ideas": "Ideje"
   },
   "auth": {
     "tagline": "Vaša osobna baza znanja",
@@ -225,5 +226,11 @@
     "loadError": "Zadatke nije moguće učitati.",
     "moveBack": "Premjesti u prethodni status",
     "moveForward": "Premjesti u sljedeći status"
+  },
+  "ideaBoard": {
+    "empty": "Nema ideja u ovoj fazi.",
+    "loadError": "Ideje nije moguće učitati.",
+    "moveBack": "Premjesti u prethodnu fazu",
+    "moveForward": "Premjesti u sljedeću fazu"
   }
 }

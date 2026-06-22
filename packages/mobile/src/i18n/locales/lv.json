@@ -16,7 +16,8 @@
     "checklists": "Saraksti",
     "account": "Konts",
     "done": "Pabeigts",
-    "tasks": "Uzdevumi"
+    "tasks": "Uzdevumi",
+    "ideas": "Idejas"
   },
   "auth": {
     "tagline": "Tava personīgā zināšanu bāze",
@@ -225,5 +226,11 @@
     "loadError": "Neizdevās ielādēt uzdevumus.",
     "moveBack": "Pārvietot uz iepriekšējo statusu",
     "moveForward": "Pārvietot uz nākamo statusu"
+  },
+  "ideaBoard": {
+    "empty": "Šajā posmā nav ideju.",
+    "loadError": "Neizdevās ielādēt idejas.",
+    "moveBack": "Pārvietot uz iepriekšējo posmu",
+    "moveForward": "Pārvietot uz nākamo posmu"
   }
 }

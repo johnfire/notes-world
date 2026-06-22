@@ -16,7 +16,8 @@
     "checklists": "Seznamy",
     "account": "Účet",
     "done": "Hotové",
-    "tasks": "Úkoly"
+    "tasks": "Úkoly",
+    "ideas": "Nápady"
   },
   "auth": {
     "tagline": "Vaše osobní znalostní báze",
@@ -225,5 +226,11 @@
     "loadError": "Úkoly se nepodařilo načíst.",
     "moveBack": "Přesunout do předchozího stavu",
     "moveForward": "Přesunout do dalšího stavu"
+  },
+  "ideaBoard": {
+    "empty": "Žádné nápady v této fázi.",
+    "loadError": "Nápady se nepodařilo načíst.",
+    "moveBack": "Přesunout do předchozí fáze",
+    "moveForward": "Přesunout do další fáze"
   }
 }

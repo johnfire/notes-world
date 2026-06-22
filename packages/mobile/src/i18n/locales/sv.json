@@ -16,7 +16,8 @@
     "checklists": "Listor",
     "account": "Konto",
     "done": "Klara",
-    "tasks": "Uppgifter"
+    "tasks": "Uppgifter",
+    "ideas": "Idéer"
   },
   "auth": {
     "tagline": "Din personliga kunskapsbas",
@@ -225,5 +226,11 @@
     "loadError": "Det gick inte att läsa in uppgifterna.",
     "moveBack": "Flytta till föregående status",
     "moveForward": "Flytta till nästa status"
+  },
+  "ideaBoard": {
+    "empty": "Inga idéer i det här stadiet.",
+    "loadError": "Det gick inte att läsa in idéerna.",
+    "moveBack": "Flytta till föregående steg",
+    "moveForward": "Flytta till nästa steg"
   }
 }

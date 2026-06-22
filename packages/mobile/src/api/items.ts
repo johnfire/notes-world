@@ -42,19 +42,27 @@ export function getItemsByType(
   return api.get<Item[]>(`/items/type/${type}?limit=${limit}&offset=${offset}`);
 }
 
-// Every task for the user, across all tags and untagged, paged in full (the
-// server caps a page at 200). The task board buckets these by status client-side
-// — the same approach the Done view uses to gather completed tasks.
-export async function fetchAllTasks(): Promise<Item[]> {
+// Page through every item of a type for the user, across all tags and untagged
+// (the server caps a page at 200). The task and idea boards bucket these by
+// status/maturity client-side — the same approach the Done view uses.
+export async function fetchAllByType(type: ItemType): Promise<Item[]> {
   const PAGE = 200;
   const MAX_PAGES = 50; // runaway-loop safety stop
-  const tasks: Item[] = [];
+  const items: Item[] = [];
   for (let p = 0; p < MAX_PAGES; p++) {
-    const batch = await getItemsByType(ItemType.Task, PAGE, p * PAGE);
-    tasks.push(...batch);
+    const batch = await getItemsByType(type, PAGE, p * PAGE);
+    items.push(...batch);
     if (batch.length < PAGE) break;
   }
-  return tasks;
+  return items;
+}
+
+export function fetchAllTasks(): Promise<Item[]> {
+  return fetchAllByType(ItemType.Task);
+}
+
+export function fetchAllIdeas(): Promise<Item[]> {
+  return fetchAllByType(ItemType.Idea);
 }
 
 export interface CreateItemInput {

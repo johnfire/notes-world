@@ -16,7 +16,8 @@
     "checklists": "Zoznamy",
     "account": "Účet",
     "done": "Hotové",
-    "tasks": "Úlohy"
+    "tasks": "Úlohy",
+    "ideas": "Nápady"
   },
   "auth": {
     "tagline": "Vaša osobná znalostná báza",
@@ -225,5 +226,11 @@
     "loadError": "Úlohy sa nepodarilo načítať.",
     "moveBack": "Presunúť do predchádzajúceho stavu",
     "moveForward": "Presunúť do ďalšieho stavu"
+  },
+  "ideaBoard": {
+    "empty": "Žiadne nápady v tejto fáze.",
+    "loadError": "Nápady sa nepodarilo načítať.",
+    "moveBack": "Presunúť do predchádzajúcej fázy",
+    "moveForward": "Presunúť do ďalšej fázy"
   }
 }

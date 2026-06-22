@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Item, ItemType, IdeaMaturity } from "../types";
+import { IDEA_BOARD_MATURITIES } from "@notes-world/shared";
 import * as api from "../api";
 import { useApp } from "../context/AppContext";
 import { relativeAge, stalenessColor } from "../utils/time";
@@ -8,12 +9,8 @@ import { SortableList } from "./SortableList";
 
 type Maturity = IdeaMaturity;
 
-const COLUMN_IDS: Maturity[] = [
-  IdeaMaturity.Seed,
-  IdeaMaturity.Developing,
-  IdeaMaturity.Ready,
-  IdeaMaturity.Parked,
-];
+// Column order is the shared board order so web and mobile can't drift.
+const COLUMN_IDS: Maturity[] = IDEA_BOARD_MATURITIES;
 
 const MATURITY_KEY: Record<IdeaMaturity, string> = {
   [IdeaMaturity.Seed]: "app.maturity.seed",

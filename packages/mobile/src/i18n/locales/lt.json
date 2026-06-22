@@ -16,7 +16,8 @@
     "checklists": "Sąrašai",
     "account": "Paskyra",
     "done": "Atlikta",
-    "tasks": "Užduotys"
+    "tasks": "Užduotys",
+    "ideas": "Idėjos"
   },
   "auth": {
     "tagline": "Jūsų asmeninė žinių bazė",
@@ -225,5 +226,11 @@
     "loadError": "Nepavyko įkelti užduočių.",
     "moveBack": "Perkelti į ankstesnę būseną",
     "moveForward": "Perkelti į kitą būseną"
+  },
+  "ideaBoard": {
+    "empty": "Šiame etape idėjų nėra.",
+    "loadError": "Nepavyko įkelti idėjų.",
+    "moveBack": "Perkelti į ankstesnį etapą",
+    "moveForward": "Perkelti į kitą etapą"
   }
 }

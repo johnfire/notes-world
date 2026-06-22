@@ -16,7 +16,8 @@
     "checklists": "Listy",
     "account": "Konto",
     "done": "Ukończone",
-    "tasks": "Zadania"
+    "tasks": "Zadania",
+    "ideas": "Pomysły"
   },
   "auth": {
     "tagline": "Twoja osobista baza wiedzy",
@@ -225,5 +226,11 @@
     "loadError": "Nie udało się załadować zadań.",
     "moveBack": "Przenieś do poprzedniego statusu",
     "moveForward": "Przenieś do następnego statusu"
+  },
+  "ideaBoard": {
+    "empty": "Brak pomysłów na tym etapie.",
+    "loadError": "Nie udało się załadować pomysłów.",
+    "moveBack": "Przenieś do poprzedniego etapu",
+    "moveForward": "Przenieś do następnego etapu"
   }
 }

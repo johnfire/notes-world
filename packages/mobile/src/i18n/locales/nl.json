@@ -16,7 +16,8 @@
     "checklists": "Lijsten",
     "account": "Account",
     "done": "Voltooid",
-    "tasks": "Taken"
+    "tasks": "Taken",
+    "ideas": "Ideeën"
   },
   "auth": {
     "tagline": "Je persoonlijke kennisbank",
@@ -225,5 +226,11 @@
     "loadError": "Kan taken niet laden.",
     "moveBack": "Naar vorige status verplaatsen",
     "moveForward": "Naar volgende status verplaatsen"
+  },
+  "ideaBoard": {
+    "empty": "Geen ideeën in deze fase.",
+    "loadError": "Kan ideeën niet laden.",
+    "moveBack": "Naar vorige fase verplaatsen",
+    "moveForward": "Naar volgende fase verplaatsen"
   }
 }

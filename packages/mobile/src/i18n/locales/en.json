@@ -16,7 +16,8 @@
     "checklists": "Lists",
     "account": "Account",
     "done": "Done",
-    "tasks": "Tasks"
+    "tasks": "Tasks",
+    "ideas": "Ideas"
   },
   "auth": {
     "tagline": "Your personal knowledge base",
@@ -225,5 +226,11 @@
     "loadError": "Couldn't load tasks.",
     "moveBack": "Move to previous status",
     "moveForward": "Move to next status"
+  },
+  "ideaBoard": {
+    "empty": "No ideas in this stage.",
+    "loadError": "Couldn't load ideas.",
+    "moveBack": "Move to previous stage",
+    "moveForward": "Move to next stage"
   }
 }

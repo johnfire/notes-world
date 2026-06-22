@@ -16,7 +16,8 @@
     "checklists": "Listen",
     "account": "Konto",
     "done": "Erledigt",
-    "tasks": "Aufgaben"
+    "tasks": "Aufgaben",
+    "ideas": "Ideen"
   },
   "auth": {
     "tagline": "Deine persönliche Wissensdatenbank",
@@ -225,5 +226,11 @@
     "loadError": "Aufgaben konnten nicht geladen werden.",
     "moveBack": "Zum vorherigen Status verschieben",
     "moveForward": "Zum nächsten Status verschieben"
+  },
+  "ideaBoard": {
+    "empty": "Keine Ideen in dieser Phase.",
+    "loadError": "Ideen konnten nicht geladen werden.",
+    "moveBack": "Zur vorherigen Phase verschieben",
+    "moveForward": "Zur nächsten Phase verschieben"
   }
 }

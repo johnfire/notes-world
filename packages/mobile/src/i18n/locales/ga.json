@@ -16,7 +16,8 @@
     "checklists": "Liostaí",
     "account": "Cuntas",
     "done": "Déanta",
-    "tasks": "Tascanna"
+    "tasks": "Tascanna",
+    "ideas": "Smaointe"
   },
   "auth": {
     "tagline": "Do bhonn eolais phearsanta",
@@ -225,5 +226,11 @@
     "loadError": "Níorbh fhéidir na tascanna a lódáil.",
     "moveBack": "Bog go dtí an stádas roimhe seo",
     "moveForward": "Bog go dtí an chéad stádas eile"
+  },
+  "ideaBoard": {
+    "empty": "Níl aon smaoineamh ag an gcéim seo.",
+    "loadError": "Níorbh fhéidir na smaointe a lódáil.",
+    "moveBack": "Bog go dtí an chéim roimhe seo",
+    "moveForward": "Bog go dtí an chéad chéim eile"
   }
 }
