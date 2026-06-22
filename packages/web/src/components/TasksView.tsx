@@ -10,8 +10,8 @@ type TStatus = "Open" | "InProgress" | "OnHold" | "Blocked" | "Done";
 
 const COLUMN_IDS: TStatus[] = [
   "Open",
-  "InProgress",
   "OnHold",
+  "InProgress",
   "Blocked",
   "Done",
 ];

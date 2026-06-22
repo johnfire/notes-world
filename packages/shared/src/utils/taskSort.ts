@@ -7,8 +7,8 @@ import { dateOf } from "./dates";
 // sort below.
 export const TASK_BOARD_STATUSES: TaskStatus[] = [
   TaskStatus.Open,
-  TaskStatus.InProgress,
   TaskStatus.OnHold,
+  TaskStatus.InProgress,
   TaskStatus.Blocked,
   TaskStatus.Done,
 ];
