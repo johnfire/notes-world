@@ -15,7 +15,8 @@
     "tags": "Címkék",
     "checklists": "Listák",
     "account": "Fiók",
-    "done": "Kész"
+    "done": "Kész",
+    "tasks": "Feladatok"
   },
   "auth": {
     "tagline": "A személyes tudásbázisod",
@@ -218,5 +219,11 @@
     "count": "{{count}} kész",
     "empty": "Még nincsenek kész elemek",
     "loadError": "Nem sikerült betölteni a kész elemeket. Húzd le az újrapróbálkozáshoz."
+  },
+  "taskBoard": {
+    "empty": "Nincsenek feladatok ebben az állapotban.",
+    "loadError": "A feladatok betöltése nem sikerült.",
+    "moveBack": "Áthelyezés az előző állapotba",
+    "moveForward": "Áthelyezés a következő állapotba"
   }
 }

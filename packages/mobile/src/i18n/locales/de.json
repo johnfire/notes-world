@@ -15,7 +15,8 @@
     "tags": "Tags",
     "checklists": "Listen",
     "account": "Konto",
-    "done": "Erledigt"
+    "done": "Erledigt",
+    "tasks": "Aufgaben"
   },
   "auth": {
     "tagline": "Deine persönliche Wissensdatenbank",
@@ -218,5 +219,11 @@
     "count": "{{count}} erledigt",
     "empty": "Noch keine erledigten Einträge",
     "loadError": "Erledigte Einträge konnten nicht geladen werden. Zum erneuten Versuch nach unten ziehen."
+  },
+  "taskBoard": {
+    "empty": "Keine Aufgaben in diesem Status.",
+    "loadError": "Aufgaben konnten nicht geladen werden.",
+    "moveBack": "Zum vorherigen Status verschieben",
+    "moveForward": "Zum nächsten Status verschieben"
   }
 }

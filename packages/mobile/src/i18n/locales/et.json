@@ -15,7 +15,8 @@
     "tags": "Sildid",
     "checklists": "Loendid",
     "account": "Konto",
-    "done": "Tehtud"
+    "done": "Tehtud",
+    "tasks": "Ülesanded"
   },
   "auth": {
     "tagline": "Sinu isiklik teadmusbaas",
@@ -218,5 +219,11 @@
     "count": "{{count}} tehtud",
     "empty": "Tehtud üksusi pole veel",
     "loadError": "Tehtud üksusi ei õnnestunud laadida. Tõmba alla, et uuesti proovida."
+  },
+  "taskBoard": {
+    "empty": "Selles olekus pole ülesandeid.",
+    "loadError": "Ülesannete laadimine ebaõnnestus.",
+    "moveBack": "Liiguta eelmisse olekusse",
+    "moveForward": "Liiguta järgmisse olekusse"
   }
 }

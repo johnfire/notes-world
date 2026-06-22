@@ -15,7 +15,8 @@
     "tags": "Étiquettes",
     "checklists": "Listes",
     "account": "Compte",
-    "done": "Terminé"
+    "done": "Terminé",
+    "tasks": "Tâches"
   },
   "auth": {
     "tagline": "Votre base de connaissances personnelle",
@@ -218,5 +219,11 @@
     "count": "{{count}} terminés",
     "empty": "Aucun élément terminé pour l'instant",
     "loadError": "Impossible de charger les éléments terminés. Tirez vers le bas pour réessayer."
+  },
+  "taskBoard": {
+    "empty": "Aucune tâche dans ce statut.",
+    "loadError": "Impossible de charger les tâches.",
+    "moveBack": "Déplacer au statut précédent",
+    "moveForward": "Déplacer au statut suivant"
   }
 }

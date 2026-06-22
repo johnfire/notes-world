@@ -15,7 +15,8 @@
     "tags": "Tags",
     "checklists": "Lijsten",
     "account": "Account",
-    "done": "Voltooid"
+    "done": "Voltooid",
+    "tasks": "Taken"
   },
   "auth": {
     "tagline": "Je persoonlijke kennisbank",
@@ -218,5 +219,11 @@
     "count": "{{count}} voltooid",
     "empty": "Nog geen voltooide items",
     "loadError": "Kan voltooide items niet laden. Trek omlaag om opnieuw te proberen."
+  },
+  "taskBoard": {
+    "empty": "Geen taken met deze status.",
+    "loadError": "Kan taken niet laden.",
+    "moveBack": "Naar vorige status verplaatsen",
+    "moveForward": "Naar volgende status verplaatsen"
   }
 }

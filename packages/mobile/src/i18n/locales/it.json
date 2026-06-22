@@ -15,7 +15,8 @@
     "tags": "Etichette",
     "checklists": "Liste",
     "account": "Account",
-    "done": "Completati"
+    "done": "Completati",
+    "tasks": "Attività"
   },
   "auth": {
     "tagline": "La tua base di conoscenza personale",
@@ -218,5 +219,11 @@
     "count": "{{count}} completati",
     "empty": "Ancora nessun elemento completato",
     "loadError": "Impossibile caricare gli elementi completati. Tira verso il basso per riprovare."
+  },
+  "taskBoard": {
+    "empty": "Nessuna attività in questo stato.",
+    "loadError": "Impossibile caricare le attività.",
+    "moveBack": "Sposta allo stato precedente",
+    "moveForward": "Sposta allo stato successivo"
   }
 }

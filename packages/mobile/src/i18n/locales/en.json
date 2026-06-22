@@ -15,7 +15,8 @@
     "tags": "Tags",
     "checklists": "Lists",
     "account": "Account",
-    "done": "Done"
+    "done": "Done",
+    "tasks": "Tasks"
   },
   "auth": {
     "tagline": "Your personal knowledge base",
@@ -218,5 +219,11 @@
     "count": "{{count}} completed",
     "empty": "No completed items yet",
     "loadError": "Couldn't load completed items. Pull down to retry."
+  },
+  "taskBoard": {
+    "empty": "No tasks in this status.",
+    "loadError": "Couldn't load tasks.",
+    "moveBack": "Move to previous status",
+    "moveForward": "Move to next status"
   }
 }

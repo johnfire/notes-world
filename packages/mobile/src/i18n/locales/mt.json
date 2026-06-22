@@ -15,7 +15,8 @@
     "tags": "Tikketti",
     "checklists": "Listi",
     "account": "Kont",
-    "done": "Lesti"
+    "done": "Lesti",
+    "tasks": "Kompiti"
   },
   "auth": {
     "tagline": "Il-bażi tal-għarfien personali tiegħek",
@@ -218,5 +219,11 @@
     "count": "{{count}} lesti",
     "empty": "L-ebda oġġett lest s'issa",
     "loadError": "Ma stajniex intellgħu l-oġġetti lesti. Iġbed 'l isfel biex terġa' tipprova."
+  },
+  "taskBoard": {
+    "empty": "L-ebda kompitu f'dan l-istatus.",
+    "loadError": "Ma rnexxielix intella' l-kompiti.",
+    "moveBack": "Mexxi għall-istatus ta' qabel",
+    "moveForward": "Mexxi għall-istatus li jmiss"
   }
 }

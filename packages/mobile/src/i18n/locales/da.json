@@ -15,7 +15,8 @@
     "tags": "Tags",
     "checklists": "Lister",
     "account": "Konto",
-    "done": "Færdige"
+    "done": "Færdige",
+    "tasks": "Opgaver"
   },
   "auth": {
     "tagline": "Din personlige videnbase",
@@ -218,5 +219,11 @@
     "count": "{{count}} færdige",
     "empty": "Ingen færdige elementer endnu",
     "loadError": "Kunne ikke indlæse færdige elementer. Træk ned for at prøve igen."
+  },
+  "taskBoard": {
+    "empty": "Ingen opgaver i denne status.",
+    "loadError": "Kunne ikke indlæse opgaver.",
+    "moveBack": "Flyt til forrige status",
+    "moveForward": "Flyt til næste status"
   }
 }

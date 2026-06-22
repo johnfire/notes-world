@@ -15,7 +15,8 @@
     "tags": "Žymos",
     "checklists": "Sąrašai",
     "account": "Paskyra",
-    "done": "Atlikta"
+    "done": "Atlikta",
+    "tasks": "Užduotys"
   },
   "auth": {
     "tagline": "Jūsų asmeninė žinių bazė",
@@ -218,5 +219,11 @@
     "count": "Atlikta: {{count}}",
     "empty": "Dar nėra atliktų elementų",
     "loadError": "Nepavyko įkelti atliktų elementų. Patraukite žemyn, kad bandytumėte dar kartą."
+  },
+  "taskBoard": {
+    "empty": "Šios būsenos užduočių nėra.",
+    "loadError": "Nepavyko įkelti užduočių.",
+    "moveBack": "Perkelti į ankstesnę būseną",
+    "moveForward": "Perkelti į kitą būseną"
   }
 }

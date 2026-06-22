@@ -15,7 +15,8 @@
     "tags": "Tunnisteet",
     "checklists": "Listat",
     "account": "Tili",
-    "done": "Valmis"
+    "done": "Valmis",
+    "tasks": "Tehtävät"
   },
   "auth": {
     "tagline": "Henkilökohtainen tietämyskantasi",
@@ -218,5 +219,11 @@
     "count": "{{count}} valmista",
     "empty": "Ei vielä valmiita kohteita",
     "loadError": "Valmiita kohteita ei voitu ladata. Vedä alas yrittääksesi uudelleen."
+  },
+  "taskBoard": {
+    "empty": "Ei tehtäviä tässä tilassa.",
+    "loadError": "Tehtävien lataaminen epäonnistui.",
+    "moveBack": "Siirrä edelliseen tilaan",
+    "moveForward": "Siirrä seuraavaan tilaan"
   }
 }

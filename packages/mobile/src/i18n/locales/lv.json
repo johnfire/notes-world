@@ -15,7 +15,8 @@
     "tags": "Birkas",
     "checklists": "Saraksti",
     "account": "Konts",
-    "done": "Pabeigts"
+    "done": "Pabeigts",
+    "tasks": "Uzdevumi"
   },
   "auth": {
     "tagline": "Tava personīgā zināšanu bāze",
@@ -218,5 +219,11 @@
     "count": "{{count}} pabeigti",
     "empty": "Pagaidām nav pabeigtu vienumu",
     "loadError": "Neizdevās ielādēt pabeigtos vienumus. Pavelc uz leju, lai mēģinātu vēlreiz."
+  },
+  "taskBoard": {
+    "empty": "Šajā statusā nav uzdevumu.",
+    "loadError": "Neizdevās ielādēt uzdevumus.",
+    "moveBack": "Pārvietot uz iepriekšējo statusu",
+    "moveForward": "Pārvietot uz nākamo statusu"
   }
 }

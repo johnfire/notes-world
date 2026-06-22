@@ -15,7 +15,8 @@
     "tags": "Štítky",
     "checklists": "Zoznamy",
     "account": "Účet",
-    "done": "Hotové"
+    "done": "Hotové",
+    "tasks": "Úlohy"
   },
   "auth": {
     "tagline": "Vaša osobná znalostná báza",
@@ -218,5 +219,11 @@
     "count": "Hotových: {{count}}",
     "empty": "Zatiaľ žiadne hotové položky",
     "loadError": "Hotové položky sa nepodarilo načítať. Potiahnite nadol pre opakovanie."
+  },
+  "taskBoard": {
+    "empty": "Žiadne úlohy v tomto stave.",
+    "loadError": "Úlohy sa nepodarilo načítať.",
+    "moveBack": "Presunúť do predchádzajúceho stavu",
+    "moveForward": "Presunúť do ďalšieho stavu"
   }
 }

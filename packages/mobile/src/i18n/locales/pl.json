@@ -15,7 +15,8 @@
     "tags": "Tagi",
     "checklists": "Listy",
     "account": "Konto",
-    "done": "Ukończone"
+    "done": "Ukończone",
+    "tasks": "Zadania"
   },
   "auth": {
     "tagline": "Twoja osobista baza wiedzy",
@@ -218,5 +219,11 @@
     "count": "Ukończone: {{count}}",
     "empty": "Brak ukończonych elementów",
     "loadError": "Nie udało się załadować ukończonych elementów. Pociągnij w dół, aby ponowić."
+  },
+  "taskBoard": {
+    "empty": "Brak zadań w tym statusie.",
+    "loadError": "Nie udało się załadować zadań.",
+    "moveBack": "Przenieś do poprzedniego statusu",
+    "moveForward": "Przenieś do następnego statusu"
   }
 }

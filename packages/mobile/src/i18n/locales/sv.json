@@ -15,7 +15,8 @@
     "tags": "Taggar",
     "checklists": "Listor",
     "account": "Konto",
-    "done": "Klara"
+    "done": "Klara",
+    "tasks": "Uppgifter"
   },
   "auth": {
     "tagline": "Din personliga kunskapsbas",
@@ -218,5 +219,11 @@
     "count": "{{count}} klara",
     "empty": "Inga klara objekt än",
     "loadError": "Det gick inte att läsa in klara objekt. Dra nedåt för att försöka igen."
+  },
+  "taskBoard": {
+    "empty": "Inga uppgifter i den här statusen.",
+    "loadError": "Det gick inte att läsa in uppgifterna.",
+    "moveBack": "Flytta till föregående status",
+    "moveForward": "Flytta till nästa status"
   }
 }

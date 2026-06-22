@@ -15,7 +15,8 @@
     "tags": "标签",
     "checklists": "清单",
     "account": "账户",
-    "done": "已完成"
+    "done": "已完成",
+    "tasks": "任务"
   },
   "auth": {
     "tagline": "你的个人知识库",
@@ -218,5 +219,11 @@
     "count": "已完成 {{count}}",
     "empty": "暂无已完成条目",
     "loadError": "无法加载已完成条目。下拉以重试。"
+  },
+  "taskBoard": {
+    "empty": "此状态下没有任务。",
+    "loadError": "无法加载任务。",
+    "moveBack": "移到上一个状态",
+    "moveForward": "移到下一个状态"
   }
 }

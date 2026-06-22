@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Item, ItemType, TaskStatus, Priority } from "../types";
-import { dateOf } from "@notes-world/shared";
+import { Item, ItemType, TaskStatus } from "../types";
+import { compareTasksByPriorityThenDue } from "@notes-world/shared";
 import * as api from "../api";
 import { useApp } from "../context/AppContext";
 import { relativeAge, stalenessColor } from "../utils/time";
@@ -28,30 +28,6 @@ function getStatus(item: Item): TStatus {
   )
     return s;
   return "Open";
-}
-
-// Lower rank sorts higher (closer to the top of the column). Tasks with no
-// priority set are treated as Normal, matching the editor's default.
-const PRIORITY_RANK: Record<string, number> = {
-  [Priority.Critical]: 0,
-  [Priority.High]: 1,
-  [Priority.Normal]: 2,
-  [Priority.Low]: 3,
-};
-
-function priorityRank(item: Item): number {
-  const p = (item.type_data as { priority?: string } | null)?.priority;
-  return PRIORITY_RANK[p ?? Priority.Normal] ?? PRIORITY_RANK[Priority.Normal];
-}
-
-// Tiebreak within a priority: soonest due date first, undated tasks last.
-function compareDue(a: Item, b: Item): number {
-  const da = dateOf(a, "due_date");
-  const db = dateOf(b, "due_date");
-  if (da && db) return da < db ? -1 : da > db ? 1 : 0;
-  if (da) return -1;
-  if (db) return 1;
-  return 0;
 }
 
 export function TasksView() {
@@ -140,9 +116,7 @@ export function TasksView() {
   // Auto-sort each column by priority (Critical → High → Normal → Low), then by
   // soonest due date within the same priority.
   for (const status of COLUMN_IDS) {
-    grouped[status].sort(
-      (a, b) => priorityRank(a) - priorityRank(b) || compareDue(a, b),
-    );
+    grouped[status].sort(compareTasksByPriorityThenDue);
   }
 
   return (

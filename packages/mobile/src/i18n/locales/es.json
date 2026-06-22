@@ -15,7 +15,8 @@
     "tags": "Etiquetas",
     "checklists": "Listas",
     "account": "Cuenta",
-    "done": "Completados"
+    "done": "Completados",
+    "tasks": "Tareas"
   },
   "auth": {
     "tagline": "Tu base de conocimiento personal",
@@ -218,5 +219,11 @@
     "count": "{{count}} completados",
     "empty": "Aún no hay elementos completados",
     "loadError": "No se pudieron cargar los elementos completados. Desliza hacia abajo para reintentar."
+  },
+  "taskBoard": {
+    "empty": "No hay tareas en este estado.",
+    "loadError": "No se pudieron cargar las tareas.",
+    "moveBack": "Mover al estado anterior",
+    "moveForward": "Mover al estado siguiente"
   }
 }

@@ -15,7 +15,8 @@
     "tags": "Etichete",
     "checklists": "Liste",
     "account": "Cont",
-    "done": "Finalizate"
+    "done": "Finalizate",
+    "tasks": "Sarcini"
   },
   "auth": {
     "tagline": "Baza ta personală de cunoștințe",
@@ -218,5 +219,11 @@
     "count": "{{count}} finalizate",
     "empty": "Încă niciun element finalizat",
     "loadError": "Elementele finalizate nu au putut fi încărcate. Trage în jos pentru a reîncerca."
+  },
+  "taskBoard": {
+    "empty": "Nicio sarcină în această stare.",
+    "loadError": "Sarcinile nu au putut fi încărcate.",
+    "moveBack": "Mută la starea anterioară",
+    "moveForward": "Mută la starea următoare"
   }
 }

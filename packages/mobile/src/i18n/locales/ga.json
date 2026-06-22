@@ -15,7 +15,8 @@
     "tags": "Clibeanna",
     "checklists": "Liostaí",
     "account": "Cuntas",
-    "done": "Déanta"
+    "done": "Déanta",
+    "tasks": "Tascanna"
   },
   "auth": {
     "tagline": "Do bhonn eolais phearsanta",
@@ -218,5 +219,11 @@
     "count": "{{count}} déanta",
     "empty": "Gan míreanna déanta fós",
     "loadError": "Níorbh fhéidir míreanna déanta a luchtú. Tarraing anuas chun atriail."
+  },
+  "taskBoard": {
+    "empty": "Níl aon tasc sa stádas seo.",
+    "loadError": "Níorbh fhéidir na tascanna a lódáil.",
+    "moveBack": "Bog go dtí an stádas roimhe seo",
+    "moveForward": "Bog go dtí an chéad stádas eile"
   }
 }

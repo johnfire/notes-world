@@ -1,7 +1,7 @@
 import { api } from "./client";
+import { ItemType } from "@notes-world/shared";
 import type {
   Item,
-  ItemType,
   ItemStatus,
   PaginatedResult,
   TypeData,
@@ -40,6 +40,21 @@ export function getItemsByType(
   offset = 0,
 ): Promise<Item[]> {
   return api.get<Item[]>(`/items/type/${type}?limit=${limit}&offset=${offset}`);
+}
+
+// Every task for the user, across all tags and untagged, paged in full (the
+// server caps a page at 200). The task board buckets these by status client-side
+// — the same approach the Done view uses to gather completed tasks.
+export async function fetchAllTasks(): Promise<Item[]> {
+  const PAGE = 200;
+  const MAX_PAGES = 50; // runaway-loop safety stop
+  const tasks: Item[] = [];
+  for (let p = 0; p < MAX_PAGES; p++) {
+    const batch = await getItemsByType(ItemType.Task, PAGE, p * PAGE);
+    tasks.push(...batch);
+    if (batch.length < PAGE) break;
+  }
+  return tasks;
 }
 
 export interface CreateItemInput {

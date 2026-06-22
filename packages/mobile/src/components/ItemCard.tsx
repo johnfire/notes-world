@@ -3,9 +3,10 @@ import { View, Text, Pressable, StyleSheet, Alert } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
 import type { Item } from "@notes-world/shared";
-import { ItemType, TaskStatus } from "@notes-world/shared";
+import { ItemType } from "@notes-world/shared";
 import { colors, spacing, radius, font } from "../theme";
 import { formatDueShort, dateOf, isOverdue } from "../lib/dueDate";
+import { STATUS_COLORS, STATUS_LABELS, taskStatusOf } from "../lib/taskStatus";
 
 const TYPE_COLORS: Record<string, string> = {
   [ItemType.Task]: colors.typeTask,
@@ -16,34 +17,8 @@ const TYPE_COLORS: Record<string, string> = {
   [ItemType.Divider]: colors.typeUntyped,
 };
 
-// Task status → colour/label, matching the web Kanban so a task reads the same
-// on every surface. The coloured left bar + footer badge let you tell Done from
-// not-done (and each status apart) at a glance in a list.
-const STATUS_COLORS: Record<string, string> = {
-  [TaskStatus.Open]: colors.statusOpen,
-  [TaskStatus.InProgress]: colors.statusInProgress,
-  [TaskStatus.OnHold]: colors.statusOnHold,
-  [TaskStatus.Blocked]: colors.statusBlocked,
-  [TaskStatus.Done]: colors.statusDone,
-};
-
-const STATUS_LABELS: Record<string, string> = {
-  [TaskStatus.Open]: "Open",
-  [TaskStatus.InProgress]: "In Progress",
-  [TaskStatus.OnHold]: "On Hold",
-  [TaskStatus.Blocked]: "Blocked",
-  [TaskStatus.Done]: "Done",
-};
-
-// A task with a missing or unrecognised status reads as Open, matching the
-// item-detail editor's default.
-function taskStatusOf(item: Item): TaskStatus | null {
-  if (item.item_type !== ItemType.Task) return null;
-  const s = (item.type_data as { task_status?: string } | null)?.task_status;
-  return (Object.values(TaskStatus) as string[]).includes(s ?? "")
-    ? (s as TaskStatus)
-    : TaskStatus.Open;
-}
+// The coloured left bar + footer status badge (see ../lib/taskStatus) let you
+// tell Done from not-done — and each status apart — at a glance in a list.
 
 // Dividers render as a compact one-line section header. A very dark red so they
 // stand out against the near-black note cards.
