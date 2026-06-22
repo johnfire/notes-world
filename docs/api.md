@@ -6,7 +6,7 @@
 
 ## Summary
 
-Express REST API on port 3001. JWT auth for all `/api` routes except `/health` and `/api/auth`. Rate limited to 200 req/min per IP. MCP server in `packages/mcp` (Streamable HTTP on port 3002, OAuth 2.1) exposes 25+ tools by calling this API.
+Express REST API on port 3001. JWT auth for all `/api` routes except `/health` and `/api/auth`. Rate limited to 200 req/min per IP. MCP server in `packages/mcp` (Streamable HTTP on port 3002, OAuth 2.1) exposes 25+ tools by calling this API. A **second, independent MCP** — `packages/mail-mcp` (port 3003, `https://mcp.mail.christopherrehm.de`) — drafts email into the aggregated mailbox over IMAP and is unrelated to this REST API (see *MCP Servers → Mail MCP* below).
 
 ## Base URL
 
@@ -89,15 +89,32 @@ Markdown output preserves type metadata, dividers, and colors (colors as `<!-- c
 - `GET /health` — `{ status, version, uptime, timestamp }` — no auth required
 - `GET /mobile/version` — current APK version info
 
-## MCP Server
+## MCP Servers
 
-Location: `packages/mcp/` — runs as the `mcp` service in the Docker stack.
+Two independent MCP servers ship in this repo: the **notes-world** MCP (data) and the **Mail** MCP
+(email drafting). They share only the OAuth scaffolding and the deploy pipeline.
+
+### notes-world MCP (`packages/mcp`)
+
+Runs as the `mcp` service in the Docker stack.
 
 - Transport: Streamable HTTP (stateless — a fresh `McpServer` per request) on port 3002, exposed at `/mcp` via nginx
 - Connector URL: `https://notes-world.christopherrehm.de/mcp`
 - Auth: OAuth 2.1 (`/.well-known/oauth-authorization-server`, `/oauth/authorize`, `/oauth/token`) for interactive connectors (e.g. the claude.ai connector); tool calls authenticate via JWT or a `nw_` API key
 - Data path: calls the REST API with `NOTES_WORLD_API_KEY` — never the database directly
 - 25+ tools: full CRUD on items, tags, tasks, notes/ideas + search + export + checklists
+
+### Mail MCP (`packages/mail-mcp`)
+
+Drafts email into the aggregated inbox (`contact@christopherrehm.de`) for human review. **Never
+sends; never marks mail read.** Independent of the REST API/DB — it speaks IMAP to the VPS Dovecot
+stack. Runs as the `mail-mcp` service (port 3003, published on `127.0.0.1:8092`).
+
+- Connector URL: `https://mcp.mail.christopherrehm.de/mcp` (own host-Apache vhost + Let's Encrypt cert)
+- Auth: OAuth 2.1 (client_id `mail-mcp`) for connectors, **or** a raw `MAIL_MCP_API_KEY` (`mm_…`) via `X-API-Key` / `Bearer` (used by Hermes and Claude Code)
+- Data path: IMAPS (993) to Dovecot as master user `contact@christopherrehm.de*mcp-mail`; reads use `BODY.PEEK`, writes are confined to the `Drafts` folder. **No SMTP** — the human sends from SnappyMail.
+- 7 tools: `list_messages`, `search_messages`, `get_message` (read-only inbox); `create_draft`, `draft_reply`, `list_drafts`, `delete_draft` (Drafts only)
+- Send-as: a draft's `From` must be one of the aggregated identities — `contact@christopherrehm.de`, `christopher@leguilde.art`, `contact@leguilde.art`, `contact@tandkcybernetics.net`
 
 ## Error Format
 

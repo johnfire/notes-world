@@ -1,7 +1,7 @@
 # notes-world — Architecture (Current State)
 
 **Canonical architecture doc** — update this file in place; do not spawn new dated snapshots.
-**Last verified:** 2026-06-17 (from a codebase sweep, not from prior docs)
+**Last verified:** 2026-06-17 (from a codebase sweep, not from prior docs); **mail-MCP surface added 2026-06-22**
 **Status:** current
 **Live:** https://notes-world.christopherrehm.de
 
@@ -22,6 +22,13 @@ It ships through **three client surfaces** over **one REST API**:
 
 All three talk to the same Express API and PostgreSQL 16 database. There is no second source of
 truth — the mobile app and the MCP server are thin clients of the REST API.
+
+A **fourth surface** is co-deployed in this monorepo but is deliberately **not** part of the data
+model above: **`packages/mail-mcp`** — an authenticated MCP that lets AI agents draft email into
+the aggregated mailbox (`contact@christopherrehm.de`) for human review. It speaks **IMAP to the
+VPS Dovecot mail stack**, never to this REST API or database, and has **no send capability**. It
+ships through the same Docker/CI pipeline but is otherwise independent (own subdomain, own
+credential). See §9.2.
 
 ### Layer / component diagram
 
@@ -75,6 +82,7 @@ packages/
   web/       React 18 SPA (Vite, Tailwind)          — port 5173 (dev)
   shared/    Shared TS types + pure utils (zod)
   mcp/       MCP server (HTTP transport)            — port 3002
+  mail-mcp/  Mail-drafting MCP (HTTP transport)     — port 3003 (independent; → VPS IMAP)
   mobile/    Expo SDK 54 / React Native app
   importer/  Python markdown bulk-importer (CLI)
 
@@ -90,6 +98,7 @@ nginx/        Reverse-proxy config
 | web | `@notes-world/web@0.1.0` | React 18.2, React Router 7.15, Vite 6.4, Tailwind 3.4, i18next 26 / react-i18next 17 |
 | shared | `@notes-world/shared@0.1.0` | zod 3.22 (no React/Node runtime deps — types + date/sort utils) |
 | mcp | `@notes-world/mcp@0.1.0` | @modelcontextprotocol/sdk 1.29, Express 4.22, pg 8.11, jsonwebtoken 9 |
+| mail-mcp | `@notes-world/mail-mcp@0.1.0` | @modelcontextprotocol/sdk 1.29, Express 4.22, imapflow 1, nodemailer 6, mailparser 3, jsonwebtoken 9, zod 4 |
 | mobile | `@notes-world/mobile@0.1.0` | Expo ~54, Expo Router ~6, React Native 0.81.5, React 19.1, datetimepicker 8.4, expo-secure-store, i18next 26 |
 | importer | (Python) | stdlib + `requirements.txt`; modules: walker, parser, classifier, tagger, dedup, inserter, pipeline |
 
@@ -271,7 +280,13 @@ buttons, the changelog) must be added to both trees.
 
 ---
 
-## 9. MCP Server (`packages/mcp`)
+## 9. MCP Servers
+
+Two independent MCP servers live in this monorepo. **§9.1** is a thin client of the notes-world
+REST API; **§9.2** is a separate mail-drafting service that talks to the VPS mail stack and shares
+nothing but the deploy pipeline.
+
+### 9.1 notes-world MCP (`packages/mcp`)
 
 Gives AI agents first-class access to the same data as a human user.
 
@@ -284,6 +299,30 @@ Gives AI agents first-class access to the same data as a human user.
   persists to a Docker volume (`mcp_oauth_store`).
 - **Data path:** the MCP server calls the **REST API** (using a `NOTES_WORLD_API_KEY`), not the
   database directly (ADR-011) — so it stays decoupled from internals.
+
+### 9.2 Mail MCP (`packages/mail-mcp`)
+
+Lets AI agents (Claude Code/Desktop/cowork, claude.ai, Hermes) **draft** email into the aggregated
+inbox for human review and manual send. **It never sends mail and never marks messages read.**
+
+- **Transport:** Streamable HTTP (stateless) on port 3003; public at
+  `https://mcp.mail.christopherrehm.de/mcp` via its **own host-Apache vhost** → `127.0.0.1:8092`
+  (separate from the notes-world nginx routing).
+- **Auth:** the same OAuth 2.1 scaffolding as §9.1 (client_id `mail-mcp`), **or** a raw
+  `MAIL_MCP_API_KEY` (`mm_…`) via `X-API-Key`/`Bearer`. Refresh tokens persist to the
+  `mail_mcp_oauth_store` volume.
+- **Tools (7):** read-only inbox — `list_messages`, `search_messages`, `get_message`; Drafts-only
+  writes — `create_draft`, `draft_reply`, `list_drafts`, `delete_draft`.
+- **Data path:** connects over **IMAPS (993)** to the VPS **Dovecot** as a dedicated *master user*
+  (`contact@christopherrehm.de*mcp-mail`), reaching the host via the docker bridge
+  (`extra_hosts: host-gateway`) so TLS still validates. Reads use `BODY.PEEK`; the `Drafts` folder
+  is discovered via the IMAP `\Drafts` special-use flag. **No SMTP** — sending stays in the
+  human's mail client (SnappyMail), which has send-as identities for the aggregated addresses.
+- **Boundaries:** "inbox read-only" and "drafts-only" are **enforced in code** (IMAP has no
+  read-only login); a draft's `From` must be one of the aggregated send-as identities. The
+  master-user credential is revocable independently of the mailbox password.
+- **Independence:** no dependency on the notes-world API/DB — co-deployed purely for pipeline and
+  shared-infra reuse.
 
 ---
 
@@ -306,19 +345,22 @@ three.
 | Service | Image | Role |
 | --- | --- | --- |
 | `app` | node:20-alpine (multi-stage) | Express API :3001 |
-| `mcp` | node:20-alpine (multi-stage) | MCP server :3002 |
+| `mcp` | node:20-alpine (multi-stage) | notes-world MCP server :3002 |
+| `mail-mcp` | node:20-alpine (multi-stage) | mail-drafting MCP :3003, published on 127.0.0.1:8092 |
 | `nginx` | nginx:alpine | reverse proxy (SPA + `/api` + `/mcp` + `/oauth`) on 127.0.0.1:8082 |
 | `db` | postgres:16-alpine | PostgreSQL 16 |
 | `db-backup` | prodrigestivill/postgres-backup-local | daily backup + rotation |
 
 TLS terminates at **host Apache (:443)** which forwards to the nginx container. The multi-stage
 `Dockerfile` builds `shared` once and reuses it for the server and mcp images; the web SPA is
-built and served statically by nginx.
+built and served statically by nginx. The **`mail-mcp`** image is a separate `Dockerfile` target,
+published on `127.0.0.1:8092` and fronted by its **own** host-Apache vhost
+(`mcp.mail.christopherrehm.de`, Let's Encrypt) — independent of the nginx container.
 
 ### Pipelines (`.github/workflows/`)
 
 **`ci.yml` — push to `master` auto-deploys.** It installs deps, builds `shared`, runs server +
-web + mobile tests, regenerates the changelog, builds the web SPA, then **rsyncs the source and
+web + mobile + mail-mcp tests, regenerates the changelog, builds the web SPA, then **rsyncs the source and
 `web/dist` to the VPS and runs `docker compose up --build -d`**, finally checking container logs.
 There is no manual deploy step in the normal flow — merging to master ships it.
 
@@ -350,6 +392,11 @@ The deploy skill `/deploy-notes-world` automates the same VPS deploy for out-of-
   rotation. Acceptable for a personal app, a real risk if it grows.
 - **TLS depends on host Apache** outside the compose file — infra not fully captured in the repo;
   a host rebuild needs that Apache vhost reconstructed from `docs/deployment.md`.
+- **Mail MCP depends on out-of-repo mail infra.** `packages/mail-mcp` needs the VPS Dovecot
+  *master user* (`mcp-mail` in `/etc/dovecot/master-users`), its own Apache vhost + cert, and the
+  `MAIL_MCP_*` / `IMAP_PASSWORD` secrets in the VPS `.env` — none of which live in the repo. Its
+  "read-only inbox / drafts-only / no-send" guarantees are **code-enforced**, not enforced by the
+  IMAP server (could be hardened later with Dovecot ACLs).
 - **Doc drift (resolved 2026-06-20).** This file is now the single canonical architecture doc
   (`docs/architecture.md`). The earlier quick-ref and the original `arch.md` are archived under
   `docs/older-docs/`. Keep one architecture narrative — update this file in place rather than
