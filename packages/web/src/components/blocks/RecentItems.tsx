@@ -78,9 +78,13 @@ export function RecentItems({ block }: Props) {
   const limit = block.config?.limit ?? 20;
   const items = state.recentItems.slice(0, limit);
 
+  // Derive the visible slice inside the effect so its real dependencies are just
+  // recentItems + limit. Depending on the outer `items` (a fresh slice() each
+  // render) would refetch tags on every render.
   useEffect(() => {
-    if (items.length === 0) return;
-    api.tags.getTagsForItems(items.map((i) => i.id)).then(setTagMap);
+    const visibleItems = state.recentItems.slice(0, limit);
+    if (visibleItems.length === 0) return;
+    api.tags.getTagsForItems(visibleItems.map((item) => item.id)).then(setTagMap);
   }, [state.recentItems, limit]);
 
   return (

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { AppProvider, useApp } from "./context/AppContext";
+import { useApp } from "./context/AppContext";
+import { AppProvider } from "./context/AppProvider";
 import { ActionBar } from "./components/layout/ActionBar";
-import { ViewBar, AppView, VIEW_IDS } from "./components/layout/ViewBar";
+import { ViewBar } from "./components/layout/ViewBar";
+import { AppView, VIEW_IDS } from "./components/layout/views";
 import { Sidebar } from "./components/layout/Sidebar";
 import { DashboardGrid } from "./components/layout/DashboardGrid";
 import { ItemDrawer } from "./components/ItemDrawer";

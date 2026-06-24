@@ -1,7 +1,8 @@
 import { render, screen, act, waitFor } from '@testing-library/react';
 import { useEffect } from 'react';
 import { vi, type Mock } from 'vitest';
-import { AppProvider, useApp } from './AppContext';
+import { useApp } from './AppContext';
+import { AppProvider } from './AppProvider';
 import { ItemType, ItemStatus, type Item } from '../types';
 import * as api from '../api';
 
