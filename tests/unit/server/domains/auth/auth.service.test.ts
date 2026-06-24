@@ -5,6 +5,7 @@ jest.mock("../../../../../packages/server/src/domains/auth/auth.repository");
 
 import * as repo from "../../../../../packages/server/src/domains/auth/auth.repository";
 import * as service from "../../../../../packages/server/src/domains/auth/auth.service";
+import { ValidationError } from "../../../../../packages/server/src/utils/errors";
 
 const mockRepo = repo as jest.Mocked<typeof repo>;
 
@@ -13,6 +14,62 @@ process.env.JWT_SECRET = TEST_JWT_SECRET;
 
 beforeEach(() => jest.restoreAllMocks());
 afterEach(() => jest.clearAllMocks());
+
+// ── Login input validation ────────────────────────────────────────────────────
+// A body missing (or with a blank/non-string) email or password must reject as a
+// 422 ValidationError, not crash with a TypeError 500 when login calls
+// .toLowerCase() on the email.
+
+describe("login input validation", () => {
+  test("rejects a missing email as a ValidationError (not a 500), before hitting the DB", async () => {
+    await expect(
+      service.login({ password: "password123" } as never),
+    ).rejects.toThrow(ValidationError);
+    expect(mockRepo.findUserByEmail).not.toHaveBeenCalled();
+  });
+
+  test("rejects a blank email as a ValidationError", async () => {
+    await expect(
+      service.login({ email: "   ", password: "password123" } as never),
+    ).rejects.toThrow(ValidationError);
+    expect(mockRepo.findUserByEmail).not.toHaveBeenCalled();
+  });
+
+  test("rejects a missing password as a ValidationError", async () => {
+    await expect(
+      service.login({ email: "a@example.com" } as never),
+    ).rejects.toThrow(ValidationError);
+    expect(mockRepo.findUserByEmail).not.toHaveBeenCalled();
+  });
+});
+
+// ── Register input validation ─────────────────────────────────────────────────
+// register() must also reject malformed fields as a 422, not 500: a non-string
+// (but truthy) email would crash at .includes("@"), and a non-string password
+// would crash inside assertPasswordLength's Buffer.byteLength call.
+
+describe("register input validation", () => {
+  test("rejects a non-string email as a ValidationError (not a 500)", async () => {
+    await expect(
+      service.register({ email: 123, password: "password123" } as never),
+    ).rejects.toThrow(ValidationError);
+    expect(mockRepo.insertUser).not.toHaveBeenCalled();
+  });
+
+  test("rejects a non-string password as a ValidationError (not a 500)", async () => {
+    await expect(
+      service.register({ email: "a@b.com", password: 123 } as never),
+    ).rejects.toThrow(ValidationError);
+    expect(mockRepo.insertUser).not.toHaveBeenCalled();
+  });
+
+  test("rejects a missing email as a ValidationError", async () => {
+    await expect(
+      service.register({ password: "password123" } as never),
+    ).rejects.toThrow(ValidationError);
+    expect(mockRepo.insertUser).not.toHaveBeenCalled();
+  });
+});
 
 // ── Account-enumeration timing (audit MEDIUM #3) ──────────────────────────────
 // When the email doesn't exist, login must still perform a bcrypt comparison so

@@ -76,10 +76,10 @@ async function issueTokens(
 export async function register(
   input: RegisterInput,
 ): Promise<{ user: User; tokens: AuthTokens; rawRefreshToken: string }> {
-  if (!input.email || !input.email.includes("@")) {
+  if (typeof input.email !== "string" || !input.email.includes("@")) {
     throw new ValidationError("Invalid email address");
   }
-  if (!input.password) {
+  if (typeof input.password !== "string" || !input.password) {
     throw new ValidationError("Password must be at least 8 characters");
   }
   assertPasswordLength(input.password);
@@ -96,6 +96,15 @@ export async function register(
 export async function login(
   input: LoginInput,
 ): Promise<{ user: User; tokens: AuthTokens; rawRefreshToken: string }> {
+  // Harden against malformed bodies (missing/blank/non-string fields) so a bad
+  // request is a clean 422, not a TypeError 500 when we call string methods below.
+  if (typeof input.email !== "string" || input.email.trim() === "") {
+    throw new ValidationError("Email is required");
+  }
+  if (typeof input.password !== "string" || input.password === "") {
+    throw new ValidationError("Password is required");
+  }
+
   const row = await repo.findUserByEmail(input.email.toLowerCase());
   if (!row) {
     // Equalize timing with the found-user path to prevent account enumeration.
