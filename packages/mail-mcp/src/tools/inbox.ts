@@ -39,9 +39,13 @@ export function registerInboxTools(
 
   server.tool(
     "search_messages",
-    "Search the unified inbox (read-only) by sender, subject, body text, and/or a since-date. Returns summaries, newest first.",
+    "Search the unified inbox (read-only) by sender, recipient, subject, body text, and/or a since-date. Returns summaries, newest first.",
     {
       from: z.string().optional().describe("Match the sender address/name"),
+      to: z
+        .string()
+        .optional()
+        .describe("Match the recipient address — e.g. an alias like tasks@christopherrehm.de"),
       subject: z.string().optional().describe("Match words in the subject"),
       text: z.string().optional().describe("Match words in the body"),
       since: z
@@ -51,10 +55,11 @@ export function registerInboxTools(
         .describe("Only messages on/after this date, YYYY-MM-DD"),
       unread_only: z.boolean().optional().default(false),
     },
-    async ({ from, subject, text, since, unread_only }) => {
+    async ({ from, to, subject, text, since, unread_only }) => {
       try {
         const messages = await searchMessages(config.imap, {
           from,
+          to,
           subject,
           text,
           since,

@@ -15,6 +15,7 @@ export interface FullMessage extends MessageSummary {
 
 export interface SearchCriteria {
   from?: string;
+  to?: string;
   subject?: string;
   text?: string;
   since?: string;
@@ -50,6 +51,20 @@ export async function listMessages(
   });
 }
 
+// Translate our SearchCriteria into an ImapFlow search query. Pure + exported so
+// the criteria-to-query mapping (including the recipient `to` filter) is
+// unit-testable without a live IMAP connection.
+export function buildSearchQuery(criteria: SearchCriteria): Record<string, unknown> {
+  const query: Record<string, unknown> = {};
+  if (criteria.from) query.from = criteria.from;
+  if (criteria.to) query.to = criteria.to;
+  if (criteria.subject) query.subject = criteria.subject;
+  if (criteria.text) query.body = criteria.text;
+  if (criteria.since) query.since = new Date(criteria.since);
+  if (criteria.unreadOnly) query.seen = false;
+  return query;
+}
+
 export async function searchMessages(
   imap: ImapConfig,
   criteria: SearchCriteria,
@@ -57,12 +72,7 @@ export async function searchMessages(
   return withClient(imap, async (client) => {
     const lock = await client.getMailboxLock("INBOX");
     try {
-      const query: Record<string, unknown> = {};
-      if (criteria.from) query.from = criteria.from;
-      if (criteria.subject) query.subject = criteria.subject;
-      if (criteria.text) query.body = criteria.text;
-      if (criteria.since) query.since = new Date(criteria.since);
-      if (criteria.unreadOnly) query.seen = false;
+      const query = buildSearchQuery(criteria);
 
       const uids = await client.search(query, { uid: true });
       if (!uids || uids.length === 0) return [];
