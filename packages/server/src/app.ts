@@ -93,9 +93,14 @@ export function createApp() {
     app.use("/api/auth/register", authLimiter);
   }
 
-  // Health check — not rate-limited
+  // Health check — not rate-limited. Reports version and uptime so the
+  // always-on watchdog can confirm not just reachability but which build is live.
   app.get("/health", (_req, res) => {
-    res.json({ status: "ok" });
+    res.json({
+      status: "ok",
+      version: VERSION,
+      uptimeSeconds: Math.floor((Date.now() - startedAt.getTime()) / 1000),
+    });
   });
 
   // Disable ETag caching for API routes — stale 304s break refresh after mutations

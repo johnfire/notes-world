@@ -119,7 +119,9 @@ export async function login(
     throw new AuthorizationError("This account has been disabled");
   }
 
-  const { password_hash: _, ...user } = row;
+  // Strip password_hash from the row; ...user is the safe public shape.
+  // (password_hash is intentionally unused — ignoreRestSiblings keeps lint quiet.)
+  const { password_hash, ...user } = row;
   const { tokens, rawRefreshToken } = await issueTokens(user as User);
   return { user: user as User, tokens, rawRefreshToken };
 }

@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import * as repo from "../auth/auth.repository";
-import { query, queryOne } from "../../db/client";
+import { queryOne } from "../../db/client";
 import { User } from "../../types";
 
 type StripeClient = InstanceType<typeof Stripe>;

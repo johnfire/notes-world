@@ -9,6 +9,9 @@ function detectClient(req: Request): string {
   const ua = req.headers["user-agent"] ?? "";
   const clientHeader = req.headers["x-client-type"] as string | undefined;
   if (clientHeader)
+    // Stripping control chars (incl. \x00-\x1f) is the whole point here — it
+    // prevents header/log injection from the client-supplied value.
+    // eslint-disable-next-line no-control-regex
     return clientHeader.replace(/[\r\n\t\x00-\x1f]/g, "").slice(0, 50);
   if (ua.includes("Expo") || ua.includes("okhttp")) return "native-app";
   if (ua.includes("Mozilla") || ua.includes("Chrome") || ua.includes("Safari"))
@@ -85,6 +88,7 @@ export const register = wrapAsync(async (req: Request, res: Response) => {
 export const login = wrapAsync(async (req: Request, res: Response) => {
   const clientSource = detectClient(req);
   const emailMasked = maskEmail(req.body.email ?? "");
+  // eslint-disable-next-line no-console
   console.log(
     `[auth] login attempt — ${emailMasked} from ${clientSource} ip=${req.ip}`,
   );
@@ -93,10 +97,12 @@ export const login = wrapAsync(async (req: Request, res: Response) => {
       email: req.body.email,
       password: req.body.password,
     });
+    // eslint-disable-next-line no-console
     console.log(`[auth] login ok — ${emailMasked} from ${clientSource}`);
     res.cookie(REFRESH_COOKIE, rawRefreshToken, COOKIE_OPTS);
     res.json({ user, ...withRefreshToken(req, tokens, rawRefreshToken) });
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log(
       `[auth] login failed — ${emailMasked} from ${clientSource}: ${(err as Error).message}`,
     );

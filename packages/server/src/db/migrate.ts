@@ -28,6 +28,8 @@ export async function runMigrations(pool: Pool): Promise<void> {
   for (const file of files) {
     if (appliedSet.has(file)) continue;
 
+    // Migration filenames come from the repo's own migrations dir, not user input.
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
     const sql = fs.readFileSync(path.join(MIGRATIONS_DIR, file), 'utf8');
     // eslint-disable-next-line no-console
     console.log(`Applying migration: ${file}`);

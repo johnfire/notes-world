@@ -11,7 +11,10 @@ let fileStream: fs.WriteStream | null = null;
 
 if (LOG_DIR) {
   try {
+    // LOG_DIR comes from trusted server env config, not user input.
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
     fs.mkdirSync(LOG_DIR, { recursive: true });
+    // eslint-disable-next-line security/detect-non-literal-fs-filename
     fileStream = fs.createWriteStream(path.join(LOG_DIR, "notes-world.log"), {
       flags: "a",
     });

@@ -2,7 +2,6 @@ import { getPool } from "../../db/client";
 import {
   ImportJob,
   ImportJobId,
-  ImportJobStatus,
   ImportRecord,
   ImportRecordStatus,
   UserId,
