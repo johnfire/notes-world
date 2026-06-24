@@ -137,6 +137,39 @@ export async function findByTag(
   );
 }
 
+// The most common "real" item type among the active items in a tag, ignoring the
+// given item and the structural/absent types (Untyped, Divider). Returns null when
+// the tag has no typed members to learn from. Ties break alphabetically by type so
+// the result is deterministic.
+export async function findDominantTypeForTag(
+  userId: UserId,
+  tagId: string,
+  excludeItemId: ItemId,
+): Promise<ItemType | null> {
+  const rows = await query<{ item_type: ItemType }>(
+    `SELECT i.item_type
+       FROM items i
+       JOIN item_tags it ON it.item_id = i.id
+      WHERE it.tag_id = $1
+        AND i.user_id = $2
+        AND i.status = $3
+        AND i.id != $4
+        AND i.item_type NOT IN ($5, $6)
+      GROUP BY i.item_type
+      ORDER BY COUNT(*) DESC, i.item_type ASC
+      LIMIT 1`,
+    [
+      tagId,
+      userId,
+      ItemStatus.Active,
+      excludeItemId,
+      ItemType.Untyped,
+      ItemType.Divider,
+    ],
+  );
+  return rows.length > 0 ? rows[0].item_type : null;
+}
+
 export async function findUntagged(
   userId: UserId,
   limit = 1000,

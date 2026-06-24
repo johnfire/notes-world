@@ -11,6 +11,7 @@ jest.mock(
   "../../../../../packages/server/src/domains/relationships/relationships.repository",
 );
 jest.mock("../../../../../packages/server/src/domains/items/items.repository");
+jest.mock("../../../../../packages/server/src/domains/items/items.service");
 jest.mock("../../../../../packages/server/src/domains/auth/auth.repository");
 jest.mock("../../../../../packages/server/src/events/eventBus", () => ({
   eventBus: { emit: jest.fn() },
@@ -18,12 +19,14 @@ jest.mock("../../../../../packages/server/src/events/eventBus", () => ({
 
 import * as repo from "../../../../../packages/server/src/domains/relationships/relationships.repository";
 import * as itemRepo from "../../../../../packages/server/src/domains/items/items.repository";
+import * as itemService from "../../../../../packages/server/src/domains/items/items.service";
 import * as authRepo from "../../../../../packages/server/src/domains/auth/auth.repository";
 import * as service from "../../../../../packages/server/src/domains/relationships/relationships.service";
 import { eventBus } from "../../../../../packages/server/src/events/eventBus";
 
 const mockRepo = repo as jest.Mocked<typeof repo>;
 const mockItemRepo = itemRepo as jest.Mocked<typeof itemRepo>;
+const mockItemService = itemService as jest.Mocked<typeof itemService>;
 const mockAuthRepo = authRepo as jest.Mocked<typeof authRepo>;
 const mockBus = eventBus.emit as jest.Mock;
 
@@ -304,6 +307,49 @@ describe("tagItem", () => {
       tag.id,
       TEST_USER_ID,
     );
+    expect(mockBus).toHaveBeenCalledWith(
+      "ItemTagged",
+      expect.objectContaining({ item, tag }),
+    );
+  });
+
+  test("lets the freshly-tagged item inherit the tag's prevailing type", async () => {
+    const item = makeItem();
+    const tag = makeTag();
+    mockItemRepo.findById.mockResolvedValue(item);
+    mockRepo.findTagById.mockResolvedValue(tag);
+    mockRepo.countTagsOnItem.mockResolvedValue(0);
+    mockRepo.insertItemTag.mockResolvedValue(undefined);
+
+    await service.tagItem(TEST_USER_ID, item.id, tag.id);
+
+    expect(mockItemService.inheritTypeFromTag).toHaveBeenCalledWith(
+      TEST_USER_ID,
+      item,
+      tag.id,
+    );
+    // Inheritance runs only after the link is in place.
+    expect(
+      mockRepo.insertItemTag.mock.invocationCallOrder[0],
+    ).toBeLessThan(
+      mockItemService.inheritTypeFromTag.mock.invocationCallOrder[0],
+    );
+  });
+
+  test("still tags the item when type inheritance fails (isolated failure)", async () => {
+    const item = makeItem();
+    const tag = makeTag();
+    mockItemRepo.findById.mockResolvedValue(item);
+    mockRepo.findTagById.mockResolvedValue(tag);
+    mockRepo.countTagsOnItem.mockResolvedValue(0);
+    mockRepo.insertItemTag.mockResolvedValue(undefined);
+    mockItemService.inheritTypeFromTag.mockRejectedValue(new Error("boom"));
+
+    await expect(
+      service.tagItem(TEST_USER_ID, item.id, tag.id),
+    ).resolves.toBeUndefined();
+
+    expect(mockRepo.insertItemTag).toHaveBeenCalled();
     expect(mockBus).toHaveBeenCalledWith(
       "ItemTagged",
       expect.objectContaining({ item, tag }),

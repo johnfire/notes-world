@@ -247,6 +247,59 @@ describe('promoteItem', () => {
   });
 });
 
+// ── inheritTypeFromTag ──────────────────────────────────────────────────────
+
+describe('inheritTypeFromTag', () => {
+  test('promotes an Untyped item to the tag\'s dominant type', async () => {
+    const item     = makeItem({ item_type: ItemType.Untyped });
+    const promoted = makeItem({ ...item, item_type: ItemType.Task });
+    mockRepo.findDominantTypeForTag.mockResolvedValue(ItemType.Task);
+    mockRepo.findById.mockResolvedValue(item); // re-fetched inside promoteItem
+    mockRepo.update.mockResolvedValue(promoted);
+
+    const result = await service.inheritTypeFromTag(TEST_USER_ID, item, 'tag-1');
+
+    expect(mockRepo.findDominantTypeForTag).toHaveBeenCalledWith(TEST_USER_ID, 'tag-1', item.id);
+    expect(mockRepo.update).toHaveBeenCalledWith(
+      item.id, TEST_USER_ID,
+      expect.objectContaining({
+        item_type: ItemType.Task,
+        type_data: expect.objectContaining({ task_status: 'Open', priority: 'Normal' }),
+      }),
+    );
+    expect(result).toBe(promoted);
+  });
+
+  test('never overrides an already-typed item', async () => {
+    const item = makeItem({ item_type: ItemType.Note });
+
+    const result = await service.inheritTypeFromTag(TEST_USER_ID, item, 'tag-1');
+
+    expect(mockRepo.findDominantTypeForTag).not.toHaveBeenCalled();
+    expect(mockRepo.update).not.toHaveBeenCalled();
+    expect(result).toBe(item);
+  });
+
+  test('no-op when the tag has no typed members to learn from', async () => {
+    const item = makeItem({ item_type: ItemType.Untyped });
+    mockRepo.findDominantTypeForTag.mockResolvedValue(null);
+
+    const result = await service.inheritTypeFromTag(TEST_USER_ID, item, 'tag-1');
+
+    expect(mockRepo.update).not.toHaveBeenCalled();
+    expect(result).toBe(item);
+  });
+
+  test('skips an archived item', async () => {
+    const item = makeItem({ item_type: ItemType.Untyped, status: ItemStatus.Archived });
+
+    const result = await service.inheritTypeFromTag(TEST_USER_ID, item, 'tag-1');
+
+    expect(mockRepo.findDominantTypeForTag).not.toHaveBeenCalled();
+    expect(result).toBe(item);
+  });
+});
+
 // ── archiveItem ───────────────────────────────────────────────────────────────
 
 describe('archiveItem', () => {

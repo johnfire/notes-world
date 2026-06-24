@@ -136,6 +136,28 @@ export async function promoteItem(
   return updated;
 }
 
+// Give a freshly-tagged Untyped item the tag's prevailing type. Items captured
+// inside a tag start Untyped; rather than make the user pick, we adopt whatever
+// type is most common among the tag's other members (e.g. a new entry in a
+// Task-heavy tag becomes a Task, with that type's default type_data).
+//
+// No-op unless the item is still Untyped — an explicit type is never overridden —
+// and unless the tag actually has typed members to learn from. Returns the
+// updated item when a type was inherited, otherwise the item unchanged.
+export async function inheritTypeFromTag(
+  userId: UserId,
+  item: Item,
+  tagId: string,
+): Promise<Item> {
+  if (item.item_type !== ItemType.Untyped) return item;
+  if (item.status !== ItemStatus.Active) return item;
+
+  const dominant = await repo.findDominantTypeForTag(userId, tagId, item.id);
+  if (!dominant || dominant === ItemType.Untyped) return item;
+
+  return promoteItem(userId, item.id, { new_type: dominant });
+}
+
 // Nest an item under another (or, with parentId null, move it back to the root).
 // Type-agnostic — any item may parent any other — but guarded against cycles and
 // against exceeding the hierarchy depth cap.

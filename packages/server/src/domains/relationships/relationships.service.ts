@@ -16,7 +16,9 @@ import {
 } from "../../utils/errors";
 import * as repo from "./relationships.repository";
 import * as itemRepo from "../items/items.repository";
+import * as itemService from "../items/items.service";
 import * as authRepo from "../auth/auth.repository";
+import { logger } from "../../utils/logger";
 import { TagWithCount } from "./relationships.types";
 
 function normalizeName(name: string): string {
@@ -154,6 +156,19 @@ export async function tagItem(
     tag,
     tagged_at: new Date().toISOString(),
   });
+
+  // Best-effort: let an Untyped item adopt the tag's prevailing type. This is an
+  // enhancement on top of the tag link, so a failure here must never fail the
+  // tag operation itself — the link and event above have already happened.
+  try {
+    await itemService.inheritTypeFromTag(userId, item, tagId);
+  } catch (err) {
+    logger.warn("Tag type inheritance failed; item left untyped", {
+      item_id: itemId,
+      tag_id: tagId,
+      error: err instanceof Error ? err.message : String(err),
+    });
+  }
 }
 
 export async function untagItem(
