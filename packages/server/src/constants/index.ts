@@ -8,6 +8,9 @@ export const FREE_TAGS_MAX = 20;
 export const LIMITS = {
   ITEM_TITLE_MAX: 300,
   ITEM_BODY_MAX: 50_000,
+  ITEM_TYPE_DATA_MAX: 100_000, // serialized type_data JSON, bytes
+  SORT_ORDER_IDS_MAX: 2_000, // ids per sort-order context write
+  SORT_ORDER_ID_MAX: 200, // per-id string length (opaque key)
   TAG_NAME_MAX: 100,
   TAGS_PER_ITEM_MAX: 20,
   DEPS_PER_ITEM_MAX: 50,

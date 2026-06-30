@@ -6,6 +6,25 @@ function requireEnv(name: string): string {
   return value;
 }
 
+// HS256 token security rests entirely on the secret's strength.
+const JWT_SECRET_MIN_LENGTH = 32;
+function requireSecret(name: string, minLength: number): string {
+  const value = requireEnv(name);
+  if (value.length < minLength) {
+    throw new Error(
+      `${name} must be at least ${minLength} characters (got ${value.length})`,
+    );
+  }
+  return value;
+}
+
+function parseList(name: string): string[] {
+  return (process.env[name] ?? "")
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+}
+
 export interface ImapConfig {
   host: string;
   port: number;
@@ -21,6 +40,12 @@ export interface MailMcpConfig {
   imap: ImapConfig;
   mailboxAddress: string;
   allowedFrom: string[];
+  // Exact-match allowlist for the OAuth redirect_uri; empty falls back to
+  // https-only (with a startup warning in index.ts).
+  allowedRedirectUris: string[];
+  // Allowed Host header values; when non-empty, enables DNS-rebinding
+  // protection on the HTTP transport.
+  allowedHosts: string[];
 }
 
 // The unified inbox can be sent-as several aggregated addresses. The primary
@@ -39,7 +64,7 @@ function parseAllowedFrom(raw: string, mailboxAddress: string): string[] {
 
 export function loadConfig(): MailMcpConfig {
   // Consumed lazily by oauth/tokens.ts — validate here so we fail fast at boot.
-  requireEnv("MAIL_MCP_JWT_SECRET");
+  requireSecret("MAIL_MCP_JWT_SECRET", JWT_SECRET_MIN_LENGTH);
   const mailboxAddress = requireEnv("MAILBOX_ADDRESS");
 
   return {
@@ -58,5 +83,7 @@ export function loadConfig(): MailMcpConfig {
       process.env.MAIL_MCP_ALLOWED_FROM ?? "",
       mailboxAddress,
     ),
+    allowedRedirectUris: parseList("MAIL_MCP_ALLOWED_REDIRECT_URIS"),
+    allowedHosts: parseList("MAIL_MCP_ALLOWED_HOSTS"),
   };
 }

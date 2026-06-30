@@ -195,24 +195,10 @@ export function useSortableList<T extends HasId>(
     // Reject drops from a different list instance
     const sourceInstance = e.dataTransfer.getData(dragTypeKey);
     if (sourceInstance && sourceInstance !== instanceKey.current) {
-      console.log(
-        "[drop] REJECTED cross-list",
-        sourceInstance,
-        "!==",
-        instanceKey.current,
-      );
       return;
     }
 
     const fromId = e.dataTransfer.getData("text/plain") || dragIdRef.current;
-    console.log(
-      "[drop] from",
-      fromId,
-      "-> onto",
-      targetId,
-      "instance",
-      instanceKey.current,
-    );
     if (!fromId || fromId === targetId) return;
 
     // Tree mode: hand internal drags to the caller (which owns the parent +
@@ -230,19 +216,16 @@ export function useSortableList<T extends HasId>(
       const next = [...prev];
       const fromIdx = next.indexOf(fromId);
       const toIdx = next.indexOf(targetId);
-      console.log("[drop] reorder fromIdx", fromIdx, "toIdx", toIdx);
       if (toIdx === -1) return prev;
       if (fromIdx === -1) {
         // External item (e.g. from staging) — insert at target position
         next.splice(toIdx, 0, fromId);
-        console.log("[drop] external insert", next);
         saveOrder(next);
         onExternalDrop?.(fromId, targetId);
         return next;
       }
       next.splice(fromIdx, 1);
       next.splice(toIdx, 0, fromId);
-      console.log("[drop] result", next);
       saveOrder(next);
       return next;
     });

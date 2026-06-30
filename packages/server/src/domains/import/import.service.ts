@@ -18,6 +18,18 @@ import * as repo from "./import.repository";
 import * as itemRepo from "../items/items.repository";
 import * as relRepo from "../relationships/relationships.repository";
 import { parseMarkdown } from "./import.parser";
+import { logger } from "../../utils/logger";
+import {
+  validateColor,
+  validateTypeData,
+  validateItemType,
+  validateItemStatus,
+} from "../items/item-validation";
+
+// Per-record failures are stored on the user's own import job and shown back in
+// the UI. Keep the surfaced message generic so raw pg/driver detail (constraint
+// and column names) doesn't leak; the real error is logged server-side.
+const IMPORT_RECORD_ERROR = "Could not import this record";
 
 export async function createImportJob(
   userId: UserId,
@@ -128,7 +140,11 @@ export async function executeImport(
       );
       imported++;
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Unknown error";
+      logger.error("Import record failed", {
+        importJobId,
+        row: i + 1,
+        error: err instanceof Error ? err.message : String(err),
+      });
       await repo.insertImportRecord(
         importJobId,
         i + 1,
@@ -136,7 +152,7 @@ export async function executeImport(
         body || null,
         ImportRecordStatus.Failed,
         null,
-        message,
+        IMPORT_RECORD_ERROR,
       );
       failed++;
     }
@@ -271,7 +287,11 @@ export async function importFolder(
       );
       imported++;
     } catch (err) {
-      const message = err instanceof Error ? err.message : "Unknown error";
+      logger.error("Import record failed", {
+        importJobId: job.id,
+        row: i + 1,
+        error: err instanceof Error ? err.message : String(err),
+      });
       await repo.insertImportRecord(
         job.id,
         i + 1,
@@ -279,7 +299,7 @@ export async function importFolder(
         body || null,
         ImportRecordStatus.Failed,
         null,
-        message,
+        IMPORT_RECORD_ERROR,
       );
       failed++;
     }
@@ -369,6 +389,14 @@ export async function importJson(
   for (const itemDef of itemDefs) {
     const title = String(itemDef.title ?? "").trim();
     if (!title) continue;
+
+    // Validate client-supplied fields before persisting — the import path
+    // would otherwise store arbitrary enum/color/blob values that the rest of
+    // the app's invariants don't expect.
+    validateItemType(itemDef.item_type);
+    validateItemStatus(itemDef.status);
+    validateColor(itemDef.color);
+    validateTypeData(itemDef.type_data);
 
     const item = await itemRepo.insert(
       userId,

@@ -3,6 +3,10 @@ services:
     build:
       context: .
       target: production
+    # Resource backstops so one runaway container can't starve the VPS (which
+    # hosts the rest of the fleet). Generous — tune down later from `docker stats`.
+    mem_limit: 768m
+    pids_limit: 512
     environment:
       - NODE_ENV=production
       - PORT=3001
@@ -26,6 +30,8 @@ services:
     build:
       context: .
       target: mcp
+    mem_limit: 384m
+    pids_limit: 256
     environment:
       - NOTES_WORLD_API_URL=http://app:3001
       - NOTES_WORLD_API_KEY=${NOTES_WORLD_API_KEY}
@@ -34,6 +40,11 @@ services:
       - MCP_JWT_SECRET=${MCP_JWT_SECRET}
       - MCP_PORT=3002
       - MCP_STORE_PATH=/data/oauth-store.json
+      # Lock down the OAuth flow: exact-match redirect_uri allowlist + Host
+      # allowlist (DNS-rebinding protection). Comma-separated; empty = fall back
+      # to https-only / no rebinding guard (server warns at startup).
+      - MCP_ALLOWED_REDIRECT_URIS=${MCP_ALLOWED_REDIRECT_URIS:-}
+      - MCP_ALLOWED_HOSTS=${MCP_ALLOWED_HOSTS:-}
     volumes:
       - mcp_oauth_store:/data
     depends_on:
@@ -44,6 +55,8 @@ services:
     build:
       context: .
       target: mail-mcp
+    mem_limit: 384m
+    pids_limit: 256
     environment:
       - MAIL_MCP_PORT=3003
       - MAIL_MCP_BASE_URL=https://mcp.mail.christopherrehm.de
@@ -57,6 +70,9 @@ services:
       - IMAP_PASSWORD=${IMAP_PASSWORD}
       - MAILBOX_ADDRESS=contact@christopherrehm.de
       - MAIL_MCP_ALLOWED_FROM=contact@christopherrehm.de,christopher@leguilde.art,contact@leguilde.art,contact@tandkcybernetics.net
+      # See the mcp service above — same OAuth/Host lockdown for mail-mcp.
+      - MAIL_MCP_ALLOWED_REDIRECT_URIS=${MAIL_MCP_ALLOWED_REDIRECT_URIS:-}
+      - MAIL_MCP_ALLOWED_HOSTS=${MAIL_MCP_ALLOWED_HOSTS:-}
     ports:
       - "127.0.0.1:8092:3003"
     extra_hosts:
@@ -69,6 +85,8 @@ services:
 
   nginx:
     image: nginx:alpine
+    mem_limit: 192m
+    pids_limit: 256
     ports:
       - "127.0.0.1:8082:80"
     volumes:
@@ -83,6 +101,8 @@ services:
 
   db:
     image: postgres:16-alpine
+    mem_limit: 1g
+    pids_limit: 512
     environment:
       - POSTGRES_DB=notes_world
       - POSTGRES_USER=notes_world
@@ -98,6 +118,8 @@ services:
 
   db-backup:
     image: prodrigestivill/postgres-backup-local:16-alpine
+    mem_limit: 256m
+    pids_limit: 128
     environment:
       - POSTGRES_HOST=db
       - POSTGRES_PORT=5432

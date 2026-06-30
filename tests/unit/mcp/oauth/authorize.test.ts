@@ -7,9 +7,9 @@ process.env.MCP_JWT_SECRET = "test-secret";
 const CLIENT_ID = "notes-world-mcp";
 const NW_KEY = "nw_testkey123";
 
-function buildApp() {
+function buildApp(allowedRedirectUris: string[] = []) {
   const app = express();
-  app.use(createAuthorizeRouter(CLIENT_ID, () => NW_KEY));
+  app.use(createAuthorizeRouter(CLIENT_ID, () => NW_KEY, allowedRedirectUris));
   return app;
 }
 
@@ -77,5 +77,27 @@ describe("GET /oauth/authorize", () => {
 
     expect(res.status).toBe(400);
     expect(res.body.error).toBe("invalid_request");
+  });
+
+  describe("redirect_uri allowlist", () => {
+    const ALLOWED = "https://claude.ai/callback";
+
+    test("redirects when redirect_uri exactly matches the allowlist", async () => {
+      const res = await request(buildApp([ALLOWED]))
+        .get("/oauth/authorize")
+        .query({ ...VALID_PARAMS, redirect_uri: ALLOWED });
+
+      expect(res.status).toBe(302);
+      expect(new URL(res.headers.location).searchParams.get("code")).toBeTruthy();
+    });
+
+    test("400 for an https redirect_uri not on the allowlist", async () => {
+      const res = await request(buildApp([ALLOWED]))
+        .get("/oauth/authorize")
+        .query({ ...VALID_PARAMS, redirect_uri: "https://evil.example/cb" });
+
+      expect(res.status).toBe(400);
+      expect(res.body.error).toBe("invalid_request");
+    });
   });
 });
