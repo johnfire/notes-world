@@ -2,14 +2,15 @@ import { Item, TypeData, TaskStatus } from "../types";
 
 export type DateField = "due_date" | "start_date";
 
-// Workflow order used when sorting tasks by status: the kanban lifecycle with
-// finished work last. Non-task items (and tasks with an unrecognised status)
-// rank after every known status, tie-broken by title.
+// Workflow order used when sorting tasks by status: active work first, finished
+// work last. Non-task items (and tasks with an unrecognised status) rank after
+// every known status.
 const STATUS_ORDER: Record<string, number> = {
-  [TaskStatus.Open]: 0,
-  [TaskStatus.InProgress]: 1,
-  [TaskStatus.Blocked]: 2,
-  [TaskStatus.Done]: 3,
+  [TaskStatus.InProgress]: 0,
+  [TaskStatus.Blocked]: 1,
+  [TaskStatus.OnHold]: 2,
+  [TaskStatus.Open]: 3,
+  [TaskStatus.Done]: 4,
 };
 
 function statusRank(item: Item): number {
@@ -19,14 +20,25 @@ function statusRank(item: Item): number {
 }
 
 /**
- * Returns a new array ordered by task status (Open → InProgress → Blocked →
- * Done), with non-task items last, every group tie-broken by lowercased title.
+ * Returns a new array ordered by task status (InProgress → Blocked → OnHold →
+ * Open → Done), with non-task items last. Within a status, items are ordered by
+ * soonest due date (undated last), then by lowercased title.
  */
 export function sortItemsByStatus(items: Item[]): Item[] {
   return [...items].sort((a, b) => {
     const ra = statusRank(a);
     const rb = statusRank(b);
     if (ra !== rb) return ra - rb;
+    // Secondary: soonest due date first, undated last.
+    const da = dateTime(a, "due_date");
+    const db = dateTime(b, "due_date");
+    if (da !== null && db !== null) {
+      if (da !== db) return da - db;
+    } else if (da !== null) {
+      return -1;
+    } else if (db !== null) {
+      return 1;
+    }
     return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
   });
 }

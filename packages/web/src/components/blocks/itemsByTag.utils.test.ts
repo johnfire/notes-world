@@ -146,14 +146,15 @@ function note(id: string, title: string): Item {
 }
 
 describe('sortItemsByStatus', () => {
-  it('orders tasks by workflow status: Open, InProgress, Blocked, Done', () => {
+  it('orders tasks by workflow status: InProgress, Blocked, OnHold, Open, Done', () => {
     const items = [
       statusTask('d', 'D', 'Done'),
       statusTask('b', 'B', 'Blocked'),
       statusTask('o', 'O', 'Open'),
       statusTask('p', 'P', 'InProgress'),
+      statusTask('h', 'H', 'OnHold'),
     ];
-    expect(sortItemsByStatus(items).map(i => i.id)).toEqual(['o', 'p', 'b', 'd']);
+    expect(sortItemsByStatus(items).map(i => i.id)).toEqual(['p', 'b', 'h', 'o', 'd']);
   });
 
   it('places non-task / statusless items last, tie-broken by title', () => {

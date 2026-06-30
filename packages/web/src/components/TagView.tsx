@@ -19,6 +19,8 @@ import { linkify } from "../utils/linkify";
 import { ColorDot } from "./tag-view/ColorDot";
 import { DividerRow } from "./tag-view/DividerRow";
 import { ItemTypeBadge } from "./ItemTypeBadge";
+import { TaskStatusBadge } from "./TaskStatusBadge";
+import { isTaskStatus } from "../utils/taskStatus";
 
 interface Props {
   tag: Tag;
@@ -546,6 +548,16 @@ export function TagView({ tag }: Props) {
                     ⇥
                   </button>
                 </div>
+                {(() => {
+                  const taskStatus = (
+                    item.type_data as { task_status?: string } | null
+                  )?.task_status;
+                  return isTaskStatus(taskStatus) ? (
+                    <div className="shrink-0">
+                      <TaskStatusBadge status={taskStatus} />
+                    </div>
+                  ) : null;
+                })()}
                 <div className="shrink-0 opacity-80">
                   <ItemTypeBadge type={item.item_type} />
                 </div>

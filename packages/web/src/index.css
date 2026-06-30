@@ -65,6 +65,13 @@
   .badge-reminder { @apply badge bg-yellow-900/50 text-yellow-300; }
   .badge-untyped  { @apply badge bg-surface-500 text-gray-400; }
 
+  /* Task status badges — colour-coded per status for at-a-glance scanning in lists. */
+  .badge-status-inprogress { @apply badge bg-yellow-900/50 text-yellow-300; }
+  .badge-status-onhold     { @apply badge bg-orange-900/50 text-orange-300; }
+  .badge-status-blocked    { @apply badge bg-red-900/50 text-red-300; }
+  .badge-status-open       { @apply badge bg-surface-500 text-white; }
+  .badge-status-done       { @apply badge bg-green-900/50 text-green-300; }
+
   .priority-low      { @apply text-gray-400; }
   .priority-normal   { @apply text-blue-400; }
   .priority-high     { @apply text-orange-400; }
