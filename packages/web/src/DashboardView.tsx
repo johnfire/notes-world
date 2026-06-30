@@ -53,6 +53,15 @@ function DashboardView() {
   function handleTagSelect(tag: Tag | null) {
     setSelectedTag(tag);
     setShowTrash(false);
+    // Selecting a tag from any tab (tasks, ideas, notes…) should surface its
+    // items, but those tabs' views render ahead of TagView in renderMain. Drop
+    // back to the dashboard view so the tag's item list is what shows.
+    if (tag) {
+      setCurrentView("dashboard");
+      const next = new URLSearchParams(searchParams);
+      next.delete("view");
+      setSearchParams(next, { replace: true });
+    }
   }
 
   function handleTrashSelect() {
