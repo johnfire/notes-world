@@ -19,7 +19,7 @@ vi.mock('../api', () => ({
 }));
 
 vi.mock('../context/AppContext', () => ({
-  useApp: () => ({ openItem: mockOpenItem }),
+  useApp: () => ({ openItem: mockOpenItem, state: { refreshKey: 0 } }),
 }));
 
 function makeIdea(id: string, title: string, maturity = 'Seed') {

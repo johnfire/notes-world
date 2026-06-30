@@ -26,25 +26,43 @@ function DashboardView() {
   // Restore the active tab from the URL (?view=tasks) so a browser refresh keeps
   // the user on their tab instead of dropping back to the dashboard. An unknown
   // or missing value falls back to dashboard.
+  // The whole displayed screen is mirrored in the URL — the tab (?view=tasks),
+  // a selected tag (?tag=<id>), or the trash (?trash=1) — so a browser refresh
+  // restores exactly what was on screen instead of dropping back to the
+  // dashboard. An unknown or missing view falls back to dashboard.
   const viewParam = searchParams.get("view");
+  const tagParam = searchParams.get("tag");
   const [currentView, setCurrentView] = useState<AppView>(
     (VIEW_IDS as string[]).includes(viewParam ?? "")
       ? (viewParam as AppView)
       : "dashboard",
   );
-  const [showTrash, setShowTrash] = useState(false);
+  const [showTrash, setShowTrash] = useState(
+    searchParams.get("trash") === "1",
+  );
 
   useEffect(() => {
     Promise.all([loadDashboard(), loadTags()]);
   }, [loadDashboard, loadTags]);
 
+  // Restore a tag view from ?tag=<id> after a refresh. Tags load
+  // asynchronously, so wait until they're present, then match by id once.
+  useEffect(() => {
+    if (!tagParam || selectedTag) return;
+    const restored = state.tags.find((candidate) => candidate.id === tagParam);
+    if (restored) setSelectedTag(restored);
+  }, [tagParam, selectedTag, state.tags]);
+
   function handleViewChange(view: AppView) {
     setCurrentView(view);
     setShowTrash(false);
-    if (view !== "dashboard") setSelectedTag(null);
+    setSelectedTag(null);
     // Mirror the tab in the URL so it survives a refresh and can be bookmarked.
+    // Switching tabs leaves any tag/trash screen, so drop those params too.
     // Dashboard is the default — keep its URL clean by dropping the param.
     const next = new URLSearchParams(searchParams);
+    next.delete("tag");
+    next.delete("trash");
     if (view === "dashboard") next.delete("view");
     else next.set("view", view);
     setSearchParams(next, { replace: true });
@@ -55,18 +73,27 @@ function DashboardView() {
     setShowTrash(false);
     // Selecting a tag from any tab (tasks, ideas, notes…) should surface its
     // items, but those tabs' views render ahead of TagView in renderMain. Drop
-    // back to the dashboard view so the tag's item list is what shows.
+    // back to the dashboard view so the tag's item list is what shows, and
+    // record the tag in the URL so a refresh restores this exact screen.
+    const next = new URLSearchParams(searchParams);
+    next.delete("trash");
     if (tag) {
       setCurrentView("dashboard");
-      const next = new URLSearchParams(searchParams);
       next.delete("view");
-      setSearchParams(next, { replace: true });
+      next.set("tag", tag.id);
+    } else {
+      next.delete("tag");
     }
+    setSearchParams(next, { replace: true });
   }
 
   function handleTrashSelect() {
     setShowTrash(true);
     setSelectedTag(null);
+    const next = new URLSearchParams(searchParams);
+    next.delete("tag");
+    next.set("trash", "1");
+    setSearchParams(next, { replace: true });
   }
 
   function renderMain() {

@@ -29,7 +29,7 @@ function getMaturity(item: Item): Maturity {
 
 export function IdeasView() {
   const { t } = useTranslation();
-  const { openItem } = useApp();
+  const { openItem, state } = useApp();
   const [items, setItems] = useState<Item[]>([]);
   const [colDragId, setColDragId] = useState<string | null>(null);
   const [dropTarget, setDropTarget] = useState<Maturity | null>(null);
@@ -39,9 +39,11 @@ export function IdeasView() {
     setItems(all);
   }, []);
 
+  // Reload on mount and whenever the app signals a data change (e.g. closing
+  // the item drawer after an edit), so the board reflects the latest state.
   useEffect(() => {
     void load();
-  }, [load]);
+  }, [load, state.refreshKey]);
 
   async function setMaturity(item: Item, maturity: Maturity) {
     const td = (item.type_data as Record<string, unknown> | null) ?? {};

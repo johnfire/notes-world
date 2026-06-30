@@ -1,13 +1,33 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Item, Tag, Dependency } from "../../types";
 import { mergeTypeData } from "@notes-world/shared";
 import { useApp } from "../../context/AppContext";
 import * as api from "../../api";
 
 export function useItemDrawer() {
-  const { state, closeItem, openItem, updateItemInContext, loadTags } =
+  const { state, closeItem, openItem, updateItemInContext, loadTags, refresh } =
     useApp();
   const { selectedItemId } = state;
+
+  // Saves happen on field blur / actions, not on close, so the underlying view
+  // (tasks, ideas, a tag's items…) doesn't yet reflect them. Track whether
+  // anything changed while the drawer was open and refresh that view on close —
+  // but skip the refetch when the drawer was only opened to look, not edit.
+  const dirty = useRef(false);
+  const markDirtyAndUpdate = useCallback(
+    (updated: Item) => {
+      dirty.current = true;
+      updateItemInContext(updated);
+    },
+    [updateItemInContext],
+  );
+  const handleClose = useCallback(() => {
+    if (dirty.current) {
+      dirty.current = false;
+      void refresh();
+    }
+    closeItem();
+  }, [refresh, closeItem]);
 
   const [item, setItem] = useState<Item | null>(null);
   const [itemTags, setItemTags] = useState<Tag[]>([]);
@@ -99,11 +119,11 @@ export function useItemDrawer() {
   useEffect(() => {
     if (!selectedItemId) return;
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeItem();
+      if (e.key === "Escape") handleClose();
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [selectedItemId, closeItem]);
+  }, [selectedItemId, handleClose]);
 
   async function saveTitle() {
     if (!item || !title.trim() || title.trim() === item.title) {
@@ -115,7 +135,7 @@ export function useItemDrawer() {
       const updated = await api.items.update(item.id, { title: title.trim() });
       setItem(updated);
       setTitle(updated.title);
-      updateItemInContext(updated);
+      markDirtyAndUpdate(updated);
     } finally {
       setSaving(false);
     }
@@ -129,7 +149,7 @@ export function useItemDrawer() {
         body: body || undefined,
       });
       setItem(updated);
-      updateItemInContext(updated);
+      markDirtyAndUpdate(updated);
     } finally {
       setSaving(false);
     }
@@ -147,7 +167,7 @@ export function useItemDrawer() {
         type_data: merged as Item["type_data"],
       });
       setItem(updated);
-      updateItemInContext(updated);
+      markDirtyAndUpdate(updated);
     } catch (err) {
       api.reportClientError({
         message: (err as Error).message,
@@ -177,7 +197,7 @@ export function useItemDrawer() {
         type_data: merged as Item["type_data"],
       });
       setItem(updated);
-      updateItemInContext(updated);
+      markDirtyAndUpdate(updated);
     } catch (err) {
       api.reportClientError({
         message: (err as Error).message,
@@ -192,6 +212,7 @@ export function useItemDrawer() {
   async function handleAddTag(tag: Tag) {
     if (!item) return;
     await api.tags.tagItem(item.id, tag.id);
+    dirty.current = true;
     setItemTags((prev) => [...prev, tag]);
     setTagSearch("");
     setTagPickerOpen(false);
@@ -202,6 +223,7 @@ export function useItemDrawer() {
     if (!item) return;
     const newTag = await api.tags.create(name.trim());
     await api.tags.tagItem(item.id, newTag.id);
+    dirty.current = true;
     setItemTags((prev) => [...prev, newTag]);
     setTagSearch("");
     setTagPickerOpen(false);
@@ -211,6 +233,7 @@ export function useItemDrawer() {
   async function handleRemoveTag(tagId: string) {
     if (!item) return;
     await api.tags.untagItem(item.id, tagId);
+    dirty.current = true;
     setItemTags((prev) => prev.filter((t) => t.id !== tagId));
     void loadTags();
   }
@@ -221,14 +244,14 @@ export function useItemDrawer() {
     setPendingType(null);
     const updated = await api.items.promote(item.id, newType);
     setItem(updated);
-    updateItemInContext(updated);
+    markDirtyAndUpdate(updated);
   }
 
   async function handleArchive() {
     if (!item) return;
     const updated = await api.items.archive(item.id);
     setItem(updated);
-    updateItemInContext(updated);
+    markDirtyAndUpdate(updated);
     void loadTags();
   }
 
@@ -236,7 +259,7 @@ export function useItemDrawer() {
     if (!item) return;
     const updated = await api.items.restore(item.id);
     setItem(updated);
-    updateItemInContext(updated);
+    markDirtyAndUpdate(updated);
     void loadTags();
   }
 
@@ -246,7 +269,7 @@ export function useItemDrawer() {
     try {
       const updated = await api.items[action](item.id);
       setItem(updated);
-      updateItemInContext(updated);
+      markDirtyAndUpdate(updated);
     } finally {
       setActioning(false);
     }
@@ -255,12 +278,14 @@ export function useItemDrawer() {
   async function handleRemoveDep(depId: string) {
     if (!item) return;
     await api.dependencies.remove(depId);
+    dirty.current = true;
     void loadItem(item.id);
   }
 
   async function handleAddDep(dependencyItemId: string) {
     if (!item) return;
     await api.dependencies.add(item.id, dependencyItemId);
+    dirty.current = true;
     setDepSearch("");
     setDepSearchResults([]);
     void loadItem(item.id);
@@ -306,8 +331,8 @@ export function useItemDrawer() {
     depSearchResults,
     allTags: state.tags,
 
-    // actions
-    closeItem,
+    // actions — closeItem refreshes the underlying view if anything changed
+    closeItem: handleClose,
     openItem,
     saveTitle,
     saveBody,
