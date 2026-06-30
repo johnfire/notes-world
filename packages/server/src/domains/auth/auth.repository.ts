@@ -205,11 +205,17 @@ export async function insertApiKey(
   return row!;
 }
 
+// Joins users so the auth middleware can reject keys belonging to a disabled
+// account — API keys have no TTL, so without this a disabled user keeps access
+// indefinitely.
 export async function findApiKeyByHash(
   keyHash: string,
-): Promise<{ user_id: string } | null> {
-  return queryOne<{ user_id: string }>(
-    "SELECT user_id FROM user_api_keys WHERE key_hash = $1",
+): Promise<{ user_id: string; disabled: boolean } | null> {
+  return queryOne<{ user_id: string; disabled: boolean }>(
+    `SELECT k.user_id, u.disabled
+     FROM user_api_keys k
+     JOIN users u ON u.id = k.user_id
+     WHERE k.key_hash = $1`,
     [keyHash],
   );
 }

@@ -19,12 +19,50 @@ function requireEnv(name: string): string {
   return val;
 }
 
+// HS256 token security rests entirely on the secret's strength.
+const JWT_SECRET_MIN_LENGTH = 32;
+function requireSecret(name: string, minLength: number): string {
+  const val = requireEnv(name);
+  if (val.length < minLength) {
+    throw new Error(
+      `${name} must be at least ${minLength} characters (got ${val.length})`,
+    );
+  }
+  return val;
+}
+
+function parseList(name: string): string[] {
+  return (process.env[name] ?? "")
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+}
+
 const PORT = parseInt(process.env.MCP_PORT ?? "3002", 10);
 const MCP_BASE_URL = requireEnv("MCP_BASE_URL");
 const MCP_OAUTH_CLIENT_ID = requireEnv("MCP_OAUTH_CLIENT_ID");
 // Validate remaining required vars at startup
-requireEnv("MCP_JWT_SECRET");
+requireSecret("MCP_JWT_SECRET", JWT_SECRET_MIN_LENGTH);
 requireEnv("NOTES_WORLD_API_KEY");
+
+// Exact-match allowlist for OAuth redirect_uri (the connector's callback). When
+// empty the authorize endpoint falls back to https-only — warn so it gets set.
+const MCP_ALLOWED_REDIRECT_URIS = parseList("MCP_ALLOWED_REDIRECT_URIS");
+if (MCP_ALLOWED_REDIRECT_URIS.length === 0) {
+  console.warn(
+    "WARN: MCP_ALLOWED_REDIRECT_URIS is not set — any HTTPS redirect_uri will be accepted. Set it to the connector callback URL(s) to lock down the OAuth flow.",
+  );
+}
+
+// Hosts allowed in the Host header — enables DNS-rebinding protection on the
+// HTTP transport when set. Left off (with a warning) if unconfigured so a
+// proxy that rewrites Host doesn't break the server.
+const MCP_ALLOWED_HOSTS = parseList("MCP_ALLOWED_HOSTS");
+if (MCP_ALLOWED_HOSTS.length === 0) {
+  console.warn(
+    "WARN: MCP_ALLOWED_HOSTS is not set — DNS-rebinding protection is disabled. Set it to the server's public host to enable.",
+  );
+}
 
 function buildServer(): McpServer {
   const server = new McpServer({ name: "notes-world", version: "0.1.0" });
@@ -52,6 +90,7 @@ app.use(
   createAuthorizeRouter(
     MCP_OAUTH_CLIENT_ID,
     () => process.env.NOTES_WORLD_API_KEY!,
+    MCP_ALLOWED_REDIRECT_URIS,
   ),
 );
 app.use(createTokenRouter());
@@ -64,6 +103,8 @@ app.all("/mcp", async (req, res) => {
   const server = buildServer();
   const transport = new StreamableHTTPServerTransport({
     sessionIdGenerator: undefined,
+    enableDnsRebindingProtection: MCP_ALLOWED_HOSTS.length > 0,
+    allowedHosts: MCP_ALLOWED_HOSTS.length > 0 ? MCP_ALLOWED_HOSTS : undefined,
   });
   await server.connect(transport);
   await transport.handleRequest(req, res, req.body);

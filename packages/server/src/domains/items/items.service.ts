@@ -18,6 +18,7 @@ import {
   AuthorizationError,
 } from "../../utils/errors";
 import * as repo from "./items.repository";
+import { validateColor, validateTypeData } from "./item-validation";
 import {
   CaptureItemInput,
   UpdateItemInput,
@@ -90,11 +91,8 @@ export async function updateItem(
     }
   }
 
-  if (input.color !== undefined && input.color !== null) {
-    if (!/^#[0-9a-fA-F]{3,8}$/.test(input.color)) {
-      throw new ValidationError("color must be a hex color string");
-    }
-  }
+  validateColor(input.color);
+  validateTypeData(input.type_data);
 
   const updated = await repo.update(id, userId, input);
   if (!updated) throw new NotFoundError("Item", id);
@@ -117,6 +115,7 @@ export async function promoteItem(
     throw new StateError("Cannot promote archived item");
   if (input.new_type === ItemType.Untyped)
     throw new ValidationError("Cannot promote to Untyped");
+  validateTypeData(input.type_data);
 
   const defaults = getTypeDefaults(input.new_type);
   const type_data = { ...defaults, ...(input.type_data ?? {}) };

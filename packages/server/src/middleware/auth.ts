@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { createHash } from "crypto";
 import { verifyAccessToken } from "../domains/auth/auth.service";
-import { findApiKeyByHash } from "../domains/auth/auth.repository";
+import {
+  findApiKeyByHash,
+  findUserById,
+} from "../domains/auth/auth.repository";
 import { AuthorizationError } from "../utils/errors";
 
 export function requireAuth(
@@ -20,6 +23,9 @@ export function requireAuth(
     findApiKeyByHash(hash)
       .then((row) => {
         if (!row) return next(new AuthorizationError("Invalid API key"));
+        // API keys have no expiry; disabling the account must revoke them.
+        if (row.disabled)
+          return next(new AuthorizationError("Account is disabled"));
         req.userId = row.user_id;
         next();
       })
@@ -27,7 +33,16 @@ export function requireAuth(
     return;
   }
 
+  // Verify the signature synchronously (throws → Express error handler), then
+  // confirm the account is still enabled. An access token outlives a disable
+  // action by up to its TTL, so re-check on every request.
   const payload = verifyAccessToken(token);
-  req.userId = payload.sub;
-  next();
+  findUserById(payload.sub)
+    .then((user) => {
+      if (!user || user.disabled)
+        return next(new AuthorizationError("Account is disabled"));
+      req.userId = payload.sub;
+      next();
+    })
+    .catch(next);
 }
